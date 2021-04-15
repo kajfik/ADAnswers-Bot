@@ -2,7 +2,7 @@
 "use strict";
 
 module.exports = {
-  number: 1,
+  number: 2,
   name: "matterportal",
   description: "Matter Portal news tickers",
   execute(message) {

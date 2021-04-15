@@ -23,6 +23,9 @@ IC5 written guide (for web): <https://pastebin.com/sj2nFFjH>`);
     case "ecs":
       message.channel.send(`Check out this helpful guide from Ninjatsu. https://canary.discord.com/channels/351476683016241162/408764187960147982/731639441474453537`);
       break;
+    case "c1":
+      message.channel.send("Fuck you pichu");
+      break;
     default:
       message.channel.send("Unknown challenge argument.");
     }

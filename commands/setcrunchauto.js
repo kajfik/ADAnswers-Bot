@@ -2,7 +2,7 @@
 "use strict";
 
 module.exports = {
-  number: 1,
+  number: 3,
   name: "setcrunchauto",
   description: "Describes how to set your crunch autobuyer.",
   execute(message) {

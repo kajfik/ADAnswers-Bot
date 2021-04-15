@@ -2,7 +2,7 @@
 "use strict";
 
 module.exports = {
-  number: 1,
+  number: 2,
   name: "grindingforbreak",
   description: "Describes how to reach Break Infinity.",
   execute(message) {

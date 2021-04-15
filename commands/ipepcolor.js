@@ -2,7 +2,7 @@
 "use strict";
 
 module.exports = {
-  number: 1,
+  number: 2,
   name: "ipepcolor",
   description: "Explains the coloring of the IP/EP numbers on their respective reset buttons",
   execute(message) {

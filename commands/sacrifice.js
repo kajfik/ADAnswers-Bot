@@ -2,7 +2,7 @@
 "use strict";
 
 module.exports = {
-  number: 1,
+  number: 3,
   name: "sacrifice",
   description: "describes when to sac",
   execute(message) {

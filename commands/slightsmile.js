@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = {
-  number: 1,
+  number: 3,
   name: "slightsmile",
   description: "kaj no",
   execute(message) {
