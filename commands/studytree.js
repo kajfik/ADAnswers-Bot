@@ -34,7 +34,7 @@ function earlyEternity(theorem) {
     return [PRE_SPLIT_EARLY];
   }
   if (theorem <= 39) {
-    return [PRE_SPLIT, ANTIMATTER, 21, 33, 31];
+    return [PRE_SPLIT, ANTIMATTER, 21, 33];
   }
   if (theorem <= 44) {
     return [PRE_SPLIT, INFINITY, 21, 33, 31];
@@ -113,7 +113,8 @@ function generateTree(theorem, path) {
 module.exports = {
   number: 4,
   name: "studytree",
-  description: `Args: your total Time Theorems. Beginning at 54 TT (and until 120 TT), the command will take a second argument: \`active\`, \`passive\`, or \`idle\`. The argument is optional, and the default value is \`active\`. Generates a Time Study tree based on your total Time Theorems.`,
+  description: `Generates a Time Study tree based on your total Time Theorems.
+  Args: your total Time Theorems. Beginning at 54 TT (and until 120 TT), the command will take a second argument: \`active\`, \`passive\`, or \`idle\`. The argument is optional, and the default value is \`active\`.`,
   execute(message, args) {
     try {
       if (args[0] === "") {
