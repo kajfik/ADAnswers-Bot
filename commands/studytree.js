@@ -8,10 +8,6 @@ Array.prototype.pushAll = function(...entries) {
   return this;
 };
 
-// TODO: Create TS Object
-
-// TODO: Branch object
-
 const PRE_SPLIT_EARLY = "11,21,33,31,41";
 const PRE_SPLIT = "11,22,32,42,51,61";
 const EXTRA = "21,31,41,33,62";
@@ -96,7 +92,6 @@ function lightDark(theorem) {
   return BASE.pushAll(191, 211, 222, 212, 224, 232, 192, 201, INFINITY, 193, 214, 228, 234, 213, 226);
 }
 
-// TODO: Throw error for toPath()
 function generateTree(theorem, path) {
   let tree, desc = null;
   if (theorem < 54) {
@@ -114,9 +109,6 @@ function generateTree(theorem, path) {
   }
   return `${desc === null ? "" : `${desc} `}\`${tree.join(",")}|0\``;
 }
-
-const module = {
-};
 
 module.exports = {
   number: 4,
@@ -138,12 +130,3 @@ module.exports = {
     }
   }
 };
-
-function test(a) {
-  return module.exports.execute(
-    {
-      channel: {
-        send: b => console.log(b)
-      }
-    }, a.split(" "));
-}
