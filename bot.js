@@ -29,11 +29,11 @@ client.login(config.token);
 
 for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
-  if (command.name === "eternitychallenge") {
-    continue;
-  } else {
-    client.commands.set(command.name, command);
-  }
+  // If (command.name === "eternitychallenge") {
+  // continue;
+  // } else {
+  client.commands.set(command.name, command);
+  // }
 }
 
 client.commands.forEach(element => {
@@ -138,7 +138,7 @@ client.on("message", message => {
   const args = message.content.slice(config.prefix.length).trim().split(/ +/);
   const command = args.shift().toLowerCase();
 
-  if (command === "help") {
+  if (command === "help" && message.channel.id === "351479640755404820") {
     const a = toNumber(args[0]);
     if (Number.isNaN(a)) {
       message.channel.send({ embed: embedObject });
@@ -173,6 +173,8 @@ client.on("message", message => {
       console.log(a);
       message.channel.send("Unknown help page.");
     }
+  } else if (command === "help" && message.channel.id !== "351479640755404820") {
+    message.channel.send("Please use <#351479640755404820> for `++help`.");
   }
 
   if (!client.commands.has(command)) return;

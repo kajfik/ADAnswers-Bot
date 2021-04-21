@@ -21,13 +21,14 @@ IC4 written guide (for web): <https://pastebin.com/aZktZs8m>`);
 IC5 written guide (for web): <https://pastebin.com/sj2nFFjH>`);
       break;
     case "ecs":
-      message.channel.send(`Check out this helpful guide from Ninjatsu. https://canary.discord.com/channels/351476683016241162/408764187960147982/731639441474453537`);
+      if (message.channel.id === ("408764187960147982" || "408764225238859777" || "351479640755404820" || "351516916344553474")) message.channel.send(`Check out this helpful guide from Ninjatsu. https://canary.discord.com/channels/351476683016241162/408764187960147982/731639441474453537`);
+      else message.channel.send("This command only works in its respective channels or bot commands.");
       break;
     case "c1":
       message.channel.send("Fuck you pichu");
       break;
     default:
-      message.channel.send("Unknown challenge argument.");
+      message.channel.send("Unknown challenge argument. If you're trying to put in a different challenge than `c9`, `ic4`, `ic5`, `ecs`, or `c1`, and this message shows up, it's because the challenge should be straightforward enough that you will not need a guide.");
     }
   }
 };

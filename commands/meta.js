@@ -34,7 +34,7 @@ module.exports = {
       });
       break;
     case "suggest":
-      message.channel.send(`Submit an issue on GitHub at https://github.com/earthernsence/ADAnswers-Bot/issues to suggest more commands!`);
+      message.channel.send(`Submit an issue on GitHub at <https://github.com/earthernsence/ADAnswers-Bot/issues> to suggest more commands!`);
       break;
     case "invite":
       message.channel.send(`If, for whatever reason, you wish to invite me to your server, go to https://discord.com/api/oauth2/authorize?client_id=830197123378053172&permissions=84992&scope=bot.`);
