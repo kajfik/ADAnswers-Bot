@@ -41,7 +41,7 @@ const revampedECs = [
     challenge: 1,
     completion: 1,
     tt: 130,
-    ip: `\`1e1800\``,
+    ip: "`1e1800`",
     note: null,
     tree: "`11,22,32,42,51,61,72,82,92,102,111,121,131,141,151,161,171|1`"
   },
@@ -49,7 +49,7 @@ const revampedECs = [
     challenge: 1,
     completion: 2,
     tt: 140,
-    ip: `\`1e2000\``,
+    ip: "`1e2000`",
     note: "`Get 60,000 Eternities before trying.`",
     tree: "`11,21,22,32,42,51,61,72,82,92,102,111,121,131,141,151,161,162,171|1`",
   },
@@ -57,7 +57,7 @@ const revampedECs = [
     challenge: 1,
     completion: 3,
     tt: 147,
-    ip: `\`1e2200\``,
+    ip: "`1e2200`",
     note: null,
     tree: "`11,21,22,32,33,42,51,61,62,72,82,92,102,111,121,131,141,151,161,162,171|1`",
   },
@@ -65,7 +65,7 @@ const revampedECs = [
     challenge: 1,
     completion: 4,
     tt: 163,
-    ip: `\`1e2400\``,
+    ip: "`1e2400`",
     note: null,
     tree: "`11,21,22,32,33,41,42,51,61,62,72,82,92,102,111,121,131,141,151,161,162,171|1`"
   },
@@ -73,7 +73,7 @@ const revampedECs = [
     challenge: 1,
     completion: 5,
     tt: 176,
-    ip: `\`1e2600\``,
+    ip: "`1e2600`",
     note: null,
     tree: "`11,21,22,32,33,41,42,51,61,62,72,82,92,102,111,121,131,141,151,161,162,171|1`"
   },
@@ -82,7 +82,7 @@ const revampedECs = [
     challenge: 2,
     completion: 1,
     tt: 135,
-    ip: `\`1e975\``,
+    ip: "`1e975`",
     note: null,
     tree: "`11,22,32,42,51,61,73,83,93,103,111,121,131,141,151,161,171|2`",
   },
@@ -163,370 +163,370 @@ const revampedECs = [
   {
     challenge: 4,
     completion: 1,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 145,
+    ip: "`1e2750`",
+    note: "`Fail once for achievement`",
+    tree: "`11,21,22,32,33,42,51,61,73,83,93,102,111,123,133,143|4`"
   },
   {
     challenge: 4,
     completion: 2,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 170,
+    ip: "`1e3300`",
+    note: null,
+    tree: "`11,22,32,42,51,61,73,83,93,193,111,123,133,143,151,162,171|4`"
   },
   {
     challenge: 4,
     completion: 3,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 176,
+    ip: "`1e3850`",
+    note: null,
+    tree: "`11,21,22,32,42,51,61,62,73,83,93,193,111,123,133,143,151,162,171|4`"
   },
   {
     challenge: 4,
     completion: 4,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 252,
+    ip: "`1e4400`",
+    note: null,
+    tree: "`11,21,22,31,32,33,41,42,51,61,62,73,83,93,103,111,123,133,143,151,161,162,171|4`"
   },
   {
     challenge: 4,
     completion: 5,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 370,
+    ip: "`1e4950`",
+    note: "`TS181 required`",
+    tree: "`11,22,32,42,51,61,73,83,93,103,111,123,133,143,151,162,171,181|4`"
   },
   // EC5
   {
     challenge: 5,
     completion: 1,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 147,
+    ip: "`1e750`",
+    note: null,
+    tree: "`11,21,22,32,42,51|5`"
   },
   {
     challenge: 5,
     completion: 2,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 182,
+    ip: "`1e1150`",
+    note: null,
+    tree: "`11,22,32,42,51,61,72,82,92,102,111|5`"
   },
   {
     challenge: 5,
     completion: 3,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 200,
+    ip: "`1e1550`",
+    note: null,
+    tree: "`11,22,32,42,51,61,72,82,91,102,111,121,131,141|5`"
   },
   {
     challenge: 5,
     completion: 4,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 220,
+    ip: "`1e1950`",
+    note: null,
+    tree: "`11,21,22,31,32,33,42,51,61,622,72,82,92,102,111,121,131,141,151|5`"
   },
   {
     challenge: 5,
     completion: 5,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 252,
+    ip: "`1e2350`",
+    note: null,
+    tree: "`11,21,22,31,32,33,41,42,51,61,62,72,82,92,102,111,121,131,141,151,161,162,171|5`"
   },
   // EC6
   {
     challenge: 6,
     completion: 1,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 161,
+    ip: "`1e850`",
+    note: "`1e15 times last crunch, wait for RGs (+TS33 at 163 TT)`",
+    tree: "`11,21,22,32,42,51,61,62,72,82,92,102,111,121,131,141,33|6`"
   },
   {
     challenge: 6,
     completion: 2,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 176,
+    ip: "`1e1100`",
+    note: null,
+    tree: "`11,21,22,32,42,51,61,62,72,82,92,102,111,121,131,141,151,162|6`"
   },
   {
     challenge: 6,
     completion: 3,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 208,
+    ip: "`1e1350`",
+    note: null,
+    tree: "`11,21,22,31,32,33,41,42,51,61,62,72,82,92,102,111,121,131,141,151,161,162,171|6`"
   },
   {
     challenge: 6,
     completion: 4,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 252,
+    ip: "`1e1600`",
+    note: null,
+    tree: "`11,21,22,31,32,33,41,42,51,61,62,72,82,92,102,111,121,131,141,151,161,162,171|6`"
   },
   {
     challenge: 6,
     completion: 5,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 320,
+    ip: "`1e1850`",
+    note: "`Get eternity upgrade 5 (1e40 EP)`",
+    tree: "`11,21,22,31,32,33,41,42,51,61,62,72,82,92,102,111,121,131,141,151,161,162,171|6`"
   },
   // EC7
   {
     challenge: 7,
     completion: 1,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 167,
+    ip: "`1e2000`",
+    note: "`To unlock the challenge, use TD, and then switch to the tree.`",
+    tree: "`11,21,22,32,42,51,61,62,71,81,91,101,111|7`"
   },
   {
     challenge: 7,
     completion: 2,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 193,
+    ip: "`1e2530`",
+    note: "`To unlock the challenge, use TD, and then switch to the tree.`",
+    tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,121,131,141|7`"
   },
   {
     challenge: 7,
     completion: 3,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 220,
+    ip: "`1e3060`",
+    note: "`To unlock the challenge, use TD, and then switch to the tree.`",
+    tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,121,131,141,151,161,162|7`"
   },
   {
     challenge: 7,
     completion: 4,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 252,
+    ip: "`1e3590`",
+    note: "`To unlock the challenge, use TD, and then switch to the tree.`",
+    tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,121,131,141,151,161,162,171|7`"
   },
   {
     challenge: 7,
     completion: 5,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 895,
+    ip: "`1e4120`",
+    note: "`To unlock the challenge, use TD, and then switch to the tree.`",
+    tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,121,131,141,151,161,162,171,181,193,214|7`"
   },
   // EC8
   {
     challenge: 8,
     completion: 1,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 208,
+    ip: "`1e1300`",
+    note: "`Buy the challenge once, then respec your tree and buy everything up until TS123. Start the challenge and wait for replicanti. Then buy the rest of the tree. Spend your upgrades on: 0 RG, 9% chance, remaining on interval - all on ID1.`",
+    tree: "`11,22,32,42,51,61,73,83,93,103,111,123,133,143,151,161,162|8`"
   },
   {
     challenge: 8,
     completion: 2,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 320,
+    ip: "`1e2200`",
+    note: "`Buy the challenge once, then respec your tree and buy everything up until TS123. Start the challenge and wait for replicanti. Then buy the rest of the tree: 133,143,151,161,162,171. Spend your upgrades on: 0 RG, 9% chance, remaining on interval - all on ID1.`",
+    tree: "`11,21,22,31,32,33,41,42,51,61,62,73,83,93,103,111,123,133,143,151,161,162,171|8`"
   },
   {
     challenge: 8,
     completion: 3,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 450,
+    ip: "`1e3100`",
+    note: "`Buy the challenge once, then respec your tree and buy everything up until TS123. Start the challenge and wait for replicanti and max RG. Then buy the rest of the tree: 133,143,151,161,162,171,181. Spend your upgrades on: 4 RG, 9% chance, remaining on interval - all on ID1.`",
+    tree: "`11,21,22,31,32,33,41,42,51,61,62,73,83,93,103,111,123,133,143,151,161,162,171,181|8`"
   },
   {
     challenge: 8,
     completion: 4,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 600,
+    ip: "`1e4000`",
+    note: "`Buy the challenge once, then respec your tree and buy everything up until TS123. Start the challenge and wait for replicanti and max RG. Then buy the rest of the tree: 133,143,151,161,162,171,181. Spend your upgrades on: 5 RG, 9% chance, remaining on interval - all on ID1.`",
+    tree: "`11,21,22,31,32,33,41,42,51,61,62,73,83,93,103,111,123,133,143,151,161,162,171,181|8`"
   },
   {
     challenge: 8,
     completion: 5,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 825,
+    ip: "`1e4900`",
+    note: "`Spend your upgrades on: 0 RG, 9% chance, remaining on interval - all on ID1.`",
+    tree: "`11,21,22,31,32,33,41,42,51,61,62,73,83,93,103,111,123,133,143,151,161,162,171,181|8`"
   },
   // EC9
   {
     challenge: 9,
     completion: 1,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 522,
+    ip: "`1e1750`",
+    note: "`Can be done with less TT.`",
+    tree: "`11,22,32,42,51,61,73,83,93,103,111,121,131,141,151,161,162,171|9`"
   },
   {
     challenge: 9,
     completion: 2,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 575,
+    ip: "`1e2000`",
+    note: "`Can be done with less TT.`",
+    tree: "`11,21,22,31,32,33,41,42,51,61,62,73,83,93,103,111,121,131,141,151,161,162,171|9`"
   },
   {
     challenge: 9,
     completion: 3,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 660,
+    ip: "`1e2250`",
+    note: "`Can be done with less TT.`",
+    tree: "`11,21,22,31,32,33,41,42,51,61,62,73,83,93,103,111,121,131,141,151,161,162,171|9`"
   },
   {
     challenge: 9,
     completion: 4,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 760,
+    ip: "`1e2500`",
+    note: "`Can be done with less TT.`",
+    tree: "`11,21,22,31,32,33,41,42,51,61,62,73,83,93,103,111,121,131,141,151,161,162,171|9`"
   },
   {
     challenge: 9,
     completion: 5,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 830,
+    ip: "`1e2750`",
+    note: null,
+    tree: "`11,21,22,31,32,33,41,42,51,61,62,73,83,93,103,111,121,131,141,151,161,162,171,181|9`"
   },
   // EC10
   {
     challenge: 10,
     completion: 1,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 895,
+    ip: "`1e3000`",
+    note: "`Farm 150M infinities inside the challenge.`",
+    tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,121,131,141,151,161,162,171,181|10`"
   },
   {
     challenge: 10,
     completion: 2,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 1900,
+    ip: "`1e3300`",
+    note: "`10M+ binfs recommended.`",
+    tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,121,131,141,151,161,162,171,181,191,193,211,214|10`"
   },
   {
     challenge: 10,
     completion: 3,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 2050,
+    ip: "`1e3600`",
+    note: "`20M+ binfs recommended.`",
+    tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,121,131,141,151,161,162,171,181,192,193,214|10`"
   },
   {
     challenge: 10,
     completion: 4,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 3650,
+    ip: "`1e3900`",
+    note: "`30M+ binfs recommended.`",
+    tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,121,131,141,151,161,162,171,181,192,193,213,214|10`"
   },
   {
     challenge: 10,
     completion: 5,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 5200,
+    ip: "`1e4200`",
+    note: "`40M+ binfs recommended.`",
+    tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,121,131,141,151,161,162,171,181,191,192,193,211,213,214,225,228,233|10`"
   },
   // EC11
   {
     challenge: 11,
     completion: 1,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 5600,
+    ip: "`1e500`",
+    note: "`Get PopularMusic-achievement before EC11s. (Use active path, get 180 max RGs, disable galaxy autobuyer, crunch, hold R to buy RGs.)`",
+    tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,121,131,141,151,161,162,171,181,191,192,193,211,212,213,222,225,231,233|11`"
   },
   {
     challenge: 11,
     completion: 2,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 5600,
+    ip: "`1e700`",
+    note: null,
+    tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,121,131,141,151,161,162,171,181,191,192,193,211,212,213,222,225,231,233|11`"
   },
   {
     challenge: 11,
     completion: 3,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 5950,
+    ip: "`1e900`",
+    note: null,
+    tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,123,133,143,151,161,162,171,181,191,192,193,211,212,213,222,223,225,231,233|11`"
   },
   {
     challenge: 11,
     completion: 4,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 5950,
+    ip: "`1e1100`",
+    note: null,
+    tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,123,133,143,151,161,162,171,181,191,192,193,211,212,213,222,223,225,231,233|11`"
   },
   {
     challenge: 11,
     completion: 5,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 5950,
+    ip: "`1e1300`",
+    note: "`This takes around 2h 45m.`",
+    tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,123,133,143,151,161,162,171,181,191,192,193,211,212,213,222,223,225,231,233|11`"
   },
   // EC12
   {
     challenge: 12,
     completion: 1,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 9800,
+    ip: "`1e110,000`",
+    note: "`Enable Auto-Eternity.`",
+    tree: "`11,21,22,31,32,33,41,42,51,61,62,73,83,93,103,111,122,132,142,151,161,162,171,181,191,193,211,212,213,214,222,224,226,227,232,234|12`"
   },
   {
     challenge: 12,
     completion: 2,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 9800,
+    ip: "`1e122,000`",
+    note: "`Enable Auto-Eternity.`",
+    tree: "`11,21,22,31,32,33,41,42,51,61,62,73,83,93,103,111,122,132,142,151,161,162,171,181,191,193,211,212,213,214,222,224,226,227,232,234|12`"
   },
   {
     challenge: 12,
     completion: 3,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 10750,
+    ip: "`1e134,000`",
+    note: "`Enable Auto-Eternity.`",
+    tree: "`11,21,22,31,32,33,41,42,51,61,62,73,83,93,103,111,122,132,142,151,161,162,171,181,191,193,211,212,213,214,222,224,226,227,232,234|12`"
   },
   {
     challenge: 12,
     completion: 4,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 11200,
+    ip: "`1e146,000`",
+    note: "`Enable Auto-Eternity.`",
+    tree: "`11,21,22,31,32,33,41,42,51,61,62,73,83,93,103,111,122,132,142,151,161,162,171,181,191,193,211,212,213,214,222,224,226,227,232,234|12`"
   },
   {
     challenge: 12,
     completion: 5,
-    tt: 1,
-    ip: 1,
-    note: "`string`",
-    tree: "`string`"
+    tt: 12350,
+    ip: "`1e158,000`",
+    note: "`Enable Auto-Eternity. Can be done without WhenWillItBeEnough-achievement. (Can be done earlier with the achievement.)`",
+    tree: "`11,21,22,31,32,33,41,42,51,61,62,73,83,93,103,111,122,132,142,151,161,162,171,181,191,193,211,212,213,214,222,224,226,227,232,234|12`"
   },
 ];
 
