@@ -452,7 +452,7 @@ const revampedECs = [
     completion: 1,
     tt: 5600,
     ip: "`1e500`",
-    note: "`Get PopularMusic-achievement before EC11s. (Use active path, get 180 max RGs, disable galaxy autobuyer, crunch, hold R to buy RGs.)`",
+    note: "`Get the Popular Music - achievement before EC11s. (Use active path, get 180 max RGs, disable galaxy autobuyer, crunch, hold R to buy RGs.)`",
     tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,121,131,141,151,161,162,171,181,191,192,193,211,212,213,222,225,231,233|11`"
   },
   {
@@ -525,7 +525,7 @@ const revampedECs = [
     completion: 5,
     tt: 12350,
     ip: "`1e158,000`",
-    note: "`Enable Auto-Eternity. Can be done without WhenWillItBeEnough-achievement. (Can be done earlier with the achievement.)`",
+    note: "`Enable Auto-Eternity. Can be done without the When Will It Be Enough - achievement. (Can be done earlier with the achievement.)`",
     tree: "`11,21,22,31,32,33,41,42,51,61,62,73,83,93,103,111,122,132,142,151,161,162,171,181,191,193,211,212,213,214,222,224,226,227,232,234|12`"
   },
 ];
