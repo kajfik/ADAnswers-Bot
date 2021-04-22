@@ -26,8 +26,9 @@ function otherCompletions(id, completion) {
   const completions = Array(12);
 
   for (let i = 0; i < indexOfCompletion; i++) {
-    const previousId = parseInt(order[i][0], 10) - 1;
-    const previousCompletion = parseInt(order[i][2], 10);
+    const previous = order[i].split("x").map(Number);
+    const previousId = previous[0] - 1;
+    const previousCompletion = previous[1];
 
     completions[previousId] = previousCompletion;
   }
