@@ -5,10 +5,12 @@
 
 const Discord = require("discord.js");
 const fs = require("fs");
-const client = new Discord.Client();
 const config = require("./config.json");
+
+const client = new Discord.Client();
 const commandFiles = fs.readdirSync("./commands").filter(file => file.endsWith(".js"));
 client.commands = new Discord.Collection();
+
 const fieldsVar = [];
 const fieldsVar2 = [];
 const fieldsVar3 = [];
@@ -17,7 +19,6 @@ const fieldsVar5 = [];
 const fieldsVar6 = [];
 const fieldsVar69 = [];
 const allFields = [];
-
 
 const fieldsArray = [fieldsVar, fieldsVar2, fieldsVar3, fieldsVar4, fieldsVar5, fieldsVar6, fieldsVar69];
 
@@ -30,11 +31,7 @@ client.login(config.token);
 
 for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
-  // If (command.name === "eternitychallenge") {
-  // continue;
-  // } else {
   client.commands.set(command.name, command);
-  // }
 }
 
 client.commands.forEach(element => {
@@ -51,7 +48,7 @@ client.commands.forEach(element => {
 for (const field of fieldsArray) {
   allFields.push(...field);
 }
-// Uncomment when you need commands for /docs
+// Uncomment for commands for /docs
 // console.log(allFields);
 
 function sumAllCommands() {
@@ -69,7 +66,7 @@ const embedObject = {
   fields: fieldsVar,
   timestamp: new Date(),
   footer: {
-    text: "This superfluous bot was created by @earth#1337. Bug him for more commands, or use \"++meta suggest\".\nUse ++help [number] to go to more pages of commands."
+    text: `This superfluous bot was created by @earth#1337. Bug him for more commands, or use "++meta suggest".\nUse ++help [number] to go to more pages of commands.\nBot version: ${config.version}`
   }
 };
 
@@ -80,7 +77,7 @@ const embedObject2 = {
   fields: fieldsVar2,
   timestamp: new Date(),
   footer: {
-    text: "This superfluous bot was created by @earth#1337. Bug him for more commands, or use \"++meta suggest\".\nUse ++help [number] to go to more pages of commands."
+    text: `This superfluous bot was created by @earth#1337. Bug him for more commands, or use "++meta suggest".\nUse ++help [number] to go to more pages of commands.\nBot version: ${config.version}`
   }
 };
 
@@ -91,7 +88,7 @@ const embedObject3 = {
   fields: fieldsVar3,
   timestamp: new Date(),
   footer: {
-    text: "This superfluous bot was created by @earth#1337. Bug him for more commands, or use \"++meta suggest\".\nUse ++help [number] to go to more pages of commands."
+    text: `This superfluous bot was created by @earth#1337. Bug him for more commands, or use "++meta suggest".\nUse ++help [number] to go to more pages of commands.\nBot version: ${config.version}`
   }
 };
 
@@ -102,7 +99,7 @@ const embedObject4 = {
   fields: fieldsVar4,
   timestamp: new Date(),
   footer: {
-    text: "This superfluous bot was created by @earth#1337. Bug him for more commands, or use \"++meta suggest\".\nUse ++help [number] to go to more pages of commands."
+    text: `This superfluous bot was created by @earth#1337. Bug him for more commands, or use "++meta suggest".\nUse ++help [number] to go to more pages of commands.\nBot version: ${config.version}`
   }
 };
 
@@ -113,7 +110,7 @@ const embedObject5 = {
   fields: fieldsVar5,
   timestamp: new Date(),
   footer: {
-    text: "This superfluous bot was created by @earth#1337. Bug him for more commands, or use \"++meta suggest\".\nUse ++help [number] to go to more pages of commands."
+    text: `This superfluous bot was created by @earth#1337. Bug him for more commands, or use "++meta suggest".\nUse ++help [number] to go to more pages of commands.\nBot version: ${config.version}`
   }
 };
 
@@ -124,7 +121,7 @@ const embedObject6 = {
   fields: fieldsVar6,
   timestamp: new Date(),
   footer: {
-    text: "This superfluous bot was created by @earth#1337. Bug him for more commands, or use \"++meta suggest\".\nUse ++help [number] to go to more pages of commands."
+    text: `This superfluous bot was created by @earth#1337. Bug him for more commands, or use "++meta suggest".\nUse ++help [number] to go to more pages of commands.\nBot version: ${config.version}`
   }
 };
 
@@ -135,7 +132,7 @@ const embedObject69 = {
   fields: fieldsVar69,
   timestamp: new Date(),
   footer: {
-    text: "This superfluous bot was created by @earth#1337. Bug him for more commands, or use `++meta suggest`.\nUse ++help [number] to go to more pages of commands."
+    text: `This superfluous bot was created by @earth#1337. Bug him for more commands, or use "++meta suggest".\nUse ++help [number] to go to more pages of commands.\nBot version: ${config.version}`
   }
 };
 
