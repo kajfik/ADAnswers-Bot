@@ -118,7 +118,7 @@ module.exports = {
   description: `Generates a Time Study tree based on your total Time Theorems.
   Args: your total Time Theorems. Beginning at 54 TT (and until 120 TT), the command will take a second argument: \`active\`, \`passive\`, or \`idle\`. The argument is optional, and the default value is \`active\`.`,
   execute(message, args, id) {
-    if (config.ids.botCommands.includes(id) || config.ids.common.includes(id) || config.ids.ecs.includes(id)) {
+    if (config.ids.botCommands.includes(id) || config.ids.common.includes(id) || config.ids.ecs.includes(id) || config.ids.earlyEternity.includes(id)) {
       try {
         if (args[0] === "") {
           throw `Error: Argument missing for command \`++${this.name}\``;

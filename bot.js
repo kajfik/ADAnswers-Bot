@@ -59,8 +59,6 @@ function sumAllCommands() {
   for (const array of fieldsArray) {
     sum += array.length;
   }
-  sum += fieldsArray.length;
-  sum -= 1;
   return sum;
 }
 
