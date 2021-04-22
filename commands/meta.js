@@ -16,31 +16,38 @@ function convertMillisecondsToDigitalClock(ms) {
     clock: `${days <= 9 ? `0${days}` : `${days}`}:${hours <= 9 ? `0${hours}` : `${hours}`}:${minutes <= 9 ? `0${minutes}` : `${minutes}`}:${seconds <= 9 ? `0${seconds}` : `${seconds}`}`
   };
 }
+
+const config = require("../config.json");
+
 module.exports = {
   number: 2,
   name: "meta",
   description: "Args: `lastRestart`, `uptime`, `ping`, `suggest`. internal bot information",
-  execute(message, args) {
-    switch (args[0]) {
-    case "lastRestart":
-      message.channel.send(NOW);
-      break;
-    case "uptime":
-      message.channel.send(`The bot has been up for ${convertMillisecondsToDigitalClock(message.client.uptime).clock}`);
-      break;
-    case "ping":
-      message.channel.send(`Pinging...`).then(sent => {
-        sent.edit(`Pong! Time taken: ${sent.createdTimestamp - message.createdTimestamp}ms`);
-      });
-      break;
-    case "suggest":
-      message.channel.send(`Submit an issue on GitHub at <https://github.com/earthernsence/ADAnswers-Bot/issues> to suggest more commands!`);
-      break;
-    case "invite":
-      message.channel.send(`If, for whatever reason, you wish to invite me to your server, go to https://discord.com/api/oauth2/authorize?client_id=830197123378053172&permissions=84992&scope=bot.`);
-      break;
-    default:
-      message.channel.send(`Meta command not found.`);
+  execute(message, args, id) {
+    if (config.ids.botCommands.includes(id)) {
+      switch (args[0]) {
+      case "lastRestart":
+        message.channel.send(NOW);
+        break;
+      case "uptime":
+        message.channel.send(`The bot has been up for ${convertMillisecondsToDigitalClock(message.client.uptime).clock}`);
+        break;
+      case "ping":
+        message.channel.send(`Pinging...`).then(sent => {
+          sent.edit(`Pong! Time taken: ${sent.createdTimestamp - message.createdTimestamp}ms`);
+        });
+        break;
+      case "suggest":
+        message.channel.send(`Submit an issue on GitHub at <https://github.com/earthernsence/ADAnswers-Bot/issues> to suggest more commands!`);
+        break;
+      case "invite":
+        message.channel.send(`If, for whatever reason, you wish to invite me to your server, go to https://discord.com/api/oauth2/authorize?client_id=830197123378053172&permissions=84992&scope=bot.`);
+        break;
+      default:
+        message.channel.send(`Meta command not found.`);
+      }
+    } else {
+      message.channel.send("This command only works in bot commands!");
     }
   }
 };

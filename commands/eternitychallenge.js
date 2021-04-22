@@ -530,43 +530,49 @@ const revampedECs = [
   },
 ];
 
+const config = require("../config.json");
+
 module.exports = {
   number: 4,
   name: "eternitychallenge",
   description: "Requires two arguments: `++eternitychallenge [ECNumber] [CompletionNumber]`. You may notice that some trees increase the number of TT you need, even though it's the same tree as the previous. This follows the Eternity Challenge guide followed by Ninjatsu, and TT can be used as something of a progress marker. For that reason, some trees have more TT than others for the same tree. Returns Total TT for a tree and then the tree.",
-  execute(message, args) {
-    let a = [];
-    let c = 0;
-    let d = 0;
-    if (args[0].includes("x")) {
-      a = args[0].split("x");
-      c = Math.abs(Math.floor(a[0]));
-      d = Math.abs(Math.floor(a[1]));
-    } else {
-      c = Math.abs(Math.floor(args[0]));
-      d = Math.abs(Math.floor(args[1]));
-    }
+  execute(message, args, id) {
+    if (config.ids.botCommands.includes(id) || config.ids.common.includes(id) || config.ids.ecs.includes(id)) {
+      let a = [];
+      let c = 0;
+      let d = 0;
+      if (args[0].includes("x")) {
+        a = args[0].split("x");
+        c = Math.abs(Math.floor(a[0]));
+        d = Math.abs(Math.floor(a[1]));
+      } else {
+        c = Math.abs(Math.floor(args[0]));
+        d = Math.abs(Math.floor(args[1]));
+      }
 
-    if (Number.isNaN(c) || Number.isNaN(d)) message.channel.send("Something went wrong while parsing your input.");
+      if (Number.isNaN(c) || Number.isNaN(d)) message.channel.send("Something went wrong while parsing your input.");
 
-    if (c > 12) {
-      message.channel.send(`EC${c} is not an EC, silly!`);
-      return;
-    }
-    if (d > 5) {
-      message.channel.send(`You cannot complete an EC ${d} times, silly! If you are looking for a tree to use if you want to test something in an EC, use the x5 tree.`);
-      return;
-    }
-    if (c === 0 || d === 0) {
-      message.channel.send(`You cannot do EC${c} ${d} times, silly!`);
-      return;
-    }
+      if (c > 12) {
+        message.channel.send(`EC${c} is not an EC, silly!`);
+        return;
+      }
+      if (d > 5) {
+        message.channel.send(`You cannot complete an EC ${d} times, silly! If you are looking for a tree to use if you want to test something in an EC, use the x5 tree.`);
+        return;
+      }
+      if (c === 0 || d === 0) {
+        message.channel.send(`You cannot do EC${c} ${d} times, silly!`);
+        return;
+      }
     
-    const ec = revampedECs[(c - 1) * 5 + (d - 1)];
+      const ec = revampedECs[(c - 1) * 5 + (d - 1)];
     
-    if (c <= 12 && d <= 5) message.channel.send(`The tree for EC${c}x${d} is: ${ec.tree}
+      if (c <= 12 && d <= 5) message.channel.send(`The tree for EC${c}x${d} is: ${ec.tree}
     TT for Completion: \`${ec.tt}\`
     IP Requirement for Completion: \`${ec.ip}\` ${ec.note === null ? `` : `\n    Note: \`${ec.note}\``}
     Other completions: \`${otherCompletions(c, d)}\``);
+    } else {
+      message.channel.send("This command only works in bot commands, common channels, or EC channels!");
+    }
   }
 };

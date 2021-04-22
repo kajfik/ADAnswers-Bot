@@ -1,12 +1,15 @@
 /* eslint-disable max-len */
 "use strict";
 
+const config = require("../config.json");
+
 module.exports = {
   number: 5,
   name: "infinitydimensions",
   description: "Describes what infinity dimensions (and infinity power) does. Includes when they unlock.",
   execute(message) {
-    message.channel.send(`Infinity Dimensions are a new type of Dimension that you unlock the ability to get when you Break Infinity; however, only go for them when you have 1e8 Infinity Points. They generate Infinity Power (abb. IPow), which gives a boost to Antimatter Dimensions equivelent to IPow^7.
+    if (config.ids.break.includes(message.channel.id) || config.ids.common.includes(message.channel.id) || config.ids.botCommands.includes(message.channel.id)) {
+      message.channel.send(`Infinity Dimensions are a new type of Dimension that you unlock the ability to get when you Break Infinity; however, only go for them when you have 1e8 Infinity Points. They generate Infinity Power (abb. IPow), which gives a boost to Antimatter Dimensions equivelent to IPow^7.
     ID1: ||unlocks at 1e1100 Antimatter, costs 1e8 Infinity Points.||
     ID2: ||unlocks at 1e1900 Antimatter, costs 1e9 Infinity Points.||
     ID3: ||unlocks at 1e2400 Antimatter, costs 1e10 Infinity Points.||
@@ -15,5 +18,8 @@ module.exports = {
     ID6: ||unlocks at 1e45000 Antimatter, costs 1e200 Infinity Points.||
     ID7: ||unlocks at 1e54000 Antimatter, costs 1e250 Infinity Points.||
     ID8: ||unlocks at 1e60000 Antimatter, costs 1e280 Infinity Points.||`);
+    } else {
+      message.channel.send("This command only works in bot commands, common channels, or break channels!");
+    }
   }
 };

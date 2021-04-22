@@ -7,13 +7,17 @@ module.exports = {
   number: 4,
   name: "eternitychallengeorder",
   description: "Args: highest eternity challenge you've down in the order (optional).Returns the EC order",
-  execute(message, args) {
-    if (args.length === 0) message.channel.send(order);
-    else if (!order.includes(args[0])) message.channel.send(`Unkown argument ${args[0]} for command \`++eternitychallengeorder\`.`);
-    // eslint-disable-next-line no-negated-condition
-    else if (args !== []) {
-      const boldedOrder = order.replace(`${args[0]}`, `__***${args[0]}***__`);
-      message.channel.send(boldedOrder);
-    } else message.channel.send(`This message should be impossible. If you get it, send a screenshot to earth with the message that caused it.`);
+  execute(message, args, id) {
+    if (config.ids.botCommands.includes(id) || config.ids.common.includes(id) || config.ids.ecs.includes(id)) {
+      if (args.length === 0) message.channel.send(order);
+      else if (!order.includes(args[0])) message.channel.send(`Unkown argument ${args[0]} for command \`++eternitychallengeorder\`.`);
+      // eslint-disable-next-line no-negated-condition
+      else if (args !== []) {
+        const boldedOrder = order.replace(`${args[0]}`, `__***${args[0]}***__`);
+        message.channel.send(boldedOrder);
+      } else message.channel.send(`This message should be impossible. If you get it, send a screenshot to earth with the message that caused it.`);
+    } else {
+      message.channel.send("This command only works in bot commands, common channels, or EC channels!");
+    }
   }
 };
