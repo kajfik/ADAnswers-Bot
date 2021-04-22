@@ -196,7 +196,6 @@ client.on("message", message => {
   if (!client.commands.has(command)) return;
 
   try {
-    console.log(id);
     client.commands.get(command).execute(message, args, id);
   } catch (error) {
     console.error(error);
