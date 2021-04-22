@@ -1,12 +1,16 @@
 /* eslint-disable max-len */
 "use strict";
 
+const config = require("../config.json");
+
 module.exports = {
   number: 5,
   name: "bankedinfinities",
   description: "describes banked infinities, what they do, and how to get them.",
   execute(message) {
-    message.channel.send(`Banked Infinities work like regular Infinities, except they stay on Eternity. To get Banked Infinities, have Time Study 191 or Achievement 131 "No Ethical Consumption" (these two effects stack, meaning if you have both you'll get 10% of your infinities converted), grind infinities (method in spoiler below), and then Eternity.
+    const id = message.channel.id;
+    if (config.ids.common.includes(id) || config.ids.ecs[1] === id || config.ids.endgame.includes(id) || config.ids.botCommands.includes(id)) {
+      message.channel.send(`Banked Infinities work like regular Infinities, except they stay on Eternity. To get Banked Infinities, have Time Study 191 or Achievement 131 "No Ethical Consumption" (these two effects stack, meaning if you have both you'll get 10% of your infinities converted), grind infinities (method in spoiler below), and then Eternity.
     Method: ||INFINITY FARMING: (Do this on long AFKs) ---- EC10 diminishing returns, reach at least 5 billion eventually (achievement)
 
 Method:
@@ -18,5 +22,8 @@ Method:
 -AutoGalaxy .4s (or .05s with a maximum galaxy count of the highest you reach in under 4.9 seconds)
 -AutoDimboost .1s
 -Get "high" IP before starting||`);
+    } else {
+      message.channel.send(`This commmand is only allowed in bot commands and its channels that it applies in.`);
+    }
   }
 };
