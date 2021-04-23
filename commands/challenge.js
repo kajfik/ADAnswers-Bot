@@ -1,11 +1,13 @@
 /* eslint-disable max-len */
 "use strict";
 
+const config = require("../config.json");
+
 module.exports = {
   number: 1,
   name: "challenge",
   description: "Args: `c9`, `ic4`, `ic5`, `ecs`. Returns a guide for each argument.",
-  execute(message, args) {
+  execute(message, args, id) {
     switch (args[0]) {
     case "c9":
       message.channel.send(`I recommend having all Infinity upgrades (except the last 4 which don't work in challenges) and at least 10-100 unspent IP before attempting C9. Some players prefer attempting this challenge at higher IP values (10k+) where the challenge becomes trivial.\n
@@ -21,7 +23,7 @@ IC4 written guide (for web): <https://pastebin.com/aZktZs8m>`);
 IC5 written guide (for web): <https://pastebin.com/sj2nFFjH>`);
       break;
     case "ecs":
-      if (message.channel.id === ("408764187960147982" || "408764225238859777" || "351479640755404820" || "351516916344553474")) message.channel.send(`Check out this helpful guide from Ninjatsu. https://canary.discord.com/channels/351476683016241162/408764187960147982/731639441474453537`);
+      if (config.ids.botCommands.includes(id) || config.ids.ecs.includes(id) || config.ids.common.includes(id)) message.channel.send(`Check out this helpful guide from Ninjatsu. https://canary.discord.com/channels/351476683016241162/408764187960147982/731639441474453537`);
       else message.channel.send("This command only works in its respective channels or bot commands.");
       break;
     case "c1":
