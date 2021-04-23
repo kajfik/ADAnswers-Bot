@@ -1,6 +1,8 @@
 /* eslint-disable max-len */
 "use strict";
 
+const config = require("../config.json");
+
 module.exports = {
   number: 4,
   name: "dilationtrees",
