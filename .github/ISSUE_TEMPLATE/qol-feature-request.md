@@ -2,7 +2,7 @@
 name: QoL feature request
 about: You want some Quality in your Life
 title: '[QoL]'
-labels: QoL
+labels: QoL feature
 assignees: ''
 
 ---
