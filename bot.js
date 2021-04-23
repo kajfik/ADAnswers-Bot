@@ -1,6 +1,7 @@
 /* eslint-disable complexity */
 /* eslint-disable max-len */
 /* eslint-disable no-console */
+
 "use strict";
 
 const Discord = require("discord.js");
