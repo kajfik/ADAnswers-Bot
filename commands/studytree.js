@@ -87,7 +87,7 @@ function lightDark(theorem) {
     return BASE.pushAll(191, 212, 223, 232, 192, 201, INFINITY, 211, 193, 214, 213);
   }
   if (theorem <= 4945) {
-    return BASE.pushAll(191, 211, 222, 212, 224, 232, 192, 201, 71, 81, 91, 102, 193, 214, 213, 228);
+    return BASE.pushAll(191, 211, 222, 212, 224, 232, 192, 201, 72, 82, 92, 102, 193, 214, 213, 228);
   }
   return BASE.pushAll(191, 211, 222, 212, 224, 232, 192, 201, INFINITY, 193, 214, 228, 234, 213, 226);
 }
@@ -106,6 +106,7 @@ function generateTree(theorem, path) {
     desc = "Do note: EC10 is done between this list and the previous.";
   } else {
     tree = lightDark(theorem);
+    desc = "If you cannot get the last TT to unlock dilation, use ++dilationgrind.";
   }
   return `${desc === null ? "" : `${desc} `}\`${tree.join(",")}|0\``;
 }
