@@ -542,6 +542,10 @@ module.exports = {
       let a = [];
       let c = 0;
       let d = 0;
+      if (args[0] === undefined) {
+        message.channel.send("Hey, you can't do that! That input is undefined. Please try with a different input.");
+        return;
+      }
       if (args[0].includes("x")) {
         a = args[0].split("x");
         c = Math.abs(Math.floor(a[0]));
@@ -568,10 +572,14 @@ module.exports = {
     
       const ec = revampedECs[(c - 1) * 5 + (d - 1)];
     
-      if (c <= 12 && d <= 5) message.channel.send(`The tree for EC${c}x${d} is: ${ec.tree}
+      if (c <= 12 && d <= 5) {
+        message.channel.send(`The tree for EC${c}x${d} is: ${ec.tree}
     TT for Completion: \`${ec.tt}\`
     IP Requirement for Completion: \`${ec.ip}\` ${ec.note === null ? `` : `\n    Note: \`${ec.note}\``}
-    Other completions: \`${otherCompletions(c, d)}\``);
+    Other completions: \`${otherCompletions(c, d)}\`
+    Check your DMs for the tree for easy copying!`);
+    message.author.send(`${ec.tree}`);
+      }
     } else {
       message.channel.send("This command only works in bot commands, common channels, or EC channels!");
     }
