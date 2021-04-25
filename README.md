@@ -48,7 +48,7 @@ I recommend using Visual Studio Code as your IDE.
 [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint):
  ESLint will take the two ESLint files in this repo and use them as the settings. Install it globally; it will improve any JS you do, as long as you have the ESLint files for it.
 
-[GitLens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens):s
+[GitLens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens):
  I only recommend having GitLens to see who worked in what files when. It is updated on commit.
 ### GitHub Desktop
 I recommend using [GitHub Desktop](https://desktop.github.com/) when contributing. It is (generally) easier to make new branches/commits/PRs and whatnot.
