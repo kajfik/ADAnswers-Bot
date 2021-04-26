@@ -2,13 +2,14 @@
 "use strict";
 
 const config = require("../config.json");
+const functions = require("../functions");
 
 module.exports = {
   number: 5,
   name: "infinitydimensions",
   description: "Describes what infinity dimensions (and infinity power) does. Includes when they unlock.",
   execute(message) {
-    if (config.ids.break.includes(message.channel.id) || config.ids.common.includes(message.channel.id) || config.ids.botCommands.includes(message.channel.id)) {
+    if (functions.breakCheck(message.channel.id)) {
       message.channel.send(`Infinity Dimensions are a new type of Dimension that you unlock the ability to get when you Break Infinity; however, only go for them when you have 1e8 Infinity Points. They generate Infinity Power (abb. IPow), which gives a boost to Antimatter Dimensions equivelent to IPow^7.
     ID1: ||unlocks at 1e1100 Antimatter, costs 1e8 Infinity Points.||
     ID2: ||unlocks at 1e1900 Antimatter, costs 1e9 Infinity Points.||

@@ -1,14 +1,14 @@
 /* eslint-disable max-len */
 "use strict";
 
-const config = require("../config.json");
+const functions = require("../functions");
 
 module.exports = {
   number: 4,
   name: "dilationtrees",
   description: "Args: `first`, `after3paths`. First is for your first Dilation (and until you get the 3 paths upgrade), and will spit out two trees: one for if you have 1e6 eternities and one if you don't. after3paths is for the tree after the three paths upgrade. By that point, you should have 1e6 eternities.",
-  execute(message, args) {
-    if (config.ids.endgame.includes(message.channel.id) || config.ids.common.includes(message.channel.id) || config.ids.botCommands.includes(message.channel.id)) {
+  execute(message, args, id) {
+    if (functions.endgameCheck(id)) {
       switch (args[0]) {
       case "first":
         message.channel.send(`With 1 million Eternities: \`11,21,22,31,32,33,41,42,51,61,62,73,83,93,103,111,121,131,141,151,161,162,171,181,192,201,72,82,92,102,191,211,212,193,213,214,222,223,232,225,233,228|0\`

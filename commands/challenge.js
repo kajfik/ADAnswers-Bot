@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 "use strict";
 
-const config = require("../config.json");
+const functions = require("../functions");
 
 module.exports = {
   number: 1,
@@ -23,7 +23,7 @@ IC4 written guide (for web): <https://pastebin.com/aZktZs8m>`);
 IC5 written guide (for web): <https://pastebin.com/sj2nFFjH>`);
       break;
     case "ecs":
-      if (config.ids.botCommands.includes(id) || config.ids.ecs.includes(id) || config.ids.common.includes(id)) message.channel.send(`Check out this helpful guide from Ninjatsu. https://canary.discord.com/channels/351476683016241162/408764187960147982/731639441474453537`);
+      if (functions.ecsCheck(id)) message.channel.send(`Check out this helpful guide from Ninjatsu. https://canary.discord.com/channels/351476683016241162/408764187960147982/731639441474453537`);
       else message.channel.send("This command only works in its respective channels or bot commands.");
       break;
     case "c1":

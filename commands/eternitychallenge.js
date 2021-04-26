@@ -531,14 +531,14 @@ const revampedECs = [
   },
 ];
 
-const config = require("../config.json");
+const functions = require("../functions");
 
 module.exports = {
   number: 4,
   name: "eternitychallenge",
   description: "Requires two arguments: `++eternitychallenge [ECNumber] [CompletionNumber]`. You may notice that some trees increase the number of TT you need, even though it's the same tree as the previous. This follows the Eternity Challenge guide followed by Ninjatsu, and TT can be used as something of a progress marker. For that reason, some trees have more TT than others for the same tree. Returns Total TT for a tree and then the tree.",
   execute(message, args, id) {
-    if (config.ids.botCommands.includes(id) || config.ids.common.includes(id) || config.ids.ecs.includes(id)) {
+    if (functions.ecsCheck(id)) {
       let a = [];
       let c = 0;
       let d = 0;

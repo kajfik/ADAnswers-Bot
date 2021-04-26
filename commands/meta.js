@@ -17,14 +17,14 @@ function convertMillisecondsToDigitalClock(ms) {
   };
 }
 
-const config = require("../config.json");
+const functions = require("../functions");
 
 module.exports = {
   number: 2,
   name: "meta",
   description: "Args: `lastRestart`, `uptime`, `ping`, `suggest`. internal bot information",
   execute(message, args, id) {
-    if (config.ids.botCommands.includes(id)) {
+    if (functions.botCommandsCheck(id)) {
       switch (args[0]) {
       case "lastRestart":
         message.channel.send(NOW);

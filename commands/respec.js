@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 "use strict";
 
-const config = require("../config.json");
+const functions = require("../functions");
 
 module.exports = {
   number: 3,
@@ -9,7 +9,7 @@ module.exports = {
   description: "Describes what respec studies does",
   // eslint-disable-next-line no-unused-vars
   execute(message, _a, id) {
-    if (config.ids.botCommands.includes(id) || config.ids.common.includes(id) || config.ids.earlyEternity.includes(id)) message.channel.send(`It resets your time studies and refunds all the TT when you next eternity`);
+    if (functions.earlyEternityCheck(id)) message.channel.send(`It resets your time studies and refunds all the TT when you next eternity`);
     else message.channel.send("This command can only be used in common channels, bot commands, or early eternity channels!");
   }
 };
