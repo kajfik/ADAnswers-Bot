@@ -195,7 +195,8 @@ client.on("message", message => {
     client.commands.get(command).execute(message, args, id);
   } catch (error) {
     console.error(`${error}`);
-    console.log(`${new Date()}`)
+    console.log(`${new Date()}`);
+    console.log(`${message.url}`)
     message.reply(`Command ${command} is not a command.`);
   }
 });
