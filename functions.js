@@ -1,5 +1,7 @@
 "use strict";
 
+/* eslint-disable max-len */
+
 const config = require("./config.json");
 
 function earlyGameCheck(id) {

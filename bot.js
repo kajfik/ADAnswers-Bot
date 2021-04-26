@@ -196,7 +196,7 @@ client.on("message", message => {
   } catch (error) {
     console.error(`${error}`);
     console.log(`${new Date()}`);
-    console.log(`${message.url}`)
+    console.log(`${message.url}`);
     message.reply(`Command ${command} is not a command.`);
   }
 });
