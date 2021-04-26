@@ -7,6 +7,7 @@
 const Discord = require("discord.js");
 const fs = require("fs");
 const config = require("./config.json");
+const functions = require("./functions");
 
 const client = new Discord.Client();
 const commandFiles = fs.readdirSync("./commands").filter(file => file.endsWith(".js"));
@@ -52,77 +53,69 @@ for (const field of fieldsArray) {
 // Uncomment for commands for /docs
 // console.log(allFields);
 
-function sumAllCommands() {
-  let sum = 0;
-  for (const array of fieldsArray) {
-    sum += array.length;
-  }
-  return sum;
-}
-
 const embedObject = {
   color: "#000000",
   title: "Help (p1/6)",
-  description: `A comprehensive list of all commands (and their arguments, when applicable).\nThere are currently ${sumAllCommands()} commands.`,
+  description: functions.misc.getHelpDescription(functions.misc.sumAllCommands(fieldsArray)),
   fields: fieldsVar,
   timestamp: new Date(),
   footer: {
-    text: `This superfluous bot was created by @earth#1337. Bug him for more commands, or use "++meta suggest".\nUse ++help [number] to go to more pages of commands.\nBot version: ${config.version}`
+    text: functions.misc.getFooter(config.version)
   }
 };
 
 const embedObject2 = {
   color: "#111111",
   title: "Help (p2/6)",
-  description: `A comprehensive list of all commands (and their arguments, when applicable).\nThere are currently ${sumAllCommands()} commands.`,
+    description: functions.misc.getHelpDescription(functions.misc.sumAllCommands(fieldsArray)),
   fields: fieldsVar2,
   timestamp: new Date(),
   footer: {
-    text: `This superfluous bot was created by @earth#1337. Bug him for more commands, or use "++meta suggest".\nUse ++help [number] to go to more pages of commands.\nBot version: ${config.version}`
+    text: functions.misc.getFooter(config.version)
   }
 };
 
 const embedObject3 = {
   color: "#222222",
   title: "Help (p3/6)",
-  description: `A comprehensive list of all commands (and their arguments, when applicable).\nThere are currently ${sumAllCommands()} commands.`,
+    description: functions.misc.getHelpDescription(functions.misc.sumAllCommands(fieldsArray)),
   fields: fieldsVar3,
   timestamp: new Date(),
   footer: {
-    text: `This superfluous bot was created by @earth#1337. Bug him for more commands, or use "++meta suggest".\nUse ++help [number] to go to more pages of commands.\nBot version: ${config.version}`
+    text: functions.misc.getFooter(config.version)
   }
 };
 
 const embedObject4 = {
   color: "#333333",
   title: "Help (p4/6)",
-  description: `A comprehensive list of all commands (and their arguments, when applicable).\nThere are currently ${sumAllCommands()} commands.`,
+    description: functions.misc.getHelpDescription(functions.misc.sumAllCommands(fieldsArray)),
   fields: fieldsVar4,
   timestamp: new Date(),
   footer: {
-    text: `This superfluous bot was created by @earth#1337. Bug him for more commands, or use "++meta suggest".\nUse ++help [number] to go to more pages of commands.\nBot version: ${config.version}`
+    text: functions.misc.getFooter(config.version)
   }
 };
 
 const embedObject5 = {
   color: "#444444",
   title: "Help (p5/6)",
-  description: `A comprehensive list of all commands (and their arguments, when applicable).\nThere are currently ${sumAllCommands()} commands.`,
+    description: functions.misc.getHelpDescription(functions.misc.sumAllCommands(fieldsArray)),
   fields: fieldsVar5,
   timestamp: new Date(),
   footer: {
-    text: `This superfluous bot was created by @earth#1337. Bug him for more commands, or use "++meta suggest".\nUse ++help [number] to go to more pages of commands.\nBot version: ${config.version}`
+    text: functions.misc.getFooter(config.version)
   }
 };
 
 const embedObject6 = {
   color: "#555555",
   title: "Help (p6/6)",
-  description: `A comprehensive list of all commands (and their arguments, when applicable).\nThere are currently ${sumAllCommands()} commands.`,
+    description: functions.misc.getHelpDescription(functions.misc.sumAllCommands(fieldsArray)),
   fields: fieldsVar6,
   timestamp: new Date(),
   footer: {
-    text: `This superfluous bot was created by @earth#1337. Bug him for more commands, or use "++meta suggest".\nUse ++help [number] to go to more pages of commands.\nBot version: ${config.version}`
+    text: functions.misc.getFooter(config.version)
   }
 };
 
@@ -133,7 +126,7 @@ const embedObject69 = {
   fields: fieldsVar69,
   timestamp: new Date(),
   footer: {
-    text: `This superfluous bot was created by @earth#1337. Bug him for more commands, or use "++meta suggest".\nUse ++help [number] to go to more pages of commands.\nBot version: ${config.version}`
+    text: functions.misc.getFooter(config.version)
   }
 };
 
@@ -148,7 +141,7 @@ client.on("message", message => {
   const command = args.shift().toLowerCase();
   const id = message.channel.id;
 
-  if (command === "help" && config.ids.botCommands.includes(id)) {
+  if (command === "help" && functions.botCommandsCheck(id)) {
     const a = toNumber(args[0]);
     if (Number.isNaN(a)) {
       message.channel.send({ embed: embedObject });
@@ -185,7 +178,7 @@ client.on("message", message => {
     default:
       message.channel.send("Unknown help page.");
     }
-  } else if (command === "help" && !config.ids.botCommands.includes(id)) {
+  } else if (command === "help" && !functions.botCommandsCheck(id)) {
     message.channel.send("Please use <#351479640755404820> for `++help`.");
   }
 
@@ -194,8 +187,8 @@ client.on("message", message => {
   try {
     client.commands.get(command).execute(message, args, id);
   } catch (error) {
-    console.error(`${error}`);
-    console.log(`${new Date()}`);
+    console.error(error);
+    console.log(`${Date()}`);
     console.log(`${message.url}`);
     message.reply(`Command ${command} is not a command.`);
   }

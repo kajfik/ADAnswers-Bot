@@ -52,6 +52,22 @@ function studytreeCheck(id) {
     return ecsCheck(id) || earlyEternityCheck(id);
 }
 
+function sumAllCommands(fields) {
+    let sum = 0;
+    for (const array of fields) {
+      sum += array.length;
+    }
+    return sum;
+}
+
+function getHelpDescription(sum) {
+    return `A comprehensive list of all commands (and their arguments, when applicable).\nThere are currently ${sum} commands.`;
+}
+
+function getFooter(ver) {
+    return `This superfluous bot was created by @earth#1337. Bug him for more commands, or use "++meta suggest".\nUse ++help [number] to go to more pages of commands.\nBot version: ${ver}`
+}
+
 module.exports = {
     earlyGameCheck,
     breakCheck,
@@ -59,6 +75,11 @@ module.exports = {
     ecsCheck,
     endgameCheck,
     botCommandsCheck,
+    misc: {
+        sumAllCommands,
+        getHelpDescription,
+        getFooter
+    },
     special: {
         bankedInfsCheck,
         dilationGrindCheck,
