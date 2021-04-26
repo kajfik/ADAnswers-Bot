@@ -67,7 +67,7 @@ const embedObject = {
 const embedObject2 = {
   color: "#111111",
   title: "Help (p2/6)",
-    description: functions.misc.getHelpDescription(functions.misc.sumAllCommands(fieldsArray)),
+  description: functions.misc.getHelpDescription(functions.misc.sumAllCommands(fieldsArray)),
   fields: fieldsVar2,
   timestamp: new Date(),
   footer: {
@@ -78,7 +78,7 @@ const embedObject2 = {
 const embedObject3 = {
   color: "#222222",
   title: "Help (p3/6)",
-    description: functions.misc.getHelpDescription(functions.misc.sumAllCommands(fieldsArray)),
+  description: functions.misc.getHelpDescription(functions.misc.sumAllCommands(fieldsArray)),
   fields: fieldsVar3,
   timestamp: new Date(),
   footer: {
@@ -89,7 +89,7 @@ const embedObject3 = {
 const embedObject4 = {
   color: "#333333",
   title: "Help (p4/6)",
-    description: functions.misc.getHelpDescription(functions.misc.sumAllCommands(fieldsArray)),
+  description: functions.misc.getHelpDescription(functions.misc.sumAllCommands(fieldsArray)),
   fields: fieldsVar4,
   timestamp: new Date(),
   footer: {
@@ -100,7 +100,7 @@ const embedObject4 = {
 const embedObject5 = {
   color: "#444444",
   title: "Help (p5/6)",
-    description: functions.misc.getHelpDescription(functions.misc.sumAllCommands(fieldsArray)),
+  description: functions.misc.getHelpDescription(functions.misc.sumAllCommands(fieldsArray)),
   fields: fieldsVar5,
   timestamp: new Date(),
   footer: {
@@ -111,7 +111,7 @@ const embedObject5 = {
 const embedObject6 = {
   color: "#555555",
   title: "Help (p6/6)",
-    description: functions.misc.getHelpDescription(functions.misc.sumAllCommands(fieldsArray)),
+  description: functions.misc.getHelpDescription(functions.misc.sumAllCommands(fieldsArray)),
   fields: fieldsVar6,
   timestamp: new Date(),
   footer: {

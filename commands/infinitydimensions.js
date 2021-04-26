@@ -1,7 +1,6 @@
 /* eslint-disable max-len */
 "use strict";
 
-const config = require("../config.json");
 const functions = require("../functions");
 
 module.exports = {
