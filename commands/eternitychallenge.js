@@ -582,6 +582,7 @@ module.exports = {
       message.author.send(`${ec.tree}`);
     } catch (error) {
       message.channel.send("Hey! I can't DM you!");
+      // eslint-disable next-line no-console
       console.error(error);
     }
       }

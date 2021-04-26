@@ -2,7 +2,7 @@
 
 /* eslint-disable max-len */
 
-const config = require("./config.json");
+const config = require("./config.json"); 
 
 function earlyGameCheck(id) {
     return config.ids.earlyGame.includes(id) || config.ids.common.includes(id) || config.ids.botCommands.includes(id);
@@ -25,7 +25,9 @@ function endgameCheck(id) {
 }
 
 function botCommandsCheck(id) {
-    return config.ids.botCommands.includes(id);
+    // 603002159864348703 is #bots in Earth's things
+    // 722268615973273725 is #general in bot test server
+    return config.ids.botCommands.includes(id) || id === "603002159864348703" || id === "722268615973273725";
 }
 
 function bankedInfsCheck(id) {
@@ -65,7 +67,11 @@ function getHelpDescription(sum) {
 }
 
 function getFooter(ver) {
-    return `This superfluous bot was created by @earth#1337. Bug him for more commands, or use "++meta suggest".\nUse ++help [number] to go to more pages of commands.\nBot version: ${ver}`
+    return `This superfluous bot was created by @earth#1337. Bug him for more commands, or use "++meta suggest".\nUse ++help [number] to go to more pages of commands.\nBot version: ${ver}`;
+}
+
+function toNumber(string) {
+    return parseInt(string, 10);
 }
 
 module.exports = {
@@ -78,7 +84,8 @@ module.exports = {
     misc: {
         sumAllCommands,
         getHelpDescription,
-        getFooter
+        getFooter,
+        toNumber
     },
     special: {
         bankedInfsCheck,

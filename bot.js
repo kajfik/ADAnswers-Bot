@@ -130,10 +130,6 @@ const embedObject69 = {
   }
 };
 
-function toNumber(string) {
-  return parseInt(string, 10);
-}
-
 client.on("message", message => {
   if (!message.content.startsWith(config.prefix)) return;
   // eslint-disable-next-line require-unicode-regexp
