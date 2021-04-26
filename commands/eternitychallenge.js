@@ -580,8 +580,9 @@ module.exports = {
     Check your DMs for the tree for easy copying!`);
     try {
       message.author.send(`${ec.tree}`);
-    } catch {
+    } catch (error) {
       message.channel.send("Hey! I can't DM you!");
+      console.error(error);
     }
       }
     } else {
