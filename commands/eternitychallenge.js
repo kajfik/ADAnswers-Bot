@@ -578,7 +578,11 @@ module.exports = {
     IP Requirement for Completion: \`${ec.ip}\` ${ec.note === null ? `` : `\n    Note: \`${ec.note}\``}
     Other completions: \`${otherCompletions(c, d)}\`
     Check your DMs for the tree for easy copying!`);
-    message.author.send(`${ec.tree}`);
+    try {
+      message.author.send(`${ec.tree}`);
+    } catch {
+      message.channel.send("Hey! I can't DM you!");
+    }
       }
     } else {
       message.channel.send("This command only works in bot commands, common channels, or EC channels!");
