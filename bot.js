@@ -53,83 +53,6 @@ for (const field of fieldsArray) {
 // Uncomment for commands for /docs
 // console.log(allFields);
 
-const embedObject = {
-  color: "#000000",
-  title: "Help (p1/6)",
-  description: functions.misc.getHelpDescription(functions.misc.sumAllCommands(fieldsArray)),
-  fields: fieldsVar,
-  timestamp: new Date(),
-  footer: {
-    text: functions.misc.getFooter(config.version)
-  }
-};
-
-const embedObject2 = {
-  color: "#111111",
-  title: "Help (p2/6)",
-  description: functions.misc.getHelpDescription(functions.misc.sumAllCommands(fieldsArray)),
-  fields: fieldsVar2,
-  timestamp: new Date(),
-  footer: {
-    text: functions.misc.getFooter(config.version)
-  }
-};
-
-const embedObject3 = {
-  color: "#222222",
-  title: "Help (p3/6)",
-  description: functions.misc.getHelpDescription(functions.misc.sumAllCommands(fieldsArray)),
-  fields: fieldsVar3,
-  timestamp: new Date(),
-  footer: {
-    text: functions.misc.getFooter(config.version)
-  }
-};
-
-const embedObject4 = {
-  color: "#333333",
-  title: "Help (p4/6)",
-  description: functions.misc.getHelpDescription(functions.misc.sumAllCommands(fieldsArray)),
-  fields: fieldsVar4,
-  timestamp: new Date(),
-  footer: {
-    text: functions.misc.getFooter(config.version)
-  }
-};
-
-const embedObject5 = {
-  color: "#444444",
-  title: "Help (p5/6)",
-  description: functions.misc.getHelpDescription(functions.misc.sumAllCommands(fieldsArray)),
-  fields: fieldsVar5,
-  timestamp: new Date(),
-  footer: {
-    text: functions.misc.getFooter(config.version)
-  }
-};
-
-const embedObject6 = {
-  color: "#555555",
-  title: "Help (p6/6)",
-  description: functions.misc.getHelpDescription(functions.misc.sumAllCommands(fieldsArray)),
-  fields: fieldsVar6,
-  timestamp: new Date(),
-  footer: {
-    text: functions.misc.getFooter(config.version)
-  }
-};
-
-const embedObject69 = {
-  color: "#696969",
-  title: "Help (p69/6)",
-  description: `I can't believe you even tried this. You really thought there were commands here?`,
-  fields: fieldsVar69,
-  timestamp: new Date(),
-  footer: {
-    text: functions.misc.getFooter(config.version)
-  }
-};
-
 client.on("message", message => {
   if (!message.content.startsWith(config.prefix)) return;
   // eslint-disable-next-line require-unicode-regexp
@@ -140,36 +63,36 @@ client.on("message", message => {
   if (command === "help" && functions.botCommandsCheck(id)) {
     const a = functions.misc.toNumber(args[0]);
     if (Number.isNaN(a)) {
-      message.channel.send({ embed: embedObject });
+      message.channel.send({ embed: functions.constructEmbedObject(1, fieldsArray) });
       return;
     }
     switch (a) {
     case 1:
-      message.channel.send({ embed: embedObject });
+      message.channel.send({ embed: functions.constructEmbedObject(1, fieldsArray) });
       break;
     case 2:
-      message.channel.send({ embed: embedObject2 });
+      message.channel.send({ embed: functions.constructEmbedObject(2, fieldsArray) });
       break;
     case 3:
-      message.channel.send({ embed: embedObject3 });
+      message.channel.send({ embed: functions.constructEmbedObject(3, fieldsArray) });
       break;
     case 4:
-      message.channel.send({ embed: embedObject4 });
+      message.channel.send({ embed: functions.constructEmbedObject(4, fieldsArray) });
       break;
     case 5:
-      message.channel.send({ embed: embedObject5 });
+      message.channel.send({ embed: functions.constructEmbedObject(5, fieldsArray) });
       break;
     case 6:
-      message.channel.send({ embed: embedObject6 });
+      message.channel.send({ embed: functions.constructEmbedObject(6, fieldsArray) });
       break;
     case 69:
-      message.channel.send({ embed: embedObject69 });
+      message.channel.send({ embed: functions.constructEmbedObject(69, fieldsArray) });
       break;
     case undefined:
-      message.channel.send({ embed: embedObject });
+      message.channel.send({ embed: functions.constructEmbedObject(1, fieldsArray) });
       break;
     case null:
-      message.channel.send({ embed: embedObject });
+      message.channel.send({ embed: functions.constructEmbedObject(1, fieldsArray) });
       break;
     default:
       message.channel.send("Unknown help page.");

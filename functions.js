@@ -179,6 +179,19 @@ function generateTree(theorem, path) {
   return `${desc === null ? "" : `${desc} `}\`${tree.join(",")}|0\``;
 }
 
+function constructEmbedObject(number, fieldsArray) {
+  return {
+    color: `#${number === 69 ? `696969` : `${number - 1}${number - 1}${number - 1}${number - 1}${number - 1}${number - 1}`}`,
+    title: `Help (p${number}/${fieldsArray.length - 1})`,
+    description: getHelpDescription(sumAllCommands(fieldsArray)),
+    fields: fieldsArray[number - 1],
+    timestamp: new Date(),
+    footer: {
+      text: getFooter(config.version)
+    }
+  };
+}
+
 module.exports = {
   earlyGameCheck,
   breakCheck,
@@ -186,6 +199,7 @@ module.exports = {
   ecsCheck,
   endgameCheck,
   botCommandsCheck,
+  constructEmbedObject,
   misc: {
     sumAllCommands,
     getHelpDescription,
