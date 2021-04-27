@@ -138,7 +138,7 @@ client.on("message", message => {
   const id = message.channel.id;
 
   if (command === "help" && functions.botCommandsCheck(id)) {
-    const a = toNumber(args[0]);
+    const a = functions.misc.toNumber(args[0]);
     if (Number.isNaN(a)) {
       message.channel.send({ embed: embedObject });
       return;
