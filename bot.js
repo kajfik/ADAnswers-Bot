@@ -11,6 +11,7 @@ const functions = require("./functions");
 
 const client = new Discord.Client();
 const commandFiles = fs.readdirSync("./commands").filter(file => file.endsWith(".js"));
+const commandFiles1 = fs.readdirSync("./commands").filter(file => file.endsWith(".ts"));
 client.commands = new Discord.Collection();
 
 const fieldsVar = [];
@@ -32,6 +33,11 @@ client.once("ready", () => {
 client.login(config.token);
 
 for (const file of commandFiles) {
+  const command = require(`./commands/${file}`);
+  client.commands.set(command.name, command);
+}
+
+for (const file of commandFiles1) {
   const command = require(`./commands/${file}`);
   client.commands.set(command.name, command);
 }
@@ -101,7 +107,13 @@ client.on("message", message => {
     message.channel.send("Please use <#351479640755404820> for `++help`.");
   }
 
-  if (!client.commands.has(command)) return;
+  if (!client.commands.has(command) && command !== "help") {
+    message.channel.send(`Command \`${command}\` is not a command!`);
+    return;
+  } 
+  if (!client.commands.has(command) && command === "help") {
+    return;
+  }
 
   try {
     client.commands.get(command).execute(message, args, id);

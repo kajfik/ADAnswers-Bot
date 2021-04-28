@@ -8,6 +8,6 @@ module.exports = {
   name: "ic5",
   description: "shorthand for `++challenge ic5`",
   execute(message) {
-    execute(message, ["ic5"]);
+    execute(message, ["ic5"], message.channel.id);
   }
 };

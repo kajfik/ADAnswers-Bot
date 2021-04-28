@@ -23,7 +23,7 @@ function breakCheck(id, message) {
   return config.ids.break.includes(id) || config.ids.common.includes(id) || botCommandsCheck(id, message);
 }
 
-function earlyEternityCheck(id) {
+function earlyEternityCheck(id, message) {
   return config.ids.earlyEternity.includes(id) || config.ids.common.includes(id) || botCommandsCheck(id, message);
 }
 
@@ -35,6 +35,7 @@ function endgameCheck(id, message) {
   return config.ids.endgame.includes(id) || config.ids.common.includes(id) || botCommandsCheck(id, message);
 }
 
+// Message is any for no real reasonm
 function botCommandsCheck(id, message) {
   // 603002159864348703 is #bots in Earth's things
   // 722268615973273725 is #general in bot test server
@@ -65,6 +66,7 @@ function studytreeCheck(id, message) {
   return ecsCheck(id, message) || earlyEternityCheck(id, message);
 }
 
+// This is any because im not exactly sure how to make it take an array of arrays
 function sumAllCommands(fields) {
   let sum = 0;
   for (const array of fields) {
