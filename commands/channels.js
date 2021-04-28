@@ -40,7 +40,7 @@ module.exports = {
   name: "channels",
   description: "Sends a list of channels and their ids/part of game progress",
   execute(message) {
-    if (functions.botCommandsCheck(message.channel.id)) {
+    if (functions.botCommandsCheck(message.channel.id, message)) {
       message.channel.send(generateChannelMessage());
     } else {
       // eslint-disable-next-line max-len

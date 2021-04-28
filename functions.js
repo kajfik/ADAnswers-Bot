@@ -15,54 +15,54 @@ const PASSIVE = "122,132,142";
 const IDLE = "123,133,143";
 const POST_SPLIT = "151,161,171,181,162";
 
-function earlyGameCheck(id) {
-  return config.ids.earlyGame.includes(id) || config.ids.common.includes(id) || config.ids.botCommands.includes(id);
+function earlyGameCheck(id, message) {
+  return config.ids.earlyGame.includes(id) || config.ids.common.includes(id) || botCommandsCheck(id, message);
 }
 
-function breakCheck(id) {
-  return config.ids.break.includes(id) || config.ids.common.includes(id) || config.ids.botCommands.includes(id);
+function breakCheck(id, message) {
+  return config.ids.break.includes(id) || config.ids.common.includes(id) || botCommandsCheck(id, message);
 }
 
 function earlyEternityCheck(id) {
-  return config.ids.earlyEternity.includes(id) || config.ids.common.includes(id) || config.ids.botCommands.includes(id);
+  return config.ids.earlyEternity.includes(id) || config.ids.common.includes(id) || botCommandsCheck(id, message);
 }
 
-function ecsCheck(id) {
-  return config.ids.ecs.includes(id) || config.ids.common.includes(id) || config.ids.botCommands.includes(id);
+function ecsCheck(id, message) {
+  return config.ids.ecs.includes(id) || config.ids.common.includes(id) || botCommandsCheck(id, message);
 }
 
-function endgameCheck(id) {
-  return config.ids.endgame.includes(id) || config.ids.common.includes(id) || config.ids.botCommands.includes(id);
+function endgameCheck(id, message) {
+  return config.ids.endgame.includes(id) || config.ids.common.includes(id) || botCommandsCheck(id, message);
 }
 
-function botCommandsCheck(id) {
+function botCommandsCheck(id, message) {
   // 603002159864348703 is #bots in Earth's things
   // 722268615973273725 is #general in bot test server
-  return config.ids.botCommands.includes(id) || id === "603002159864348703" || id === "722268615973273725";
+  return config.ids.botCommands.includes(id) || id === "603002159864348703" || id === "722268615973273725" || message.channel.type === "dm";
 }
 
-function bankedInfsCheck(id) {
-  return config.ids.common.includes(id) || config.ids.ecs[1] === id || config.ids.endgame.includes(id) || config.ids.botCommands.includes(id);
+function bankedInfsCheck(id, message) {
+  return config.ids.common.includes(id) || config.ids.ecs[1] === id || config.ids.endgame.includes(id) || botCommandsCheck(id, message);
 }
 
-function dilationGrindCheck(id) {
-  return config.ids.endgame.includes(id) || config.ids.common.includes(id) || config.ids.botCommands.includes(id) || config.ids.ecs[1] === id;
+function dilationGrindCheck(id, message) {
+  return config.ids.endgame.includes(id) || config.ids.common.includes(id) || botCommandsCheck(id, message) || config.ids.ecs[1] === id;
 }
 
-function earlyInfinityCheck(id) {
-  return config.ids.earlyGame[1] === id || config.ids.common.includes(id) || config.ids.botCommands.includes(id);
+function earlyInfinityCheck(id, message) {
+  return config.ids.earlyGame[1] === id || config.ids.common.includes(id) || botCommandsCheck(id, message);
 }
 
-function eternityGrindingCheck(id) {
-  return earlyEternityCheck(id) || config.ids.ecs.includes(id);
+function eternityGrindingCheck(id, message) {
+  return earlyEternityCheck(id, message) || config.ids.ecs.includes(id);
 }
 
-function setCrunchAutoCheck(id) {
-  return earlyGameCheck(id) || config.ids.break.includes(id);
+function setCrunchAutoCheck(id, message) {
+  return earlyGameCheck(id, message) || config.ids.break.includes(id);
 }
 
-function studytreeCheck(id) {
-  return ecsCheck(id) || earlyEternityCheck(id);
+function studytreeCheck(id, message) {
+  return ecsCheck(id, message) || earlyEternityCheck(id, message);
 }
 
 function sumAllCommands(fields) {

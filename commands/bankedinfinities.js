@@ -9,7 +9,7 @@ module.exports = {
   description: "describes banked infinities, what they do, and how to get them.",
   execute(message) {
     const id = message.channel.id;
-    if (functions.special.bankedInfsCheck(id)) {
+    if (functions.special.bankedInfsCheck(id, message)) {
       message.channel.send(`Banked Infinities work like regular Infinities, except they stay on Eternity. To get Banked Infinities, have Time Study 191 or Achievement 131 "No Ethical Consumption" (these two effects stack, meaning if you have both you'll get 10% of your infinities converted), grind infinities (method in spoiler below), and then Eternity.
     Method: ||INFINITY FARMING: (Do this on long AFKs) ---- EC10 diminishing returns, reach at least 5 billion eventually (achievement)
 

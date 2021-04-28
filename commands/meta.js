@@ -24,7 +24,7 @@ module.exports = {
   name: "meta",
   description: "Args: `lastRestart`, `uptime`, `ping`, `suggest`. internal bot information",
   execute(message, args, id) {
-    if (functions.botCommandsCheck(id)) {
+    if (functions.botCommandsCheck(id, message)) {
       switch (args[0]) {
       case "lastRestart":
         message.channel.send(NOW);

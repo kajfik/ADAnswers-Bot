@@ -60,7 +60,7 @@ client.on("message", message => {
   const command = args.shift().toLowerCase();
   const id = message.channel.id;
 
-  if (command === "help" && functions.botCommandsCheck(id)) {
+  if (command === "help" && functions.botCommandsCheck(id, message)) {
     const a = functions.misc.toNumber(args[0]);
     if (Number.isNaN(a)) {
       message.channel.send({ embed: functions.constructEmbedObject(1, fieldsArray) });
@@ -97,7 +97,7 @@ client.on("message", message => {
     default:
       message.channel.send("Unknown help page.");
     }
-  } else if (command === "help" && !functions.botCommandsCheck(id)) {
+  } else if (command === "help" && !functions.botCommandsCheck(id, message)) {
     message.channel.send("Please use <#351479640755404820> for `++help`.");
   }
 

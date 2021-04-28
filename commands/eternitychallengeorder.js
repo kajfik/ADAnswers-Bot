@@ -10,7 +10,7 @@ module.exports = {
   name: "eternitychallengeorder",
   description: "Args: highest eternity challenge you've down in the order (optional).Returns the EC order",
   execute(message, args, id) {
-    if (functions.ecsCheck(id)) {
+    if (functions.ecsCheck(id, message)) {
       if (args.length === 0) message.channel.send(order);
       else if (!order.includes(args[0])) message.channel.send(`Unkown argument ${args[0]} for command \`++eternitychallengeorder\`.`);
       // eslint-disable-next-line no-negated-condition
