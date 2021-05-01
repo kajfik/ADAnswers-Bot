@@ -2,7 +2,7 @@
 
 /* eslint-disable max-len */
 
-const config = require("./config.json"); 
+const config = require("./config.json");
 
 const PRE_SPLIT_EARLY = "11,21,33,31,41";
 const PRE_SPLIT = "11,22,32,42,51,61";
@@ -135,48 +135,50 @@ function secondSplit(theorem, path) {
 
 function lightDark(theorem) {
   const BASE = [PRE_SPLIT, TIME, 111, ACTIVE, POST_SPLIT, EXTRA];
-  if (theorem <= 1292) {
-    return BASE.pushAll(191, 212, 193, 214, 211, 213);
+  if (theorem >= 4945) {
+    return [
+      BASE.pushAll(191, 211, 222, 212, 224, 232, 192, 201, INFINITY, 193, 214, 228, 234, 213, 226),
+      "If you cannot get the last TT to unlock dilation, use ++dilationgrind."
+    ];
   }
-  if (theorem <= 2142) {
-    return BASE.pushAll(193, 214, 228, 234);
+  if (theorem >= 3925) {
+    return [BASE.pushAll(191, 212, 223, 232, 192, 201, INFINITY, 211, 193, 214, 213), null];
   }
-  if (theorem <= 2272) {
-    return BASE.pushAll(191, 212, 223, 232);
+  if (theorem >= 3712) {
+    return [BASE.pushAll(191, 211, 222, 212, 224, 232, 193, 214), null];
   }
-  if (theorem <= 2692) {
-    return BASE.pushAll(191, 212, 223, 232, 193, 214, 211, 213);
+  if (theorem >= 3542) {
+    return [BASE.pushAll(191, 211, 212, 223, 232, 192, 193, 214), null];
   }
-  if (theorem <= 3542) {
-    return BASE.pushAll(191, 211, 212, 223, 232, 192, 193, 214);
+  if (theorem >= 2692) {
+    return [BASE.pushAll(191, 212, 223, 232, 193, 214, 211, 213), null];
   }
-  if (theorem <= 3712) {
-    return BASE.pushAll(191, 211, 222, 212, 224, 232, 193, 214);
+  if (theorem >= 2272) {
+    return [BASE.pushAll(191, 212, 223, 232, 211), null];
   }
-  if (theorem <= 3925) {
-    return BASE.pushAll(191, 212, 223, 232, 192, 201, INFINITY, 211, 193, 214, 213);
+  if (theorem >= 2142) {
+    return [BASE.pushAll(193, 214, 228, 234), null];
   }
-  if (theorem <= 4945) {
-    return BASE.pushAll(191, 211, 222, 212, 224, 232, 192, 201, 72, 82, 92, 102, 193, 214, 213, 228);
+  if (theorem >= 1292) {
+    return [BASE.pushAll(191, 212, 193, 214, 211, 213), null];
   }
-  return BASE.pushAll(191, 211, 222, 212, 224, 232, 192, 201, INFINITY, 193, 214, 228, 234, 213, 226);
+  return [
+    BASE.pushAll(191, 212, 211),
+    "Do note: EC10 is done between this list and the next."
+  ];
 }
 
 function generateTree(theorem, path) {
   let tree, desc = null;
-  if (theorem < 54) {
+  if (theorem <= 53) {
     tree = earlyEternity(theorem);
-  } else if (theorem < 121) {
+  } else if (theorem <= 122) {
     tree = secondSplit(theorem, path);
-  } else if (theorem < 318) {
+  } else if (theorem <= 317) {
     tree = [PRE_SPLIT, TIME, 111, ACTIVE, POST_SPLIT, EXTRA];
     desc = "At 900 Total TT, this flips over into EC10 territory.";
-  } else if (theorem < 901) {
-    tree = [PRE_SPLIT, TIME, 111, ACTIVE, POST_SPLIT, EXTRA, 191, 212, 211];
-    desc = "Do note: EC10 is done between this list and the previous.";
   } else {
-    tree = lightDark(theorem);
-    desc = "If you cannot get the last TT to unlock dilation, use ++dilationgrind.";
+    [tree, desc] = lightDark(theorem);
   }
   return `${desc === null ? "" : `${desc} `}\`${tree.join(",")}|0\``;
 }
@@ -224,5 +226,3 @@ module.exports = {
     studytreeCheck
   }
 };
-
-

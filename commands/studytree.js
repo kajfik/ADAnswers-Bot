@@ -13,7 +13,7 @@ module.exports = {
   execute(message, args, id) {
     if (functions.special.studytreeCheck(id, message)) {
       try {
-        if (args[0] === "") {
+        if (args[0] === undefined) {
           throw `Error: Argument missing for command \`++${this.name}\``;
         }
         const theorem = Math.abs(Math.floor(args[0]));
