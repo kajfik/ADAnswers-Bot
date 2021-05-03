@@ -1,5 +1,6 @@
 "use strict";
 
+const { isFunctionExpression } = require("typescript");
 /* eslint-disable max-len */
 
 const config = require("./config.json"); 
@@ -63,7 +64,7 @@ function setCrunchAutoCheck(id, message) {
 }
 
 function studytreeCheck(id, message) {
-  return ecsCheck(id, message) || earlyEternityCheck(id, message);
+  return ecsCheck(id, message) || earlyEternityCheck(id, message) || endgameCheck(id, message);
 }
 
 // This is any because im not exactly sure how to make it take an array of arrays
@@ -186,11 +187,68 @@ function constructEmbedObject(number, fieldsArray) {
     color: `#${number === 69 ? `696969` : `${number - 1}${number - 1}${number - 1}${number - 1}${number - 1}${number - 1}`}`,
     title: `Help (p${number}/${fieldsArray.length - 1})`,
     description: getHelpDescription(sumAllCommands(fieldsArray)),
-    fields: fieldsArray[number - 1],
+    fields: number === 69 ? fieldsArray[fieldsArray.length - 1] : fieldsArray[number - 1],
     timestamp: new Date(),
     footer: {
       text: getFooter(config.version)
     }
+  };
+}
+
+function help(message, fieldsArray, stuff) {
+  if (stuff.command === "help" && botCommandsCheck(stuff.id, message)) {
+    const a = toNumber(stuff.args[0]);
+    if (Number.isNaN(a)) {
+      message.channel.send({ embed: constructEmbedObject(1, fieldsArray) });
+      return;
+    }
+    switch (a) {
+    case 1:
+      message.channel.send({ embed: constructEmbedObject(1, fieldsArray) });
+      break;
+    case 2:
+      message.channel.send({ embed: constructEmbedObject(2, fieldsArray) });
+      break;
+    case 3:
+      message.channel.send({ embed: constructEmbedObject(3, fieldsArray) });
+      break;
+    case 4:
+      message.channel.send({ embed: constructEmbedObject(4, fieldsArray) });
+      break;
+    case 5:
+      message.channel.send({ embed: constructEmbedObject(5, fieldsArray) });
+      break;
+    case 6:
+      message.channel.send({ embed: constructEmbedObject(6, fieldsArray) });
+      break;
+    case 69:
+      message.channel.send({ embed: constructEmbedObject(69, fieldsArray) });
+      break;
+    case undefined:
+      message.channel.send({ embed: constructEmbedObject(1, fieldsArray) });
+      break;
+    case null:
+      message.channel.send({ embed: constructEmbedObject(1, fieldsArray) });
+      break;
+    default:
+      message.channel.send("Unknown help page.");
+    }
+  } else if (stuff.command === "help" && !botCommandsCheck(stuff.id, message)) {
+    message.channel.send("Please use <#351479640755404820> for `++help`.");
+  }
+}
+
+function convertMillisecondsToDigitalClock(ms) {
+  const days = Math.floor(ms / (3600000 * 24)),
+    hours = Math.floor(ms % (3600000 * 24) / 3600000),
+    minutes = Math.floor(((ms % (3600000 * 24) % 3600000) / 60000)),
+    seconds = Math.floor((((ms % (360000 * 24) % 3600000) % 60000) / 1000));
+  return {
+    days,
+    hours,
+    minutes,
+    seconds,
+    clock: `${days <= 9 ? `0${days}` : `${days}`}:${hours <= 9 ? `0${hours}` : `${hours}`}:${minutes <= 9 ? `0${minutes}` : `${minutes}`}:${seconds <= 9 ? `0${seconds}` : `${seconds}`}`
   };
 }
 
@@ -202,11 +260,13 @@ module.exports = {
   endgameCheck,
   botCommandsCheck,
   constructEmbedObject,
+  help,
   misc: {
     sumAllCommands,
     getHelpDescription,
     getFooter,
-    toNumber
+    toNumber,
+    convertMillisecondsToDigitalClock
   },
   studytree: {
     toPath,
@@ -222,7 +282,7 @@ module.exports = {
     eternityGrindingCheck,
     setCrunchAutoCheck,
     studytreeCheck
-  }
+  },
 };
 
 

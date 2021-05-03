@@ -66,46 +66,7 @@ client.on("message", message => {
   const command = args.shift().toLowerCase();
   const id = message.channel.id;
 
-  if (command === "help" && functions.botCommandsCheck(id, message)) {
-    const a = functions.misc.toNumber(args[0]);
-    if (Number.isNaN(a)) {
-      message.channel.send({ embed: functions.constructEmbedObject(1, fieldsArray) });
-      return;
-    }
-    switch (a) {
-    case 1:
-      message.channel.send({ embed: functions.constructEmbedObject(1, fieldsArray) });
-      break;
-    case 2:
-      message.channel.send({ embed: functions.constructEmbedObject(2, fieldsArray) });
-      break;
-    case 3:
-      message.channel.send({ embed: functions.constructEmbedObject(3, fieldsArray) });
-      break;
-    case 4:
-      message.channel.send({ embed: functions.constructEmbedObject(4, fieldsArray) });
-      break;
-    case 5:
-      message.channel.send({ embed: functions.constructEmbedObject(5, fieldsArray) });
-      break;
-    case 6:
-      message.channel.send({ embed: functions.constructEmbedObject(6, fieldsArray) });
-      break;
-    case 69:
-      message.channel.send({ embed: functions.constructEmbedObject(69, fieldsArray) });
-      break;
-    case undefined:
-      message.channel.send({ embed: functions.constructEmbedObject(1, fieldsArray) });
-      break;
-    case null:
-      message.channel.send({ embed: functions.constructEmbedObject(1, fieldsArray) });
-      break;
-    default:
-      message.channel.send("Unknown help page.");
-    }
-  } else if (command === "help" && !functions.botCommandsCheck(id, message)) {
-    message.channel.send("Please use <#351479640755404820> for `++help`.");
-  }
+  functions.help(message, fieldsArray, { command, args, id });
 
   if (!client.commands.has(command) && command !== "help") {
     message.channel.send(`Command \`${command}\` is not a command!`);
