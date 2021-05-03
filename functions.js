@@ -56,7 +56,7 @@ function earlyInfinityCheck(id, message) {
 }
 
 function eternityGrindingCheck(id, message) {
-  return earlyEternityCheck(id, message) || config.ids.ecs.includes(id);
+  return earlyEternityCheck(id, message) || config.ids.ecs.includes(id) || config.ids.endgame.includes(id);
 }
 
 function setCrunchAutoCheck(id, message) {
@@ -222,6 +222,9 @@ function help(message, fieldsArray, stuff) {
       break;
     case 6:
       message.channel.send({ embed: constructEmbedObject(6, fieldsArray) });
+      break;
+    case 7:
+      message.channel.send({ embed: constructEmbedObject(7, fieldsArray) });
       break;
     case 69:
       message.channel.send({ embed: constructEmbedObject(69, fieldsArray) });

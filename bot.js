@@ -11,7 +11,6 @@ const functions = require("./functions");
 
 const client = new Discord.Client();
 const commandFiles = fs.readdirSync("./commands").filter(file => file.endsWith(".js"));
-const commandFiles1 = fs.readdirSync("./commands").filter(file => file.endsWith(".ts"));
 client.commands = new Discord.Collection();
 
 const fieldsVar = [];
@@ -20,10 +19,11 @@ const fieldsVar3 = [];
 const fieldsVar4 = [];
 const fieldsVar5 = [];
 const fieldsVar6 = [];
+const fieldsVar7 = [];
 const fieldsVar69 = [];
 const allFields = [];
 
-const fieldsArray = [fieldsVar, fieldsVar2, fieldsVar3, fieldsVar4, fieldsVar5, fieldsVar6, fieldsVar69];
+const fieldsArray = [fieldsVar, fieldsVar2, fieldsVar3, fieldsVar4, fieldsVar5, fieldsVar6, fieldsVar7, fieldsVar69];
 
 client.once("ready", () => {
   console.log(`Good morning. The current date and time is ${Date()}.`);
@@ -37,11 +37,6 @@ for (const file of commandFiles) {
   client.commands.set(command.name, command);
 }
 
-for (const file of commandFiles1) {
-  const command = require(`./commands/${file}`);
-  client.commands.set(command.name, command);
-}
-
 client.commands.forEach(element => {
   if (element.number === 1) fieldsVar.push({ name: element.name, value: element.description });
   else if (element.number === 2) fieldsVar2.push({ name: element.name, value: element.description });
@@ -49,6 +44,7 @@ client.commands.forEach(element => {
   else if (element.number === 4) fieldsVar4.push({ name: element.name, value: element.description });
   else if (element.number === 5) fieldsVar5.push({ name: element.name, value: element.description });
   else if (element.number === 6) fieldsVar6.push({ name: element.name, value: element.description });
+  else if (element.number === 7) fieldsVar7.push({ name: element.name, value: element.description });
   else if (element.number === 69) fieldsVar69.push({ name: element.name, value: element.description });
   else console.log(element);
 });
@@ -60,29 +56,33 @@ for (const field of fieldsArray) {
 // console.log(allFields);
 
 client.on("message", message => {
-  if (!message.content.startsWith(config.prefix)) return;
-  // eslint-disable-next-line require-unicode-regexp
-  const args = message.content.slice(config.prefix.length).trim().split(/ +/);
-  const command = args.shift().toLowerCase();
-  const id = message.channel.id;
-
-  functions.help(message, fieldsArray, { command, args, id });
-
-  if (!client.commands.has(command) && command !== "help") {
-    message.channel.send(`Command \`${command}\` is not a command!`);
-    return;
-  } 
-  if (!client.commands.has(command) && command === "help") {
-    return;
-  }
-
   try {
-    client.commands.get(command).execute(message, args, id);
+    if (!message.content.startsWith(config.prefix)) return;
+    // eslint-disable-next-line require-unicode-regexp
+    const args = message.content.slice(config.prefix.length).trim().split(/ +/);
+    const command = args.shift().toLowerCase();
+    const id = message.channel.id;
+
+    functions.help(message, fieldsArray, { command, args, id });
+
+    if (!client.commands.has(command) && command !== "help") {
+      message.channel.send(`Command \`${command}\` is not a command!`);
+      return;
+    } 
+    if (!client.commands.has(command) && command === "help") {
+      return;
+    }
+
+    try {
+      client.commands.get(command).execute(message, args, id);
+    } catch (error) {
+      console.error(error);
+      console.log(`${Date()}`);
+      console.log(`${message.url}`);
+      message.reply(`Command ${command} is not a command.`);
+    }
   } catch (error) {
-    console.error(error);
-    console.log(`${Date()}`);
-    console.log(`${message.url}`);
-    message.reply(`Command ${command} is not a command.`);
+    console.log(`something went sicko mode ${error}`);
   }
 });
 
