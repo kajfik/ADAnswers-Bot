@@ -6,10 +6,9 @@ const functions = require("../functions");
 module.exports = {
   number: 1,
   name: "challenge",
-  description: "Args: `c9`, `ic4`, `ic5`, `ecs`. Returns a guide for each argument.",
+  description: "Args: `c2`, `c3`, `c4, `c5`, `c6`, `c7`, `c8,`, `c9`, `c10`, `c11`, `c12`, `ic1`, `ic2`, `ic3`, `ic4`, `ic5`, `ic6`, `ic7`, `ic8`, `ecs`. Returns a guide for each argument.",
   execute(message, args, id) {
     switch (args[0]) {
-        
     case "c2":
       message.channel.send(`It is recommended to have at least the first 12 infinity upgrades and 100 spare IP.
 If you want to get those 100 IP, you probably want to get upgrade 13 and 14 as well to speed things up. (Note: Those upgrades won't work inside challenges.)`);
@@ -38,13 +37,11 @@ If you want to get those 100 IP, you probably want to get upgrade 13 and 14 as w
       message.channel.send(`No strat or tips for this challenge. Just start it, get five dimboosts (four shifts and one boost on web) and hit sacrifice at ~10x.
 Make sure to do the antitable achievement in these runs, because this achievement is pretty easy for now. If you need a guide for it, feel free to call the bot with "++antitables prebreak".`);
       break;
-        
     case "c9":
       message.channel.send(`I recommend having all Infinity upgrades (except the last 4 which don't work in challenges) and at least 100 unspent IP before attempting C9. Some players prefer attempting this challenge at higher IP values (10k+) where the challenge becomes trivial.\n
 You can use this written guide: <https://pastebin.com/MBBTimjD> or this video guide: <https://youtu.be/6o-QKHLcimU> or you can use this strat: 
 > Autobuyers off and manually buy the highest dimension available. Keep 6th dim, 8th dim, dimboost, and galaxy autobuyers on. Keep tickspeed cost under the cost of dimensions. Remember to always buy 8th dimension if it's available.`);
       break;
-      
     case "c10":
       message.channel.send(`It is recommended to have at least the first 12 infinity upgrades and 100 spare IP.
 If you want to get those 100 IP, you probably want to get upgrade 13 and 14 as well to speed things up. (Note: Those upgrades won't work inside challenges.)`);
