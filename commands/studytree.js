@@ -9,11 +9,11 @@ module.exports = {
   number: 4,
   name: "studytree",
   description: `Generates a Time Study tree based on your total Time Theorems.
-  Args: your total Time Theorems. Beginning at 54 TT (and until 120 TT), the command will take a second argument: \`active\`, \`passive\`, or \`idle\`. The argument is optional, and the default value is \`active\`.`,
+  Args: your total Time Theorems. Beginning at 54 TT, the command will take a second argument: \`active\`, \`passive\`, or \`idle\`. The argument is optional, and the default value is \`active\`.`,
   execute(message, args, id) {
     if (functions.special.studytreeCheck(id, message)) {
       try {
-        if (args[0] === "") {
+        if (args[0] === undefined) {
           throw `Error: Argument missing for command \`++${this.name}\``;
         }
         const theorem = Math.abs(Math.floor(args[0]));
