@@ -7,6 +7,7 @@ module.exports = {
   number: 1,
   name: "challenge",
   description: "Args: all challenges, including `ecs`. Returns a guide for each argument.",
+  // eslint-disable-next-line complexity
   execute(message, args, id) {
     switch (args[0]) {
     case "c2":
