@@ -15,6 +15,8 @@ module.exports = {
     case "c5":
     case "c6":
     case "c7":
+    case "c10":
+    case "c12":
       message.channel.send(`It is recommended to have at least the first 12 infinity upgrades and 100 spare IP.
 If you want to get those 100 IP, you probably want to get upgrade 13 and 14 as well to speed things up. (Note: Those upgrades won't work inside challenges.)`);
       break;
@@ -27,16 +29,8 @@ Make sure to do the antitable achievement in these runs, because this achievemen
 You can use this written guide: <https://pastebin.com/MBBTimjD> or this video guide: <https://youtu.be/6o-QKHLcimU> or you can use this strat: 
 > Autobuyers off and manually buy the highest dimension available. Keep 6th dim, 8th dim, dimboost, and galaxy autobuyers on. Keep tickspeed cost under the cost of dimensions. Remember to always buy 8th dimension if it's available.`);
       break;
-    case "c10":
-      message.channel.send(`It is recommended to have at least the first 12 infinity upgrades and 100 spare IP.
-If you want to get those 100 IP, you probably want to get upgrade 13 and 14 as well to speed things up. (Note: Those upgrades won't work inside challenges.)`);
-      break:
     case "c11":
       message.channel.send(`Once you have the "Galaxies are twice as effective" upgrade this challenge becomes a normal infinity run. Just do it once you have that upgrade.`);
-      break;
-    case "c12":
-      message.channel.send(`It is recommended to have at least the first 12 infinity upgrades and 100 spare IP.
-If you want to get those 100 IP, you probably want to get upgrade 13 and 14 as well to speed things up. (Note: Those upgrades won't work inside challenges.)`);
       break;
         
     case "ic1":
@@ -81,7 +75,7 @@ No special strat for this challenge.`);
       message.channel.send("Fuck you pichu");
       break;
     default:
-      message.channel.send("Unknown challenge argument. If you're trying to put in a different challenge than `c9`, `ic4`, `ic5`, `ecs`, or `c1`, and this message shows up, it's because the challenge should be straightforward enough that you will not need a guide.");
+      message.channel.send("Unknown challenge argument.");
     }
   }
 };
