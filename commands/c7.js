@@ -1,0 +1,13 @@
+/* eslint-disable max-len */
+"use strict";
+
+const { execute } = require("./challenge");
+
+module.exports = {
+  number: 5,
+  name: "c7",
+  description: "shorthand for `++challenge c7`",
+  execute(message) {
+    execute(message, ["c7"], message.channel.id);
+  }
+};
