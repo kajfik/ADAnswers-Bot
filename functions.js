@@ -197,46 +197,23 @@ function constructEmbedObject(number, fieldsArray) {
   };
 }
 
+function isUndefined(val) {
+  return val === undefined;
+}
+
 function help(message, fieldsArray, stuff) {
   if (stuff.command === "help" && botCommandsCheck(stuff.id, message)) {
     const a = toNumber(stuff.args[0]);
-    if (Number.isNaN(a)) {
+    if (Number.isNaN(a) || isUndefined(a) || a === null) {
       message.channel.send({ embed: constructEmbedObject(1, fieldsArray) });
       return;
     }
-    switch (a) {
-    case 1:
-      message.channel.send({ embed: constructEmbedObject(1, fieldsArray) });
-      break;
-    case 2:
-      message.channel.send({ embed: constructEmbedObject(2, fieldsArray) });
-      break;
-    case 3:
-      message.channel.send({ embed: constructEmbedObject(3, fieldsArray) });
-      break;
-    case 4:
-      message.channel.send({ embed: constructEmbedObject(4, fieldsArray) });
-      break;
-    case 5:
-      message.channel.send({ embed: constructEmbedObject(5, fieldsArray) });
-      break;
-    case 6:
-      message.channel.send({ embed: constructEmbedObject(6, fieldsArray) });
-      break;
-    case 7:
-      message.channel.send({ embed: constructEmbedObject(7, fieldsArray) });
-      break;
-    case 69:
-      message.channel.send({ embed: constructEmbedObject(69, fieldsArray) });
-      break;
-    case undefined:
-      message.channel.send({ embed: constructEmbedObject(1, fieldsArray) });
-      break;
-    case null:
-      message.channel.send({ embed: constructEmbedObject(1, fieldsArray) });
-      break;
-    default:
-      message.channel.send("Unknown help page.");
+    try {
+      message.channel.send({ embed: constructEmbedObject(a, fieldsArray) });
+    } catch (err) {
+      message.channel.send("Unknown input");
+      // eslint-disable-next-line no-console
+      console.log(err);
     }
   } else if (stuff.command === "help" && !botCommandsCheck(stuff.id, message)) {
     message.channel.send("Please use <#351479640755404820> for `++help`.");
@@ -271,7 +248,8 @@ module.exports = {
     getHelpDescription,
     getFooter,
     toNumber,
-    convertMillisecondsToDigitalClock
+    convertMillisecondsToDigitalClock,
+    isUndefined
   },
   studytree: {
     toPath,
