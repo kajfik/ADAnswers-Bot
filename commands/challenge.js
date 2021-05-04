@@ -10,7 +10,6 @@ module.exports = {
   // eslint-disable-next-line complexity
   execute(message, args, id) {
     switch (args[0]) {
-    case "c2":
     case "c3":
     case "c4":
     case "c5":
@@ -20,6 +19,11 @@ module.exports = {
     case "c12":
       message.channel.send(`It is recommended to have at least the first 12 infinity upgrades and 100 spare IP.
 If you want to get those 100 IP, you probably want to get upgrade 13 and 14 as well to speed things up. (Note: Those upgrades won't work inside challenges.)`);
+      break;
+    case "c2":
+      message.channel.send(`It is recommended to have at least the first 12 infinity upgrades and 100 spare IP.
+If you want to get those 100 IP, you probably want to get upgrade 13 and 14 as well to speed things up. (Note: Those upgrades won't work inside challenges.)
+After all, holding M is detrimental. Press it once you can get a few dimensions.`);
       break;
     case "c8":
       message.channel.send(`No strat or tips for this challenge. Just start it, get five dimboosts (four shifts and one boost on web) and hit sacrifice at ~10x.
