@@ -4,7 +4,7 @@
 const { execute } = require("./challenge");
 
 module.exports = {
-  number: 5,
+  number: 7,
   name: "c7",
   description: "shorthand for `++challenge c7`",
   execute(message) {
