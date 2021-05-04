@@ -185,15 +185,22 @@ function generateTree(theorem, path) {
 }
 
 function constructEmbedObject(number, fieldsArray) {
+  if (number < fieldsArray.length || number === 69) {
+    return {
+      color: `#${number === 69 ? `696969` : `${number - 1}${number - 1}${number - 1}${number - 1}${number - 1}${number - 1}`}`,
+      title: `Help (p${number}/${fieldsArray.length - 1})`,
+      description: getHelpDescription(sumAllCommands(fieldsArray)),
+      fields: number === 69 ? fieldsArray[fieldsArray.length - 1] : fieldsArray[number - 1],
+      timestamp: new Date(),
+      footer: {
+        text: getFooter(config.version)
+      }
+    }; 
+  } 
   return {
-    color: `#${number === 69 ? `696969` : `${number - 1}${number - 1}${number - 1}${number - 1}${number - 1}${number - 1}`}`,
-    title: `Help (p${number}/${fieldsArray.length - 1})`,
-    description: getHelpDescription(sumAllCommands(fieldsArray)),
-    fields: number === 69 ? fieldsArray[fieldsArray.length - 1] : fieldsArray[number - 1],
-    timestamp: new Date(),
-    footer: {
-      text: getFooter(config.version)
-    }
+    color: `#11aa22`,
+    title: `Something is terribly wrong`,
+    description: `Something has gone terribly wrong. This help page does not exist.`
   };
 }
 
