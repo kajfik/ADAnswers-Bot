@@ -6,7 +6,7 @@ const functions = require("../functions");
 module.exports = {
   number: 1,
   name: "challenge",
-  description: "Args: all challenges, including `ecs`. Returns a guide for each argument.",
+  description: "Args: all challenges, including `ecs`. Returns a guide for each argument. All of these commands have shorthands as well, f.e `++challenge c2` will return the same result as `++c2`",
   // eslint-disable-next-line complexity
   execute(message, args, id) {
     switch (args[0]) {

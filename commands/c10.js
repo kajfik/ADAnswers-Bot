@@ -7,6 +7,7 @@ module.exports = {
   number: 7,
   name: "c10",
   description: "shorthand for `++challenge c10`",
+  type: "shorthand",
   execute(message) {
     execute(message, ["c10"], message.channel.id);
   }

@@ -4,7 +4,7 @@ const functions = require("../functions");
 
 module.exports = {
   name: "bugo",
-  number: 8,
+  number: 7,
   description: "sends that screenshot of the break infinity upgrade order spreadsheet (Mobile)",
   execute(message) {
     // eslint-disable-next-line max-len

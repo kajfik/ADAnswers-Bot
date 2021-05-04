@@ -20,11 +20,11 @@ const fieldsVar4 = [];
 const fieldsVar5 = [];
 const fieldsVar6 = [];
 const fieldsVar7 = [];
-const fieldsVar8 = [];
+// const fieldsVar8 = [];
 const fieldsVar69 = [];
 const allFields = [];
 
-const fieldsArray = [fieldsVar, fieldsVar2, fieldsVar3, fieldsVar4, fieldsVar5, fieldsVar6, fieldsVar7, fieldsVar8, fieldsVar69];
+const fieldsArray = [fieldsVar, fieldsVar2, fieldsVar3, fieldsVar4, fieldsVar5, fieldsVar6, fieldsVar7, fieldsVar69];
 
 client.once("ready", () => {
   console.log(`Good morning. The current date and time is ${Date()}.`);
@@ -39,16 +39,18 @@ for (const file of commandFiles) {
 }
 
 client.commands.forEach(element => {
-  if (element.number === 1) fieldsVar.push({ name: element.name, value: element.description });
-  else if (element.number === 2) fieldsVar2.push({ name: element.name, value: element.description });
-  else if (element.number === 3) fieldsVar3.push({ name: element.name, value: element.description });
-  else if (element.number === 4) fieldsVar4.push({ name: element.name, value: element.description });
-  else if (element.number === 5) fieldsVar5.push({ name: element.name, value: element.description });
-  else if (element.number === 6) fieldsVar6.push({ name: element.name, value: element.description });
-  else if (element.number === 7) fieldsVar7.push({ name: element.name, value: element.description });
-  else if (element.number === 8) fieldsVar8.push({ name: element.name, value: element.description });
-  else if (element.number === 69) fieldsVar69.push({ name: element.name, value: element.description });
-  else console.log(element);
+  if (element.type !== "shorthand") {
+    if (element.number === 1) fieldsVar.push({ name: element.name, value: element.description });
+    else if (element.number === 2) fieldsVar2.push({ name: element.name, value: element.description });
+    else if (element.number === 3) fieldsVar3.push({ name: element.name, value: element.description });
+    else if (element.number === 4) fieldsVar4.push({ name: element.name, value: element.description });
+    else if (element.number === 5) fieldsVar5.push({ name: element.name, value: element.description });
+    else if (element.number === 6) fieldsVar6.push({ name: element.name, value: element.description });
+    else if (element.number === 7) fieldsVar7.push({ name: element.name, value: element.description });
+    // else if (element.number === 8) fieldsVar8.push({ name: element.name, value: element.description });
+    else if (element.number === 69) fieldsVar69.push({ name: element.name, value: element.description });
+    else console.log(element);
+  }
 });
 
 for (const field of fieldsArray) {

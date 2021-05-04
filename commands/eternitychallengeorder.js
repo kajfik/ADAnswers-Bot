@@ -8,7 +8,7 @@ const functions = require("../functions");
 module.exports = {
   number: 4,
   name: "eternitychallengeorder",
-  description: "Args: highest eternity challenge you've down in the order (optional).Returns the EC order",
+  description: "Has a shorthand: `++eco`. Args: highest eternity challenge you've down in the order (optional).Returns the EC order",
   execute(message, args, id) {
     if (functions.ecsCheck(id, message)) {
       if (args.length === 0) message.channel.send(order);
