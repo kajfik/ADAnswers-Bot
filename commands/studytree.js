@@ -12,6 +12,10 @@ module.exports = {
   Args: your total Time Theorems. Beginning at 54 TT, the command will take a second argument: \`active\`, \`passive\`, or \`idle\`. The argument is optional, and the default value is \`active\`.`,
   execute(message, args, id) {
     if (functions.special.studytreeCheck(id, message)) {
+      if (args[0].includes("x")) {
+        message.channel.send("Hey, what are you trying to do? No X allowed!");
+        return;
+      }
       try {
         if (args[0] === undefined) {
           throw `Error: Argument missing for command \`++${this.name}\``;
