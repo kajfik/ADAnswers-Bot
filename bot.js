@@ -1,3 +1,4 @@
+/* eslint-disable capitalized-comments */
 /* eslint-disable complexity */
 /* eslint-disable max-len */
 /* eslint-disable no-console */
@@ -87,6 +88,7 @@ client.on("message", message => {
     }
   } catch (error) {
     console.log(`something went sicko mode ${error}`);
+    message.channel.send(`something went sicko mode ${error}`);
   }
 });
 

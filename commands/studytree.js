@@ -12,17 +12,21 @@ module.exports = {
   Args: your total Time Theorems. Beginning at 54 TT, the command will take a second argument: \`active\`, \`passive\`, or \`idle\`. The argument is optional, and the default value is \`active\`.`,
   execute(message, args, id) {
     if (functions.special.studytreeCheck(id, message)) {
+      if (args[0] === (null || undefined) || args === []) {
+        message.channel.send(`Error: Argument missing for command \`++studytree\``);
+        return;
+      }
       if (args[0].includes("x")) {
         message.channel.send("Hey, what are you trying to do? No X allowed!");
         return;
       }
       try {
         if (args[0] === undefined) {
-          throw `Error: Argument missing for command \`++${this.name}\``;
+          message.channel.send(`Error: Argument missing for command \`++studytree\``);
         }
         const theorem = Math.abs(Math.floor(args[0]));
         if (isNaN(theorem)) {
-          throw `Unknown argument: Expected Number for command \`++${this.name}\` but found: --> ${args[0]} <--`;
+          message.channel.send(`Unknown argument: Expected Number for command \`++studytree\` but found: --> ${args[0]} <--`);
         }
         const path = functions.studytree.toPath(args[1]);
         message.channel.send(functions.studytree.generateTree(theorem, path));
