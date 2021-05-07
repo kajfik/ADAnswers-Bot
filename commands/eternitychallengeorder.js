@@ -11,12 +11,17 @@ module.exports = {
   description: "Has a shorthand: `++eco`. Args: highest eternity challenge you've down in the order (optional).Returns the EC order",
   execute(message, args, id) {
     if (functions.ecsCheck(id, message)) {
-      if (args.length === 0) message.channel.send(order);
+      if (args.length === 0) message.author.send(order);
       else if (!order.includes(args[0])) message.channel.send(`Unkown argument ${args[0]} for command \`++eternitychallengeorder\`.`);
       // eslint-disable-next-line no-negated-condition
       else if (args !== []) {
-        const boldedOrder = order.replace(`${args[0]}`, `__***${args[0]}***__`);
-        message.channel.send(boldedOrder);
+        if (functions.botCommandsCheck(id, message)) {
+          const boldedOrder = order.replace(`${args[0]}`, `__***${args[0]}***__`);
+          message.channel.send(boldedOrder);
+        } else {
+          const boldedOrder = order.replace(`${args[0]}`, `__***${args[0]}***__`);
+          message.author.send(boldedOrder);
+        }
       } else message.channel.send(`This message should be impossible. If you get it, send a screenshot to earth with the message that caused it.`);
     } else {
       message.channel.send("This command only works in bot commands, common channels, or EC channels!");

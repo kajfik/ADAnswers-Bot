@@ -29,9 +29,14 @@ module.exports = {
           message.channel.send(`Unknown argument: Expected Number for command \`++studytree\` but found: --> ${args[0]} <--`);
         }
         const path = functions.studytree.toPath(args[1]);
-        message.author.send(functions.studytree.generateTree(theorem, path)).catch(() => {
-          message.channel.send("Hey! I can't DM you!");
-        });
+        if (functions.botCommandsCheck(id, message)) {
+          message.channel.send(functions.studytree.generateTree(theorem, path));
+        } else {
+          message.author.send(functions.studytree.generateTree(theorem, path)).catch(() => {
+            message.channel.send("Hey! I can't DM you!");
+          }
+          ); 
+        }
       } catch (e) {
         message.channel.send(e);
       }

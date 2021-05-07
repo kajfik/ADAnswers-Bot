@@ -77,7 +77,7 @@ function sumAllCommands(fields) {
 }
 
 function getHelpDescription(sum) {
-  return `A comprehensive list of all commands (and their arguments, when applicable).\nThere are currently ${sum} commands.\n In case you didn't know, you can use the bot in DMs!`;
+  return `A comprehensive list of all commands (and their arguments, when applicable).\nThere are currently ${sum} commands.\n It is encouraged (by me, at least), to use the bot in DMs! This helps reduce spam from the bot and will still function as normal!`;
 }
 
 function getFooter(ver) {
@@ -136,11 +136,14 @@ function secondSplit(theorem, path) {
 
 function lightDark(theorem) {
   const BASE = [PRE_SPLIT, TIME, 111, ACTIVE, POST_SPLIT, EXTRA];
-  if (theorem >= 4945) {
+  if (theorem >= 12500) {
     return [
       BASE.pushAll(191, 211, 222, 212, 224, 232, 192, 201, INFINITY, 193, 214, 228, 234, 213, 226),
       "If you cannot get the last TT to unlock dilation, use ++dilationgrind."
     ];
+  }
+  if (theorem >= 4945) {
+    return [BASE.pushAll(191, 211, 222, 212, 224, 232, 192, 201, INFINITY, 193, 214, 228, 234, 213, 226), null];
   }
   if (theorem >= 3925) {
     return [BASE.pushAll(191, 212, 223, 232, 192, 201, INFINITY, 211, 193, 214, 213), null];

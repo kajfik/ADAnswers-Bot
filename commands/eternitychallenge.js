@@ -581,7 +581,7 @@ module.exports = {
       const ec = revampedECs[(c - 1) * 5 + (d - 1)];
     
       if (c <= 12 && d <= 5) {
-        if (message.channel.id === "351479640755404820") {
+        if (functions.botCommandsCheck(id, message)) {
           message.channel.send(`The tree for EC${c}x${d} is: ${ec.tree}
     TT for Completion: \`${ec.tt}\`
     IP Requirement for Completion: \`${ec.ip}\` ${ec.note === null ? `` : `\n    Note: \`${ec.note}\``}
