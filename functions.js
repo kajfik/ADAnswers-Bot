@@ -77,7 +77,7 @@ function sumAllCommands(fields) {
 }
 
 function getHelpDescription(sum) {
-  return `A comprehensive list of all commands (and their arguments, when applicable).\nThere are currently ${sum} commands.`;
+  return `A comprehensive list of all commands (and their arguments, when applicable).\nThere are currently ${sum} commands.\n In case you didn't know, you can use the bot in DMs!`;
 }
 
 function getFooter(ver) {

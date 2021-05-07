@@ -543,7 +543,9 @@ module.exports = {
       let c = 0;
       let d = 0;
       if (args[0] === undefined) {
-        message.channel.send("Hey, you can't do that! That input is undefined. Please try with a different input.");
+        message.author.send("Hey, you can't do that! That input is undefined. Please try with a different input.").catch(() => {
+          message.channel.send("Hey! I can't DM you!");
+        });
         return;
       }
       if (args[0].includes("x")) {
@@ -558,32 +560,46 @@ module.exports = {
       if (Number.isNaN(c) || Number.isNaN(d)) message.channel.send("Something went wrong while parsing your input.");
 
       if (c > 12) {
-        message.channel.send(`EC${c} is not an EC, silly!`);
+        message.author.send(`EC${c} is not an EC, silly!`).catch(() => {
+          message.channel.send("Hey! I can't DM you!");
+        });
         return;
       }
       if (d > 5) {
-        message.channel.send(`You cannot complete an EC ${d} times, silly! If you are looking for a tree to use if you want to test something in an EC, use the x5 tree.`);
+        message.author.send(`You cannot complete an EC ${d} times, silly! If you are looking for a tree to use if you want to test something in an EC, use the x5 tree.`).catch(() => {
+          message.channel.send("Hey! I can't DM you!");
+        });
         return;
       }
       if (c === 0 || d === 0) {
-        message.channel.send(`You cannot do EC${c} ${d} times, silly!`);
+        message.author.send(`You cannot do EC${c} ${d} times, silly!`).catch(() => {
+          message.channel.send("Hey! I can't DM you!");
+        });
         return;
       }
     
       const ec = revampedECs[(c - 1) * 5 + (d - 1)];
     
       if (c <= 12 && d <= 5) {
-        message.channel.send(`The tree for EC${c}x${d} is: ${ec.tree}
+        if (message.channel.id === "351479640755404820") {
+          message.channel.send(`The tree for EC${c}x${d} is: ${ec.tree}
     TT for Completion: \`${ec.tt}\`
     IP Requirement for Completion: \`${ec.ip}\` ${ec.note === null ? `` : `\n    Note: \`${ec.note}\``}
-    Other completions: \`${otherCompletions(c, d)}\`
-    Check your DMs for the tree for easy copying!`);
+    Other completions: \`${otherCompletions(c, d)}\``);
+        } else {
+          message.author.send(`The tree for EC${c}x${d} is: ${ec.tree}
+    TT for Completion: \`${ec.tt}\`
+    IP Requirement for Completion: \`${ec.ip}\` ${ec.note === null ? `` : `\n    Note: \`${ec.note}\``}
+    Other completions: \`${otherCompletions(c, d)}\``).catch(() => {
+            message.channel.send("Hey! I can't DM you!");
+          });
+        }
         message.author.send(`${ec.tree}`).catch(() => {
           message.channel.send("Hey! I can't DM you!");
         });
       }
     } else {
-      message.channel.send("This command only works in bot commands, common channels, or EC channels!");
+      message.channel.send("This command only works in bot commands, common channels, or EC channels! You can also use me in DMs!");
     }
   }
 };
