@@ -1,12 +1,18 @@
+/* eslint-disable capitalized-comments */
 /* eslint-disable complexity */
 /* eslint-disable max-len */
 /* eslint-disable no-console */
 
 "use strict";
 
+// DO NOT TOUCH LIKE HALF OF THIS STUFF IT JUST WORKS LMAOOOOOOOOOOOO
+// CONFIG LOOKS LIKE THIS https://i.imgur.com/WuAs6b5.png IF YOU NEED ME TO ADD
+// ANYTHING TO IT THAT YOU MAY USE OUTSIDE OF ONE FILE
+
 const Discord = require("discord.js");
 const fs = require("fs");
 const config = require("./config.json");
+const functions = require("./functions");
 
 const client = new Discord.Client();
 const commandFiles = fs.readdirSync("./commands").filter(file => file.endsWith(".js"));
@@ -18,10 +24,12 @@ const fieldsVar3 = [];
 const fieldsVar4 = [];
 const fieldsVar5 = [];
 const fieldsVar6 = [];
+const fieldsVar7 = [];
+// const fieldsVar8 = [];
 const fieldsVar69 = [];
 const allFields = [];
 
-const fieldsArray = [fieldsVar, fieldsVar2, fieldsVar3, fieldsVar4, fieldsVar5, fieldsVar6, fieldsVar69];
+const fieldsArray = [fieldsVar, fieldsVar2, fieldsVar3, fieldsVar4, fieldsVar5, fieldsVar6, fieldsVar7, fieldsVar69];
 
 client.once("ready", () => {
   console.log(`Good morning. The current date and time is ${Date()}.`);
@@ -36,14 +44,19 @@ for (const file of commandFiles) {
 }
 
 client.commands.forEach(element => {
-  if (element.number === 1) fieldsVar.push({ name: element.name, value: element.description });
-  else if (element.number === 2) fieldsVar2.push({ name: element.name, value: element.description });
-  else if (element.number === 3) fieldsVar3.push({ name: element.name, value: element.description });
-  else if (element.number === 4) fieldsVar4.push({ name: element.name, value: element.description });
-  else if (element.number === 5) fieldsVar5.push({ name: element.name, value: element.description });
-  else if (element.number === 6) fieldsVar6.push({ name: element.name, value: element.description });
-  else if (element.number === 69) fieldsVar69.push({ name: element.name, value: element.description });
-  else console.log(element);
+  // Some commands have type: "shorthand" to make it not appear in the help embeds. This just works lol If you're adding a shorthand, please make sure to put that in.
+  if (element.type !== "shorthand") {
+    if (element.number === 1) fieldsVar.push({ name: element.name, value: element.description });
+    else if (element.number === 2) fieldsVar2.push({ name: element.name, value: element.description });
+    else if (element.number === 3) fieldsVar3.push({ name: element.name, value: element.description });
+    else if (element.number === 4) fieldsVar4.push({ name: element.name, value: element.description });
+    else if (element.number === 5) fieldsVar5.push({ name: element.name, value: element.description });
+    else if (element.number === 6) fieldsVar6.push({ name: element.name, value: element.description });
+    else if (element.number === 7) fieldsVar7.push({ name: element.name, value: element.description });
+    // else if (element.number === 8) fieldsVar8.push({ name: element.name, value: element.description });
+    else if (element.number === 69) fieldsVar69.push({ name: element.name, value: element.description });
+    else console.log(element);
+  }
 });
 
 for (const field of fieldsArray) {
@@ -52,151 +65,35 @@ for (const field of fieldsArray) {
 // Uncomment for commands for /docs
 // console.log(allFields);
 
-function sumAllCommands() {
-  let sum = 0;
-  for (const array of fieldsArray) {
-    sum += array.length;
-  }
-  return sum;
-}
-
-const embedObject = {
-  color: "#000000",
-  title: "Help (p1/6)",
-  description: `A comprehensive list of all commands (and their arguments, when applicable).\nThere are currently ${sumAllCommands()} commands.`,
-  fields: fieldsVar,
-  timestamp: new Date(),
-  footer: {
-    text: `This superfluous bot was created by @earth#1337. Bug him for more commands, or use "++meta suggest".\nUse ++help [number] to go to more pages of commands.\nBot version: ${config.version}`
-  }
-};
-
-const embedObject2 = {
-  color: "#111111",
-  title: "Help (p2/6)",
-  description: `A comprehensive list of all commands (and their arguments, when applicable).\nThere are currently ${sumAllCommands()} commands.`,
-  fields: fieldsVar2,
-  timestamp: new Date(),
-  footer: {
-    text: `This superfluous bot was created by @earth#1337. Bug him for more commands, or use "++meta suggest".\nUse ++help [number] to go to more pages of commands.\nBot version: ${config.version}`
-  }
-};
-
-const embedObject3 = {
-  color: "#222222",
-  title: "Help (p3/6)",
-  description: `A comprehensive list of all commands (and their arguments, when applicable).\nThere are currently ${sumAllCommands()} commands.`,
-  fields: fieldsVar3,
-  timestamp: new Date(),
-  footer: {
-    text: `This superfluous bot was created by @earth#1337. Bug him for more commands, or use "++meta suggest".\nUse ++help [number] to go to more pages of commands.\nBot version: ${config.version}`
-  }
-};
-
-const embedObject4 = {
-  color: "#333333",
-  title: "Help (p4/6)",
-  description: `A comprehensive list of all commands (and their arguments, when applicable).\nThere are currently ${sumAllCommands()} commands.`,
-  fields: fieldsVar4,
-  timestamp: new Date(),
-  footer: {
-    text: `This superfluous bot was created by @earth#1337. Bug him for more commands, or use "++meta suggest".\nUse ++help [number] to go to more pages of commands.\nBot version: ${config.version}`
-  }
-};
-
-const embedObject5 = {
-  color: "#444444",
-  title: "Help (p5/6)",
-  description: `A comprehensive list of all commands (and their arguments, when applicable).\nThere are currently ${sumAllCommands()} commands.`,
-  fields: fieldsVar5,
-  timestamp: new Date(),
-  footer: {
-    text: `This superfluous bot was created by @earth#1337. Bug him for more commands, or use "++meta suggest".\nUse ++help [number] to go to more pages of commands.\nBot version: ${config.version}`
-  }
-};
-
-const embedObject6 = {
-  color: "#555555",
-  title: "Help (p6/6)",
-  description: `A comprehensive list of all commands (and their arguments, when applicable).\nThere are currently ${sumAllCommands()} commands.`,
-  fields: fieldsVar6,
-  timestamp: new Date(),
-  footer: {
-    text: `This superfluous bot was created by @earth#1337. Bug him for more commands, or use "++meta suggest".\nUse ++help [number] to go to more pages of commands.\nBot version: ${config.version}`
-  }
-};
-
-const embedObject69 = {
-  color: "#696969",
-  title: "Help (p69/6)",
-  description: `I can't believe you even tried this. You really thought there were commands here?`,
-  fields: fieldsVar69,
-  timestamp: new Date(),
-  footer: {
-    text: `This superfluous bot was created by @earth#1337. Bug him for more commands, or use "++meta suggest".\nUse ++help [number] to go to more pages of commands.\nBot version: ${config.version}`
-  }
-};
-
-function toNumber(string) {
-  return parseInt(string, 10);
-}
-
 client.on("message", message => {
-  if (!message.content.startsWith(config.prefix)) return;
-  // eslint-disable-next-line require-unicode-regexp
-  const args = message.content.slice(config.prefix.length).trim().split(/ +/);
-  const command = args.shift().toLowerCase();
-  const id = message.channel.id;
+  try {
+    if (!message.content.startsWith(config.prefix)) return;
+    // eslint-disable-next-line require-unicode-regexp
+    const args = message.content.slice(config.prefix.length).trim().split(/ +/);
+    const command = args.shift().toLowerCase();
+    const id = message.channel.id;
 
-  if (command === "help" && config.ids.botCommands.includes(id)) {
-    const a = toNumber(args[0]);
-    if (Number.isNaN(a)) {
-      message.channel.send({ embed: embedObject });
+    functions.help(message, fieldsArray, { command, args, id });
+
+    if (!client.commands.has(command) && command !== "help") {
+      message.channel.send(`Command \`${command}\` is not a command!`);
+      return;
+    } 
+    if (!client.commands.has(command) && command === "help") {
       return;
     }
-    switch (a) {
-    case 1:
-      message.channel.send({ embed: embedObject });
-      break;
-    case 2:
-      message.channel.send({ embed: embedObject2 });
-      break;
-    case 3:
-      message.channel.send({ embed: embedObject3 });
-      break;
-    case 4:
-      message.channel.send({ embed: embedObject4 });
-      break;
-    case 5:
-      message.channel.send({ embed: embedObject5 });
-      break;
-    case 6:
-      message.channel.send({ embed: embedObject6 });
-      break;
-    case 69:
-      message.channel.send({ embed: embedObject69 });
-      break;
-    case undefined:
-      message.channel.send({ embed: embedObject });
-      break;
-    case null:
-      message.channel.send({ embed: embedObject });
-      break;
-    default:
-      message.channel.send("Unknown help page.");
+
+    try {
+      client.commands.get(command).execute(message, args, id);
+    } catch (error) {
+      console.error(error);
+      console.log(`${Date()}`);
+      console.log(`${message.url}`);
+      message.reply(`Command ${command} is not a command.`);
     }
-  } else if (command === "help" && !config.ids.botCommands.includes(id)) {
-    message.channel.send("Please use <#351479640755404820> for `++help`.");
-  }
-
-  if (!client.commands.has(command)) return;
-
-  try {
-    client.commands.get(command).execute(message, args, id);
   } catch (error) {
-    console.error(`${error}`);
-    console.log(`${new Date()}`)
-    message.reply(`Command ${command} is not a command.`);
+    console.log(`something went sicko mode ${error}`);
+    message.channel.send(`something went sicko mode ${error}`);
   }
 });
 

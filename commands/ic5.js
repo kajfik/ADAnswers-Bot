@@ -4,10 +4,11 @@
 const { execute } = require("./challenge");
 
 module.exports = {
-  number: 5,
+  number: 8,
   name: "ic5",
   description: "shorthand for `++challenge ic5`",
+  type: "shorthand",
   execute(message) {
-    execute(message, ["ic5"]);
+    execute(message, ["ic5"], message.channel.id);
   }
 };

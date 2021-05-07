@@ -1,6 +1,7 @@
 "use strict";
 
 const config = require("../config.json");
+const functions = require("../functions");
 
 function generateChannelMessage() {
   const a = config.ids;
@@ -39,7 +40,7 @@ module.exports = {
   name: "channels",
   description: "Sends a list of channels and their ids/part of game progress",
   execute(message) {
-    if (config.ids.botCommands.includes(message.channel.id)) {
+    if (functions.botCommandsCheck(message.channel.id, message)) {
       message.channel.send(generateChannelMessage());
     } else {
       // eslint-disable-next-line max-len

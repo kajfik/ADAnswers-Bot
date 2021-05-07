@@ -134,7 +134,7 @@ const revampedECs = [
     tt: 155,
     ip: "`1e600`",
     note: "`To unlock the challenge, use TD, and then switch to the tree.`",
-    tree: "`11,21,22,31,32,33,41,42,51,61,71,81,91,101,111,122,132,142,151,161,162,171|3`"
+    tree: "`11,21,22,31,32,33,41,42,51,61,71,81,91,101,111,121,131,141,151,161,162,171|3`"
   },
   {
     challenge: 3,
@@ -142,7 +142,7 @@ const revampedECs = [
     tt: 165,
     ip: "`1e600`",
     note: "`To unlock the challenge, use TD, and then switch to the tree.`",
-    tree: "`11,21,22,31,32,33,41,42,51,61,72,82,92,102,111,122,132,142,151,161,162,171|3`"
+    tree: "`11,21,22,31,32,33,41,42,51,61,72,82,92,102,111,121,131,141,151,161,162,171|3`"
   },
   {
     challenge: 3,
@@ -150,7 +150,7 @@ const revampedECs = [
     tt: 182,
     ip: "`1e600`",
     note: "`To unlock the challenge, use TD, and then switch to the tree.`",
-    tree: "`11,21,22,31,32,33,41,42,51,61,72,82,92,102,111,122,132,142,151,161,162,171|3`"
+    tree: "`11,21,22,31,32,33,41,42,51,61,72,82,92,102,111,121,131,141,151,161,162,171|3`"
   },
   {
     challenge: 3,
@@ -158,7 +158,7 @@ const revampedECs = [
     tt: 208,
     ip: "`1e600`",
     note: "`To unlock the challenge, use TD, and then switch to the tree.`",
-    tree: "`11,21,22,31,32,33,41,42,51,61,72,82,92,102,111,122,132,142,151,161,162,171|3`"
+    tree: "`11,21,22,31,32,33,41,42,51,61,72,82,92,102,111,121,131,141,151,161,162,171|3`"
   },
   // EC4
   {
@@ -167,7 +167,7 @@ const revampedECs = [
     tt: 145,
     ip: "`1e2750`",
     note: "`Fail once for achievement`",
-    tree: "`11,21,22,32,33,42,51,61,73,83,93,102,111,123,133,143|4`"
+    tree: "`11,21,22,32,33,42,51,61,73,83,93,103,111,123,133,143|4`"
   },
   {
     challenge: 4,
@@ -175,7 +175,7 @@ const revampedECs = [
     tt: 170,
     ip: "`1e3300`",
     note: null,
-    tree: "`11,22,32,42,51,61,73,83,93,193,111,123,133,143,151,162,171|4`"
+    tree: "`11,22,32,42,51,61,73,83,93,103,111,123,133,143,151,162,171|4`"
   },
   {
     challenge: 4,
@@ -183,7 +183,7 @@ const revampedECs = [
     tt: 176,
     ip: "`1e3850`",
     note: null,
-    tree: "`11,21,22,32,42,51,61,62,73,83,93,193,111,123,133,143,151,162,171|4`"
+    tree: "`11,21,22,32,42,51,61,62,73,83,93,103,111,123,133,143,151,162,171|4`"
   },
   {
     challenge: 4,
@@ -232,7 +232,7 @@ const revampedECs = [
     tt: 220,
     ip: "`1e1950`",
     note: null,
-    tree: "`11,21,22,31,32,33,42,51,61,622,72,82,92,102,111,121,131,141,151|5`"
+    tree: "`11,21,22,31,32,33,42,51,61,62,72,82,92,102,111,121,131,141,151|5`"
   },
   {
     challenge: 5,
@@ -330,7 +330,7 @@ const revampedECs = [
     completion: 1,
     tt: 208,
     ip: "`1e1300`",
-    note: "`Buy the challenge once, then respec your tree and buy everything up until TS123. Start the challenge and wait for replicanti. Then buy the rest of the tree. Spend your upgrades on: 0 RG, 9% chance, remaining on interval - all on ID1.`",
+    note: "`Buy the challenge once, then respec your tree and buy everything up until TS123. Start the challenge and wait for replicanti. Then buy the rest of the tree: 133,143,151,161,162. Spend your upgrades on: 0 RG, 9% chance, remaining on interval - all on ID1.`",
     tree: "`11,22,32,42,51,61,73,83,93,103,111,123,133,143,151,161,162|8`"
   },
   {
@@ -453,7 +453,7 @@ const revampedECs = [
     completion: 1,
     tt: 5600,
     ip: "`1e500`",
-    note: "`Get the Popular Music - achievement before EC11s. (Use active path, get 180 max RGs, disable galaxy autobuyer, crunch, hold R to buy RGs.)`",
+    note: "`Get the Popular Music - achievement before EC11s. (How to get this: Use active path, get 180 max RGs, disable galaxy autobuyer, crunch, hold R to buy RGs.)`",
     tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,121,131,141,151,161,162,171,181,191,192,193,211,212,213,222,225,231,233|11`"
   },
   {
@@ -526,24 +526,26 @@ const revampedECs = [
     completion: 5,
     tt: 12350,
     ip: "`1e158,000`",
-    note: "`Enable Auto-Eternity. Can be done without the When Will It Be Enough - achievement. (Can be done earlier with the achievement.)`",
+    note: "`Enable Auto-Eternity. Can be done ealier if you have the When Will It Be Enough - achievement.`",
     tree: "`11,21,22,31,32,33,41,42,51,61,62,73,83,93,103,111,122,132,142,151,161,162,171,181,191,193,211,212,213,214,222,224,226,227,232,234|12`"
   },
 ];
 
-const config = require("../config.json");
+const functions = require("../functions");
 
 module.exports = {
   number: 4,
   name: "eternitychallenge",
-  description: "Requires two arguments: `++eternitychallenge [ECNumber] [CompletionNumber]`. You may notice that some trees increase the number of TT you need, even though it's the same tree as the previous. This follows the Eternity Challenge guide followed by Ninjatsu, and TT can be used as something of a progress marker. For that reason, some trees have more TT than others for the same tree. Returns Total TT for a tree and then the tree.",
+  description: "Has a shorthand: `++ec`. Requires two arguments: `++eternitychallenge [ECNumber] [CompletionNumber]`. You may notice that some trees increase the number of TT you need, even though it's the same tree as the previous. This follows the Eternity Challenge guide followed by Ninjatsu, and TT can be used as something of a progress marker. For that reason, some trees have more TT than others for the same tree. Returns Total TT for a tree and then the tree.",
   execute(message, args, id) {
-    if (config.ids.botCommands.includes(id) || config.ids.common.includes(id) || config.ids.ecs.includes(id)) {
+    if (functions.ecsCheck(id, message)) {
       let a = [];
       let c = 0;
       let d = 0;
       if (args[0] === undefined) {
-        message.channel.send("Hey, you can't do that! That input is undefined. Please try with a different input.");
+        message.author.send("Hey, you can't do that! That input is undefined. Please try with a different input.").catch(() => {
+          message.channel.send("Hey! I can't DM you!");
+        });
         return;
       }
       if (args[0].includes("x")) {
@@ -558,30 +560,47 @@ module.exports = {
       if (Number.isNaN(c) || Number.isNaN(d)) message.channel.send("Something went wrong while parsing your input.");
 
       if (c > 12) {
-        message.channel.send(`EC${c} is not an EC, silly!`);
+        message.author.send(`EC${c} is not an EC, silly!`).catch(() => {
+          message.channel.send("Hey! I can't DM you!");
+        });
         return;
       }
       if (d > 5) {
-        message.channel.send(`You cannot complete an EC ${d} times, silly! If you are looking for a tree to use if you want to test something in an EC, use the x5 tree.`);
+        message.author.send(`You cannot complete an EC ${d} times, silly! If you are looking for a tree to use if you want to test something in an EC, use the x5 tree.`).catch(() => {
+          message.channel.send("Hey! I can't DM you!");
+        });
         return;
       }
       if (c === 0 || d === 0) {
-        message.channel.send(`You cannot do EC${c} ${d} times, silly!`);
+        message.author.send(`You cannot do EC${c} ${d} times, silly!`).catch(() => {
+          message.channel.send("Hey! I can't DM you!");
+        });
         return;
       }
     
       const ec = revampedECs[(c - 1) * 5 + (d - 1)];
     
       if (c <= 12 && d <= 5) {
-        message.channel.send(`The tree for EC${c}x${d} is: ${ec.tree}
+        if (functions.botCommandsCheck(id, message)) {
+          message.channel.send(`The tree for EC${c}x${d} is: ${ec.tree}
     TT for Completion: \`${ec.tt}\`
     IP Requirement for Completion: \`${ec.ip}\` ${ec.note === null ? `` : `\n    Note: \`${ec.note}\``}
-    Other completions: \`${otherCompletions(c, d)}\`
-    Check your DMs for the tree for easy copying!`);
-    message.author.send(`${ec.tree}`);
+    Other completions: \`${otherCompletions(c, d)}\``);
+        } else {
+          message.author.send(`The tree for EC${c}x${d} is: ${ec.tree}
+    TT for Completion: \`${ec.tt}\`
+    IP Requirement for Completion: \`${ec.ip}\` ${ec.note === null ? `` : `\n    Note: \`${ec.note}\``}
+    Other completions: \`${otherCompletions(c, d)}\``).catch(() => {
+            message.channel.send("Hey! I can't DM you!");
+          });
+        }
+        message.author.send(`${ec.tree}`).catch(() => {
+          message.channel.send("Hey! I can't DM you!");
+        });
       }
     } else {
-      message.channel.send("This command only works in bot commands, common channels, or EC channels!");
+      message.channel.send("This command only works in bot commands, common channels, or EC channels! You can also use me in DMs!");
     }
   }
 };
+

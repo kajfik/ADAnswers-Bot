@@ -3,34 +3,20 @@
 
 const NOW = Date();
 
-function convertMillisecondsToDigitalClock(ms) {
-  const days = Math.floor(ms / (3600000 * 24)),
-    hours = Math.floor(ms % (3600000 * 24) / 3600000),
-    minutes = Math.floor(((ms % (3600000 * 24) % 3600000) / 60000)),
-    seconds = Math.floor((((ms % (360000 * 24) % 3600000) % 60000) / 1000));
-  return {
-    days,
-    hours,
-    minutes,
-    seconds,
-    clock: `${days <= 9 ? `0${days}` : `${days}`}:${hours <= 9 ? `0${hours}` : `${hours}`}:${minutes <= 9 ? `0${minutes}` : `${minutes}`}:${seconds <= 9 ? `0${seconds}` : `${seconds}`}`
-  };
-}
-
-const config = require("../config.json");
+const functions = require("../functions");
 
 module.exports = {
   number: 2,
   name: "meta",
-  description: "Args: `lastRestart`, `uptime`, `ping`, `suggest`. internal bot information",
+  description: "Args: `lastRestart`, `uptime`, `ping`, `suggest`, `invite`. internal bot information",
   execute(message, args, id) {
-    if (config.ids.botCommands.includes(id)) {
+    if (functions.botCommandsCheck(id, message)) {
       switch (args[0]) {
       case "lastRestart":
         message.channel.send(NOW);
         break;
       case "uptime":
-        message.channel.send(`The bot has been up for ${convertMillisecondsToDigitalClock(message.client.uptime).clock}`);
+        message.channel.send(`The bot has been up for ${functions.misc.convertMillisecondsToDigitalClock(message.client.uptime).clock}`);
         break;
       case "ping":
         message.channel.send(`Pinging...`).then(sent => {
