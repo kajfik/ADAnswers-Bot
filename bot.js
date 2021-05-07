@@ -5,6 +5,10 @@
 
 "use strict";
 
+// DO NOT TOUCH LIKE HALF OF THIS STUFF IT JUST WORKS LMAOOOOOOOOOOOO
+// CONFIG LOOKS LIKE THIS https://i.imgur.com/WuAs6b5.png IF YOU NEED ME TO ADD
+// ANYTHING TO IT THAT YOU MAY USE OUTSIDE OF ONE FILE
+
 const Discord = require("discord.js");
 const fs = require("fs");
 const config = require("./config.json");
@@ -40,6 +44,7 @@ for (const file of commandFiles) {
 }
 
 client.commands.forEach(element => {
+  // Some commands have type: "shorthand" to make it not appear in the help embeds. This just works lol If you're adding a shorthand, please make sure to put that in.
   if (element.type !== "shorthand") {
     if (element.number === 1) fieldsVar.push({ name: element.name, value: element.description });
     else if (element.number === 2) fieldsVar2.push({ name: element.name, value: element.description });

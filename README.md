@@ -10,27 +10,33 @@ The issues tab is my best friend for keeping track of what to do for each bot ve
 Navigate to the /commands folder. In this folder, you can find all commands. 
 ### Step 2
 Using your IDE search a whole directory function, look for `number:` followed by a number. If all numbers have 10, you will need to navigate to bot.js
-### Step 2.5 (required if you need a new embedObject)
+### Step 2.5 (required if you need a new fieldsVar)
 Find where all of the other embedObjects are defined. Copy and paste a new one, and name it the next page. Create a new fieldVar at the top with the other ones, add it to fieldsArray. Go to the `client.commands.forEach` line and add a new else if block.
 ```js
 client.commands.forEach(element => {
-  if (element.number === 1) fieldsVar.push({ name: element.name, value: element.description });
-  else if (element.number === 2) fieldsVar2.push({ name: element.name, value: element.description });
-  else if (element.number === 3) fieldsVar3.push({ name: element.name, value: element.description });
-  else if (element.number === 4) fieldsVar4.push({ name: element.name, value: element.description });
-  else if (element.number === 5) fieldsVar5.push({ name: element.name, value: element.description });
-  else if (element.number === yourNumberHere) fieldsVarNumber.push({ name: element.name, value: element.description });
-  else if (element.number === 69) fieldsVar69.push({ name: element.name, value: element.description });
-  else console.log(element);
+  // Some commands have type: "shorthand" to make it not appear in the help embeds. This just works lol If you're adding a shorthand, please make sure to put that in.
+  if (element.type !== "shorthand") { 
+    if (element.number === 1) fieldsVar.push({ name: element.name, value: element.description });
+    else if (element.number === 2) fieldsVar2.push({ name: element.name, value: element.description });
+    else if (element.number === 3) fieldsVar3.push({ name: element.name, value: element.description });
+    else if (element.number === 4) fieldsVar4.push({ name: element.name, value: element.description });
+    else if (element.number === 5) fieldsVar5.push({ name: element.name, value: element.description });
+    else if (element.number === 6) fieldsVar6.push({ name: element.name, value: element.description });
+    else if (element.number === 7) fieldsVar7.push({ name: element.name, value: element.description });
+    // else if (element.number === 8) fieldsVar8.push({ name: element.name, value: element.description });
+    else if (element.number === 69) fieldsVar69.push({ name: element.name, value: element.description });
+    else console.log(element); // This will help you catch if you put in a number that wouldn't work or if you didn't give it a number.
+  }
+});
 });
 ```
-Once you've done that, navigate to client.on, and find the `if (command === "help")` line. Add a new case to the switch statement with your number. Use the other ones as examples!
+After that, your help page should just work! Thanks to a handy function `constructEmbedObject`, it will be able to pass in all of that information for the fields and making a help page embed for you!
 
 ### Step 3
-Navigate back to /commands, and create a new file! I recommend checking out something like meta.js to see how args work in action. Args are passed as an array in, so be wary of that.
+Navigate back to /commands, and create a new file! There is also a readme there for further help. I recommend checking out something like meta.js to see how args work in action. Args are passed as an array in, so be wary of that.
 
 ### Step 4
-Run the code! You will need to have node.js installed and using a local copy of this code to test things out, as well as the dependencies. 
+Run the code! You will need to have node.js installed and using a local copy of this code to test things out, as well as the dependencies. You'll need to set up a discord bot on your [Discord](https://discord.com/developers/applications) for testing.
 
 ### Step 5
 Create a PR. I will take a look and see if it's something that should be added. Thanks for contributing!
@@ -41,14 +47,26 @@ When contributing, be sure to be serious with your suggestion. This is a real, l
 ### Code quality
 Install an ESLint extension to be able to conform to style guidelines.
 
+### Functions
+When adding new functions, PLEASE use functions.js! You will need to add them as an export to the `module.exports` line, but it should be relatively straightforward.
 ## Other important information
 ### IDE and other important things for it
-I recommend using Visual Studio Code as your IDE.
+[**Visual Studio Code**](https://code.visualstudio.com/): Allows you to install these extensions and I know for a fact it will work. VSC is a generally good starting IDE. However, some people may prefer Visual Studio or maybe Atom. I have no idea about if Atom has these extensions or not, which is why I recommend VSC.
 
-[ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint):
+[**ESLint**](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint):
  ESLint will take the two ESLint files in this repo and use them as the settings. Install it globally; it will improve any JS you do, as long as you have the ESLint files for it.
 
-[GitLens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens):
+[**GitLens**](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens):
  I only recommend having GitLens to see who worked in what files when. It is updated on commit.
-### GitHub Desktop
-I recommend using [GitHub Desktop](https://desktop.github.com/) when contributing. It is (generally) easier to make new branches/commits/PRs and whatnot.
+
+[**GitHub Desktop**](https://desktop.github.com/): For contributing. It is (generally) easier to make new branches/commits/PRs and whatnot. However, if you are well versed in Git, unlike myself, you can get away with using it.
+
+### config.json
+![image](https://i.imgur.com/WuAs6b5.png) 
+
+**^^^Mine looks like this^^^**
+
+There is a file that I hold locally due to it having sensitive information surrounding the bot. I'm sure you see it in use all over the place. You will NEED to have your own copy of this. Navigate to config.txt to grab your own copy of it, and turn it into a .json file by renaming it with that extension. Be sure to put your application token there where it asks for token, or else your bot won't be able to log in when testing!
+
+### Feel free to reach out to me!
+I made this mess of a codebase, and I'm glad you're frolicking in it! But if you're ever confused on what to do, please get out to me on discord @earth#1337. I would be happy to help! I may not help for a few hours at a time due to schooling etc. but I will get back to you first chance I get!

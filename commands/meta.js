@@ -8,7 +8,7 @@ const functions = require("../functions");
 module.exports = {
   number: 2,
   name: "meta",
-  description: "Args: `lastRestart`, `uptime`, `ping`, `suggest`. internal bot information",
+  description: "Args: `lastRestart`, `uptime`, `ping`, `suggest`, `invite`. internal bot information",
   execute(message, args, id) {
     if (functions.botCommandsCheck(id, message)) {
       switch (args[0]) {

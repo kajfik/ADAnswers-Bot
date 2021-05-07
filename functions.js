@@ -1,7 +1,10 @@
 "use strict";
-
-const { isFunctionExpression } = require("typescript");
 /* eslint-disable max-len */
+
+
+// DO NOT TOUCH LIKE HALF OF THIS STUFF IT JUST WORKS LMAOOOOOOOOOOOO
+// CONFIG LOOKS LIKE THIS https://i.imgur.com/WuAs6b5.png IF YOU NEED ME TO ADD
+// ANYTHING TO IT THAT YOU MAY USE OUTSIDE OF ONE FILE
 
 const config = require("./config.json");
 
@@ -36,7 +39,6 @@ function endgameCheck(id, message) {
   return config.ids.endgame.includes(id) || config.ids.common.includes(id) || botCommandsCheck(id, message);
 }
 
-// Message is any for no real reasonm
 function botCommandsCheck(id, message) {
   // 603002159864348703 is #bots in Earth's things
   // 722268615973273725 is #general in bot test server
@@ -67,7 +69,6 @@ function studytreeCheck(id, message) {
   return ecsCheck(id, message) || earlyEternityCheck(id, message) || endgameCheck(id, message);
 }
 
-// This is any because im not exactly sure how to make it take an array of arrays
 function sumAllCommands(fields) {
   let sum = 0;
   for (const array of fields) {
