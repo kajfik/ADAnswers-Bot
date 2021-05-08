@@ -37,6 +37,9 @@ module.exports = {
         case "ass":
           message.channel.send(`I eat ass too!`);
           break;
+        default: 
+          message.channel.send("Unknown arg!");
+          break;
       }
     } else {
       message.channel.send("This command only works in bot commands!");
