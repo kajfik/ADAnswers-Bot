@@ -58,11 +58,10 @@ client.commands.forEach(element => {
     else console.log(element);
   }
 });
-
-for (const field of fieldsArray) {
-  allFields.push(...field);
-}
-// Uncomment for commands for /docs
+// Uncomment for docs
+// for (const field of fieldsArray) {
+//   allFields.push(...field);
+// }
 // console.log(allFields);
 
 client.on("message", message => {
