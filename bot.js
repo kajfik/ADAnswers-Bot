@@ -27,7 +27,6 @@ const fieldsVar6 = [];
 const fieldsVar7 = [];
 // const fieldsVar8 = [];
 const fieldsVar69 = [];
-const allFields = [];
 
 const fieldsArray = [fieldsVar, fieldsVar2, fieldsVar3, fieldsVar4, fieldsVar5, fieldsVar6, fieldsVar7, fieldsVar69];
 
@@ -58,7 +57,10 @@ client.commands.forEach(element => {
     else console.log(element);
   }
 });
+
+
 // Uncomment for docs
+// const allFields = [];
 // for (const field of fieldsArray) {
 //   allFields.push(...field);
 // }
