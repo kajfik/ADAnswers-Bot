@@ -187,6 +187,7 @@ const StuffComponent = {
     <h1>ADAnswersBot Command List</h1>
     <h2>Only updated on new releases of the bot. Currently v1.3</h2>
     <h2>Created by earth#1337 on Discord. Prefix is ++</h2>
+    <h3>For more information concerning contributing to the bot, check out<br><a href="https://github.com/earthernsence/ADAnswers-Bot#readme">the general readme</a> and <a href="https://github.com/earthernsence/ADAnswers-Bot/tree/main/commands#readme">the command readme</a></h3>
       <div v-for="command in commands">
         <h2>{{ command.name }}</h2>
         <p>{{ command.value }}</p>
