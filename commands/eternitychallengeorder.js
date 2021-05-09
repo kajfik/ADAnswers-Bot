@@ -15,12 +15,16 @@ module.exports = {
       else if (!order.includes(args[0])) message.channel.send(`Unkown argument ${args[0]} for command \`++eternitychallengeorder\`.`);
       // eslint-disable-next-line no-negated-condition
       else if (args !== []) {
-        if (functions.botCommandsCheck(id, message)) {
+        if (functions.botCommandsCheck(id, message) || functions.commonCheck(id)) {
           const boldedOrder = order.replace(`${args[0]}`, `__***${args[0]}***__`);
           message.channel.send(boldedOrder);
         } else {
-          const boldedOrder = order.replace(`${args[0]}`, `__***${args[0]}***__`);
-          message.author.send(boldedOrder);
+          try {
+            const boldedOrder = order.replace(`${args[0]}`, `__***${args[0]}***__`);
+            message.author.send(boldedOrder);
+          } catch (error) {
+            message.channel.send("Hey, I can't DM you! Try using the bot in <#351479640755404820>");
+          }
         }
       } else message.channel.send(`This message should be impossible. If you get it, send a screenshot to earth with the message that caused it.`);
     } else {

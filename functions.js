@@ -45,6 +45,10 @@ function botCommandsCheck(id, message) {
   return config.ids.botCommands.includes(id) || id === "603002159864348703" || id === "722268615973273725" || message.channel.type === "dm";
 }
 
+function commonCheck(id) {
+  return config.ids.common.includes(id);
+}
+
 function bankedInfsCheck(id, message) {
   return config.ids.common.includes(id) || config.ids.ecs[1] === id || config.ids.endgame.includes(id) || botCommandsCheck(id, message);
 }
@@ -252,6 +256,7 @@ module.exports = {
   ecsCheck,
   endgameCheck,
   botCommandsCheck,
+  commonCheck,
   constructEmbedObject,
   help,
   misc: {

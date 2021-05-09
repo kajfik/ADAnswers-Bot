@@ -29,7 +29,7 @@ module.exports = {
           message.channel.send(`Unknown argument: Expected Number for command \`++studytree\` but found: --> ${args[0]} <--`);
         }
         const path = functions.studytree.toPath(args[1]);
-        if (functions.botCommandsCheck(id, message)) {
+        if (functions.botCommandsCheck(id, message) || functions.commonCheck(id)) {
           message.channel.send(functions.studytree.generateTree(theorem, path));
         } else {
           message.author.send(functions.studytree.generateTree(theorem, path)).catch(() => {

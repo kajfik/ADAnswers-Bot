@@ -526,7 +526,7 @@ const revampedECs = [
     completion: 5,
     tt: 12350,
     ip: "`1e158,000`",
-    note: "`Enable Auto-Eternity. Can be done ealier if you have the When Will It Be Enough - achievement.`",
+    note: "`Enable Auto-Eternity. Can be done earlier if you have the When Will It Be Enough - achievement.`",
     tree: "`11,21,22,31,32,33,41,42,51,61,62,73,83,93,103,111,122,132,142,151,161,162,171,181,191,193,211,212,213,214,222,224,226,227,232,234|12`"
   },
 ];
@@ -581,7 +581,7 @@ module.exports = {
       const ec = revampedECs[(c - 1) * 5 + (d - 1)];
     
       if (c <= 12 && d <= 5) {
-        if (functions.botCommandsCheck(id, message)) {
+        if (functions.botCommandsCheck(id, message) || functions.commonCheck(id)) {
           message.channel.send(`The tree for EC${c}x${d} is: ${ec.tree}
     TT for Completion: \`${ec.tt}\`
     IP Requirement for Completion: \`${ec.ip}\` ${ec.note === null ? `` : `\n    Note: \`${ec.note}\``}
