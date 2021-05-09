@@ -29,6 +29,9 @@ module.exports = {
       case "invite":
         message.channel.send(`If, for whatever reason, you wish to invite me to your server, go to https://discord.com/api/oauth2/authorize?client_id=830197123378053172&permissions=84992&scope=bot.`);
         break;
+      case "contributing":
+        message.channel.send(`If you are interested in contributing to the bot, check out both information files at <https://github.com/earthernsence/ADAnswers-Bot#readme> and <https://github.com/earthernsence/ADAnswers-Bot/tree/main/commands#readme>`);
+        break;
       default:
         message.channel.send(`Meta command not found.`);
       }
