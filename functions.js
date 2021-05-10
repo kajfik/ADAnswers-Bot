@@ -249,6 +249,70 @@ function convertMillisecondsToDigitalClock(ms) {
   };
 }
 
+function generateChannelMessage() {
+  const a = config.ids;
+  let b = "";
+  let c = "";
+  let d = "";
+  let f = "";
+  let g = "";
+  a.common.forEach(id => {
+    b += `<#${id}>`;
+  });
+  a.earlyGame.forEach(id => {
+    c += `<#${id}>`;
+  });
+  a.break.forEach(id => {
+    d += `<#${id}>`;
+  });
+  a.ecs.forEach(id => {
+    f += `<#${id}>`;
+  });
+  a.endgame.forEach(id => {
+    g += `<#${id}>`;
+  });
+
+  return `Bot Commands: All commands work here. <#${a.botCommands[0]}>
+  Common: All commands besides miscellaneous commands work here. ${b}.
+  Early game: Early game commands work here. ${c}
+  Break: Break Infinity commands work here. ${d}
+  Early Eternity: Early Eternity commands work here. <#${a.earlyEternity[0]}>
+  ECs: EC commands work here. ${f}
+  Endgame: Endgame/Dilation commands work here. ${g}`;
+}
+
+function otherCompletions(id, completion) {
+  if (id < 1 || id > 12) {
+    return `Invalid challenge id: ${id}`;
+  }
+    
+  if (completion < 1 || completion > 5) {
+    return `Invalid challenge completion: ${completion}`;
+  }
+
+  const completionText = `${id}x${completion}`;
+  const indexOfCompletion = order.indexOf(completionText);
+
+  if (indexOfCompletion === -1) {
+    return `Challenge ${completionText} completion not found.`;
+  }
+
+  if (indexOfCompletion === 0) {
+    return `No other challenge completions required.`;
+  }
+
+  const completions = Array(12);
+
+  for (let i = 0; i < indexOfCompletion; i++) {
+    const previous = order[i].split("x").map(Number);
+    const previousId = previous[0] - 1;
+    const previousCompletion = previous[1];
+
+    completions[previousId] = previousCompletion;
+  }
+
+  return completions.filter(Number).map((value, index) => `${index + 1}x${value}`).join(", ");
+}
 module.exports = {
   earlyGameCheck,
   breakCheck,
@@ -265,7 +329,8 @@ module.exports = {
     getFooter,
     toNumber,
     convertMillisecondsToDigitalClock,
-    isUndefined
+    isUndefined,
+    generateChannelMessage
   },
   studytree: {
     toPath,
@@ -280,6 +345,7 @@ module.exports = {
     earlyInfinityCheck,
     eternityGrindingCheck,
     setCrunchAutoCheck,
-    studytreeCheck
+    studytreeCheck,
+    otherCompletions
   },
 };
