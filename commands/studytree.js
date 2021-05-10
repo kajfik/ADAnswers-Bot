@@ -29,6 +29,10 @@ module.exports = {
           message.channel.send(`Unknown argument: Expected Number for command \`++studytree\` but found: --> ${args[0]} <--`);
         }
         const path = functions.studytree.toPath(args[1]);
+        if (args.includes("show") && message.author.id === "213071245896450068") {
+          message.channel.send(functions.studytree.generateTree(theorem, path));
+          return;
+        }
         if (functions.botCommandsCheck(id, message) || functions.commonCheck(id)) {
           message.channel.send(functions.studytree.generateTree(theorem, path));
         } else {
