@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-negated-condition */
 /* eslint-disable complexity */
 /* eslint-disable max-len */
@@ -17,7 +18,7 @@ module.exports = {
         return;
       }
       if (args[0].includes("x")) {
-        message.channel.send("Hey, what are you trying to do? No X allowed!");
+        message.channel.send("Hey, what are you trying to do? No X allowed! Are you looking for `++ec`?");
         return;
       }
       try {
@@ -38,8 +39,12 @@ module.exports = {
         } else {
           message.author.send(functions.studytree.generateTree(theorem, path)).catch(() => {
             message.channel.send("Hey! I can't DM you!");
-          }
-          ); 
+          }).then(() => {
+            message.react("☑️");
+          }).catch(() => {
+            console.log("something went wrong while trying to add a reaction in command studytree.");
+            console.log(`${message.url}`);
+          }); 
         }
       } catch (e) {
         message.channel.send(e);

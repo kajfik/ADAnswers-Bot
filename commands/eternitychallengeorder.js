@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable max-len */
 "use strict";
 
@@ -8,7 +9,7 @@ const functions = require("../functions");
 module.exports = {
   number: 4,
   name: "eternitychallengeorder",
-  description: "Has a shorthand: `++eco`. Args: highest eternity challenge you've down in the order (optional).Returns the EC order",
+  description: "Has a shorthand: `++eco`. Args: highest eternity challenge you've down in the order (optional). Returns the EC order",
   execute(message, args, id) {
     if (functions.ecsCheck(id, message)) {
       if (args.length === 0 && !functions.botCommandsCheck(id, message)) message.author.send(order).catch(() => {
@@ -24,7 +25,12 @@ module.exports = {
         } else {
           try {
             const boldedOrder = order.replace(`${args[0]}`, `__***${args[0]}***__`);
-            message.author.send(boldedOrder);
+            message.author.send(boldedOrder).then(() => {
+              message.react("☑️").catch(error => {
+                console.log("Something broke while trying to react.");
+                console.log(error);
+              });
+            });
           } catch (error) {
             message.channel.send("Hey, I can't DM you! Try using the bot in <#351479640755404820>");
           }
