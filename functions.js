@@ -1,4 +1,6 @@
+/* eslint-disable no-console */
 "use strict";
+const { isFunctionExpression } = require("typescript");
 /* eslint-disable max-len */
 
 
@@ -281,6 +283,16 @@ function generateChannelMessage() {
   Endgame: Endgame/Dilation commands work here. ${g}`;
 }
 
+function getMessage(command, stuff = {}) {
+  switch (command) {
+  case "ts":
+    return generateTree(stuff.theorem, stuff.path);
+  default: 
+    console.error("Unknown command for getMessage!");
+    return "Something went wrong";
+  }
+}
+
 module.exports = {
   earlyGameCheck,
   breakCheck,
@@ -291,6 +303,7 @@ module.exports = {
   commonCheck,
   constructEmbedObject,
   help,
+  getMessage,
   misc: {
     sumAllCommands,
     getHelpDescription,
