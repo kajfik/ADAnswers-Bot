@@ -240,8 +240,8 @@ function help(message, fieldsArray, stuff) {
 function convertMillisecondsToDigitalClock(ms) {
   const days = Math.floor(ms / (3600000 * 24)),
     hours = Math.floor(ms % (3600000 * 24) / 3600000),
-    minutes = Math.floor(((ms % (3600000 * 24) % 3600000) / 60000)),
-    seconds = Math.floor((((ms % (360000 * 24) % 3600000) % 60000) / 1000));
+    minutes = Math.floor((ms % 3600000) / 60000),
+    seconds = Math.floor((ms % 60000) / 1000);
   return {
     days,
     hours,
@@ -287,6 +287,8 @@ function getMessage(command, stuff = {}) {
   switch (command) {
   case "ts":
     return generateTree(stuff.theorem, stuff.path);
+  case "channel":
+    return generateChannelMessage();
   default: 
     console.error("Unknown command for getMessage!");
     return "Something went wrong";
