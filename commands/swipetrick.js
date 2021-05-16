@@ -11,6 +11,6 @@ Make sure swipe navigation is enabled in settings. Now "swipe the button to a di
 This trick works with every bottom button. (You can enable more bottom buttons by setting bottom buttons to \`all\`.)
 
 Here is a video:
-https://discord.com/channels/351476683016241162/387798607706718208/843421559413800981);
+https://discord.com/channels/351476683016241162/387798607706718208/843421559413800981`);
   }
 };
