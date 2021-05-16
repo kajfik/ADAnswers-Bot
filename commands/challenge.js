@@ -51,12 +51,13 @@ No special strat for this challenge.`);
 No special strat for this challenge.`);
       break;
     case "ic4":
-      message.channel.send(`IC4 video guide (for mobile): <https://youtu.be/kytefPmkqL4>
-IC4 written guide (for web): <https://pastebin.com/aZktZs8m>`);
+      message.channel.send(`IC4 video guide: <https://youtu.be/kytefPmkqL4>
+IC4 written guide: <https://pastebin.com/aZktZs8m>`);
       break;
     case "ic5":
-      message.channel.send(`IC5 video guide (for mobile): <https://www.youtube.com/watch?v=eNqPZ9kGurE>
-IC5 written guide (for web): <https://pastebin.com/sj2nFFjH>`);
+      message.channel.send(`The written guide is based on the web version while the video was made on the android one. The strategy for IC5 is the same. Just keep in mind that you need 21 galaxies on web and around 40 galaxies on mobile to complete the challenge.
+IC5 video guide: <https://www.youtube.com/watch?v=eNqPZ9kGurE>
+IC5 written guide: <https://pastebin.com/sj2nFFjH>`);
       break;
     case "ic6":
       message.channel.send(`Attempt IC6 at ~e102 IP.
