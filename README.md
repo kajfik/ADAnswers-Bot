@@ -1,4 +1,6 @@
 # ADAnswers-Bot
+## Commands
+You may be looking for the commands list site. If so, go [here](https://earthernsence.github.io/ADAnswers-Bot/docs/)!
 ## Welcome
 Hello! Welcome to the ADAnswersBot codebase. You may have noticed that the code is terrible. This is fine, because the bot works. However, here are some guidelines for contributing and how to contribute.
 
@@ -48,7 +50,7 @@ When contributing, be sure to be serious with your suggestion. This is a real, l
 Install an ESLint extension to be able to conform to style guidelines.
 
 ### Functions
-When adding new functions, PLEASE use functions.js! You will need to add them as an export to the `module.exports` line, but it should be relatively straightforward.
+When adding new functions, PLEASE use functions.js! You will need to add them as an export to the `module.exports` line, but it should be relatively straightforward. Also make sure to use JSDoc to document them. If you're unaware of what JSDoc is, see the next section.
 ## Other important information
 ### IDE and other important things for it
 [**Visual Studio Code**](https://code.visualstudio.com/): Allows you to install these extensions and I know for a fact it will work. VSC is a generally good starting IDE. However, some people may prefer Visual Studio or maybe Atom. I have no idea about if Atom has these extensions or not, which is why I recommend VSC.
@@ -61,6 +63,7 @@ When adding new functions, PLEASE use functions.js! You will need to add them as
 
 [**GitHub Desktop**](https://desktop.github.com/): For contributing. It is (generally) easier to make new branches/commits/PRs and whatnot. However, if you are well versed in Git, unlike myself, you can get away with using it.
 
+[**JSDoc**](https://jsdoc.app/) (and also the [**Github site**](https://github.com/jsdoc/jsdoc)): JSDoc is a simple and intuitive way of documenting JS files. It is used in functions.js exclusively. Every function will be documented. You may not need to install it to get the functionality of it in your IDE when typing `/**`, but for actually building it to the /out folder you will need to install it using NPM. Head to Command Prompt and paste in `npm install -g jsdoc`. This will install JSDoc to your machine and will allow you to build to /out. When you create a new function, document it like you see on previous commands, and then when you have done that, go to your Command Prompt once again and go to the directory the bot repository is in. Once you have done that, do `jsdoc functions.js` and it will build to /out. To make sure this is done, navigate to the /out folder in your browser and make sure your new command is there. If it is, cool, you're done! If not, you may have messed something up, but do not fret! Get in touch with me and I'll see what I can do.
 ### config.json
 ![image](https://i.imgur.com/WuAs6b5.png) 
 
