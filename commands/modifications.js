@@ -2,7 +2,7 @@
 "use strict";
 
 module.exports = {
-  number: 2,
+  number: 6,
   name: "modifications",
   description: "Explains the modifications of AD",
   execute(message) {
