@@ -4,7 +4,7 @@
 const functions = require("../functions");
 
 module.exports = {
-  number: 3,
+  number: 7,
   name: "unsmith",
   description: ":unsmith:",
   execute(message) {
