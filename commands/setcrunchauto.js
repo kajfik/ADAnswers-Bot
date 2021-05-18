@@ -4,7 +4,7 @@
 const functions = require("../functions");
 
 module.exports = {
-  number: 3,
+  number: 2,
   name: "setcrunchauto",
   description: "Describes how to set your crunch autobuyer.",
   // eslint-disable-next-line no-unused-vars
