@@ -5,7 +5,7 @@ const functions = require("../functions");
 
 module.exports = {
   name: "infinitygrinding",
-  number: 7,
+  number: 3,
   description: "sends how to farm infinities for banking",
   execute(message) {
     if (functions.special.bankedInfsCheck(message.channel.id, message)) message.channel.send(`INFINITY FARMING: (Do this on long AFKs) ---- EC10 diminishing returns, reach at least 5 billion eventually (achievement)
