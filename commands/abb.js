@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = {
-  number: 7,
+  number: 5,
   name: "abb",
   description: "sends an abbreviation guide",
   execute(message) {
