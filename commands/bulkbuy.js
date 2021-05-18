@@ -2,7 +2,7 @@
 "use strict";
 
 module.exports = {
-  number: 4,
+  number: 2,
   name: "bulkbuy",
   description: "describes bulk buy",
   execute(message) {
