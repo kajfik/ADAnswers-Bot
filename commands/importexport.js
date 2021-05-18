@@ -2,7 +2,7 @@
 "use strict";
 
 module.exports = {
-  number: 4,
+  number: 6,
   name: "importexport",
   description: "How to import/export saves",
   execute(message) {
