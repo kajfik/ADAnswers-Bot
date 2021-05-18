@@ -4,7 +4,7 @@
 const functions = require("../functions");
 
 module.exports = {
-  number: 1,
+  number: 3,
   name: "earlyeternityprogression",
   description: "describes getting through the first few eternities",
   execute(message) {
