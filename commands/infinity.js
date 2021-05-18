@@ -2,7 +2,7 @@
 "use strict";
 
 module.exports = {
-  number: 2,
+  number: 1,
   name: "infinity",
   description: "tells how much AM you need for infinity",
   execute(message) {
