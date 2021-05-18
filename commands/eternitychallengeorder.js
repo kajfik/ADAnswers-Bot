@@ -7,7 +7,7 @@ const order = "1x1, 2x1, 1x2, 3x1, 4x1, 5x1, 1x3, 3x2, 2x2, 6x1, 1x4, 3x3, 7x1, 
 const functions = require("../functions");
 
 module.exports = {
-  number: 4,
+  number: 3,
   name: "eternitychallengeorder",
   description: "Has a shorthand: `++eco`. Args: highest eternity challenge you've down in the order (optional). Returns the EC order",
   execute(message, args, id) {
