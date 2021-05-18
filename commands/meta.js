@@ -6,7 +6,7 @@ const NOW = Date();
 const functions = require("../functions");
 
 module.exports = {
-  number: 2,
+  number: 4,
   name: "meta",
   description: "Args: `lastRestart`, `uptime`, `ping`, `suggest`, `invite`. internal bot information",
   execute(message, args, id) {
