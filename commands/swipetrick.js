@@ -2,7 +2,7 @@
 "use strict";
 
 module.exports = {
-  number: 7,
+  number: 2,
   name: "swipetrick",
   description: "Explains swipe trick for mobile",
   execute(message) {
