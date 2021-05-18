@@ -3,7 +3,7 @@
 const functions = require("../functions");
 
 module.exports = {
-  number: 3,
+  number: 7,
   name: "slightsmile",
   description: "kaj no",
   execute(message) {
