@@ -4,7 +4,7 @@
 const functions = require("../functions");
 
 module.exports = {
-  number: 1,
+  number: 3,
   name: "161or162",
   description: "Early Eternity command. Explains whether to chose TS161 or TS162",
   execute(message) {
