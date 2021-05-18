@@ -4,7 +4,7 @@
 const functions = require("../functions");
 
 module.exports = {
-  number: 5,
+  number: 3,
   name: "bankedinfinities",
   description: "describes banked infinities, what they do, and how to get them.",
   execute(message) {
