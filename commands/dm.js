@@ -2,7 +2,7 @@
 "use strict";
 
 module.exports = {
-  number: 7,
+  number: 5,
   name: "dm",
   description: "Yes, you can use the bot in your DM's with it.",
   execute(message) {
