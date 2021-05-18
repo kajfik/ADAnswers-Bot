@@ -2,7 +2,7 @@
 "use strict";
 
 module.exports = {
-  number: 2,
+  number: 1,
   name: "galaxyscaling",
   description: "Explains the change in scaling at 100 (and 800) Antimatter Galaxies",
   execute(message) {
