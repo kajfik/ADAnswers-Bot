@@ -5,7 +5,7 @@ const functions = require("../functions");
 
 module.exports = {
   name: "secondsplit",
-  number: 6,
+  number: 3,
   description: "describes second split paths",
   // eslint-disable-next-line no-unused-vars
   execute(message, _a, id) {
