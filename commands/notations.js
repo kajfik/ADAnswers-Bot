@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = {
-  number: 4,
+  number: 5,
   name: "notations",
   description: `Sends a link to the Notations GitHub repo.`,
   execute(message) {
