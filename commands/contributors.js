@@ -5,7 +5,7 @@ const functions = require("../functions");
 
 module.exports = {
   name: "contributors",
-  number: 6,
+  number: 4,
   description: "sends a list of contributors and what they helped with! this bot would not be possible without them.",
   execute(message) {
     if (functions.botCommandsCheck(message.channel.id, message)) message.channel.send(`Hellbach: basis for most of the commands, provided much of the information used in this bot,
