@@ -4,7 +4,7 @@
 const functions = require("../functions");
 
 module.exports = {
-  number: 5,
+  number: 1,
   name: "1minuteinf",
   description: "explains the UI change at infinity in under a minute",
   execute(message) {
