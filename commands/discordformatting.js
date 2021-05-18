@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = {
-  number: 4,
+  number: 6,
   name: "discordformatting",
   description: "returns a link to a list of discord formatting stuff",
   execute(message) {
