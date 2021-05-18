@@ -2,7 +2,7 @@
 "use strict";
 
 module.exports = {
-  number: 3,
+  number: 4,
   name: "pins",
   description: "pins",
   execute(message) {
