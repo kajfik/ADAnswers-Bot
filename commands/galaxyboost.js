@@ -3,7 +3,7 @@
 const functions = require("../functions");
 
 module.exports = {
-  number: 5,
+  number: 1,
   name: "galaxyboost",
   description: "compares the boost from 100 tickspeed upgrades with 0 galaxies and 1 galaxy",
   execute(message) {
