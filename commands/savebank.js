@@ -2,7 +2,7 @@
 "use strict";
 
 module.exports = {
-  number: 3,
+  number: 5,
   name: "savebank",
   description: "Provides a link to Buck's save bank.",
   execute(message) {
