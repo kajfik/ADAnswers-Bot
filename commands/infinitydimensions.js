@@ -4,7 +4,7 @@
 const functions = require("../functions");
 
 module.exports = {
-  number: 5,
+  number: 1,
   name: "infinitydimensions",
   description: "Describes what infinity dimensions (and infinity power) does. Includes when they unlock.",
   execute(message) {
