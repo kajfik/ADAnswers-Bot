@@ -2,7 +2,7 @@
 "use strict";
 
 module.exports = {
-  number: 3,
+  number: 7,
   name: "paperclips",
   description: "Explanation of the origin of paperclips.",
   execute(message) {
