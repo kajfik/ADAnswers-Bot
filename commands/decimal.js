@@ -2,7 +2,7 @@
 "use strict";
 
 module.exports = {
-  number: 1,
+  number: 6,
   name: "decimal",
   description: "Explains how break_infinity.js works",
   execute(message) {
