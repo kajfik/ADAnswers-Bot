@@ -2,7 +2,7 @@
 "use strict";
 
 module.exports = {
-  number: 1,
+  number: 5,
   name: "adbonus",
   description: "Sends ad bonus formulas/multipliers",
   execute(message) {
