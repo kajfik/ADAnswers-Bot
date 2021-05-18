@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = {
-  number: 2,
+  number: 1,
   name: "dimboostorgalaxy",
   description: "tells if you should do a dimboost or galaxy",
   execute(message) {
