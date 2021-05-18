@@ -2,7 +2,7 @@
 "use strict";
 
 module.exports = {
-  number: 3,
+  number: 5,
   name: "offlineticks",
   description: "offline ticks stuff",
   execute(message) {
