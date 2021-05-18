@@ -5,7 +5,7 @@
 "use strict";
 
 module.exports = {
-  number: 4,
+  number: 1,
   name: "antitables",
   description: "Args: `prebreak`, `postbreak`, `posteternity`. Sends a guide to Antitables.",
   execute(message, args) {
