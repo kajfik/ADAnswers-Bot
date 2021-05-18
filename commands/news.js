@@ -2,7 +2,7 @@
 "use strict";
 
 module.exports = {
-  number: 4,
+  number: 6,
   name: "news",
   description: "Args: `list mobile` and `list web`. Explains what the news ticker is and where it came from",
   execute(message, args) {
