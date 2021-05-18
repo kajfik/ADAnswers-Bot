@@ -4,7 +4,7 @@
 const functions = require("../functions");
 
 module.exports = {
-  number: 1,
+  number: 3,
   name: "earlytimestudies",
   description: "Describes how to progress on the time study tree pre-TS171",
   // eslint-disable-next-line no-unused-vars
