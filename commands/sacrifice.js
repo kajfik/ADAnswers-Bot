@@ -4,7 +4,7 @@
 const functions = require("../functions");
 
 module.exports = {
-  number: 3,
+  number: 1,
   name: "sacrifice",
   description: "describess sacrifice and when to",
   // eslint-disable-next-line no-unused-vars
