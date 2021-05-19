@@ -74,7 +74,7 @@ module.exports = {
       break;
     case "r126":
     case "pm":
-      message.channel.send(`Reach at least 180 max RGs (can buy antimatter galaxies). Disable galaxy autobuyer, crunch, purchase a single antimatter galaxy, then buy 180 RGs.`);
+      message.channel.send(`Reach at least 180 max RGs (can buy antimatter galaxies). Use active path because of 50% more RGs. Disable galaxy autobuyer, crunch, then buy 180 RGs.`);
       break;
     case "r131":
     case "nec":
