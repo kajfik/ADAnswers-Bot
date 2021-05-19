@@ -452,6 +452,8 @@ function getMessage(command, stuff = {}) {
     return generateTree(stuff.theorem, stuff.path);
   case "channel":
     return generateChannelMessage();
+  case "error":
+    return `Unknown arg ${stuff.args[0]} in command ${stuff.name}. The args for this command are ${stuff.acceptableArgs.join(", ")}.`;
   default: 
     console.error("Unknown command for getMessage!");
     return "Something went wrong";
