@@ -31,7 +31,8 @@ module.exports = {
     case "909":
       message.channel.send(`Do it after the e39 ID2. Disable boost, galaxy and all dim autobuyers, go into C2 and buy 10 1st dims.`);
       break;
-    case "r73":
+    case "r43": //delete this in reality
+    case "r77":
     case "zd":
       message.channel.send(`Trivial after you get ID1 in C3. It doesn't need to be attempted early; if it is, it takes about 16+ hours before ID1.`);
       break;
@@ -39,7 +40,7 @@ module.exports = {
     case "hdnw":
       message.channel.send(`Trivial after Eternity. You can do it before then, but it's more tedious.`);
       break;
-    case "r88":
+    case "r87":
     case "2mi":
       message.channel.send(`Buy TS 32, disable galaxy autobuyer, set boost autobuyer to 0s, and crunch autobuyer to 0.1-1s depending on how long it takes to buy dimboosts for 32.`);
       break;
