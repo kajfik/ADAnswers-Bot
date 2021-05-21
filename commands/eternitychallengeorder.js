@@ -12,8 +12,10 @@ module.exports = {
   description: "Has a shorthand: `++eco`. Args: highest eternity challenge you've down in the order (optional). Returns the EC order",
   execute(message, args, id) {
     if (functions.ecsCheck(id, message)) {
-      if (args.length === 0 && !functions.botCommandsCheck(id, message)) message.author.send(order).catch(() => {
-        message.channel.send("Hey, I can't DM you! Try using the bot in <#351479640755404820>");
+      if (args.length === 0 && !functions.botCommandsCheck(id, message)) message.author.send(order).then(() => {
+        message.react("☑️").catch(() => {
+          message.channel.send("Hey, I can't DM you! Try using the bot in <#351479640755404820>");
+        });
       });
       else if (args.length === 0 && functions.botCommandsCheck(id, message)) message.channel.send(order);
       else if (!order.includes(args[0])) message.channel.send(`Unkown argument ${args[0]} for command \`++eternitychallengeorder\`.`);
