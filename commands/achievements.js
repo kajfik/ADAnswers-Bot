@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 "use strict";
+/* eslint-disable no-negated-condition */
 
 // These are genius shortened versions of the achievement names, what do you mean?
 
@@ -44,7 +45,7 @@ module.exports = {
       break;
     case "r91":
     case "r92":
-    case "r98":
+    case "r97":
     case "ls":
     case "ibfn":
     case "ytih":
@@ -93,8 +94,9 @@ However, this achievement reward is pretty much negligible as not having the IC 
       message.channel.send(`Disable RG autobuyer while grinding banked infinities and wait. Done in conjunction with r131 (No Ethical Consumption).`);
       break;
     default:
-      message.channel.send("Check out this cool guide by Hellbach! https://docs.google.com/document/d/1C8W_lt9EPxpu9wIloWZo5CPDdZ4ItP1-IU1Vs3x7lEg");
-      break;
+      if (args.length === 0) message.channel.send(`Check out this cool guide by Hellbach! https://docs.google.com/document/d/1C8W_lt9EPxpu9wIloWZo5CPDdZ4ItP1-IU1Vs3x7lEg`);
+      else if (!(args.length === 0)) message.channel.send(`This achievement is either useless or can easily be achieved.`);
+      else message.channel.send(`Hi.`);
     }
   }
 };
