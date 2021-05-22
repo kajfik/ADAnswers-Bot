@@ -54,12 +54,12 @@ module.exports = {
       break;
     case "r107":
     case "dyrnagft":
+    case "r116":
+    case "dirnti":
       message.channel.send(`Respec out of TS 32 and infinity in under 5s to avoid multiplying your infinity gain. Effortless with TS181.`);
       break;
     case "r108":
     case "wca9":
-    case "r116":
-    case "dirnti":
       message.channel.send(`Get it once you can eternity easily without buying replicanti, then do an eternity and buy 100% replicanti chance and a few interval upgrades.`);
       break;
     case "r111":
