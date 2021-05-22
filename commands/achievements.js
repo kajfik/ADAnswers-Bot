@@ -34,7 +34,7 @@ module.exports = {
     case "r43": //delete this in reality
     case "r77":
     case "zd":
-      message.channel.send(`Trivial after you get ID1 in C3. It doesn't need to be attempted early; if it is, it takes about 16+ hours before ID1.`);
+      message.channel.send(`Trivial after you get ID1. Do it in C3. It doesn't need to be attempted early; if it is, it takes about 16+ hours before ID1.`);
       break;
     case "r81":
     case "hdnw":
@@ -60,7 +60,7 @@ module.exports = {
       break;
     case "r108":
     case "wca9":
-      message.channel.send(`Get it once you can eternity easily without buying replicanti, then do an eternity and buy 100% replicanti chance and a few interval upgrades.`);
+      message.channel.send(`Get it once you can eternity easily without buying replicanti. Then do an eternity and buy 2-3% replicanti chance and a few interval upgrades.`);
       break;
     case "r111":
     case "yd":
@@ -72,7 +72,7 @@ module.exports = {
       break;
     case "r125":
     case "lfoab":
-      message.channel.send(`Only possible after you buy TS 181. Using idle, disable AD/ID autobuyers, enter normal challenge 12, and buy a 4th dim. Will take ~30-60 minutes.`);
+      message.channel.send(`Only possible after you buy TS 181. Using idle, disable AD/ID autobuyers, enter normal challenge 12, and buy a 4th dim. Depending on how many EP you have, it can be achieved instantly or it takes up to 60 minutes.`);
       break;
     case "r126":
     case "pm":
@@ -92,7 +92,7 @@ However, this achievement reward is pretty much negligible as not having the IC 
       break;
     case "r134":
     case "wwibe":
-      message.channel.send(`Disable RG autobuyer while grinding banked infinities and wait. Done in conjunction with r131 (No Ethical Consumption).`);
+      message.channel.send(`Disable RG autobuyer while grinding banked infinities and wait. Done in conjunction with r131 (No Ethical Consumption). Takes 9 hours on mobile, 30 on web.`);
       break;
     default:
       if (args.length === 0) message.channel.send(`Check out this cool guide by Hellbach! https://docs.google.com/document/d/1C8W_lt9EPxpu9wIloWZo5CPDdZ4ItP1-IU1Vs3x7lEg`);
