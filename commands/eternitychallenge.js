@@ -329,7 +329,7 @@ const revampedECs = [
   {
     challenge: 8,
     completion: 1,
-    tt: 208,
+    tt: 207,
     ip: "`1e1300`",
     note: "`Buy the challenge once, then respec your tree and buy everything up until TS123. Start the challenge and wait for replicanti. Then buy the rest of the tree: 133,143,151,161,162. Spend your upgrades on: 0 RG, 9% chance, remaining on interval - all on ID1.`",
     tree: "`11,22,32,42,51,61,73,83,93,103,111,123,133,143,151,161,162|8`"
