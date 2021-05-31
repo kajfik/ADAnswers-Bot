@@ -591,7 +591,7 @@ module.exports = {
           message.author.send(`The tree for EC${c}x${d} is: ${ec.tree}
     TT for Completion: \`${ec.tt}\`
     IP Requirement for Completion: \`${ec.ip}\` ${ec.note === null ? `` : `\n    Note: \`${ec.note}\``}
-    Other completions: \`${ec.otherCompletions}\``).catch(() => {
+    Other completions: \`${otherCompletions(c, d)}\``).catch(() => {
             message.channel.send("Hey! I can't DM you!");
           }).then(() => {
             message.react("☑️");
