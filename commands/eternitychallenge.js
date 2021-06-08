@@ -454,7 +454,7 @@ const revampedECs = [
     completion: 1,
     tt: 5600,
     ip: "`1e500`",
-    note: "`Get the Popular Music - achievement before EC11s. (How to get this: Use active path, get 180 max RGs, disable galaxy autobuyer, crunch, hold R to buy RGs.)`",
+    note: "`Get the Popular Music - achievement first (use ++pm for help with it).`",
     tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,121,131,141,151,161,162,171,181,191,192,193,211,212,213,222,225,231,233|11`"
   },
   {
@@ -462,7 +462,7 @@ const revampedECs = [
     completion: 2,
     tt: 5600,
     ip: "`1e700`",
-    note: null,
+    note: "`Get the Popular Music - achievement first (use ++pm for help with it).`",
     tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,121,131,141,151,161,162,171,181,191,192,193,211,212,213,222,225,231,233|11`"
   },
   {
@@ -470,7 +470,7 @@ const revampedECs = [
     completion: 3,
     tt: 5950,
     ip: "`1e900`",
-    note: null,
+    note: "`Get the Popular Music - achievement first (use ++pm for help with it).`",
     tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,123,133,143,151,161,162,171,181,191,192,193,211,212,213,222,223,225,231,233|11`"
   },
   {
@@ -478,7 +478,7 @@ const revampedECs = [
     completion: 4,
     tt: 5950,
     ip: "`1e1100`",
-    note: null,
+    note: "`Get the Popular Music - achievement first (use ++pm for help with it).`",
     tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,123,133,143,151,161,162,171,181,191,192,193,211,212,213,222,223,225,231,233|11`"
   },
   {
@@ -486,7 +486,7 @@ const revampedECs = [
     completion: 5,
     tt: 5950,
     ip: "`1e1300`",
-    note: "`This takes around 2h 45m.`",
+    note: "`This takes around 2h 45m. Get the Popular Music - achievement first (use ++pm for help with it).`"`",
     tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,123,133,143,151,161,162,171,181,191,192,193,211,212,213,222,223,225,231,233|11`"
   },
   // EC12
