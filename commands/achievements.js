@@ -31,7 +31,8 @@ module.exports = {
     case "909":
       message.channel.send(`Do it after the e39 ID2. Disable boost, galaxy and all dim autobuyers, go into C2 and buy 10 1st dims.`);
       break;
-    case "r43": //delete this in reality
+    // Delete case "r43" in reality
+    case "r43":
     case "r77":
     case "zd":
       message.channel.send(`Trivial after you get ID1. Do it in C3. It doesn't need to be attempted early; if it is, it takes about 16+ hours before ID1.`);

@@ -4,6 +4,8 @@
 /* eslint-disable max-len */
 "use strict";
 
+const functions = require("../functions.js");
+
 module.exports = {
   number: 1,
   name: "antitables",
@@ -21,9 +23,9 @@ If your 1st dimension multiplier raises too quickly, you may be unable to comple
       message.channel.send(`Respec out of all of your Time Studies. Get as many galaxies as you can and a few dimboosts. Disable the crunch, eternity, dimboost, galaxy, and dim 1-7 autobuyers. Dimboost, and your 1st dim's Dimension Multiplier (the number below the dimension name) should be the lowest, followed by the 2nd dim. If it’s not, buy 2nd dims until it is, otherwise, continue up from 3rd to 7th dim, buying just enough dimensions to get the Dimension Multiplier higher than the last. If you have reached Dilation, you can try this strategy within that.`);
       break;
     default:
-      if (args[0] === undefined) message.channel.send(`Command \`++antitables\` requires an arg. ("prebreak", "postbreak", or "posteternity").`);
-      else if (!(args[0] === undefined)) message.channel.send(`Unknown argument ${args[0]} for command \`++antitables\`.`);
-      else message.channel.send(`This message should never appear. If it does, let earth know with the message that caused it.`);
+      if (args[0] === undefined) message.channel.send(functions.getMessage("missingArg", { name: this.name, acceptableArgs: ["prebreak", "postbreak", "posteternity"] }));
+      else if (!(args[0] === undefined)) message.channel.send(functions.getMessage("error", { args, name: this.name, acceptableArgs: ["prebreak", "postbreak", "posteternity"] }));
+      else message.channel.send(functions.getMessage("shouldNeverAppear"));
         
     }
   }

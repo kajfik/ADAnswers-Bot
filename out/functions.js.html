@@ -28,7 +28,6 @@
         <article>
             <pre class="prettyprint source linenums"><code>/* eslint-disable no-console */
 "use strict";
-const { isFunctionExpression } = require("typescript");
 /* eslint-disable max-len */
 
 
@@ -472,7 +471,7 @@ function generateChannelMessage() {
 /**
  * Gets a message to prevent repetitive code
  * @param {String} command string that contains what command is being used
- * @param {Object} stuff object that contains theorem and path for the case "ts"
+ * @param {Object} stuff object that contains theorem, path for the case "ts", acceptable arguments, name of the command, and 
  * @returns sends the message or sends an error message back to the code
  */
 function getMessage(command, stuff = {}) {
@@ -481,9 +480,46 @@ function getMessage(command, stuff = {}) {
     return generateTree(stuff.theorem, stuff.path);
   case "channel":
     return generateChannelMessage();
+  case "error":
+    return `Unknown arg ${stuff.args[0]} in command ${stuff.name}. The args for this command are ${stuff.acceptableArgs.join(", ")}.`;
+  case "noWorky":
+    switch (stuff.worky) {
+    case "earlyGame": return `This command only works in the early game channels or the common channels. Use \`++channels\` to see which channels that is!`;
+    case "earlyEternity": return `This command only works in the early Eternity channels, bot commands, or the common channels! Use \`++channels\` to see which channels that is!`;
+    case "misc": return `This is a miscellaneous command and is only allowed in &lt;#351479640755404820>`;
+    default: return `What kind of error message are you trying to get?`;
+    }
+  case "missingArg":
+    return `Command \`${stuff.name}\` requires an arg. The args for this command are ${stuff.acceptableArgs.join(", ")}.`;
+  case "shouldNeverAppear": 
+    return `This message should never appear. If it does, let earth know with a screenshot of the message that caused it.`;
   default: 
     console.error("Unknown command for getMessage!");
     return "Something went wrong";
+  }
+}
+
+/**
+ * Starts intervals for the bot. Currently, the only interval being started is the switching bot status.
+ * @param {Object} client This is the discord Client object that was declared in bot.js.
+ */
+function startIntervals(client) {
+  setInterval(setBotStatus, 60000, client);
+}
+
+let which = true;
+
+/**
+ * Changes the bot status, currently every minute.
+ * @param {Object} client This is the discord Client object that was declared in bot.js.
+ */
+function setBotStatus(client) {
+  if (which) {
+    client.user.setActivity(" people here and in DMs since 1992 || created by earth#1337 || use ++help!", { type: "LISTENING" });
+    which = !which;
+  } else if (!which) {
+    client.user.setActivity(" people here and in DMs since 1992 || created by earth#1337 || You can use the bot in DMs, too!", { type: "LISTENING" });
+    which = !which;
   }
 }
 
@@ -522,6 +558,10 @@ module.exports = {
     setCrunchAutoCheck,
     studytreeCheck,
   },
+  internal: {
+    startIntervals,
+    setBotStatus
+  }
 };
 </code></pre>
         </article>
@@ -533,13 +573,13 @@ module.exports = {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#bankedInfsCheck">bankedInfsCheck</a></li><li><a href="global.html#botCommandsCheck">botCommandsCheck</a></li><li><a href="global.html#breakCheck">breakCheck</a></li><li><a href="global.html#commonCheck">commonCheck</a></li><li><a href="global.html#constructEmbedObject">constructEmbedObject</a></li><li><a href="global.html#convertMillisecondsToDigitalClock">convertMillisecondsToDigitalClock</a></li><li><a href="global.html#dilationGrindCheck">dilationGrindCheck</a></li><li><a href="global.html#earlyEternity">earlyEternity</a></li><li><a href="global.html#earlyEternityCheck">earlyEternityCheck</a></li><li><a href="global.html#earlyGameCheck">earlyGameCheck</a></li><li><a href="global.html#earlyInfinityCheck">earlyInfinityCheck</a></li><li><a href="global.html#ecsCheck">ecsCheck</a></li><li><a href="global.html#endgameCheck">endgameCheck</a></li><li><a href="global.html#eternityGrindingCheck">eternityGrindingCheck</a></li><li><a href="global.html#generateChannelMessage">generateChannelMessage</a></li><li><a href="global.html#generateTree">generateTree</a></li><li><a href="global.html#getFooter">getFooter</a></li><li><a href="global.html#getHelpDescription">getHelpDescription</a></li><li><a href="global.html#getMessage">getMessage</a></li><li><a href="global.html#help">help</a></li><li><a href="global.html#isUndefined">isUndefined</a></li><li><a href="global.html#lightDark">lightDark</a></li><li><a href="global.html#secondSplit">secondSplit</a></li><li><a href="global.html#setCrunchAutoCheck">setCrunchAutoCheck</a></li><li><a href="global.html#studytreeCheck">studytreeCheck</a></li><li><a href="global.html#sumAllCommands">sumAllCommands</a></li><li><a href="global.html#toNumber">toNumber</a></li><li><a href="global.html#toPath">toPath</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#bankedInfsCheck">bankedInfsCheck</a></li><li><a href="global.html#botCommandsCheck">botCommandsCheck</a></li><li><a href="global.html#breakCheck">breakCheck</a></li><li><a href="global.html#commonCheck">commonCheck</a></li><li><a href="global.html#constructEmbedObject">constructEmbedObject</a></li><li><a href="global.html#convertMillisecondsToDigitalClock">convertMillisecondsToDigitalClock</a></li><li><a href="global.html#dilationGrindCheck">dilationGrindCheck</a></li><li><a href="global.html#earlyEternity">earlyEternity</a></li><li><a href="global.html#earlyEternityCheck">earlyEternityCheck</a></li><li><a href="global.html#earlyGameCheck">earlyGameCheck</a></li><li><a href="global.html#earlyInfinityCheck">earlyInfinityCheck</a></li><li><a href="global.html#ecsCheck">ecsCheck</a></li><li><a href="global.html#endgameCheck">endgameCheck</a></li><li><a href="global.html#eternityGrindingCheck">eternityGrindingCheck</a></li><li><a href="global.html#generateChannelMessage">generateChannelMessage</a></li><li><a href="global.html#generateTree">generateTree</a></li><li><a href="global.html#getFooter">getFooter</a></li><li><a href="global.html#getHelpDescription">getHelpDescription</a></li><li><a href="global.html#getMessage">getMessage</a></li><li><a href="global.html#help">help</a></li><li><a href="global.html#isUndefined">isUndefined</a></li><li><a href="global.html#lightDark">lightDark</a></li><li><a href="global.html#secondSplit">secondSplit</a></li><li><a href="global.html#setBotStatus">setBotStatus</a></li><li><a href="global.html#setCrunchAutoCheck">setCrunchAutoCheck</a></li><li><a href="global.html#startIntervals">startIntervals</a></li><li><a href="global.html#studytreeCheck">studytreeCheck</a></li><li><a href="global.html#sumAllCommands">sumAllCommands</a></li><li><a href="global.html#toNumber">toNumber</a></li><li><a href="global.html#toPath">toPath</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sun May 16 2021 20:28:37 GMT-0500 (Central Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Wed Jun 09 2021 10:29:09 GMT-0500 (Central Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

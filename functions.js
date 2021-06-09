@@ -443,7 +443,7 @@ function generateChannelMessage() {
 /**
  * Gets a message to prevent repetitive code
  * @param {String} command string that contains what command is being used
- * @param {Object} stuff object that contains theorem and path for the case "ts"
+ * @param {Object} stuff object that contains theorem, path for the case "ts", acceptable arguments, name of the command, and 
  * @returns sends the message or sends an error message back to the code
  */
 function getMessage(command, stuff = {}) {
@@ -454,9 +454,44 @@ function getMessage(command, stuff = {}) {
     return generateChannelMessage();
   case "error":
     return `Unknown arg ${stuff.args[0]} in command ${stuff.name}. The args for this command are ${stuff.acceptableArgs.join(", ")}.`;
+  case "noWorky":
+    switch (stuff.worky) {
+    case "earlyGame": return `This command only works in the early game channels or the common channels. Use \`++channels\` to see which channels that is!`;
+    case "earlyEternity": return `This command only works in the early Eternity channels, bot commands, or the common channels! Use \`++channels\` to see which channels that is!`;
+    case "misc": return `This is a miscellaneous command and is only allowed in <#351479640755404820>`;
+    default: return `What kind of error message are you trying to get?`;
+    }
+  case "missingArg":
+    return `Command \`${stuff.name}\` requires an arg. The args for this command are ${stuff.acceptableArgs.join(", ")}.`;
+  case "shouldNeverAppear": 
+    return `This message should never appear. If it does, let earth know with a screenshot of the message that caused it.`;
   default: 
     console.error("Unknown command for getMessage!");
     return "Something went wrong";
+  }
+}
+
+/**
+ * Starts intervals for the bot. Currently, the only interval being started is the switching bot status.
+ * @param {Object} client This is the discord Client object that was declared in bot.js.
+ */
+function startIntervals(client) {
+  setInterval(setBotStatus, 60000, client);
+}
+
+let which = true;
+
+/**
+ * Changes the bot status, currently every minute.
+ * @param {Object} client This is the discord Client object that was declared in bot.js.
+ */
+function setBotStatus(client) {
+  if (which) {
+    client.user.setActivity(" people here and in DMs since 1992 || created by earth#1337 || use ++help!", { type: "LISTENING" });
+    which = !which;
+  } else if (!which) {
+    client.user.setActivity(" people here and in DMs since 1992 || created by earth#1337 || You can use the bot in DMs, too!", { type: "LISTENING" });
+    which = !which;
   }
 }
 
@@ -495,4 +530,8 @@ module.exports = {
     setCrunchAutoCheck,
     studytreeCheck,
   },
+  internal: {
+    startIntervals,
+    setBotStatus
+  }
 };

@@ -32,7 +32,7 @@ const fieldsArray = [fieldsVar, fieldsVar2, fieldsVar3, fieldsVar4, fieldsVar5, 
 
 client.once("ready", () => {
   console.log(`Good morning. The current date and time is ${Date()}.`);
-  client.user.setActivity(" and helping people since 1992 || created by earth#1337 || use ++help!", { type: "LISTENING" });
+  functions.internal.startIntervals(client);
 });
 
 client.login(config.token);
