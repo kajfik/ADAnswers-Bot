@@ -16,7 +16,7 @@ Idle: \`11,21,22,31,32,33,41,42,51,61,62,73,83,93,103,111,123,133,143,151,161,16
 Note: Active will fail for the very first dilation on mobile (and sometimes on web as well).`);
         break;
       case "after3paths":
-        message.channel.send("`11,21,22,31,32,33,41,42,51,61,62,72,71,73,82,81,83,92,91,93,102,103,101,111,123,133,143,151,161,162,171,181,192,191,193,212,211,213,214,222,223,232,225,233,228|0`");
+        message.channel.send("`11,21,22,31,32,33,41,42,51,61,62,72,71,73,82,81,83,92,91,93,102,103,101,111,121,131,141,151,161,162,171,181,192,191,193,212,211,213,214,222,223,232,225,233,228|0`");
         break;
       default:
         if (args[0] === undefined) message.channel.send(`This command requires an arg!  Args are \`first\` and \`after3paths\``);
