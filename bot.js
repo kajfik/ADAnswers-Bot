@@ -77,6 +77,20 @@ client.on("message", message => {
     functions.help(message, fieldsArray, { command, args, id });
 
     if (!client.commands.has(command) && command !== "help") {
+      if (command.startsWith("ec") && command.includes("x")) {
+        try {
+          // Gets the completion and number
+          const a = command.split("c");
+          const b = a[1].split("x");
+          // Tries to execute the EC command.
+          // Here we access the EC command directly instead of routing it through ec.js 
+          // to improve code slightly.
+          client.commands.get("eternitychallenge").execute(message, b, id);
+          return;
+        } catch (error) {
+          console.log(error);
+        }
+      }
       message.reply(`Command \`${command}\` is not a command!`);
       return;
     } 

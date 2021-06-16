@@ -5,7 +5,8 @@ module.exports = {
   name: "abb",
   description: "sends an abbreviation guide",
   execute(message) {
-    message.channel.send(`AM - Antimatter
+    message.channel.send(`
+    AM - Antimatter
     IP - ||Infinity Points||
     EP - ||Eternity Points||
     CX - Challenge X
@@ -17,6 +18,7 @@ module.exports = {
     TS - ||Time Study||
     TT - ||Time Theorem||
     DT - ||Dilated Time||
-    TP - ||Tachyon Particles||`);
+    TP - ||Tachyon Particles||
+    BInf - ||Banked Infinities||`);
   }
 };
