@@ -77,7 +77,7 @@ client.on("message", message => {
     functions.help(message, fieldsArray, { command, args, id });
 
     if (!client.commands.has(command) && command !== "help") {
-      message.channel.send(`Command \`${command}\` is not a command!`);
+      message.reply(`Command \`${command}\` is not a command!`);
       return;
     } 
     if (!client.commands.has(command) && command === "help") {
@@ -90,7 +90,7 @@ client.on("message", message => {
       console.error(error);
       console.log(`${Date()}`);
       console.log(`${message.url}`);
-      message.reply(`Command ${command} is not a command.`);
+      message.reply(`Command \`${command}\` is not a command.`);
     }
   } catch (error) {
     console.log(`something went sicko mode ${error}`);
