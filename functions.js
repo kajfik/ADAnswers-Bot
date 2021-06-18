@@ -495,6 +495,16 @@ function setBotStatus(client) {
   }
 }
 
+/**
+ * The following function calculates the logarithm of y with base x
+ * @param {Number} x base of the logarithm
+ * @param {Number} y number being inputted as the logarithm
+ * @returns Number
+ */
+function getBaseLog(x, y) {
+  return Math.log(y) / Math.log(x);
+}
+
 module.exports = {
   earlyGameCheck,
   breakCheck,
@@ -513,7 +523,8 @@ module.exports = {
     toNumber,
     convertMillisecondsToDigitalClock,
     isUndefined,
-    generateChannelMessage
+    generateChannelMessage,
+    getBaseLog
   },
   studytree: {
     toPath,
