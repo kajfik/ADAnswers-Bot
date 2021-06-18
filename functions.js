@@ -310,7 +310,8 @@ function lightDark(theorem) {
  * @returns string with the tree as well as the description when applicable
  */
 function generateTree(theorem, path) {
-  let tree, desc = null;
+  let desc = null, 
+    tree;
   if (theorem <= 53) {
     tree = earlyEternity(theorem);
   } else if (theorem <= 122) {
@@ -321,7 +322,9 @@ function generateTree(theorem, path) {
   } else {
     [tree, desc] = lightDark(theorem);
   }
-  return `${desc === null ? "" : `${desc} `}\`${tree.join(",")}|0\``;
+  return `${desc === null
+    ? ""
+    : `${desc} `}\`${tree.join(",")}|0\``;
 }
 
 /**
@@ -333,10 +336,14 @@ function generateTree(theorem, path) {
 function constructEmbedObject(number, fieldsArray) {
   if (number < fieldsArray.length || number === 69) {
     return {
-      color: `#${number === 69 ? `696969` : `${number - 1}${number - 1}${number - 1}${number - 1}${number - 1}${number - 1}`}`,
+      color: `#${number === 69
+        ? `696969`
+        : `${number - 1}${number - 1}${number - 1}${number - 1}${number - 1}${number - 1}`}`,
       title: `Help (p${number}/${fieldsArray.length - 1})`,
       description: getHelpDescription(sumAllCommands(fieldsArray)),
-      fields: number === 69 ? fieldsArray[fieldsArray.length - 1] : fieldsArray[number - 1],
+      fields: number === 69
+        ? fieldsArray[fieldsArray.length - 1]
+        : fieldsArray[number - 1],
       timestamp: new Date(),
       footer: {
         text: getFooter(config.version)
@@ -393,14 +400,22 @@ function help(message, fieldsArray, stuff) {
 function convertMillisecondsToDigitalClock(ms) {
   const days = Math.floor(ms / (3600000 * 24)),
     hours = Math.floor(ms % (3600000 * 24) / 3600000),
-    minutes = Math.floor((ms % 3600000) / 60000),
-    seconds = Math.floor((ms % 60000) / 1000);
+    minutes = Math.floor(ms % 3600000 / 60000),
+    seconds = Math.floor(ms % 60000 / 1000);
   return {
     days,
     hours,
     minutes,
     seconds,
-    clock: `${days <= 9 ? `0${days}` : `${days}`}:${hours <= 9 ? `0${hours}` : `${hours}`}:${minutes <= 9 ? `0${minutes}` : `${minutes}`}:${seconds <= 9 ? `0${seconds}` : `${seconds}`}`
+    clock: `${days <= 9
+      ? `0${days}`
+      : `${days}`}:${hours <= 9
+      ? `0${hours}`
+      : `${hours}`}:${minutes <= 9
+      ? `0${minutes}`
+      : `${minutes}`}:${seconds <= 9
+      ? `0${seconds}`
+      : `${seconds}`}`
   };
 }
 
@@ -539,7 +554,7 @@ module.exports = {
     earlyInfinityCheck,
     eternityGrindingCheck,
     setCrunchAutoCheck,
-    studytreeCheck,
+    studytreeCheck
   },
   internal: {
     startIntervals,

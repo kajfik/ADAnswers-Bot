@@ -45,15 +45,8 @@ for (const file of commandFiles) {
 client.commands.forEach(element => {
   // Some commands have type: "shorthand" to make it not appear in the help embeds. This just works lol If you're adding a shorthand, please make sure to put that in.
   if (element.type !== "shorthand") {
-    if (element.number === 1) fieldsVar.push({ name: element.name, value: element.description });
-    else if (element.number === 2) fieldsVar2.push({ name: element.name, value: element.description });
-    else if (element.number === 3) fieldsVar3.push({ name: element.name, value: element.description });
-    else if (element.number === 4) fieldsVar4.push({ name: element.name, value: element.description });
-    else if (element.number === 5) fieldsVar5.push({ name: element.name, value: element.description });
-    else if (element.number === 6) fieldsVar6.push({ name: element.name, value: element.description });
-    else if (element.number === 7) fieldsVar7.push({ name: element.name, value: element.description });
-    // else if (element.number === 8) fieldsVar8.push({ name: element.name, value: element.description });
-    else if (element.number === 69) fieldsVar69.push({ name: element.name, value: element.description });
+    if (element.number > 0 && element.number < fieldsArray.length) fieldsArray[element.number - 1].push({ name: element.name, value: element.description });
+    else if (element.number === 69) fieldsArray[fieldsArray.length - 1].push({ name: element.name, value: element.description });
     else console.log(element);
   }
 });
