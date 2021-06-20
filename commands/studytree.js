@@ -11,7 +11,8 @@ module.exports = {
   name: "studytree",
   description: `Has a shorthand: \`++ts\`. Generates a Time Study tree based on your total Time Theorems.
   Args: your total Time Theorems. Beginning at 54 TT, the command will take a second argument: \`active\`, \`passive\`, or \`idle\`. The argument is optional, and the default value is \`active\`.`,
-  execute(message, args, id) {
+  // eslint-disable-next-line max-params
+  execute(message, args, id, weirdStuff = {}) {
     if (functions.special.studytreeCheck(id, message)) {
       if (args[0] === (null || undefined) || args === []) {
         message.channel.send(`Error: Argument missing for command \`++studytree\``);
@@ -19,8 +20,12 @@ module.exports = {
       }
 
       if (args[0].includes("x")) {
-        message.channel.send("Hey, what are you trying to do? No X allowed! Are you looking for `++ec`?");
-        return;
+        try {
+          weirdStuff.c.get("eternitychallenge").execute(message, args, id);
+          return;
+        } catch (error) {
+          console.error(error);
+        }
       }
 
       try {
@@ -40,6 +45,9 @@ module.exports = {
         if (args.includes("show") && message.author.id === "213071245896450068") {
           message.channel.send(sent);
           return;
+        } 
+        if (args.includes("show") && message.author.id !== "213071245896450068") {
+          message.author.send("Only Earth, the owner of the bot, can do the arg `show`.");
         }
 
         if (functions.botCommandsCheck(id, message) || functions.commonCheck(id)) {

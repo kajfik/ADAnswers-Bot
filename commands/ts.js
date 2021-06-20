@@ -7,7 +7,8 @@ module.exports = {
   number: 6,
   description: "shorthand for ++studytree",
   type: "shorthand",
-  execute(message, args, id) {
-    execute(message, args, id);
+  // eslint-disable-next-line max-params
+  execute(message, args, id, weirdStuff) {
+    execute(message, args, id, weirdStuff);
   }
 };

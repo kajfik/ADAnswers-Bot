@@ -92,7 +92,10 @@ client.on("message", message => {
     }
 
     try {
-      client.commands.get(command).execute(message, args, id);
+      // This is a lot of parameters and eventually I think it would be cool
+      // to make it all one object. As of right now, though, the object at the end is
+      // solely for being able to do something like ++ts 12x5. It's finicky, it's cool it works.
+      client.commands.get(command).execute(message, args, id, { c: client.commands });
     } catch (error) {
       console.error(error);
       console.log(`${Date()}`);
