@@ -1,6 +1,4 @@
 /* eslint-disable capitalized-comments */
-/* eslint-disable complexity */
-/* eslint-disable max-len */
 /* eslint-disable no-console */
 
 "use strict";
@@ -10,7 +8,7 @@
 // ANYTHING TO IT THAT YOU MAY USE OUTSIDE OF ONE FILE
 
 const Discord = require("discord.js");
-const fs = require("fs");
+const fs = require("fs"); 
 const config = require("./config.json");
 const functions = require("./functions");
 
@@ -39,15 +37,29 @@ client.login(config.token);
 
 for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
+  if (file === "1minuteinf.js") {
+    client.commands.set(command.command.name, command.command);
+  }
   client.commands.set(command.name, command);
 }
 
 client.commands.forEach(element => {
-  // Some commands have type: "shorthand" to make it not appear in the help embeds. This just works lol If you're adding a shorthand, please make sure to put that in.
-  if (element.type !== "shorthand") {
-    if (element.number > 0 && element.number < fieldsArray.length) fieldsArray[element.number - 1].push({ name: element.name, value: element.description });
-    else if (element.number === 69) fieldsArray[fieldsArray.length - 1].push({ name: element.name, value: element.description });
-    else console.log(element);
+  // Some commands have type: "shorthand" to make it not appear in the help embeds. This just works lol 
+  // If you're adding a shorthand, please make sure to put that in.
+  let e = null;
+  // This element.command thing is for commands I have refactored into classes.
+  // eslint-disable-next-line no-negated-condition
+  if (element.command !== undefined) {
+    e = element.command;
+  } else {
+    e = element;
+  }
+  if (e.type !== "shorthand") {
+    // eslint-disable-next-line max-len
+    if (e.number > 0 && e.number < fieldsArray.length) fieldsArray[e.number - 1].push({ name: e.name, value: e.description });
+    // eslint-disable-next-line max-len
+    else if (e.number === 69) fieldsArray[fieldsArray.length - 1].push({ name: e.name, value: e.description });
+    else console.log(e);
   }
 });
 
@@ -94,13 +106,14 @@ client.on("message", message => {
     try {
       // This is a lot of parameters and eventually I think it would be cool
       // to make it all one object. As of right now, though, the object at the end is
-      // solely for being able to do something like ++ts 12x5. It's finicky, it's cool it works.
+      // solely for being able to do something like ++ts 12x5. It's finicky, it's cool, it works.
       client.commands.get(command).execute(message, args, id, { c: client.commands });
     } catch (error) {
       console.error(error);
       console.log(`${Date()}`);
       console.log(`${message.url}`);
-      message.reply(`Command \`${command}\` is not a command.`);
+      // eslint-disable-next-line max-len
+      message.reply(`Command \`${command}\` is, in fact, a command, but it appears there was an internal issue with the bot and the bot is going offline. Thank you for your patience. Paging earth...<@213071245896450068>`);
     }
   } catch (error) {
     console.log(`something went sicko mode ${error}`);
