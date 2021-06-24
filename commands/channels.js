@@ -1,18 +1,18 @@
 "use strict";
 
-const config = require("../config.json");
+// This command still needs functions because creating the channel message is done in functions.js
+// It's easier to let it happen here than creating a special case for it in the execute method
+// of the command class.
+const { classes } = require("../command");
 const functions = require("../functions");
 
 module.exports = {
-  number: 6,
-  name: "channels",
-  description: "Sends a list of channels and their ids/part of game progress",
-  execute(message) {
-    if (functions.botCommandsCheck(message.channel.id, message)) {
-      message.channel.send(functions.getMessage("channel"));
-    } else {
-      // eslint-disable-next-line max-len
-      message.channel.send(`Command ++${this.name} is not allowed in this channel! Use <#${config.ids.botCommands[0]}>`);
-    }
-  }
+  command: new classes.com({
+    number: 6,
+    name: "channels",
+    description: "Sends a list of channels and their ids/part of game progress",
+    check: "botCommands",
+    acceptableArgs: undefined,
+    sent: [functions.getMessage("channel")]
+  }),
 };

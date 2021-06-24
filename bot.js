@@ -37,10 +37,12 @@ client.login(config.token);
 
 for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
-  if (file === "1minuteinf.js") {
+  // eslint-disable-next-line no-negated-condition
+  if (command.command !== undefined) {
     client.commands.set(command.command.name, command.command);
+  } else {
+    client.commands.set(command.name, command);
   }
-  client.commands.set(command.name, command);
 }
 
 client.commands.forEach(element => {

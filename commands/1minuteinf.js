@@ -4,7 +4,8 @@
 const { classes } = require("../command.js");
 
 module.exports = {
-  command: new classes.com({ name: "1minuteinf", 
+  command: new classes.com({ 
+    name: "1minuteinf", 
     number: 1, 
     description: "explains the UI change at infinity in under a minute",
     check: "earlyGame",
