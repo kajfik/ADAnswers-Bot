@@ -472,8 +472,10 @@ function getMessage(command, stuff = {}) {
   case "noWorky":
     switch (stuff.worky) {
     case "earlyGame": return `This command only works in the early game channels or the common channels. Use \`++channels\` to see which channels that is!`;
+    case "earlyInfinity": return `This command only works in the early infinity channels or the common channels.`;
     case "breakCheck": return `This command only works in the break infinity channels or the common channels. Use \`++channels\` to seee which channels that is!`;
     case "earlyEternity": return `This command only works in the early Eternity channels, bot commands, or the common channels! Use \`++channels\` to see which channels that is!`;
+    case "ecs": return `This command only works in the Eternity Challenge channels, bot commands, or the common channels. Use \`++channels\` to see which channels that is!`;
     case "botCommands": return `This is a miscellaneous command and is only allowed in <#351479640755404820>`;
     case "bankedInfs": return `This command only works in the post-TS181 channel and on. You can also use <#351479640755404820>!`;
     case true: return `This check should never appear and is only here to say hi. How are you guys doing?`;

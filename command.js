@@ -28,7 +28,7 @@ class Command {
       if (this.getCheck(id, message)) message.channel.send(this.sent[0]);
       else message.channel.send(this.getFailMessage());
     } else if (this.acceptableArgs !== undefined) {
-      if (this.getCheck(id, message)) message.channel.send(this.getArgMessage(args[0]));
+      if (this.getCheck(id, message) && this.acceptableArgs.includes(args[0].toLowerCase())) message.channel.send(this.getArgMessage(args[0].toLowerCase()));
       else if (args[0] === undefined) message.channel.send(functions.getMessage("missingArg", { name: this.name, acceptableArgs: this.acceptableArgs }));
       else if (!(args[0] === undefined)) message.channel.send(functions.getMessage("error", { args, name: this.name, acceptableArgs: this.acceptableArgs }));
       else message.channel.send(functions.getMessage("shouldNeverAppear"));
@@ -42,8 +42,10 @@ class Command {
   getCheck(id, message) {
     switch (this.check) {
     case "earlyGame": return functions.earlyGameCheck(id, message);
+    case "earlyInfinity": return functions.special.earlyInfinityCheck(id, message);
     case "breakCheck": return functions.breakCheck(id, message);
     case "earlyEternity": return functions.earlyEternityCheck(id, message);
+    case "ecsCheck": return functions.ecsCheck(id, message);
     case "bankedInfs": return functions.special.bankedInfsCheck(id, message);
     case "botCommands": return functions.botCommandsCheck(id, message);
     case true: return true;
