@@ -1,14 +1,16 @@
 /* eslint-disable max-len */
 "use strict";
 
-const functions = require("../functions");
+const { classes } = require("../command");
 
 module.exports = {
-  name: "infinitygrinding",
-  number: 3,
-  description: "sends how to farm infinities for banking",
-  execute(message) {
-    if (functions.special.bankedInfsCheck(message.channel.id, message)) message.channel.send(`INFINITY FARMING: (Do this on long AFKs) ---- EC10 diminishing returns, reach at least 5 billion eventually (achievement)
+  command: new classes.com({
+    name: "infinitygrinding",
+    number: 3,
+    description: "sends how to farm infinities for banking",
+    check: "bankedInfs",
+    acceptableArgs: undefined,
+    sent: [`INFINITY FARMING: (Do this on long AFKs) ---- EC10 diminishing returns, reach at least 5 billion eventually (achievement)
 
     Method:
     -Normal IDLE build (Autobuy RG off -- good for EP later, use 225 with full tree ++ achievement at e20,000 replicanti)
@@ -18,6 +20,6 @@ module.exports = {
     -Crunch 5s
     -AutoGalaxy .4s (or .05s with a maximum galaxy count of the highest you reach in under 4.9 seconds)
     -AutoDimboost .1s
-    -Get "high" IP before starting`);
-  }
+    -Get "high" IP before starting`]
+  })
 };
