@@ -76,6 +76,7 @@ class Command {
     switch (this.check) {
     case "earlyGame": return functions.earlyGameCheck(id, message);
     case "earlyInfinity": return functions.special.earlyInfinityCheck(id, message);
+    case "setCrunchAutoCheck": return functions.special.setCrunchAutoCheck(id, message);
     case "breakCheck": return functions.breakCheck(id, message);
     case "earlyEternity": return functions.earlyEternityCheck(id, message);
     case "eternityGrinding": return functions.special.eternityGrindingCheck(id, message);

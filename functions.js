@@ -473,6 +473,7 @@ function getMessage(command, stuff = {}) {
     switch (stuff.worky) {
     case "earlyGame": return `This command only works in the early game channels or the common channels. Use \`++channels\` to see which channels that is!`;
     case "earlyInfinity": return `This command only works in the early infinity channels or the common channels.`;
+    case "setCrunchAutoCheck": return `This command only works in the channels it applies in.`;
     case "breakCheck": return `This command only works in the break infinity channels or the common channels. Use \`++channels\` to seee which channels that is!`;
     case "earlyEternity": return `This command only works in the early Eternity channels, bot commands, or the common channels! Use \`++channels\` to see which channels that is!`;
     case "eternityGrinding": return `This command only works in the Eternity channels, bot commands, or the common channels. Use \`++channels\` to see which channels that is!`;
