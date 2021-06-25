@@ -476,6 +476,7 @@ function getMessage(command, stuff = {}) {
     case "setCrunchAutoCheck": return `This command only works in the channels it applies in.`;
     case "breakCheck": return `This command only works in the break infinity channels or the common channels. Use \`++channels\` to seee which channels that is!`;
     case "earlyEternity": return `This command only works in the early Eternity channels, bot commands, or the common channels! Use \`++channels\` to see which channels that is!`;
+    case "studyTreeCheck": return `This command only works in the Eternity channels, bot commands, or the common channels! Use \`++channels\` to see which ochannels that is!`;
     case "eternityGrinding": return `This command only works in the Eternity channels, bot commands, or the common channels. Use \`++channels\` to see which channels that is!`;
     case "ecs": return `This command only works in the Eternity Challenge channels, bot commands, or the common channels. Use \`++channels\` to see which channels that is!`;
     case "botCommands": return `This is a miscellaneous command and is only allowed in <#351479640755404820>`;

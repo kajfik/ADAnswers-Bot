@@ -51,6 +51,16 @@ class Command {
         message.channel.send(this.sent[0]);
         return;
       }
+      if (this.name === "studytree" || this.name === "ts") {
+        if (functions.botCommandsCheck(id, message)) message.channel.send(this.getArgMessage(args));
+        else if (this.getCheck(id, message)) message.author.send(this.getArgMessage(args)).catch(() => {
+          message.reply("I can't DM you!");
+        }).then(() => message.react("☑️"));
+        else if (args[0] === undefined) message.channel.send(functions.getMessage("missingArg", { name: this.name, acceptableArgs: this.acceptableArgs }));
+        else if (!(args[0] === undefined)) message.channel.send(functions.getMessage("error", { args, name: this.name, acceptableArgs: this.acceptableArgs }));
+        else message.channel.send(functions.getMessage("shouldNeverAppear"));
+        return;
+      }
       if (this.getCheck(id, message) && this.acceptableArgs.includes(args[0].toLowerCase())) message.channel.send(this.getArgMessage(args[0].toLowerCase()));
       else if (args[0] === undefined) message.channel.send(functions.getMessage("missingArg", { name: this.name, acceptableArgs: this.acceptableArgs }));
       else if (!(args[0] === undefined)) message.channel.send(functions.getMessage("error", { args, name: this.name, acceptableArgs: this.acceptableArgs }));
@@ -79,6 +89,7 @@ class Command {
     case "setCrunchAutoCheck": return functions.special.setCrunchAutoCheck(id, message);
     case "breakCheck": return functions.breakCheck(id, message);
     case "earlyEternity": return functions.earlyEternityCheck(id, message);
+    case "studyTreeCheck": return functions.special.studytreeCheck(id, message);
     case "eternityGrinding": return functions.special.eternityGrindingCheck(id, message);
     case "ecsCheck": return functions.ecsCheck(id, message);
     case "bankedInfs": return functions.special.bankedInfsCheck(id, message);
