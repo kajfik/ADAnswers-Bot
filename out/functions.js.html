@@ -338,7 +338,8 @@ function lightDark(theorem) {
  * @returns string with the tree as well as the description when applicable
  */
 function generateTree(theorem, path) {
-  let tree, desc = null;
+  let desc = null, 
+    tree;
   if (theorem &lt;= 53) {
     tree = earlyEternity(theorem);
   } else if (theorem &lt;= 122) {
@@ -349,7 +350,9 @@ function generateTree(theorem, path) {
   } else {
     [tree, desc] = lightDark(theorem);
   }
-  return `${desc === null ? "" : `${desc} `}\`${tree.join(",")}|0\``;
+  return `${desc === null
+    ? ""
+    : `${desc} `}\`${tree.join(",")}|0\``;
 }
 
 /**
@@ -361,10 +364,14 @@ function generateTree(theorem, path) {
 function constructEmbedObject(number, fieldsArray) {
   if (number &lt; fieldsArray.length || number === 69) {
     return {
-      color: `#${number === 69 ? `696969` : `${number - 1}${number - 1}${number - 1}${number - 1}${number - 1}${number - 1}`}`,
+      color: `#${number === 69
+        ? `696969`
+        : `${number - 1}${number - 1}${number - 1}${number - 1}${number - 1}${number - 1}`}`,
       title: `Help (p${number}/${fieldsArray.length - 1})`,
       description: getHelpDescription(sumAllCommands(fieldsArray)),
-      fields: number === 69 ? fieldsArray[fieldsArray.length - 1] : fieldsArray[number - 1],
+      fields: number === 69
+        ? fieldsArray[fieldsArray.length - 1]
+        : fieldsArray[number - 1],
       timestamp: new Date(),
       footer: {
         text: getFooter(config.version)
@@ -421,14 +428,22 @@ function help(message, fieldsArray, stuff) {
 function convertMillisecondsToDigitalClock(ms) {
   const days = Math.floor(ms / (3600000 * 24)),
     hours = Math.floor(ms % (3600000 * 24) / 3600000),
-    minutes = Math.floor((ms % 3600000) / 60000),
-    seconds = Math.floor((ms % 60000) / 1000);
+    minutes = Math.floor(ms % 3600000 / 60000),
+    seconds = Math.floor(ms % 60000 / 1000);
   return {
     days,
     hours,
     minutes,
     seconds,
-    clock: `${days &lt;= 9 ? `0${days}` : `${days}`}:${hours &lt;= 9 ? `0${hours}` : `${hours}`}:${minutes &lt;= 9 ? `0${minutes}` : `${minutes}`}:${seconds &lt;= 9 ? `0${seconds}` : `${seconds}`}`
+    clock: `${days &lt;= 9
+      ? `0${days}`
+      : `${days}`}:${hours &lt;= 9
+      ? `0${hours}`
+      : `${hours}`}:${minutes &lt;= 9
+      ? `0${minutes}`
+      : `${minutes}`}:${seconds &lt;= 9
+      ? `0${seconds}`
+      : `${seconds}`}`
   };
 }
 
@@ -485,8 +500,18 @@ function getMessage(command, stuff = {}) {
   case "noWorky":
     switch (stuff.worky) {
     case "earlyGame": return `This command only works in the early game channels or the common channels. Use \`++channels\` to see which channels that is!`;
+    case "earlyInfinity": return `This command only works in the early infinity channels or the common channels.`;
+    case "setCrunchAutoCheck": return `This command only works in the channels it applies in.`;
+    case "breakCheck": return `This command only works in the break infinity channels or the common channels. Use \`++channels\` to seee which channels that is!`;
     case "earlyEternity": return `This command only works in the early Eternity channels, bot commands, or the common channels! Use \`++channels\` to see which channels that is!`;
-    case "misc": return `This is a miscellaneous command and is only allowed in &lt;#351479640755404820>`;
+    case "studyTreeCheck": return `This command only works in the Eternity channels, bot commands, or the common channels! Use \`++channels\` to see which ochannels that is!`;
+    case "eternityGrinding": return `This command only works in the Eternity channels, bot commands, or the common channels. Use \`++channels\` to see which channels that is!`;
+    case "ecs": return `This command only works in the Eternity Challenge channels, bot commands, or the common channels. Use \`++channels\` to see which channels that is!`;
+    case "botCommands": return `This is a miscellaneous command and is only allowed in &lt;#351479640755404820>`;
+    case "bankedInfs": return `This command only works in the post-TS181 channel and on. You can also use &lt;#351479640755404820>!`;
+    case "dilationGrind": return `This command only works in the channel directly before Dilation, bot commands, or the common channels. Use \`++channels\` to see which channels that is!`;
+    case "endgame": return `This command only works in the endgame channels, bot commands, or the common channels. Use \`++channels\` to see which channels that is!`;
+    case true: return `This check should never appear and is only here to say hi. How are you guys doing?`;
     default: return `What kind of error message are you trying to get?`;
     }
   case "missingArg":
@@ -523,6 +548,16 @@ function setBotStatus(client) {
   }
 }
 
+/**
+ * The following function calculates the logarithm of y with base x
+ * @param {Number} x base of the logarithm
+ * @param {Number} y number being inputted as the logarithm
+ * @returns Number
+ */
+function getBaseLog(x, y) {
+  return Math.log(y) / Math.log(x);
+}
+
 module.exports = {
   earlyGameCheck,
   breakCheck,
@@ -541,7 +576,8 @@ module.exports = {
     toNumber,
     convertMillisecondsToDigitalClock,
     isUndefined,
-    generateChannelMessage
+    generateChannelMessage,
+    getBaseLog
   },
   studytree: {
     toPath,
@@ -556,7 +592,7 @@ module.exports = {
     earlyInfinityCheck,
     eternityGrindingCheck,
     setCrunchAutoCheck,
-    studytreeCheck,
+    studytreeCheck
   },
   internal: {
     startIntervals,
@@ -573,13 +609,13 @@ module.exports = {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#bankedInfsCheck">bankedInfsCheck</a></li><li><a href="global.html#botCommandsCheck">botCommandsCheck</a></li><li><a href="global.html#breakCheck">breakCheck</a></li><li><a href="global.html#commonCheck">commonCheck</a></li><li><a href="global.html#constructEmbedObject">constructEmbedObject</a></li><li><a href="global.html#convertMillisecondsToDigitalClock">convertMillisecondsToDigitalClock</a></li><li><a href="global.html#dilationGrindCheck">dilationGrindCheck</a></li><li><a href="global.html#earlyEternity">earlyEternity</a></li><li><a href="global.html#earlyEternityCheck">earlyEternityCheck</a></li><li><a href="global.html#earlyGameCheck">earlyGameCheck</a></li><li><a href="global.html#earlyInfinityCheck">earlyInfinityCheck</a></li><li><a href="global.html#ecsCheck">ecsCheck</a></li><li><a href="global.html#endgameCheck">endgameCheck</a></li><li><a href="global.html#eternityGrindingCheck">eternityGrindingCheck</a></li><li><a href="global.html#generateChannelMessage">generateChannelMessage</a></li><li><a href="global.html#generateTree">generateTree</a></li><li><a href="global.html#getFooter">getFooter</a></li><li><a href="global.html#getHelpDescription">getHelpDescription</a></li><li><a href="global.html#getMessage">getMessage</a></li><li><a href="global.html#help">help</a></li><li><a href="global.html#isUndefined">isUndefined</a></li><li><a href="global.html#lightDark">lightDark</a></li><li><a href="global.html#secondSplit">secondSplit</a></li><li><a href="global.html#setBotStatus">setBotStatus</a></li><li><a href="global.html#setCrunchAutoCheck">setCrunchAutoCheck</a></li><li><a href="global.html#startIntervals">startIntervals</a></li><li><a href="global.html#studytreeCheck">studytreeCheck</a></li><li><a href="global.html#sumAllCommands">sumAllCommands</a></li><li><a href="global.html#toNumber">toNumber</a></li><li><a href="global.html#toPath">toPath</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#bankedInfsCheck">bankedInfsCheck</a></li><li><a href="global.html#botCommandsCheck">botCommandsCheck</a></li><li><a href="global.html#breakCheck">breakCheck</a></li><li><a href="global.html#commonCheck">commonCheck</a></li><li><a href="global.html#constructEmbedObject">constructEmbedObject</a></li><li><a href="global.html#convertMillisecondsToDigitalClock">convertMillisecondsToDigitalClock</a></li><li><a href="global.html#dilationGrindCheck">dilationGrindCheck</a></li><li><a href="global.html#earlyEternity">earlyEternity</a></li><li><a href="global.html#earlyEternityCheck">earlyEternityCheck</a></li><li><a href="global.html#earlyGameCheck">earlyGameCheck</a></li><li><a href="global.html#earlyInfinityCheck">earlyInfinityCheck</a></li><li><a href="global.html#ecsCheck">ecsCheck</a></li><li><a href="global.html#endgameCheck">endgameCheck</a></li><li><a href="global.html#eternityGrindingCheck">eternityGrindingCheck</a></li><li><a href="global.html#generateChannelMessage">generateChannelMessage</a></li><li><a href="global.html#generateTree">generateTree</a></li><li><a href="global.html#getBaseLog">getBaseLog</a></li><li><a href="global.html#getFooter">getFooter</a></li><li><a href="global.html#getHelpDescription">getHelpDescription</a></li><li><a href="global.html#getMessage">getMessage</a></li><li><a href="global.html#help">help</a></li><li><a href="global.html#isUndefined">isUndefined</a></li><li><a href="global.html#lightDark">lightDark</a></li><li><a href="global.html#secondSplit">secondSplit</a></li><li><a href="global.html#setBotStatus">setBotStatus</a></li><li><a href="global.html#setCrunchAutoCheck">setCrunchAutoCheck</a></li><li><a href="global.html#startIntervals">startIntervals</a></li><li><a href="global.html#studytreeCheck">studytreeCheck</a></li><li><a href="global.html#sumAllCommands">sumAllCommands</a></li><li><a href="global.html#toNumber">toNumber</a></li><li><a href="global.html#toPath">toPath</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Wed Jun 09 2021 10:29:09 GMT-0500 (Central Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Fri Jun 25 2021 21:28:17 GMT-0500 (Central Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>
