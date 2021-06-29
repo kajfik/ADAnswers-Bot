@@ -57,7 +57,8 @@ module.exports = {
       }
       sentArr[sentArr.indexOf(arg)] = `__***${arg}***__`;
       return `Order: ${sentArr.join(", ")}
-      Other completions you need: \`${ecothers}\``;
+      Other completions you need: \`${ecothers}\`
+      For more information on beating this challenge, use the command \`++ec ${ec[0]}x${ec[1]}\``;
     }
   })
 };
