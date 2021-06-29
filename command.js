@@ -45,6 +45,7 @@ class Command {
       if (this.name === "ts" || this.name === "studytree") this.tsCommand(message, args, id);
       else if (this.name === "news") this.newsCommand(message, args);
       else if (this.name === "xkcd") this.xkcdCommand(message, args, id);
+      else if (this.name === "eco" || this.name === "eternitychallengeorder") this.ecoCommand(message, args[0], id);
       else this.regularCommand(message, args, id);
     }
   }
@@ -96,33 +97,41 @@ class Command {
   }
 
   /**
-   * Does the ts command execution. Made to reduce clutter in the main execute() method.
+   * Does the ts and ECO command execution. Made to reduce clutter in the main execute() method.
    * @param {Object} message Object that contains all the information about the message.
    * @param {Array} args An array with the args provided by the user in the command message.
    * @param {String} id String with the ID of the channel the message was sent in.
    */
   tsCommand(message, args, id) {
-    if (this.name === "studytree" || this.name === "ts") {
-      if (functions.botCommandsCheck(id, message)) message.channel.send(this.getArgMessage(args));
-      else if (this.getCheck(id, message)) message.author.send(this.getArgMessage(args)).catch(() => {
-        message.reply("I can't DM you!");
-      }).then(() => message.react("☑️"));
-      else if (args[0] === undefined) message.channel.send(functions.getMessage("missingArg", { name: this.name, acceptableArgs: this.acceptableArgs }));
-      else if (!(args[0] === undefined)) message.channel.send(functions.getMessage("error", { args, name: this.name, acceptableArgs: this.acceptableArgs }));
-      else message.channel.send(functions.getMessage("shouldNeverAppear"));
-    }
+    if (functions.botCommandsCheck(id, message)) message.channel.send(this.getArgMessage(args));
+    else if (this.getCheck(id, message)) message.author.send(this.getArgMessage(args)).catch(() => {
+      message.reply("I can't DM you!");
+    }).then(() => message.react("☑️"));
+    else if (args[0] === undefined) message.channel.send(functions.getMessage("missingArg", { name: this.name, acceptableArgs: this.acceptableArgs }));
+    else if (!(args[0] === undefined)) message.channel.send(functions.getMessage("error", { args, name: this.name, acceptableArgs: this.acceptableArgs }));
+    else message.channel.send(functions.getMessage("shouldNeverAppear"));
+  }
+
+  ecoCommand(message, arg, id) {
+    if (!this.acceptableArgs.includes(arg) && functions.botCommandsCheck(id, message)) message.channel.send(this.sent[0]);
+    else if (functions.botCommandsCheck(id, message) && this.acceptableArgs.includes(arg)) message.channel.send(this.getArgMessage(arg));
+    else if (this.getCheck(id, message) && !this.acceptableArgs.includes(arg)) message.author.send(this.sent[0]).catch(() => {
+      message.reply("I can't DM you!");
+    }).then(() => message.react("☑️"));
+    else if (this.getCheck(id, message) && this.acceptableArgs.includes(arg)) message.author.send(this.getArgMessage(arg)).catch(() => {
+      message.reply("I can't DM you!");
+    }).then(() => message.react("☑️"));
+    else message.channel.send(functions.getMessage("shouldNeverAppear"));
   }
 
   /**
-   * Does the news command execution. Made to reduce clutter in the main execute() method.
+   * Does the news command and eternitychallengeorder execution. Made to reduce clutter in the main execute() method.
    * @param {Object} message Object that contains all the information about the message.
    * @param {Array} args An array with the args provided by the user in the command message.
    */
   newsCommand(message, args) {
     // News is a really weird command because it doesn't require an arg, so some special cases are made here.
-    if (args.length === 0 && this.name !== "news") {
-      message.channel.send(functions.getMessage("missingArg", { name: this.name, acceptableArgs: this.acceptableArgs }));
-    } else if (args.length === 0 && this.name === "news") {
+    if (args.length === 0) {
       message.channel.send(this.sent[0]);
     } else this.regularCommand(message, args, message.channel.id);
   }
