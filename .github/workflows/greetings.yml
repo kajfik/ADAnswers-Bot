@@ -1,0 +1,13 @@
+name: Greetings
+
+on: [pull_request, issues]
+
+jobs:
+  greeting:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/first-interaction@v1
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        issue-message: "Welcome to the ADAnswers-Bot repository! You probably know by now that this project is maintained by Earth and is run locally by him. By creating an issue, you're making it known that you want something added or changed. Earth may comment, add labels, or assign himself, which means it may get put in the bot! If he does not, don't take offense, keep making issues of things you want to see changed!"
+        pr-message: "Welcome to the ADAnswers-Bot repository! You probably know by now that this project is maintained by Earth and is run locally by him. By creating a pull request, you're mak ing it known that you want something added or changed. When making a PR, make sure that it corresponds to an issue. Earth will review your PR and will decide if the code is correct/correctly styled and if it is, it will be merged! Please make sure to be reasonable with contributions; this is a real, live bot being run on a server with thousands of people!"

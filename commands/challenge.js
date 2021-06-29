@@ -1,11 +1,13 @@
 /* eslint-disable max-len */
 "use strict";
 
+const functions = require("../functions");
+
 module.exports = {
   number: 1,
   name: "challenge",
   description: "Args: `c9`, `ic4`, `ic5`, `ecs`. Returns a guide for each argument.",
-  execute(message, args) {
+  execute(message, args, id) {
     switch (args[0]) {
     case "c9":
       message.channel.send(`I recommend having all Infinity upgrades (except the last 4 which don't work in challenges) and at least 10-100 unspent IP before attempting C9. Some players prefer attempting this challenge at higher IP values (10k+) where the challenge becomes trivial.\n
@@ -21,13 +23,14 @@ IC4 written guide (for web): <https://pastebin.com/aZktZs8m>`);
 IC5 written guide (for web): <https://pastebin.com/sj2nFFjH>`);
       break;
     case "ecs":
-      message.channel.send(`Check out this helpful guide from Ninjatsu. https://canary.discord.com/channels/351476683016241162/408764187960147982/731639441474453537`);
+      if (functions.ecsCheck(id, message)) message.channel.send(`Check out this helpful guide from Ninjatsu. https://canary.discord.com/channels/351476683016241162/408764187960147982/731639441474453537`);
+      else message.channel.send("This command only works in its respective channels or bot commands.");
       break;
     case "c1":
       message.channel.send("Fuck you pichu");
       break;
     default:
-      message.channel.send("Unknown challenge argument.");
+      message.channel.send("Unknown challenge argument. If you're trying to put in a different challenge than `c9`, `ic4`, `ic5`, `ecs`, or `c1`, and this message shows up, it's because the challenge should be straightforward enough that you will not need a guide.");
     }
   }
 };

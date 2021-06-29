@@ -24,7 +24,7 @@ client.commands.forEach(element => {
   else console.log(element);
 });
 ```
-Once you've done that, navigate to client.on, and find the `if (commanc === "help)` line. Add a new case to the switch statement with your number. Use the other ones as examples!
+Once you've done that, navigate to client.on, and find the `if (command === "help")` line. Add a new case to the switch statement with your number. Use the other ones as examples!
 
 ### Step 3
 Navigate back to /commands, and create a new file! I recommend checking out something like meta.js to see how args work in action. Args are passed as an array in, so be wary of that.
@@ -40,3 +40,15 @@ When contributing, be sure to be serious with your suggestion. This is a real, l
 
 ### Code quality
 Install an ESLint extension to be able to conform to style guidelines.
+
+## Other important information
+### IDE and other important things for it
+I recommend using Visual Studio Code as your IDE.
+
+[ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint):
+ ESLint will take the two ESLint files in this repo and use them as the settings. Install it globally; it will improve any JS you do, as long as you have the ESLint files for it.
+
+[GitLens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens):
+ I only recommend having GitLens to see who worked in what files when. It is updated on commit.
+### GitHub Desktop
+I recommend using [GitHub Desktop](https://desktop.github.com/) when contributing. It is (generally) easier to make new branches/commits/PRs and whatnot.

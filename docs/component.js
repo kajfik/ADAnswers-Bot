@@ -4,7 +4,7 @@
 const commands = [
   {
     name: "161or162",
-    value: "Explains whether to chose TS161 or TS162"
+    value: "Early Eternity command. Explains whether to chose TS161 or TS162"
   },
   { name: "5hours", value: "Explains the long-standing 5 hours joke" },
   { name: "adbonus", value: "Sends ad bonus formulas/multipliers" },
@@ -69,10 +69,10 @@ const commands = [
   { name: "pins", value: "pins" },
   {
     name: "reality",
-    value: "Args: `link`, `automator`, `celestials`, `blackhole`, `reset`, `perks`, `releasedate`. Most of this information was either in an official Hevi spoiler or has been said in #development. Information surrounding the upcoming reality update."
+    value: "Args: `link`, `automator`, `celestials`, `blackhole`, `reset`, `perks`, `releasedate`. Most of this information was either in an official Hevi spoiler or has been said in <#351477847090659341>. Information surrounding the upcoming reality update."
   },
   { name: "respec", value: "Describes what respec studies does" },
-  { name: "sacrifice", value: "describes when to sac" },
+  { name: "sacrifice", value: "describess sacrifice and when to" },
   { name: "savebank", value: "Provides a link to Buck's save bank." },
   {
     name: "setcrunchauto",
@@ -95,7 +95,7 @@ const commands = [
   },
   {
     name: "eternitychallenge",
-    value: "Requires two arguments: `++eternitychallenge [ECNumber] [CompletionNumber]`. You may notice that some trees increase the number of TT you need, even though it's the same tree as the previous. This follows the Eternity Challenge guide followed by Ninjatsu, and TT can be used as something of a progress marker. For that reason, some trees have more TT than others for the same tree. Returns Total TT for a tree and then the tree."
+    value: "Requires two arguments: `++eternitychallenge [ECNumber] [CompletionNumber]` or `++eternitychallenge [ECNumber]x[CompletionNumber]`. You may notice that some trees increase the number of TT you need, even though it's the same tree as the previous. This follows the Eternity Challenge guide followed by Ninjatsu, and TT can be used as something of a progress marker. For that reason, some trees have more TT than others for the same tree. Returns Total TT for a tree and then the tree."
   },
   {
     name: "eternitychallengeorder",
@@ -112,7 +112,7 @@ const commands = [
   },
   {
     name: "studytree",
-    value: "Args: your total Time Theorems. Beginning at 54 TT (and until 120 TT), the command will take a second argument: `active`, `passive`, or `idle`. This command requires an arg. Generates a Time Study tree based on your total Time Theorems."
+    value: "Generates a Time Study tree based on your total Time Theorems.\n Args: your total Time Theorems. Beginning at 54 TT (and until 120 TT), the command will take a second argument: `active`, `passive`, or `idle`. The argument is optional, and the default value is `active`."
   },
   {
     name: "1minuteinf",
@@ -142,6 +142,25 @@ const commands = [
     name: "invertedtheme",
     value: "response to the frequent web bug report that the inverted theme is bugged."
   },
+  {
+    name: "channels",
+    value: "Sends a list of channels and their ids/part of game progress"
+  },
+  {
+    name: "commands",
+    value: "sends a link to the website with all commands"
+  },
+  {
+    name: "contributors",
+    value: "sends a list of contributors and what they helped with! this bot would not be possible without them."
+  },
+  { name: "ec", value: "shorthand for ++eternitychallenge" },
+  { name: "eco", value: "shorthand for ++eternitychallengeorder" },
+  {
+    name: "eternitygrinding",
+    value: "describes how to eternity grind"
+  },
+  { name: "secondsplit", value: "describes second split paths" },
   { name: "archa", value: "archa!" },
   { name: "blob", value: "blob" },
   { name: "earth", value: "who i am n shit" },
@@ -158,7 +177,7 @@ const StuffComponent = {
   template: `
     <div style="text-align: center;">
     <h1>ADAnswersBot Command List</h1>
-    <h2>Only updated on new releases of the bot. Currently v1.1</h2>
+    <h2>Only updated on new releases of the bot. Currently v1.2</h2>
     <h2>Created by earth#1337 on Discord. Prefix is ++</h2>
       <div v-for="command in commands">
         <h2>{{ command.name }}</h2>
