@@ -219,22 +219,22 @@ function toPath(str = "active") {
 /**
  * Creates a tree for early eternity
  * @param {Number} theorem
- * @returns the tree array
+ * @returns object with the appropriate tree array
  */
 function earlyEternity(theorem) {
+  const tree = {};
   if (theorem <= 13) {
-    return [PRE_SPLIT_EARLY];
+    tree.ts = [PRE_SPLIT_EARLY];
+  } else if (theorem <= 39) {
+    tree.ts = [PRE_SPLIT, ANTIMATTER, 21, 33];
+  } else if (theorem <= 44) {
+    tree.ts = [PRE_SPLIT, INFINITY, 21, 33, 31];
+  } else if (theorem <= 51) {
+    tree.ts = [PRE_SPLIT, ANTIMATTER, 111, 21, 33, 31];
+  } else {
+    tree.ts = [PRE_SPLIT, INFINITY, 111];
   }
-  if (theorem <= 39) {
-    return [PRE_SPLIT, ANTIMATTER, 21, 33];
-  }
-  if (theorem <= 44) {
-    return [PRE_SPLIT, INFINITY, 21, 33, 31];
-  }
-  if (theorem <= 51) {
-    return [PRE_SPLIT, ANTIMATTER, 111, 21, 33, 31];
-  }
-  return [PRE_SPLIT, INFINITY, 111];
+  return tree;
 }
 
 
@@ -242,65 +242,59 @@ function earlyEternity(theorem) {
  * Creates a tree for second split
  * @param {Number} theorem number of time theorems
  * @param {String} path string with the path the user gives
- * @returns array with the appropriate tree
+ * @returns object with the appropriate tree array and description
  */
 function secondSplit(theorem, path) {
+  const tree = {};
   if (theorem <= 69) {
-    return [PRE_SPLIT, ANTIMATTER, 111, path, 21, 31];
+    tree.ts = [PRE_SPLIT, ANTIMATTER, 111, path, 21, 31];
+  } else if (theorem <= 70) {
+    tree.ts = [PRE_SPLIT, INFINITY, 111, path, 21, 33, 31, 41];
+  } else if (theorem <= 84) {
+    tree.ts = [PRE_SPLIT, ANTIMATTER, 111, path, 151, 161, 21, 33, 31];
+  } else if (theorem <= 99) {
+    tree.ts = [PRE_SPLIT, INFINITY, 111, path, 151, 161, 162, 21, 33, 31];
+  } else if (theorem <= 122) {
+    tree.ts = [PRE_SPLIT, TIME, 111, path, 151, 161, 171, 162, EXTRA];
+  } else {
+    tree.ts = [PRE_SPLIT, TIME, 111, ACTIVE, POST_SPLIT, EXTRA];
+    tree.desc = "At 900 Total TT, this flips over into EC10 territory.";
   }
-  if (theorem <= 70) {
-    return [PRE_SPLIT, INFINITY, 111, path, 21, 33, 31, 41];
-  }
-  if (theorem <= 84) {
-    return [PRE_SPLIT, ANTIMATTER, 111, path, 151, 161, 21, 33, 31];
-  }
-  if (theorem <= 99) {
-    return [PRE_SPLIT, INFINITY, 111, path, 151, 161, 162, 21, 33, 31];
-  }
-  return [PRE_SPLIT, TIME, 111, path, 151, 161, 171, 162, EXTRA];
+  return tree;
 }
 
 /**
  * Creates a teree for light/dark time studies
  * @param {Number} theorem number of time theorems
- * @returns array with the appropriate tree
+ * @returns object with the appropriate tree array and description
  */
 function lightDark(theorem) {
   const BASE = [PRE_SPLIT, TIME, 111, ACTIVE, POST_SPLIT, EXTRA];
+  const tree = {};
   if (theorem >= 12500) {
-    return [
-      BASE.pushAll(191, 211, 222, 212, 224, 232, 192, 201, INFINITY, 193, 214, 228, 234, 213, 226),
-      "If you cannot get the last TT to unlock dilation, use ++dilationgrind."
-    ];
+    tree.ts = BASE.pushAll(191, 211, 222, 212, 224, 232, 192, 201, INFINITY, 193, 214, 228, 234, 213, 226);
+    tree.desc = "If you cannot get the last TT to unlock dilation, use ++dilationgrind.";
+  } else if (theorem >= 4945) {
+    tree.ts = BASE.pushAll(191, 211, 222, 212, 224, 232, 192, 201, INFINITY, 193, 214, 228, 234, 213, 226);
+  } else if (theorem >= 3925) {
+    tree.ts = BASE.pushAll(191, 212, 223, 232, 192, 201, INFINITY, 211, 193, 214, 213);
+  } else if (theorem >= 3712) {
+    tree.ts = BASE.pushAll(191, 211, 222, 212, 224, 232, 193, 214);
+  } else if (theorem >= 3542) {
+    tree.ts = BASE.pushAll(191, 211, 212, 223, 232, 192, 193, 214);
+  } else if (theorem >= 2692) {
+    tree.ts = BASE.pushAll(191, 212, 223, 232, 193, 214, 211, 213);
+  } else if (theorem >= 2272) {
+    tree.ts = BASE.pushAll(191, 212, 223, 232, 211);
+  } else if (theorem >= 2142) {
+    tree.ts = BASE.pushAll(193, 214, 228, 234);
+  } else if (theorem >= 1292) {
+    tree.ts = BASE.pushAll(191, 212, 193, 214, 211, 213);
+  } else {
+    tree.ts = BASE.pushAll(191, 212, 211);
+    tree.desc = "Do note: EC10 is done between this list and the next.";
   }
-  if (theorem >= 4945) {
-    return [BASE.pushAll(191, 211, 222, 212, 224, 232, 192, 201, INFINITY, 193, 214, 228, 234, 213, 226), null];
-  }
-  if (theorem >= 3925) {
-    return [BASE.pushAll(191, 212, 223, 232, 192, 201, INFINITY, 211, 193, 214, 213), null];
-  }
-  if (theorem >= 3712) {
-    return [BASE.pushAll(191, 211, 222, 212, 224, 232, 193, 214), null];
-  }
-  if (theorem >= 3542) {
-    return [BASE.pushAll(191, 211, 212, 223, 232, 192, 193, 214), null];
-  }
-  if (theorem >= 2692) {
-    return [BASE.pushAll(191, 212, 223, 232, 193, 214, 211, 213), null];
-  }
-  if (theorem >= 2272) {
-    return [BASE.pushAll(191, 212, 223, 232, 211), null];
-  }
-  if (theorem >= 2142) {
-    return [BASE.pushAll(193, 214, 228, 234), null];
-  }
-  if (theorem >= 1292) {
-    return [BASE.pushAll(191, 212, 193, 214, 211, 213), null];
-  }
-  return [
-    BASE.pushAll(191, 212, 211),
-    "Do note: EC10 is done between this list and the next."
-  ];
+  return tree;
 }
 
 /**
@@ -310,21 +304,17 @@ function lightDark(theorem) {
  * @returns string with the tree as well as the description when applicable
  */
 function generateTree(theorem, path) {
-  let desc = null,
-    tree;
+  let tree;
   if (theorem <= 53) {
     tree = earlyEternity(theorem);
-  } else if (theorem <= 122) {
-    tree = secondSplit(theorem, path);
   } else if (theorem <= 317) {
-    tree = [PRE_SPLIT, TIME, 111, ACTIVE, POST_SPLIT, EXTRA];
-    desc = "At 900 Total TT, this flips over into EC10 territory.";
+    tree = secondSplit(theorem, path);
   } else {
-    [tree, desc] = lightDark(theorem);
+    tree = lightDark(theorem);
   }
-  return `${desc === null
+  return `${tree.desc === undefined
     ? ""
-    : `${desc} `}\`${tree.join(",")}|0\``;
+    : `${tree.desc} `}\`${tree.ts.join(",")}|0\``;
 }
 
 /**
@@ -335,10 +325,9 @@ function generateTree(theorem, path) {
  */
 function constructEmbedObject(number, fieldsArray) {
   if (number < fieldsArray.length || number === 69) {
+    const hex = number === 69 ? "696969" : Math.round(number / fieldsArray.length * 255).toString(16).repeat(3);
     return {
-      color: `#${number === 69
-        ? `696969`
-        : `${number - 1}${number - 1}${number - 1}${number - 1}${number - 1}${number - 1}`}`,
+      color: `#${hex}`,
       title: `Help (p${number}/${fieldsArray.length - 1})`,
       description: getHelpDescription(sumAllCommands(fieldsArray)),
       fields: number === 69
@@ -419,35 +408,16 @@ function convertMillisecondsToDigitalClock(ms) {
  * @returns a string for the ++channel command
  */
 function generateChannelMessage() {
-  const a = config.ids;
-  let b = "";
-  let c = "";
-  let d = "";
-  let f = "";
-  let g = "";
-  a.common.forEach(id => {
-    b += `<#${id}>`;
-  });
-  a.earlyGame.forEach(id => {
-    c += `<#${id}>`;
-  });
-  a.break.forEach(id => {
-    d += `<#${id}>`;
-  });
-  a.ecs.forEach(id => {
-    f += `<#${id}>`;
-  });
-  a.endgame.forEach(id => {
-    g += `<#${id}>`;
-  });
+  const ids = config.ids;
+  const idToStr = list => list.map(id => `<#${id}>`).join(" ");
 
-  return `Bot Commands: All commands work here. <#${a.botCommands[0]}>
-  Common: All commands besides miscellaneous commands work here. ${b}.
-  Early game: Early game commands work here. ${c}
-  Break: Break Infinity commands work here. ${d}
-  Early Eternity: Early Eternity commands work here. <#${a.earlyEternity[0]}>
-  ECs: EC commands work here. ${f}
-  Endgame: Endgame/Dilation commands work here. ${g}`;
+  return `Bot Commands: All commands work here. <#${ids.botCommands[0]}>
+  Common: All commands besides miscellaneous commands work here. ${idToStr(ids.common)}.
+  Early game: Early game commands work here. ${idToStr(ids.earlyGame)}
+  Break: Break Infinity commands work here. ${idToStr(ids.break)}
+  Early Eternity: Early Eternity commands work here. <#${ids.earlyEternity[0]}>
+  ECs: EC commands work here. ${idToStr(ids.ecs)}
+  Endgame: Endgame/Dilation commands work here. ${idToStr(ids.endgame)}`;
 }
 
 /**
