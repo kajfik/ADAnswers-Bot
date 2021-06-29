@@ -23,7 +23,7 @@ const POST_SPLIT = "151,161,171,181,162";
 /**
  * Checks if the ID specified is for early game channels.
  * @param {string} id the ID of the message channel.
- * @param {object} message object contains everything about the message. 
+ * @param {object} message object contains everything about the message.
  * @returns true/false
  */
 function earlyGameCheck(id, message) {
@@ -33,7 +33,7 @@ function earlyGameCheck(id, message) {
 /**
  * Checks if the ID specified is for break infinity channels.
  * @param {string} id the ID of the message channel.
- * @param {object} message object contains everything about the message. 
+ * @param {object} message object contains everything about the message.
  * @returns true/false
  */
 function breakCheck(id, message) {
@@ -43,7 +43,7 @@ function breakCheck(id, message) {
 /**
  * Checks if the ID specified is for early eternity channels.
  * @param {string} id the ID of the message channel.
- * @param {object} message object contains everything about the message. 
+ * @param {object} message object contains everything about the message.
  * @returns true/false
  */
 function earlyEternityCheck(id, message) {
@@ -53,7 +53,7 @@ function earlyEternityCheck(id, message) {
 /**
  * Checks if the ID specified is for EC channels.
  * @param {string} id the ID of the message channel.
- * @param {object} message object contains everything about the message. 
+ * @param {object} message object contains everything about the message.
  * @returns true/false
  */
 function ecsCheck(id, message) {
@@ -63,7 +63,7 @@ function ecsCheck(id, message) {
 /**
  * Checks if the ID specified is for endgame channels
  * @param {string} id the ID of the message channel.
- * @param {object} message object contains everything about the message. 
+ * @param {object} message object contains everything about the message.
  * @returns true/false
  */
 function endgameCheck(id, message) {
@@ -73,7 +73,7 @@ function endgameCheck(id, message) {
 /**
  * Checks if the ID specified is bot commands, #bots in earth's things, #general in bot test server, or if the command was used in DMs
  * @param {string} id the ID of the message channel.
- * @param {object} message object contains everything about the message. 
+ * @param {object} message object contains everything about the message.
  * @returns true/false
  */
 function botCommandsCheck(id, message) {
@@ -85,7 +85,7 @@ function botCommandsCheck(id, message) {
 /**
  * Checks if the ID specified is for common channels
  * @param {string} id the ID of the message channel.
- * @param {object} message object contains everything about the message. 
+ * @param {object} message object contains everything about the message.
  * @returns true/false
  */
 function commonCheck(id) {
@@ -95,7 +95,7 @@ function commonCheck(id) {
 /**
  * Checks if the ID specified matches the correct channels for banked infinities
  * @param {string} id the ID of the message channel.
- * @param {object} message object contains everything about the message. 
+ * @param {object} message object contains everything about the message.
  * @returns true/false
  */
 function bankedInfsCheck(id, message) {
@@ -105,7 +105,7 @@ function bankedInfsCheck(id, message) {
 /**
  * Checks if the ID specified matches the correct channels for dilation grind
  * @param {string} id the ID of the message channel.
- * @param {object} message object contains everything about the message. 
+ * @param {object} message object contains everything about the message.
  * @returns true/false
  */
 function dilationGrindCheck(id, message) {
@@ -115,7 +115,7 @@ function dilationGrindCheck(id, message) {
 /**
  * Checks if the ID specified is for early infinity channels
  * @param {string} id the ID of the message channel.
- * @param {object} message object contains everything about the message. 
+ * @param {object} message object contains everything about the message.
  * @returns true/false
  */
 function earlyInfinityCheck(id, message) {
@@ -125,7 +125,7 @@ function earlyInfinityCheck(id, message) {
 /**
  * Checks if the ID specified matches the correct channels for eternity grinding
  * @param {string} id the ID of the message channel.
- * @param {object} message object contains everything about the message. 
+ * @param {object} message object contains everything about the message.
  * @returns true/false
  */
 function eternityGrindingCheck(id, message) {
@@ -135,7 +135,7 @@ function eternityGrindingCheck(id, message) {
 /**
  * Checks if the ID specified matches the correct channels for setting the crunch autobuyer
  * @param {string} id the ID of the message channel.
- * @param {object} message object contains everything about the message. 
+ * @param {object} message object contains everything about the message.
  * @returns true/false
  */
 function setCrunchAutoCheck(id, message) {
@@ -145,7 +145,7 @@ function setCrunchAutoCheck(id, message) {
 /**
  * Checks if the ID specified matches the correct channels for requesting a study tree
  * @param {String} id the ID of the message channel.
- * @param {object} message object contains everything about the message. 
+ * @param {object} message object contains everything about the message.
  * @returns true/false
  */
 function studytreeCheck(id, message) {
@@ -176,7 +176,7 @@ function getHelpDescription(sum) {
 
 /**
  * The footer used in the help command
- * @param {String} ver 
+ * @param {String} ver
  * @returns the footer string for help
  */
 function getFooter(ver) {
@@ -195,7 +195,7 @@ function toNumber(string) {
 /**
  * Pushes all entries of an array to another
  * @param  {...Array} entries takes all entries of an array and pushes it
- * @returns some stuff idk
+ * @returns the modified array
  */
 Array.prototype.pushAll = function(...entries) {
   entries.forEach(a => this.push(a));
@@ -204,7 +204,7 @@ Array.prototype.pushAll = function(...entries) {
 
 /**
  * Turns a string into a variable and returns it
- * @param {String} str takes the path string for studytree 
+ * @param {String} str takes the path string for studytree
  * @returns the variables declared at the top
  */
 function toPath(str = "active") {
@@ -218,7 +218,7 @@ function toPath(str = "active") {
 
 /**
  * Creates a tree for early eternity
- * @param {Number} theorem 
+ * @param {Number} theorem
  * @returns the tree array
  */
 function earlyEternity(theorem) {
@@ -262,7 +262,7 @@ function secondSplit(theorem, path) {
 
 /**
  * Creates a teree for light/dark time studies
- * @param {Number} theorem number of time theorems 
+ * @param {Number} theorem number of time theorems
  * @returns array with the appropriate tree
  */
 function lightDark(theorem) {
@@ -310,7 +310,7 @@ function lightDark(theorem) {
  * @returns string with the tree as well as the description when applicable
  */
 function generateTree(theorem, path) {
-  let desc = null, 
+  let desc = null,
     tree;
   if (theorem <= 53) {
     tree = earlyEternity(theorem);
@@ -331,7 +331,7 @@ function generateTree(theorem, path) {
  * Constructs an embed object for each help page
  * @param {Number} number help number specified by user
  * @param {Array} fieldsArray array of the fields specified in bot.js
- * @returns object containing all information about the embed 
+ * @returns object containing all information about the embed
  */
 function constructEmbedObject(number, fieldsArray) {
   if (number < fieldsArray.length || number === 69) {
@@ -348,8 +348,8 @@ function constructEmbedObject(number, fieldsArray) {
       footer: {
         text: getFooter(config.version)
       }
-    }; 
-  } 
+    };
+  }
   return {
     color: `#11aa22`,
     title: `Something is terribly wrong`,
@@ -402,20 +402,15 @@ function convertMillisecondsToDigitalClock(ms) {
     hours = Math.floor(ms % (3600000 * 24) / 3600000),
     minutes = Math.floor(ms % 3600000 / 60000),
     seconds = Math.floor(ms % 60000 / 1000);
+
   return {
     days,
     hours,
     minutes,
     seconds,
-    clock: `${days <= 9
-      ? `0${days}`
-      : `${days}`}:${hours <= 9
-      ? `0${hours}`
-      : `${hours}`}:${minutes <= 9
-      ? `0${minutes}`
-      : `${minutes}`}:${seconds <= 9
-      ? `0${seconds}`
-      : `${seconds}`}`
+    clock: [days, hours, minutes, seconds]
+      .map(t => String(t).padStart(2, "0"))
+      .join(":")
   };
 }
 
@@ -458,7 +453,7 @@ function generateChannelMessage() {
 /**
  * Gets a message to prevent repetitive code
  * @param {String} command string that contains what command is being used
- * @param {Object} stuff object that contains theorem, path for the case "ts", acceptable arguments, name of the command, and 
+ * @param {Object} stuff object that contains theorem, path for the case "ts", acceptable arguments, name of the command, and
  * @returns sends the message or sends an error message back to the code
  */
 function getMessage(command, stuff = {}) {
@@ -488,9 +483,9 @@ function getMessage(command, stuff = {}) {
     }
   case "missingArg":
     return `Command \`${stuff.name}\` requires an arg. The args for this command are ${stuff.acceptableArgs.join(", ")}.`;
-  case "shouldNeverAppear": 
+  case "shouldNeverAppear":
     return `This message should never appear. If it does, let earth know with a screenshot of the message that caused it.`;
-  default: 
+  default:
     console.error("Unknown command for getMessage!");
     return "Something went wrong";
   }
