@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable max-len */
 "use strict";
 
@@ -6,17 +7,36 @@ const order = "1x1, 2x1, 1x2, 3x1, 4x1, 5x1, 1x3, 3x2, 2x2, 6x1, 1x4, 3x3, 7x1, 
 const functions = require("../functions");
 
 module.exports = {
-  number: 4,
+  number: 3,
   name: "eternitychallengeorder",
-  description: "Args: highest eternity challenge you've down in the order (optional).Returns the EC order",
+  description: "Has a shorthand: `++eco`. Args: highest eternity challenge you've down in the order (optional). Returns the EC order",
   execute(message, args, id) {
     if (functions.ecsCheck(id, message)) {
-      if (args.length === 0) message.channel.send(order);
+      if (args.length === 0 && !functions.botCommandsCheck(id, message)) message.author.send(order).then(() => {
+        message.react("☑️").catch(() => {
+          message.channel.send("Hey, I can't DM you! Try using the bot in <#351479640755404820>");
+        });
+      });
+      else if (args.length === 0 && functions.botCommandsCheck(id, message)) message.channel.send(order);
       else if (!order.includes(args[0])) message.channel.send(`Unkown argument ${args[0]} for command \`++eternitychallengeorder\`.`);
       // eslint-disable-next-line no-negated-condition
       else if (args !== []) {
-        const boldedOrder = order.replace(`${args[0]}`, `__***${args[0]}***__`);
-        message.channel.send(boldedOrder);
+        if (functions.botCommandsCheck(id, message) || functions.commonCheck(id)) {
+          const boldedOrder = order.replace(`${args[0]}`, `__***${args[0]}***__`);
+          message.channel.send(boldedOrder);
+        } else {
+          try {
+            const boldedOrder = order.replace(`${args[0]}`, `__***${args[0]}***__`);
+            message.author.send(boldedOrder).then(() => {
+              message.react("☑️").catch(error => {
+                console.log("Something broke while trying to react.");
+                console.log(error);
+              });
+            });
+          } catch (error) {
+            message.channel.send("Hey, I can't DM you! Try using the bot in <#351479640755404820>");
+          }
+        }
       } else message.channel.send(`This message should be impossible. If you get it, send a screenshot to earth with the message that caused it.`);
     } else {
       message.channel.send("This command only works in bot commands, common channels, or EC channels!");

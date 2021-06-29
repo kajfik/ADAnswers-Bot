@@ -1,12 +1,16 @@
 /* eslint-disable max-len */
 "use strict";
 
+const { classes } = require("../command");
+
 module.exports = {
-  number: 5,
-  name: "androidorweb",
-  description: "sends the pinned message from the mobile channel describing the differences. Mobile and web have some notable differences -- mostly quality of life (QoL) changes. Due to this, many people prefer to play on mobile. Web will be essentially identical with the release of the Reality update as many of these changes were taken from there.",
-  execute(message) {
-    message.channel.send(`
+  command: new classes.com({
+    name: "androidorweb",
+    number: 5,
+    description: "sends the pinned message from the mobile channel describing the differences. Mobile and web have some notable differences -- mostly quality of life (QoL) changes. Due to this, many people prefer to play on mobile. Web will be essentially identical with the release of the Reality update as many of these changes were taken from there.",
+    check: true,
+    acceptableArgs: undefined,
+    sent: [`
     - The 1st galaxy is 12.5% instead of 12%
  - Each achievement grants additional 1.03x multiplier to Normal dimensions
  - Autobuyers are available for purchase before Infinity, but you can upgrade them only after you complete respective challenges
@@ -32,6 +36,6 @@ module.exports = {
  - Lowered base costs of cost scaling upgrades and improved their display (Tickspeed cost scaling from 3e6 to 1e6, Dimension cost scaling from 1e8 to 1e7)
  - Added colors to the Crunch/Eternity buttons when you have more than e50 of IP/EP, the color shows if you gain less (red), around same (white), or more (green) IP/EP than you currently have
 -  C7 was reworked to not have RNG
-`);
-  }
+`]
+  })
 };

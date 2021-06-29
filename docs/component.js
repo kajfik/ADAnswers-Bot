@@ -10,7 +10,7 @@ const commands = [
   { name: "adbonus", value: "Sends ad bonus formulas/multipliers" },
   {
     name: "challenge",
-    value: "Args: `c9`, `ic4`, `ic5`, `ecs`. Returns a guide for each argument."
+    value: "Args: all challenges, including `ecs`. Returns a guide for each argument. All of these commands have shorthands as well, f.e `++challenge c2` will return the same result as `++c2`"
   },
   { name: "decimal", value: "Explains how break_infinity.js works" },
   { name: "dilation", value: "describes dilation" },
@@ -58,7 +58,7 @@ const commands = [
   { name: "matterportal", value: "Matter Portal news tickers" },
   {
     name: "meta",
-    value: "Args: `lastRestart`, `uptime`, `ping`, `suggest`. internal bot information"
+    value: "Args: `lastRestart`, `uptime`, `ping`, `suggest`, `invite`. internal bot information"
   },
   { name: "modifications", value: "Explains the modifications of AD" },
   { name: "offlineticks", value: "offline ticks stuff" },
@@ -95,11 +95,11 @@ const commands = [
   },
   {
     name: "eternitychallenge",
-    value: "Requires two arguments: `++eternitychallenge [ECNumber] [CompletionNumber]` or `++eternitychallenge [ECNumber]x[CompletionNumber]`. You may notice that some trees increase the number of TT you need, even though it's the same tree as the previous. This follows the Eternity Challenge guide followed by Ninjatsu, and TT can be used as something of a progress marker. For that reason, some trees have more TT than others for the same tree. Returns Total TT for a tree and then the tree."
+    value: "Has a shorthand: `++ec`. Requires two arguments: `++eternitychallenge [ECNumber] [CompletionNumber]` OR `++eternitchallenge [ECNumber]x[CompletionNumber]. You may notice that some trees increase the number of TT you need, even though it's the same tree as the previous. This follows the Eternity Challenge guide followed by Ninjatsu, and TT can be used as something of a progress marker. For that reason, some trees have more TT than others for the same tree. Returns Total TT for a tree and then the tree."
   },
   {
     name: "eternitychallengeorder",
-    value: "Args: highest eternity challenge you've down in the order (optional).Returns the EC order"
+    value: "Has a shorthand: `++eco`. Args: highest eternity challenge you've down in the order (optional). Returns the EC order"
   },
   { name: "importexport", value: "How to import/export saves" },
   {
@@ -112,7 +112,7 @@ const commands = [
   },
   {
     name: "studytree",
-    value: "Generates a Time Study tree based on your total Time Theorems.\n Args: your total Time Theorems. Beginning at 54 TT (and until 120 TT), the command will take a second argument: `active`, `passive`, or `idle`. The argument is optional, and the default value is `active`."
+    value: "Has a shorthand: `++ts`. Generates a Time Study tree based on your total Time Theorems. Args: your total Time Theorems. Beginning at 54 TT, the command will take a second argument: `active`, `passive`, or `idle`. The argument is optional, and the default value is `active`."
   },
   {
     name: "1minuteinf",
@@ -130,10 +130,10 @@ const commands = [
     name: "breakinfinity",
     value: "describes break infinity and gives an order to get break infinity upgrades"
   },
-  { name: "c9", value: "shorthand for `++challenge c9`" },
-  { name: "ecs", value: "shorthand for `++challenge ecs`" },
-  { name: "ic4", value: "shorthand for `++challenge ic4`" },
-  { name: "ic5", value: "shorthand for `++challenge ic5`" },
+  {
+    name: "columns",
+    value: "sends an image with the columns of infinity upgrades"
+  },
   {
     name: "infinitydimensions",
     value: "Describes what infinity dimensions (and infinity power) does. Includes when they unlock."
@@ -154,13 +154,21 @@ const commands = [
     name: "contributors",
     value: "sends a list of contributors and what they helped with! this bot would not be possible without them."
   },
-  { name: "ec", value: "shorthand for ++eternitychallenge" },
-  { name: "eco", value: "shorthand for ++eternitychallengeorder" },
+  {
+    name: "deadchat",
+    value: "sends that one message from spec that he said that one time"
+  },
   {
     name: "eternitygrinding",
     value: "describes how to eternity grind"
   },
+  { name: "justask", value: "sends a passive aggressive thing" },
   { name: "secondsplit", value: "describes second split paths" },
+  {
+    name: "bugo",
+    value: "sends that screenshot of the break infinity upgrade order spreadsheet (Mobile)"
+  },
+  { name: "thanks", value: "say thanks" },
   { name: "archa", value: "archa!" },
   { name: "blob", value: "blob" },
   { name: "earth", value: "who i am n shit" },
@@ -177,8 +185,9 @@ const StuffComponent = {
   template: `
     <div style="text-align: center;">
     <h1>ADAnswersBot Command List</h1>
-    <h2>Only updated on new releases of the bot. Currently v1.2</h2>
+    <h2>Only updated on new releases of the bot. Currently v1.3</h2>
     <h2>Created by earth#1337 on Discord. Prefix is ++</h2>
+    <h3>For more information concerning contributing to the bot, check out<br><a href="https://github.com/earthernsence/ADAnswers-Bot#readme">the general readme</a> and <a href="https://github.com/earthernsence/ADAnswers-Bot/tree/main/commands#readme">the command readme.</a> Also check out the functions.js documentation site <a href="https://earthernsence.github.io/ADAnswers-Bot/out/global.html">here!</a></h3>
       <div v-for="command in commands">
         <h2>{{ command.name }}</h2>
         <p>{{ command.value }}</p>

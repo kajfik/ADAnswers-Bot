@@ -1,12 +1,20 @@
+/* eslint-disable max-len */
 "use strict";
 
-const { execute } = require("./studytree");
+const { classes } = require("../command");
+const StudyTreeCommand = require("./studytree");
 
 module.exports = {
-  name: "ts",
-  number: 6,
-  description: "shorthand for ++studytree",
-  execute(message, args, id) {
-    execute(message, args, id);
-  }
+  command: new classes.com({
+    number: 6,
+    name: "ts",
+    description: "shorthand for `++studytree`",
+    type: "shorthand",
+    check: "studyTreeCheck",
+    sent: undefined,
+    acceptableArgs: [["Any number"], ["active", "passive", "idle"]],
+    getArgMessage(args) {
+      return StudyTreeCommand.command.getArgMessage(args);
+    }
+  })
 };

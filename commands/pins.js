@@ -1,11 +1,15 @@
 /* eslint-disable max-len */
 "use strict";
 
+const { classes } = require("../command");
+
 module.exports = {
-  number: 3,
-  name: "pins",
-  description: "pins",
-  execute(message) {
-    message.channel.send(`pins. read them.`);
-  }
+  command: new classes.com({
+    number: 4,
+    name: "pins",
+    description: "pins",
+    check: true,
+    acceptableArgs: undefined,
+    sent: [`pins. read them.`]
+  })
 };

@@ -1,14 +1,15 @@
 /* eslint-disable max-len */
 "use strict";
 
-const functions = require("../functions");
+const { classes } = require("../command");
 
 module.exports = {
-  number: 69,
-  name: "blob",
-  description: "blob",
-  execute(message) {
-    if (functions.botCommandsCheck(message.channel.id, message)) message.channel.send("blob");
-    else message.channel.send("This is a miscellaneous command and is only allowed in <#351479640755404820>");
-  }
+  command: new classes.com({
+    name: "blob",
+    number: 69,
+    description: "blob",
+    check: "botCommands",
+    acceptableArgs: undefined,
+    sent: ["blob"]
+  })
 };

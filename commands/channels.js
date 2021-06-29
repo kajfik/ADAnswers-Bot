@@ -1,50 +1,18 @@
 "use strict";
 
-const config = require("../config.json");
+// This command still needs functions because creating the channel message is done in functions.js
+// It's easier to let it happen here than creating a special case for it in the execute method
+// of the command class.
+const { classes } = require("../command");
 const functions = require("../functions");
 
-function generateChannelMessage() {
-  const a = config.ids;
-  let b = "";
-  let c = "";
-  let d = "";
-  let f = "";
-  let g = "";
-  a.common.forEach(id => {
-    b += `<#${id}>`;
-  });
-  a.earlyGame.forEach(id => {
-    c += `<#${id}>`;
-  });
-  a.break.forEach(id => {
-    d += `<#${id}>`;
-  });
-  a.ecs.forEach(id => {
-    f += `<#${id}>`;
-  });
-  a.endgame.forEach(id => {
-    g += `<#${id}>`;
-  });
-
-  return `Bot Commands: All commands work here. <#${a.botCommands[0]}>
-  Common: All commands besides miscellaneous commands work here. ${b}.
-  Early game: Early game commands work here. ${c}
-  Break: Break Infinity commands work here. ${d}
-  Early Eternity: Early Eternity commands work here. <#${a.earlyEternity[0]}>
-  ECs: EC commands work here. ${f}
-  Endgame: Endgame/Dilation commands work here. ${g}`;
-}
-
 module.exports = {
-  number: 6,
-  name: "channels",
-  description: "Sends a list of channels and their ids/part of game progress",
-  execute(message) {
-    if (functions.botCommandsCheck(message.channel.id, message)) {
-      message.channel.send(generateChannelMessage());
-    } else {
-      // eslint-disable-next-line max-len
-      message.channel.send(`Command ++${this.name} is not allowed in this channel! Use <#${config.ids.botCommands[0]}>`);
-    }
-  }
+  command: new classes.com({
+    number: 6,
+    name: "channels",
+    description: "Sends a list of channels and their ids/part of game progress",
+    check: "botCommands",
+    acceptableArgs: undefined,
+    sent: [functions.getMessage("channel")]
+  }),
 };

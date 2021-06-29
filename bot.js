@@ -1,17 +1,19 @@
-/* eslint-disable complexity */
-/* eslint-disable max-len */
+/* eslint-disable capitalized-comments */
 /* eslint-disable no-console */
 
 "use strict";
 
+// DO NOT TOUCH LIKE HALF OF THIS STUFF IT JUST WORKS LMAOOOOOOOOOOOO
+// CONFIG LOOKS LIKE THIS https://i.imgur.com/WuAs6b5.png IF YOU NEED ME TO ADD
+// ANYTHING TO IT THAT YOU MAY USE OUTSIDE OF ONE FILE
+
 const Discord = require("discord.js");
-const fs = require("fs");
+const fs = require("fs"); 
 const config = require("./config.json");
 const functions = require("./functions");
 
 const client = new Discord.Client();
 const commandFiles = fs.readdirSync("./commands").filter(file => file.endsWith(".js"));
-const commandFiles1 = fs.readdirSync("./commands").filter(file => file.endsWith(".ts"));
 client.commands = new Discord.Collection();
 
 const fieldsVar = [];
@@ -20,108 +22,104 @@ const fieldsVar3 = [];
 const fieldsVar4 = [];
 const fieldsVar5 = [];
 const fieldsVar6 = [];
+const fieldsVar7 = [];
+// const fieldsVar8 = [];
 const fieldsVar69 = [];
-const allFields = [];
 
-const fieldsArray = [fieldsVar, fieldsVar2, fieldsVar3, fieldsVar4, fieldsVar5, fieldsVar6, fieldsVar69];
+const fieldsArray = [fieldsVar, fieldsVar2, fieldsVar3, fieldsVar4, fieldsVar5, fieldsVar6, fieldsVar7, fieldsVar69];
 
 client.once("ready", () => {
   console.log(`Good morning. The current date and time is ${Date()}.`);
-  client.user.setActivity(" and helping people since 1992 || created by earth#1337 || use ++help!", { type: "LISTENING" });
+  functions.internal.startIntervals(client);
 });
 
 client.login(config.token);
 
 for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
-  client.commands.set(command.name, command);
-}
-
-for (const file of commandFiles1) {
-  const command = require(`./commands/${file}`);
-  client.commands.set(command.name, command);
+  // eslint-disable-next-line no-negated-condition
+  if (command.command !== undefined) {
+    client.commands.set(command.command.name, command.command);
+  } else {
+    client.commands.set(command.name, command);
+  }
 }
 
 client.commands.forEach(element => {
-  if (element.number === 1) fieldsVar.push({ name: element.name, value: element.description });
-  else if (element.number === 2) fieldsVar2.push({ name: element.name, value: element.description });
-  else if (element.number === 3) fieldsVar3.push({ name: element.name, value: element.description });
-  else if (element.number === 4) fieldsVar4.push({ name: element.name, value: element.description });
-  else if (element.number === 5) fieldsVar5.push({ name: element.name, value: element.description });
-  else if (element.number === 6) fieldsVar6.push({ name: element.name, value: element.description });
-  else if (element.number === 69) fieldsVar69.push({ name: element.name, value: element.description });
-  else console.log(element);
+  // Some commands have type: "shorthand" to make it not appear in the help embeds. This just works lol 
+  // If you're adding a shorthand, please make sure to put that in.
+  let e = null;
+  // This element.command thing is for commands I have refactored into classes.
+  // eslint-disable-next-line no-negated-condition
+  if (element.command !== undefined) {
+    e = element.command;
+  } else {
+    e = element;
+  }
+  if (e.type !== "shorthand") {
+    // eslint-disable-next-line max-len
+    if (e.number > 0 && e.number < fieldsArray.length) fieldsArray[e.number - 1].push({ name: e.name, value: e.description });
+    // eslint-disable-next-line max-len
+    else if (e.number === 69) fieldsArray[fieldsArray.length - 1].push({ name: e.name, value: e.description });
+    else console.log(e);
+  }
 });
 
-for (const field of fieldsArray) {
-  allFields.push(...field);
-}
-// Uncomment for commands for /docs
+
+// Uncomment for docs
+// const allFields = [];
+// for (const field of fieldsArray) {
+//   allFields.push(...field);
+// }
 // console.log(allFields);
 
 client.on("message", message => {
-  if (!message.content.startsWith(config.prefix)) return;
-  // eslint-disable-next-line require-unicode-regexp
-  const args = message.content.slice(config.prefix.length).trim().split(/ +/);
-  const command = args.shift().toLowerCase();
-  const id = message.channel.id;
+  try {
+    if (!message.content.startsWith(config.prefix)) return;
+    // eslint-disable-next-line require-unicode-regexp
+    const args = message.content.slice(config.prefix.length).trim().split(/ +/);
+    const command = args.shift().toLowerCase();
+    const id = message.channel.id;
 
-  if (command === "help" && functions.botCommandsCheck(id, message)) {
-    const a = functions.misc.toNumber(args[0]);
-    if (Number.isNaN(a)) {
-      message.channel.send({ embed: functions.constructEmbedObject(1, fieldsArray) });
+    functions.help(message, fieldsArray, { command, args, id });
+
+    if (!client.commands.has(command) && command !== "help") {
+      if (command.startsWith("ec") && command.includes("x")) {
+        try {
+          // Gets the completion and number
+          const a = command.split("c");
+          const b = a[1].split("x");
+          // Tries to execute the EC command.
+          // Here we access the EC command directly instead of routing it through ec.js 
+          // to improve code slightly.
+          client.commands.get("eternitychallenge").execute(message, b, id);
+          return;
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      message.reply(`Command \`${command}\` is not a command!`);
+      return;
+    } 
+    if (!client.commands.has(command) && command === "help") {
       return;
     }
-    switch (a) {
-    case 1:
-      message.channel.send({ embed: functions.constructEmbedObject(1, fieldsArray) });
-      break;
-    case 2:
-      message.channel.send({ embed: functions.constructEmbedObject(2, fieldsArray) });
-      break;
-    case 3:
-      message.channel.send({ embed: functions.constructEmbedObject(3, fieldsArray) });
-      break;
-    case 4:
-      message.channel.send({ embed: functions.constructEmbedObject(4, fieldsArray) });
-      break;
-    case 5:
-      message.channel.send({ embed: functions.constructEmbedObject(5, fieldsArray) });
-      break;
-    case 6:
-      message.channel.send({ embed: functions.constructEmbedObject(6, fieldsArray) });
-      break;
-    case 69:
-      message.channel.send({ embed: functions.constructEmbedObject(69, fieldsArray) });
-      break;
-    case undefined:
-      message.channel.send({ embed: functions.constructEmbedObject(1, fieldsArray) });
-      break;
-    case null:
-      message.channel.send({ embed: functions.constructEmbedObject(1, fieldsArray) });
-      break;
-    default:
-      message.channel.send("Unknown help page.");
+
+    try {
+      // This is a lot of parameters and eventually I think it would be cool
+      // to make it all one object. As of right now, though, the object at the end is
+      // solely for being able to do something like ++ts 12x5. It's finicky, it's cool, it works.
+      client.commands.get(command).execute(message, args, id, { c: client.commands });
+    } catch (error) {
+      console.error(error);
+      console.log(`${Date()}`);
+      console.log(`${message.url}`);
+      // eslint-disable-next-line max-len
+      message.reply(`Command \`${command}\` is, in fact, a command, but it appears there was an internal issue with the bot and the bot is going offline. Thank you for your patience. Paging earth...<@213071245896450068>`);
     }
-  } else if (command === "help" && !functions.botCommandsCheck(id, message)) {
-    message.channel.send("Please use <#351479640755404820> for `++help`.");
-  }
-
-  if (!client.commands.has(command) && command !== "help") {
-    message.channel.send(`Command \`${command}\` is not a command!`);
-    return;
-  } 
-  if (!client.commands.has(command) && command === "help") {
-    return;
-  }
-
-  try {
-    client.commands.get(command).execute(message, args, id);
   } catch (error) {
-    console.error(error);
-    console.log(`${Date()}`);
-    console.log(`${message.url}`);
-    message.reply(`Command ${command} is not a command.`);
+    console.log(`something went sicko mode ${error}`);
+    message.channel.send(`something went sicko mode ${error}`);
   }
 });
 
