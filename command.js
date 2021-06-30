@@ -46,6 +46,7 @@ class Command {
       else if (this.name === "news") this.newsCommand(message, args);
       else if (this.name === "xkcd") this.xkcdCommand(message, args, id);
       else if (this.name === "eco" || this.name === "eternitychallengeorder") this.ecoCommand(message, args[0], id);
+      else if (this.name === "ep") this.epCommand(message, args, id);
       else this.regularCommand(message, args, id);
     }
   }
@@ -81,6 +82,16 @@ class Command {
     case true: return true;
     default: throw `Unknown check.`;
     }
+  }
+
+  epCommand(message, args, id) {
+    const a = functions.misc.toNumber(args[0]);
+    if (!isNaN(a) && this.getCheck(id, message) && !(a > 1000)) message.channel.send(this.getArgMessage(a));
+    else if (args[0] === undefined) message.channel.send(functions.getMessage("missingArg", { name: this.name, acceptableArgs: this.acceptableArgs }));
+    else if (!isNaN(a) && this.getCheck(id, message) && a > 1000) message.channel.send(`In command \`++ep\`, you cannot use a number higher than 1000.`);
+    else if (isNaN(a) && this.getCheck(id, message)) message.channel.send(functions.getMessage("error", { args, name: this.name, acceptableArgs: this.acceptableArgs }));
+    else if (!this.getCheck(id, message)) message.channel.send(this.getFailMessage());
+    else message.channel.send(functions.getMessage("shouldNeverAppear"));
   }
 
   /**
