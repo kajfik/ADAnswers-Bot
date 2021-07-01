@@ -1,10 +1,10 @@
 /* eslint-disable max-len */
 "use strict";
 
-const { classes } = require("../command");
+const { Command } = require("../classes/Command");
 
 module.exports = {
-  command: new classes.com({
+  command: new Command({
     name: "bankedinfinities",
     number: 3,
     description: "describes banked infinities, what they do, and how to get them.",

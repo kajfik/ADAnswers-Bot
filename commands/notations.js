@@ -1,9 +1,9 @@
 "use strict";
 
-const { classes } = require("../command");
+const { Command } = require("../classes/Command");
 
 module.exports = {
-  command: new classes.com({
+  command: new Command({
     number: 5,
     name: "notations",
     description: `Sends a link to the Notations GitHub repo.`,

@@ -1,10 +1,10 @@
 /* eslint-disable max-len */
 "use strict";
 
-const { classes } = require("../command");
+const { Command } = require("../classes/Command");
 
 module.exports = {
-  command: new classes.com({
+  command: new Command({
     name: "dilationgrind",
     number: 4,
     description: "sends a message pertaining to reaching dilation",

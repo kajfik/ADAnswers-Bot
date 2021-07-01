@@ -1,10 +1,10 @@
 /* eslint-disable max-len */
 "use strict";
 
-const { classes } = require("../command");
+const { Command } = require("../classes/Command");
 
 module.exports = {
-  command: new classes.com({
+  command: new Command({
     number: 2,
     name: "ipepcolor",
     description: "Explains the coloring of the IP/EP numbers on their respective reset buttons",

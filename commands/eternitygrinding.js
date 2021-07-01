@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 "use strict";
 
-const { classes } = require("../command");
+const { Command } = require("../classes/Command");
 
 const eternityGrindingMessageObject = {
   "early": `Eternity buyer to 0, crunch (theoretically best to worst) 2e308, 1e154,1e103, 1e77 (all with "x times last" setting)
@@ -31,7 +31,7 @@ const eternityGrindingMessageObject = {
 };
 
 module.exports = {
-  command: new classes.com({
+  command: new Command({
     name: "eternitygrinding",
     number: 3,
     description: "describes how to eternity grind",

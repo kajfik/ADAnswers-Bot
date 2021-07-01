@@ -4,11 +4,11 @@
 /* eslint-disable max-len */
 "use strict";
 
-const { classes } = require("../command");
+const { TimeStudyCommand } = require("../classes/TimeStudyCommand");
 const functions = require("../functions");
 
 module.exports = {
-  command: new classes.com({
+  command: new TimeStudyCommand({
     number: 3,
     name: "studytree",
     description: `Has a shorthand: \`++ts\`. Generates a Time Study tree based on your total Time Theorems.
@@ -32,5 +32,5 @@ module.exports = {
       // Putting it together
       return functions.getMessage("ts", { theorem, path });
     }
-  })
+  }),
 };

@@ -1,11 +1,11 @@
 /* eslint-disable max-len */
 "use strict";
 
-const { classes } = require("../command.js");
+const { XKCDCommand } = require("../classes/XKCDCommand");
 const functions = require("../functions.js");
 
 module.exports = {
-  command: new classes.com({
+  command: new XKCDCommand({
     name: "xkcd",
     number: 7,
     description: "has an arg: XKCD number. sends the link to that xkcd",

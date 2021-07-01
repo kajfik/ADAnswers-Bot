@@ -1,10 +1,10 @@
 /* eslint-disable max-len */
 "use strict";
 
-const { classes } = require("../command.js");
+const { Command } = require("../classes/Command");
 
 module.exports = {
-  command: new classes.com({ 
+  command: new Command({ 
     name: "1minuteinf", 
     number: 1, 
     description: "explains the UI change at infinity in under a minute",

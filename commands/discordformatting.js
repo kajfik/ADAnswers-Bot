@@ -1,9 +1,9 @@
 "use strict";
 
-const { classes } = require("../command");
+const { Command } = require("../classes/Command");
 
 module.exports = {
-  command: new classes.com({
+  command: new Command({
     name: "discordformatting",
     number: 6,
     description: "returns a link to a list of discord formatting stuff",

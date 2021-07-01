@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 "use strict";
 
-const { classes } = require("../command");
+const { NewsCommand } = require("../classes/NewsCommand");
 
 const newsMessageObject = {
   "listmobile": "<https://paste.ee/p/LGLeE>",
@@ -9,7 +9,7 @@ const newsMessageObject = {
 };
 
 module.exports = {
-  command: new classes.com({
+  command: new NewsCommand({
     number: 6,
     name: "news",
     description: "Args: `listmobile` and `listweb`. Explains what the news ticker is and where it came from",

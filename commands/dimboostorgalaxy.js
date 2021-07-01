@@ -1,9 +1,9 @@
 "use strict";
 
-const { classes } = require("../command");
+const { Command } = require("../classes/Command");
 
 module.exports = {
-  command: new classes.com({
+  command: new Command({
     number: 1,
     name: "dimboostorgalaxy",
     description: "tells you if you should do a dimboost or galaxy",

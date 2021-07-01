@@ -1,9 +1,9 @@
 "use strict";
 
-const { classes } = require("../command");
+const { Command } = require("../classes/Command");
 
 module.exports = {
-  command: new classes.com({
+  command: new Command({
     number: 7,
     name: "helpnumbers",
     description: "sends what each of the help pages has on it",

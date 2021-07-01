@@ -1,10 +1,10 @@
 "use strict";
 
-const { classes } = require("../command");
+const { EternityPointCommand } = require("../classes/EternityPointCommand");
 const functions = require("../functions");
 
 module.exports = {
-  command: new classes.com({
+  command: new EternityPointCommand({
     number: 3,
     name: "ep",
     description: "calculates the amount of IP required to get the number of EP specified. Works up to 1000.",

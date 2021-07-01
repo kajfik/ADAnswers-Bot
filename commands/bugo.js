@@ -1,9 +1,9 @@
 "use strict";
 
-const { classes } = require("../command");
+const { Command } = require("../classes/Command");
 
 module.exports = {
-  command: new classes.com({
+  command: new Command({
     name: "bugo",
     number: 2,
     description: "sends that screenshot of the break infinity upgrade order spreadsheet",
