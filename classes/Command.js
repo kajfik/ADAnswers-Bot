@@ -31,7 +31,7 @@ class Command {
   }
 
   /**
-   * 
+   * Executes the command
    * @param {Object} message Object that contains all the information about the message.
    * @param {Array} args An array with the args provided by the user in the command message.
    * @param {String} id String with the ID of the channel the message was sent in.

@@ -19,7 +19,7 @@ module.exports = {
     name: "reality",
     description: "Args: `link`, `automator`, `celestials`, `blackhole`, `reset`, `perks`, `releasedate`. Most of this information was either in an official Hevi spoiler or has been said in <#351477847090659341>. Information surrounding the upcoming reality update.",
     check: true,
-    acceptableArgs: [`link`, `automator`, `celestials`, `blackhole`, `reset`, `perks`, `releasedate`],
+    acceptableArgs: Object.keys(realityMessageObject),
     sent: undefined,
     getArgMessage(arg) {
       if (this.acceptableArgs.includes(arg.toLowerCase())) return realityMessageObject[arg.toLowerCase()];

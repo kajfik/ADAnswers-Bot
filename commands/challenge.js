@@ -50,7 +50,7 @@ module.exports = {
     name: "challenge",
     description: "Args: all challenges, including `ecs`. Returns a guide for each argument. All of these commands have shorthands as well, f.e `++challenge c2` will return the same result as `++c2`",
     check: true,
-    acceptableArgs: ["c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9", "c10", "c11", "c12", "ic1", "ic2", "ic3", "ic4", "ic5", "ic6", "ic7", "ic8", "ecs"],
+    acceptableArgs: Object.keys(challengeMessageObject),
     sent: undefined,
     getArgMessage(arg) {
       if (this.acceptableArgs.includes(arg.toLowerCase())) return challengeMessageObject[arg.toLowerCase()];

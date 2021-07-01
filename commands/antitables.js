@@ -17,7 +17,7 @@ module.exports = {
     name: "antitables",
     description: "Args: `prebreak`, `postbreak`, `posteternity`. Sends a guide to Antitables.",
     check: true,
-    acceptableArgs: [`prebreak`, `postbreak`, `posteternity`],
+    acceptableArgs: Object.keys(antitablesMessageObject),
     sent: undefined,
     getArgMessage(arg) {
       if (this.acceptableArgs.includes(arg.toLowerCase())) return antitablesMessageObject[arg.toLowerCase()];

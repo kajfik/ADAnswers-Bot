@@ -36,7 +36,7 @@ module.exports = {
     number: 3,
     description: "describes how to eternity grind",
     check: "eternityGrinding",
-    acceptableArgs: ["early", "late"],
+    acceptableArgs: Object.keys(eternityGrindingMessageObject),
     sent: undefined,
     getArgMessage(arg) {
       if (this.acceptableArgs.includes(arg.toLowerCase())) return eternityGrindingMessageObject[arg.toLowerCase()];
