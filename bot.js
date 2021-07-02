@@ -9,7 +9,6 @@
 
 const Discord = require("discord.js");
 const fs = require("fs"); 
-const { ClassificationType } = require("typescript");
 const config = require("./config.json");
 const functions = require("./functions");
 
@@ -32,6 +31,13 @@ const fieldsArray = [fieldsVar, fieldsVar2, fieldsVar3, fieldsVar4, fieldsVar5, 
 client.once("ready", () => {
   console.log(`Good morning. The current date and time is ${Date()}.`);
   functions.internal.startIntervals(client);
+  
+  // Uncomment for /docs
+  // const allFields = [];
+  // for (const field of fieldsArray) {
+  //   allFields.push(...field);
+  // }
+  // console.log(allFields);
 });
 
 client.login(config.token);
