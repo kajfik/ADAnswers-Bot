@@ -224,7 +224,7 @@ function toPath(str = "active") {
  */
 function earlyEternity(theorem) {
   const tree = {};
-  if (theorem <= 13) {
+  if (theorem <= 10) {
     tree.ts = [PRE_SPLIT_EARLY];
   } else if (theorem <= 39) {
     tree.ts = [PRE_SPLIT, ANTIMATTER, 21, 33];

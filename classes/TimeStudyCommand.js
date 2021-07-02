@@ -5,6 +5,8 @@
 const { Command } = require("./Command");
 const functions = require("../functions");
 
+// This also works for EC
+
 class TimeStudyCommand extends Command {
   execute(message, args, id) {
     if (functions.botCommandsCheck(id, message)) message.channel.send(this.getArgMessage(args));
