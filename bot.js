@@ -1,4 +1,3 @@
-/* eslint-disable capitalized-comments */
 /* eslint-disable no-console */
 
 "use strict";
@@ -23,7 +22,6 @@ const fieldsVar4 = [];
 const fieldsVar5 = [];
 const fieldsVar6 = [];
 const fieldsVar7 = [];
-// const fieldsVar8 = [];
 const fieldsVar69 = [];
 
 const fieldsArray = [fieldsVar, fieldsVar2, fieldsVar3, fieldsVar4, fieldsVar5, fieldsVar6, fieldsVar7, fieldsVar69];
@@ -31,7 +29,7 @@ const fieldsArray = [fieldsVar, fieldsVar2, fieldsVar3, fieldsVar4, fieldsVar5, 
 client.once("ready", () => {
   console.log(`Good morning. The current date and time is ${Date()}.`);
   functions.internal.startIntervals(client);
-  
+
   // Uncomment for /docs
   // const allFields = [];
   // for (const field of fieldsArray) {
