@@ -45,8 +45,6 @@ client.commands.forEach(element => {
   // Some commands have type: "shorthand" to make it not appear in the help embeds. This just works lol 
   // If you're adding a shorthand, please make sure to put that in.
   const e = element;
-  // console.log(`Number: ${e.number}. Command: ${e.name}`);
-  // eslint-disable-next-line no-prototype-builtins
   if (element.type === undefined) {
     // eslint-disable-next-line max-len
     if (e.number > 0 && e.number < fieldsArray.length) fieldsArray[e.number - 1].push({ name: e.name, value: e.description });
