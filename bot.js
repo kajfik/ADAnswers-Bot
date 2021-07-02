@@ -37,26 +37,18 @@ client.login(config.token);
 
 for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
-  // eslint-disable-next-line no-negated-condition
-  if (command.command !== undefined) {
-    client.commands.set(command.command.name, command.command);
-  } else {
-    client.commands.set(command.name, command);
-  }
+  if (file === "meta.js") client.commands.set(command.name, command);
+  else client.commands.set(command.command.name, command.command);
 }
 
 client.commands.forEach(element => {
   // Some commands have type: "shorthand" to make it not appear in the help embeds. This just works lol 
   // If you're adding a shorthand, please make sure to put that in.
-  let e = null;
-  // This element.command thing is for commands I have refactored into classes.
-  // eslint-disable-next-line no-negated-condition
-  if (element.command !== undefined) {
-    e = element.command;
-  } else {
-    e = element;
-  }
-  if (e.type !== "shorthand") {
+  let e = {};
+  // eslint-disable-next-line no-prototype-builtins
+  if (element.hasOwnProperty("name")) e = element;
+  else e = element.command;
+  if (e.type === undefined) {
     // eslint-disable-next-line max-len
     if (e.number > 0 && e.number < fieldsArray.length) fieldsArray[e.number - 1].push({ name: e.name, value: e.description });
     // eslint-disable-next-line max-len
@@ -88,11 +80,11 @@ client.on("message", message => {
         try {
           // Gets the completion and number
           const a = command.split("c");
-          const b = a[1].split("x");
           // Tries to execute the EC command.
           // Here we access the EC command directly instead of routing it through ec.js 
           // to improve code slightly.
-          client.commands.get("eternitychallenge").execute(message, b, id);
+          // The args has to be passed in as an array or else it's read as a string in eternitychallenge.js
+          client.commands.get("eternitychallenge").execute(message, [a[1]], id);
           return;
         } catch (error) {
           console.log(error);

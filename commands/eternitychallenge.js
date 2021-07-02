@@ -533,7 +533,6 @@ const revampedECs = [
 ];
 
 const { TimeStudyCommand } = require("../classes/TimeStudyCommand");
-const functions = require("../functions");
 
 module.exports = {
   command: new TimeStudyCommand({
