@@ -9,6 +9,7 @@
 
 const Discord = require("discord.js");
 const fs = require("fs"); 
+const { ClassificationType } = require("typescript");
 const config = require("./config.json");
 const functions = require("./functions");
 
@@ -29,47 +30,31 @@ const fieldsVar69 = [];
 const fieldsArray = [fieldsVar, fieldsVar2, fieldsVar3, fieldsVar4, fieldsVar5, fieldsVar6, fieldsVar7, fieldsVar69];
 
 client.once("ready", () => {
-  setUpCommands();
   console.log(`Good morning. The current date and time is ${Date()}.`);
   functions.internal.startIntervals(client);
 });
 
 client.login(config.token);
 
-// for (const file of commandFiles) {
-//   const command = require(`./commands/${file}`);
-//   client.commands.set(command.command.name, command.command);
-// }
-
-function setUpCommands() {
-  console.log("Beginning command setup...");
-  for (const file of commandFiles) {
-    const command = require(`./commands/${file}`);
-    client.commands.set(command.command.name, command.command);
-  }
-  client.commands.forEach(element => {
-  // Some commands have type: "shorthand" to make it not appear in the help embeds. This just works lol 
-  // If you're adding a shorthand, please make sure to put that in.
-    const e = element.command;
-    // eslint-disable-next-line no-prototype-builtins
-    if (Object.prototype.hasOwnProperty(e, "type")) {
-    // eslint-disable-next-line max-len
-      if (e.number > 0 && e.number < fieldsArray.length) fieldsArray[e.number - 1].push({ name: e.name, value: e.description });
-      // eslint-disable-next-line max-len
-      else if (e.number === 69) fieldsArray[fieldsArray.length - 1].push({ name: e.name, value: e.description });
-      else console.log(e);
-    }
-  });
-  console.log(`Command setup complete.`);
+for (const file of commandFiles) {
+  const command = require(`./commands/${file}`);
+  client.commands.set(command.command.name, command.command);
 }
 
-
-// Uncomment for docs
-// const allFields = [];
-// for (const field of fieldsArray) {
-//   allFields.push(...field);
-// }
-// console.log(allFields);
+client.commands.forEach(element => {
+  // Some commands have type: "shorthand" to make it not appear in the help embeds. This just works lol 
+  // If you're adding a shorthand, please make sure to put that in.
+  const e = element;
+  // console.log(`Number: ${e.number}. Command: ${e.name}`);
+  // eslint-disable-next-line no-prototype-builtins
+  if (element.type === undefined) {
+    // eslint-disable-next-line max-len
+    if (e.number > 0 && e.number < fieldsArray.length) fieldsArray[e.number - 1].push({ name: e.name, value: e.description });
+    // eslint-disable-next-line max-len
+    else if (e.number === 69) fieldsArray[fieldsArray.length - 1].push({ name: e.name, value: e.description });
+    else console.log(e);
+  }
+});
 
 client.on("message", message => {
   try {

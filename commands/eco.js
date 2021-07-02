@@ -7,7 +7,7 @@ const EternityChallengeOrder = require("./eternitychallengeorder");
 module.exports = {
   command: new EternityChallengeOrderCommand({
     name: "eco",
-    number: EternityChallengeOrder.command.number,
+    number: 3,
     description: EternityChallengeOrder.command.description,
     type: "shorthand",
     check: EternityChallengeOrder.command.check,
