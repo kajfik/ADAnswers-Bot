@@ -293,7 +293,7 @@ function lightDark(theorem) {
     tree.ts = BASE.pushAll(191, 212, 193, 214, 211, 213);
   } else {
     tree.ts = BASE.pushAll(191, 212, 211);
-    tree.desc = "Do note: EC10 is done between this list and the next.";
+    tree.desc = "Do note: EC10 is done between the last list and this one.";
   }
   return tree;
 }

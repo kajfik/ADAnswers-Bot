@@ -5,12 +5,6 @@ const NOW = Date();
 
 const { MetaCommand } = require("../classes/MetaCommand");
 
-// This command *cannot* be refactored at the moment because of how I handle arg messages.
-// ++meta ping is a notable one where since I send it through the command class I can't
-// do an edit like that unless I create a special case for it. This command staying as-is
-// is okay because it's not used all that often. I hate leaving one not made correctly because 
-// of needing a special case in bot.js for this one, but it should be okay all things considered.
-
 const metaMessageObject = {
   "lastRestart": NOW,
   "uptime": `The bot has been up for (Waiting for edit...).`,
