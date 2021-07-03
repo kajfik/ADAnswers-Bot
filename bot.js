@@ -23,12 +23,16 @@ const fieldsVar5 = [];
 const fieldsVar6 = [];
 const fieldsVar7 = [];
 const fieldsVar69 = [];
-
 const fieldsArray = [fieldsVar, fieldsVar2, fieldsVar3, fieldsVar4, fieldsVar5, fieldsVar6, fieldsVar7, fieldsVar69];
 
+client.login(config.token);
+
 client.once("ready", () => {
-  console.log(`Good morning. The current date and time is ${Date()}.`);
+  const NOW = Date.now();
+  setup();
+  console.log(`\n\nGood morning. The current date and time is ${Date()}.`);
   functions.internal.startIntervals(client);
+  console.log(`Setting and sorting commands took ${Date.now() - NOW}ms.`);
 
   // Uncomment for /docs
   // const allFields = [];
@@ -38,25 +42,31 @@ client.once("ready", () => {
   // console.log(allFields);
 });
 
-client.login(config.token);
-
-for (const file of commandFiles) {
-  const command = require(`./commands/${file}`);
-  client.commands.set(command.command.name, command.command);
-}
-
-client.commands.forEach(element => {
-  // Some commands have type: "shorthand" to make it not appear in the help embeds. This just works lol 
-  // If you're adding a shorthand, please make sure to put that in.
-  const e = element;
-  if (element.type === undefined) {
-    // eslint-disable-next-line max-len
-    if (e.number > 0 && e.number < fieldsArray.length) fieldsArray[e.number - 1].push({ name: e.name, value: e.description });
-    // eslint-disable-next-line max-len
-    else if (e.number === 69) fieldsArray[fieldsArray.length - 1].push({ name: e.name, value: e.description });
-    else console.log(e);
+function setup() {
+  let iteration = 0;
+  let jiteration = 0;
+  for (const file of commandFiles) {
+    const command = require(`./commands/${file}`);
+    iteration++;
+    console.log(`Setting command ${command.command.name}, command ${iteration}...`);
+    client.commands.set(command.command.name, command.command);
   }
-});
+  console.log(`Setting command complete. Beginning sorting...\n\n\n`);
+  client.commands.forEach(element => {
+    // Some commands have type: "shorthand" to make it not appear in the help embeds. This just works lol 
+    // If you're adding a shorthand, please make sure to put that in.
+    const e = element;
+    if (element.type === undefined) {
+      jiteration++;
+      console.log(`Sorting command ${e.name}, command ${jiteration}...`);
+      // eslint-disable-next-line max-len
+      if (e.number > 0 && e.number < fieldsArray.length) fieldsArray[e.number - 1].push({ name: e.name, value: e.description });
+      // eslint-disable-next-line max-len
+      else if (e.number === 69) fieldsArray[fieldsArray.length - 1].push({ name: e.name, value: e.description });
+      else console.log(e);
+    }
+  });
+}
 
 client.on("message", message => {
   try {
