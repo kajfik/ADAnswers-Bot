@@ -542,13 +542,14 @@ module.exports = {
     check: "ecsCheck",
     acceptableArgs: order,
     sent: undefined,
-    getArgMessage(args) {
+    getArgMessage(args, tree) {
       if (!this.acceptableArgs.includes(args[0])) return `That is not an Eternity Challenge!`;
       const splitArgs = args[0].split("x");
       const challengeID = Math.floor(Math.abs(splitArgs[0]));
       const completion = Math.floor(Math.abs(splitArgs[1]));
       const ec = revampedECs[(challengeID - 1) * 5 + (completion - 1)];
 
+      if (tree) return `${ec.tree}`;
       return `The tree for EC${challengeID}x${completion} is: ${ec.tree}
       TT for Completion: \`${ec.tt}\`
       IP Requirement for Completion: \`${ec.ip}\` ${ec.note === null ? `` : `\n    Note: \`${ec.note}\``}

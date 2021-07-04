@@ -12,8 +12,8 @@ module.exports = {
     check: "ecsCheck",
     sent: undefined,
     acceptableArgs: EternityChallengeCommand.command.acceptableArgs,
-    getArgMessage(arg) {
-      return EternityChallengeCommand.command.getArgMessage(arg);
+    getArgMessage(arg, tree) {
+      return EternityChallengeCommand.command.getArgMessage(arg, tree);
     }
   })
 };
