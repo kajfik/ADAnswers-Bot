@@ -9,7 +9,7 @@ module.exports = {
     name: "kajfik",
     description: "kaj!",
     check: "botCommands",
-    acceptableArgs: true,
+    acceptableArgs: undefined,
     sent: [`i have known kaj for just over two years now and in that time he has managed to bring AD to so many more people and help grow the community. he is just such a nice guy and gets stuff done.`]
   })
 };
