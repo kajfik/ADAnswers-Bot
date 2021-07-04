@@ -42,6 +42,10 @@ client.once("ready", () => {
   // console.log(allFields);
 });
 
+client.on("error", (message, error) => {
+  message.channel.send(`There has been an internal error with the bot. Cause: ${error}`);
+});
+
 function setup() {
   let iteration = 0;
   let jiteration = 0;
