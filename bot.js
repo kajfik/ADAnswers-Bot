@@ -55,7 +55,7 @@ function setup() {
     console.log(`Setting command ${command.command.name}, command ${iteration}...`);
     client.commands.set(command.command.name, command.command);
   }
-  console.log(`Setting command complete. Beginning sorting...\n\n\n`);
+  console.log(`\n\n\nSetting commands complete. Beginning sorting...\n\n\n`);
   client.commands.forEach(element => {
     // Some commands have type: "shorthand" to make it not appear in the help embeds. This just works lol 
     // If you're adding a shorthand, please make sure to put that in.
@@ -116,6 +116,7 @@ client.on("message", message => {
       message.reply(`Command \`${command}\` is, in fact, a command, but it appears there was an internal issue with the bot and the bot is going offline. Thank you for your patience. Paging earth...<@213071245896450068>`);
     }
   } catch (error) {
+    // This catch has actually happened once! I don't remember what caused it, though.
     console.log(`something went sicko mode ${error}`);
     message.channel.send(`something went sicko mode ${error}`);
   }
