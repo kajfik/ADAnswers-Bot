@@ -1,3 +1,4 @@
+/* eslint-disable no-negated-condition */
 /* eslint-disable no-console */
 "use strict";
 /* eslint-disable max-len */
@@ -223,7 +224,7 @@ function toPath(str = "active") {
  */
 function earlyEternity(theorem) {
   const tree = {};
-  if (theorem <= 13) {
+  if (theorem <= 10) {
     tree.ts = [PRE_SPLIT_EARLY];
   } else if (theorem <= 39) {
     tree.ts = [PRE_SPLIT, ANTIMATTER, 21, 33];
@@ -292,7 +293,7 @@ function lightDark(theorem) {
     tree.ts = BASE.pushAll(191, 212, 193, 214, 211, 213);
   } else {
     tree.ts = BASE.pushAll(191, 212, 211);
-    tree.desc = "Do note: EC10 is done between this list and the next.";
+    tree.desc = "Do note: EC10 is done between the last list and this one.";
   }
   return tree;
 }
@@ -435,22 +436,7 @@ function getMessage(command, stuff = {}) {
   case "error":
     return `Unknown arg ${stuff.args[0]} in command ${stuff.name}. The args for this command are ${stuff.acceptableArgs.join(", ")}.`;
   case "noWorky":
-    switch (stuff.worky) {
-    case "earlyGame": return `This command only works in the early game channels or the common channels. Use \`++channels\` to see which channels that is!`;
-    case "earlyInfinity": return `This command only works in the early infinity channels or the common channels.`;
-    case "setCrunchAutoCheck": return `This command only works in the channels it applies in.`;
-    case "breakCheck": return `This command only works in the break infinity channels or the common channels. Use \`++channels\` to seee which channels that is!`;
-    case "earlyEternity": return `This command only works in the early Eternity channels, bot commands, or the common channels! Use \`++channels\` to see which channels that is!`;
-    case "studyTreeCheck": return `This command only works in the Eternity channels, bot commands, or the common channels! Use \`++channels\` to see which ochannels that is!`;
-    case "eternityGrinding": return `This command only works in the Eternity channels, bot commands, or the common channels. Use \`++channels\` to see which channels that is!`;
-    case "ecs": return `This command only works in the Eternity Challenge channels, bot commands, or the common channels. Use \`++channels\` to see which channels that is!`;
-    case "botCommands": return `This is a miscellaneous command and is only allowed in <#351479640755404820>`;
-    case "bankedInfs": return `This command only works in the post-TS181 channel and on. You can also use <#351479640755404820>!`;
-    case "dilationGrind": return `This command only works in the channel directly before Dilation, bot commands, or the common channels. Use \`++channels\` to see which channels that is!`;
-    case "endgame": return `This command only works in the endgame channels, bot commands, or the common channels. Use \`++channels\` to see which channels that is!`;
-    case true: return `This check should never appear and is only here to say hi. How are you guys doing?`;
-    default: return `What kind of error message are you trying to get?`;
-    }
+    return noWorkyMessage(stuff.worky);
   case "missingArg":
     return `Command \`${stuff.name}\` requires an arg. The args for this command are ${stuff.acceptableArgs.join(", ")}.`;
   case "shouldNeverAppear":
@@ -458,6 +444,30 @@ function getMessage(command, stuff = {}) {
   default:
     console.error("Unknown command for getMessage!");
     return "Something went wrong";
+  }
+}
+
+/**
+ * Gets the message for case "noWorky" in getMessage
+ * @param {String} worky String that is used in the switch statment to get a message.
+ * @returns String with the message
+ */
+function noWorkyMessage(worky) {
+  switch (worky) {
+  case "earlyGame": return `This command only works in the early game channels or the common channels. Use \`++channels\` to see which channels that is!`;
+  case "earlyInfinity": return `This command only works in the early infinity channels or the common channels.`;
+  case "setCrunchAutoCheck": return `This command only works in the channels it applies in.`;
+  case "breakCheck": return `This command only works in the break infinity channels or the common channels. Use \`++channels\` to seee which channels that is!`;
+  case "earlyEternity": return `This command only works in the early Eternity channels, bot commands, or the common channels! Use \`++channels\` to see which channels that is!`;
+  case "studyTreeCheck": return `This command only works in the Eternity channels, bot commands, or the common channels! Use \`++channels\` to see which ochannels that is!`;
+  case "eternityGrinding": return `This command only works in the Eternity channels, bot commands, or the common channels. Use \`++channels\` to see which channels that is!`;
+  case "ecs": return `This command only works in the Eternity Challenge channels, bot commands, or the common channels. Use \`++channels\` to see which channels that is!`;
+  case "botCommands": return `This is a miscellaneous command and is only allowed in <#351479640755404820>`;
+  case "bankedInfs": return `This command only works in the post-TS181 channel and on. You can also use <#351479640755404820>!`;
+  case "dilationGrind": return `This command only works in the channel directly before Dilation, bot commands, or the common channels. Use \`++channels\` to see which channels that is!`;
+  case "endgame": return `This command only works in the endgame channels, bot commands, or the common channels. Use \`++channels\` to see which channels that is!`;
+  case true: return `This check should never appear and is only here to say hi. How are you guys doing?`;
+  default: return `What kind of error message are you trying to get?`;
   }
 }
 
@@ -506,6 +516,7 @@ module.exports = {
   constructEmbedObject,
   help,
   getMessage,
+  noWorkyMessage,
   misc: {
     sumAllCommands,
     getHelpDescription,

@@ -1,10 +1,10 @@
 /* eslint-disable max-len */
 "use strict";
 
-const { classes } = require("../command");
+const { Command } = require("../classes/Command");
 
 module.exports = {
-  command: new classes.com({
+  command: new Command({
     number: 1,
     name: "infinitydimensions",
     description: "Describes what infinity dimensions (and infinity power) does. Includes when they unlock.",

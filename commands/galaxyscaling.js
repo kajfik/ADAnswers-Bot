@@ -1,10 +1,10 @@
 /* eslint-disable max-len */
 "use strict";
 
-const { classes } = require("../command");
+const { Command } = require("../classes/Command");
 
 module.exports = {
-  command: new classes.com({
+  command: new Command({
     number: 1,
     name: "galaxyscaling",
     description: "Explains the change in scaling at 100 (and 800) Antimatter Galaxies",

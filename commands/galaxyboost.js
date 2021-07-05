@@ -1,9 +1,9 @@
 "use strict";
 
-const { classes } = require("../command");
+const { Command } = require("../classes/Command");
 
 module.exports = {
-  command: new classes.com({
+  command: new Command({
     number: 1,
     name: "galaxyboost",
     description: "compares the boost from 100 tickspeed upgrades with 0 galaxies and 1 galaxy",

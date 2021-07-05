@@ -14,33 +14,24 @@ The issues tab is my best friend for keeping track of what to do for each bot ve
 ### Step 1
 Navigate to the /commands folder. In this folder, you can find all commands. 
 ### Step 2
-Using your IDE search a whole directory function, look for `number:` followed by a number. If all numbers have 10, you will need to navigate to bot.js
-### Step 2.5 (required if you need a new fieldsVar)
-Find where all of the other embedObjects are defined. Copy and paste a new one, and name it the next page. Create a new fieldVar at the top with the other ones, add it to fieldsArray. Go to the `client.commands.forEach` line and add a new else if block.
-```js
-client.commands.forEach(element => {
-  // Some commands have type: "shorthand" to make it not appear in the help embeds. This just works lol If you're adding a shorthand, please make sure to put that in.
-  if (element.type !== "shorthand") { 
-    if (element.number === 1) fieldsVar.push({ name: element.name, value: element.description });
-    else if (element.number === 2) fieldsVar2.push({ name: element.name, value: element.description });
-    else if (element.number === 3) fieldsVar3.push({ name: element.name, value: element.description });
-    else if (element.number === 4) fieldsVar4.push({ name: element.name, value: element.description });
-    else if (element.number === 5) fieldsVar5.push({ name: element.name, value: element.description });
-    else if (element.number === 6) fieldsVar6.push({ name: element.name, value: element.description });
-    else if (element.number === 7) fieldsVar7.push({ name: element.name, value: element.description });
-    // else if (element.number === 8) fieldsVar8.push({ name: element.name, value: element.description });
-    else if (element.number === 69) fieldsVar69.push({ name: element.name, value: element.description });
-    else console.log(element); // This will help you catch if you put in a number that wouldn't work or if you didn't give it a number.
-  }
-});
-});
+Quiz yourself! What kind of command are you trying to make? From command `++helpNumbers`:
 ```
-After that, your help page should just work! Thanks to a handy function `constructEmbedObject`, it will be able to pass in all of that information for the fields and making a help page embed for you!
-
+Page 1 covers until break infinity
+Page 2 rest of infinity era + achievements and swipe trick
+Page 3 is eternity
+Page 4 dilation, reality, meta command, pins
+Page 5-6 some more common game info stuff
+Page 7 lore (5hours, justask, thanks,...and other miscellaneous bot functions)
+Page 69 is where the fun's at
+```
+Depending on what kind of command you want, this will determine the `number` attribute in your command. Everything else is handled in the backend. 
 ### Step 3
 Navigate back to /commands, and create a new file! There is also a readme there for further help. I recommend checking out something like meta.js to see how args work in action. Args are passed as an array in, so be wary of that.
 
-### Step 4
+### Step 3.5
+I also do recommend checking out /classes as that will be an insight to what each class does. `Command` is the base class, with all of the others `extend`ing it. Most of these are appropriately named; however, TimeStudyCommand.js also is what's used in eternitychallenge.js. Most commands, however, do just stick with the base class as they need no further functionality. In the /commands readme I go into further depth on how to create a command. Just remember the number you came up with from step 2.
+
+### Step 4 (Optional)
 Run the code! You will need to have node.js installed and using a local copy of this code to test things out, as well as the dependencies. You'll need to set up a discord bot on your [Discord](https://discord.com/developers/applications) for testing.
 
 ### Step 5

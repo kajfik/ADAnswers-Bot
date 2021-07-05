@@ -1,4 +1,3 @@
-/* eslint-disable capitalized-comments */
 /* eslint-disable no-console */
 
 "use strict";
@@ -23,55 +22,55 @@ const fieldsVar4 = [];
 const fieldsVar5 = [];
 const fieldsVar6 = [];
 const fieldsVar7 = [];
-// const fieldsVar8 = [];
 const fieldsVar69 = [];
-
 const fieldsArray = [fieldsVar, fieldsVar2, fieldsVar3, fieldsVar4, fieldsVar5, fieldsVar6, fieldsVar7, fieldsVar69];
-
-client.once("ready", () => {
-  console.log(`Good morning. The current date and time is ${Date()}.`);
-  functions.internal.startIntervals(client);
-});
 
 client.login(config.token);
 
-for (const file of commandFiles) {
-  const command = require(`./commands/${file}`);
-  // eslint-disable-next-line no-negated-condition
-  if (command.command !== undefined) {
-    client.commands.set(command.command.name, command.command);
-  } else {
-    client.commands.set(command.name, command);
-  }
-}
+client.once("ready", () => {
+  const NOW = Date.now();
+  setup();
+  console.log(`\n\nGood morning. The current date and time is ${Date()}.`);
+  functions.internal.startIntervals(client);
+  console.log(`Setting and sorting commands took ${Date.now() - NOW}ms.`);
 
-client.commands.forEach(element => {
-  // Some commands have type: "shorthand" to make it not appear in the help embeds. This just works lol 
-  // If you're adding a shorthand, please make sure to put that in.
-  let e = null;
-  // This element.command thing is for commands I have refactored into classes.
-  // eslint-disable-next-line no-negated-condition
-  if (element.command !== undefined) {
-    e = element.command;
-  } else {
-    e = element;
-  }
-  if (e.type !== "shorthand") {
-    // eslint-disable-next-line max-len
-    if (e.number > 0 && e.number < fieldsArray.length) fieldsArray[e.number - 1].push({ name: e.name, value: e.description });
-    // eslint-disable-next-line max-len
-    else if (e.number === 69) fieldsArray[fieldsArray.length - 1].push({ name: e.name, value: e.description });
-    else console.log(e);
-  }
+  // Uncomment for /docs
+  // const allFields = [];
+  // for (const field of fieldsArray) {
+  //   allFields.push(...field);
+  // }
+  // console.log(allFields);
 });
 
+client.on("error", (message, error) => {
+  message.channel.send(`There has been an internal error with the bot. Cause: ${error}`);
+});
 
-// Uncomment for docs
-// const allFields = [];
-// for (const field of fieldsArray) {
-//   allFields.push(...field);
-// }
-// console.log(allFields);
+function setup() {
+  let iteration = 0;
+  let jiteration = 0;
+  for (const file of commandFiles) {
+    const command = require(`./commands/${file}`);
+    iteration++;
+    console.log(`Setting command ${command.command.name}, command ${iteration}...`);
+    client.commands.set(command.command.name, command.command);
+  }
+  console.log(`Setting command complete. Beginning sorting...\n\n\n`);
+  client.commands.forEach(element => {
+    // Some commands have type: "shorthand" to make it not appear in the help embeds. This just works lol 
+    // If you're adding a shorthand, please make sure to put that in.
+    const e = element;
+    if (element.type === undefined) {
+      jiteration++;
+      console.log(`Sorting command ${e.name}, command ${jiteration}...`);
+      // eslint-disable-next-line max-len
+      if (e.number > 0 && e.number < fieldsArray.length) fieldsArray[e.number - 1].push({ name: e.name, value: e.description });
+      // eslint-disable-next-line max-len
+      else if (e.number === 69) fieldsArray[fieldsArray.length - 1].push({ name: e.name, value: e.description });
+      else console.log(e);
+    }
+  });
+}
 
 client.on("message", message => {
   try {
@@ -88,11 +87,11 @@ client.on("message", message => {
         try {
           // Gets the completion and number
           const a = command.split("c");
-          const b = a[1].split("x");
           // Tries to execute the EC command.
           // Here we access the EC command directly instead of routing it through ec.js 
           // to improve code slightly.
-          client.commands.get("eternitychallenge").execute(message, b, id);
+          // The args has to be passed in as an array or else it's read as a string in eternitychallenge.js
+          client.commands.get("eternitychallenge").execute(message, [a[1]], id);
           return;
         } catch (error) {
           console.log(error);
@@ -107,9 +106,8 @@ client.on("message", message => {
 
     try {
       // This is a lot of parameters and eventually I think it would be cool
-      // to make it all one object. As of right now, though, the object at the end is
-      // solely for being able to do something like ++ts 12x5. It's finicky, it's cool, it works.
-      client.commands.get(command).execute(message, args, id, { c: client.commands });
+      // to make it all one object.
+      client.commands.get(command).execute(message, args, id);
     } catch (error) {
       console.error(error);
       console.log(`${Date()}`);

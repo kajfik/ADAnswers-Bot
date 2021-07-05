@@ -1,13 +1,13 @@
 /* eslint-disable max-len */
 "use strict";
 
-const { classes } = require("../command");
+const { Command } = require("../classes/Command");
 
 // This is a command I'm only migrating because I'm sure someone will post about it somewhere at some point.
 // It's pretty much useless since #web-bugs isn't open anymore, but I'd rather keep it than delete it.
 
 module.exports = {
-  command: new classes.com({
+  command: new Command({
     number: 5,
     name: "invertedtheme",
     description: "response to the frequent web bug report that the inverted theme is bugged.",

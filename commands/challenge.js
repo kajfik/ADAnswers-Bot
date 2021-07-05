@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 "use strict";
 
-const { classes } = require("../command");
+const { Command } = require("../classes/Command");
 
 const base = `It is recommended to have at least the first 12 infinity upgrades and 100 spare IP.
 If you want to get those 100 IP, you probably want to get upgrade 13 and 14 as well to speed things up. (Note: Those upgrades won't work inside challenges.)`;
@@ -45,12 +45,12 @@ Post-Eternity guide (has Eternity spoilers!): ||https://cdn.discordapp.com/attac
 };
 
 module.exports = {
-  command: new classes.com({
+  command: new Command({
     number: 1,
     name: "challenge",
     description: "Args: all challenges, including `ecs`. Returns a guide for each argument. All of these commands have shorthands as well, f.e `++challenge c2` will return the same result as `++c2`",
     check: true,
-    acceptableArgs: ["c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9", "c10", "c11", "c12", "ic1", "ic2", "ic3", "ic4", "ic5", "ic6", "ic7", "ic8", "ecs"],
+    acceptableArgs: Object.keys(challengeMessageObject),
     sent: undefined,
     getArgMessage(arg) {
       if (this.acceptableArgs.includes(arg.toLowerCase())) return challengeMessageObject[arg.toLowerCase()];

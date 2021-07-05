@@ -2,7 +2,7 @@
 /* eslint-disable max-len */
 "use strict";
 
-const functions = require("./functions");
+const functions = require("../functions");
 
 /**
  * Class representing a command. This handles all the backend of it and you only need to provide what is in the config.
@@ -31,7 +31,7 @@ class Command {
   }
 
   /**
-   * 
+   * Executes the command
    * @param {Object} message Object that contains all the information about the message.
    * @param {Array} args An array with the args provided by the user in the command message.
    * @param {String} id String with the ID of the channel the message was sent in.
@@ -42,10 +42,7 @@ class Command {
       if (this.getCheck(id, message)) message.channel.send(this.sent[0]);
       else message.channel.send(this.getFailMessage());
     } else if (this.acceptableArgs !== undefined) {
-      if (this.name === "ts" || this.name === "studytree") this.tsCommand(message, args, id);
-      else if (this.name === "news") this.newsCommand(message, args);
-      else if (this.name === "xkcd") this.xkcdCommand(message, args, id);
-      else this.regularCommand(message, args, id);
+      this.regularCommand(message, args, id);
     }
   }
 
@@ -94,56 +91,7 @@ class Command {
     else if (!(args[0] === undefined)) message.channel.send(functions.getMessage("error", { args, name: this.name, acceptableArgs: this.acceptableArgs }));
     else message.channel.send(functions.getMessage("shouldNeverAppear"));
   }
-
-  /**
-   * Does the ts command execution. Made to reduce clutter in the main execute() method.
-   * @param {Object} message Object that contains all the information about the message.
-   * @param {Array} args An array with the args provided by the user in the command message.
-   * @param {String} id String with the ID of the channel the message was sent in.
-   */
-  tsCommand(message, args, id) {
-    if (this.name === "studytree" || this.name === "ts") {
-      if (functions.botCommandsCheck(id, message)) message.channel.send(this.getArgMessage(args));
-      else if (this.getCheck(id, message)) message.author.send(this.getArgMessage(args)).catch(() => {
-        message.reply("I can't DM you!");
-      }).then(() => message.react("☑️"));
-      else if (args[0] === undefined) message.channel.send(functions.getMessage("missingArg", { name: this.name, acceptableArgs: this.acceptableArgs }));
-      else if (!(args[0] === undefined)) message.channel.send(functions.getMessage("error", { args, name: this.name, acceptableArgs: this.acceptableArgs }));
-      else message.channel.send(functions.getMessage("shouldNeverAppear"));
-    }
-  }
-
-  /**
-   * Does the news command execution. Made to reduce clutter in the main execute() method.
-   * @param {Object} message Object that contains all the information about the message.
-   * @param {Array} args An array with the args provided by the user in the command message.
-   */
-  newsCommand(message, args) {
-    // News is a really weird command because it doesn't require an arg, so some special cases are made here.
-    if (args.length === 0 && this.name !== "news") {
-      message.channel.send(functions.getMessage("missingArg", { name: this.name, acceptableArgs: this.acceptableArgs }));
-    } else if (args.length === 0 && this.name === "news") {
-      message.channel.send(this.sent[0]);
-    } else this.regularCommand(message, args, message.channel.id);
-  }
-
-  /**
-   * Does the XKCD command execution. Made to reduce clutter in the main execute() method.
-   * @param {Object} message Object that contains all the information about the message.
-   * @param {Array} args An array with the args provided by the user in the command message.
-   * @param {String} id String with the ID of the channel the message was sent in.
-   */
-  xkcdCommand(message, args, id) {
-    if (this.getCheck(id, message) && !isNaN(functions.misc.toNumber(args[0]))) message.channel.send(this.getArgMessage(args[0]));
-    else if (this.getCheck(id, message) && isNaN(functions.misc.toNumber(args[0]))) message.channel.send(functions.getMessage("error", { args, name: this.name, acceptableArgs: this.acceptableArgs }));
-    else if (args[0] === undefined) message.channel.send(functions.getMessage("missingArg", { name: this.name, acceptableArgs: this.acceptableArgs }));
-    else message.channel.send(functions.getMessage("shouldNeverAppear"));
-  }
 }
 
-module.exports = {
-  classes: {
-    com: Command
-  }
-};
+module.exports = { Command };
 

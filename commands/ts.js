@@ -1,11 +1,11 @@
 /* eslint-disable max-len */
 "use strict";
 
-const { classes } = require("../command");
+const { TimeStudyCommand } = require("../classes/TimeStudyCommand");
 const StudyTreeCommand = require("./studytree");
 
 module.exports = {
-  command: new classes.com({
+  command: new TimeStudyCommand({
     number: 6,
     name: "ts",
     description: "shorthand for `++studytree`",
