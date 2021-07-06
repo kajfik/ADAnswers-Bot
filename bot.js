@@ -7,6 +7,7 @@
 // ANYTHING TO IT THAT YOU MAY USE OUTSIDE OF ONE FILE
 
 const Discord = require("discord.js");
+const Sequelize = require("sequelize");
 const fs = require("fs"); 
 const config = require("./config.json");
 const functions = require("./functions");
@@ -25,14 +26,50 @@ const fieldsVar7 = [];
 const fieldsVar69 = [];
 const fieldsArray = [fieldsVar, fieldsVar2, fieldsVar3, fieldsVar4, fieldsVar5, fieldsVar6, fieldsVar7, fieldsVar69];
 
+let Tags = undefined;
+
+const commandNames = [];
+
 client.login(config.token);
 
-client.once("ready", () => {
+const sequelize = new Sequelize({
+  dialect: "sqlite",
+  storage: "./database.sqlite"
+});
+
+client.once("ready", async function() {
   const NOW = Date.now();
   setup();
   console.log(`\n\nGood morning. The current date and time is ${Date()}.`);
   functions.internal.startIntervals(client);
   console.log(`Setting and sorting commands took ${Date.now() - NOW}ms.`);
+
+  try {
+    for (let command in commandNames) {
+      console.log(commandNames[command])
+      const tag = await Tags.create({
+        name: commandNames[command],
+        timesUsed: 0
+      });
+      console.log(`Tag ${tag.name} added.`);
+    }
+  } catch (e) {
+    if (e.name === "SequelizeUniqueConstraintError") console.log(`Tag already exists!`);
+    else console.log(`Something went wrong while adding tag, ${e}`)
+  }
+
+  const tagList = await Tags.findAll({ attributes: ["name", "timesUsed"] });
+  const tagString = tagList.map(t => t.name).join(', ') || 'No tags set.';
+  console.log(`List of tags: ${tagString}`);
+
+  try {
+    await sequelize.authenticate();
+    console.log('Connection has been established successfully.');
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
+
+  Tags.sync({ force: true });
 
   // Uncomment for /docs
   // const allFields = [];
@@ -47,6 +84,17 @@ client.on("error", (message, error) => {
 });
 
 function setup() {
+  Tags = sequelize.define("tags", {
+    name: {
+      type: Sequelize.STRING,
+      unique: true,
+    },
+    timesUsed: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0,
+      allowNull: false
+    }
+  });
   let iteration = 0;
   let jiteration = 0;
   for (const file of commandFiles) {
@@ -60,7 +108,8 @@ function setup() {
     // Some commands have type: "shorthand" to make it not appear in the help embeds. This just works lol 
     // If you're adding a shorthand, please make sure to put that in.
     const e = element;
-    if (element.type === undefined) {
+    commandNames.push(e.name);
+    if (e.type === undefined) {
       jiteration++;
       console.log(`Sorting command ${e.name}, command ${jiteration}...`);
       // eslint-disable-next-line max-len
@@ -72,7 +121,7 @@ function setup() {
   });
 }
 
-client.on("message", message => {
+client.on("message", async message => {
   try {
     if (!message.content.startsWith(config.prefix)) return;
     // eslint-disable-next-line require-unicode-regexp
@@ -108,6 +157,15 @@ client.on("message", message => {
       // This is a lot of parameters and eventually I think it would be cool
       // to make it all one object.
       client.commands.get(command).execute(message, args, id);
+      console.log(Tags);
+      const tag = await Tags.findOne({ where: { name: command } });
+      const tagList = await Tags.findAll({ attributes: ["name", "timesUsed"] });
+      const tagString = tagList.map(t => t.name).join(", ") || "No tags set";
+      console.log(`List of tags: ${tagString}`);
+      if (tag) {
+        tag.increment("timesUsed");
+        console.log(`Tag ${tag} incremented successfully. New value: ${tag.timesUsed}`)
+      }
     } catch (error) {
       console.error(error);
       console.log(`${Date()}`);
