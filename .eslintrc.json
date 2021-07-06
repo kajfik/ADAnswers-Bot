@@ -3,12 +3,12 @@
     "eslint:recommended"
   ],
   "env": {
-    "es2021": true,
+    "es12": true,
     "browser": true,
     "jquery": true
   },
   "parserOptions": {
-    "ecmaVersion": 2021,
+    "ecmaVersion": 12,
     "ecmaFeatures": {
       "impliedStrict": false
     }
@@ -130,7 +130,7 @@
     "max-len": [
       "warn",
       {
-        "code": 120
+        "code": 240
       }
     ],
     "max-params": "warn",
