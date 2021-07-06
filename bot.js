@@ -51,6 +51,15 @@ client.once("ready", async function() {
         name: commandNames[command],
         timesUsed: 0
       });
+      Tags.create({
+        name: "totalRequests",
+        timesUsed: 0
+      });
+    
+      Tags.create({
+        name: "totalSuccesses",
+        timesUsed: 0
+      });
       console.log(`Tag ${tag.name} added.`);
     }
   } catch (e) {
@@ -69,7 +78,7 @@ client.once("ready", async function() {
     console.error('Unable to connect to the database:', error);
   }
 
-  Tags.sync({ force: true });
+  Tags.sync();
 
   // Uncomment for /docs
   // const allFields = [];
@@ -125,11 +134,16 @@ client.on("message", async message => {
   try {
     if (!message.content.startsWith(config.prefix)) return;
     // eslint-disable-next-line require-unicode-regexp
+    let requestsTag = await Tags.findOne({ where: { name: "totalRequests" }});
+    if (requestsTag) {
+      requestsTag.increment("timesUsed");
+      console.log(`Tag ${requestsTag.name} incremented successfully. New value: ${requestsTag.timesUsed}`)
+    }
     const args = message.content.slice(config.prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
     const id = message.channel.id;
 
-    functions.help(message, fieldsArray, { command, args, id });
+    functions.help(message, fieldsArray, { command, args, id, Tags });
 
     if (!client.commands.has(command) && command !== "help") {
       if (command.startsWith("ec") && command.includes("x")) {
@@ -141,6 +155,11 @@ client.on("message", async message => {
           // to improve code slightly.
           // The args has to be passed in as an array or else it's read as a string in eternitychallenge.js
           client.commands.get("eternitychallenge").execute(message, [a[1]], id);
+          const tag = await Tags.findOne({ where: { name: "ec" } });
+          if (tag) {
+            tag.increment("timesUsed");
+            console.log(`Tag ${tag.name} incremented successfully. New value: ${tag.timesUsed}`)
+          }
           return;
         } catch (error) {
           console.log(error);
@@ -157,14 +176,10 @@ client.on("message", async message => {
       // This is a lot of parameters and eventually I think it would be cool
       // to make it all one object.
       client.commands.get(command).execute(message, args, id);
-      console.log(Tags);
       const tag = await Tags.findOne({ where: { name: command } });
-      const tagList = await Tags.findAll({ attributes: ["name", "timesUsed"] });
-      const tagString = tagList.map(t => t.name).join(", ") || "No tags set";
-      console.log(`List of tags: ${tagString}`);
       if (tag) {
         tag.increment("timesUsed");
-        console.log(`Tag ${tag} incremented successfully. New value: ${tag.timesUsed}`)
+        console.log(`Tag ${tag.name} incremented successfully. New value: ${tag.timesUsed}`)
       }
     } catch (error) {
       console.error(error);
