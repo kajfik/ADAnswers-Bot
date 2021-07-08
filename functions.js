@@ -25,7 +25,7 @@ const POST_SPLIT = "151,161,171,181,162";
  * Checks if the ID specified is for early game channels.
  * @param {string} id the ID of the message channel.
  * @param {object} message object contains everything about the message.
- * @returns true/false
+ * @returns {Boolean}
  */
 function earlyGameCheck(id, message) {
   return config.ids.earlyGame.includes(id) || config.ids.common.includes(id) || botCommandsCheck(id, message);
@@ -35,7 +35,7 @@ function earlyGameCheck(id, message) {
  * Checks if the ID specified is for break infinity channels.
  * @param {string} id the ID of the message channel.
  * @param {object} message object contains everything about the message.
- * @returns true/false
+ * @returns {Boolean}
  */
 function breakCheck(id, message) {
   return config.ids.break.includes(id) || config.ids.common.includes(id) || botCommandsCheck(id, message);
@@ -45,7 +45,7 @@ function breakCheck(id, message) {
  * Checks if the ID specified is for early eternity channels.
  * @param {string} id the ID of the message channel.
  * @param {object} message object contains everything about the message.
- * @returns true/false
+ * @returns {Boolean}
  */
 function earlyEternityCheck(id, message) {
   return config.ids.earlyEternity.includes(id) || config.ids.common.includes(id) || botCommandsCheck(id, message);
@@ -55,7 +55,7 @@ function earlyEternityCheck(id, message) {
  * Checks if the ID specified is for EC channels.
  * @param {string} id the ID of the message channel.
  * @param {object} message object contains everything about the message.
- * @returns true/false
+ * @returns {Boolean}
  */
 function ecsCheck(id, message) {
   return config.ids.ecs.includes(id) || config.ids.common.includes(id) || botCommandsCheck(id, message);
@@ -65,7 +65,7 @@ function ecsCheck(id, message) {
  * Checks if the ID specified is for endgame channels
  * @param {string} id the ID of the message channel.
  * @param {object} message object contains everything about the message.
- * @returns true/false
+ * @returns {Boolean}
  */
 function endgameCheck(id, message) {
   return config.ids.endgame.includes(id) || config.ids.common.includes(id) || botCommandsCheck(id, message);
@@ -75,7 +75,7 @@ function endgameCheck(id, message) {
  * Checks if the ID specified is bot commands, #bots in earth's things, #general in bot test server, or if the command was used in DMs
  * @param {string} id the ID of the message channel.
  * @param {object} message object contains everything about the message.
- * @returns true/false
+ * @returns {Boolean}
  */
 function botCommandsCheck(id, message) {
   // 603002159864348703 is #bots in Earth's things
@@ -87,7 +87,7 @@ function botCommandsCheck(id, message) {
  * Checks if the ID specified is for common channels
  * @param {string} id the ID of the message channel.
  * @param {object} message object contains everything about the message.
- * @returns true/false
+ * @returns {Boolean}
  */
 function commonCheck(id) {
   return config.ids.common.includes(id);
@@ -97,7 +97,7 @@ function commonCheck(id) {
  * Checks if the ID specified matches the correct channels for banked infinities
  * @param {string} id the ID of the message channel.
  * @param {object} message object contains everything about the message.
- * @returns true/false
+ * @returns {Boolean}
  */
 function bankedInfsCheck(id, message) {
   return config.ids.common.includes(id) || config.ids.ecs[1] === id || config.ids.endgame.includes(id) || botCommandsCheck(id, message);
@@ -107,7 +107,7 @@ function bankedInfsCheck(id, message) {
  * Checks if the ID specified matches the correct channels for dilation grind
  * @param {string} id the ID of the message channel.
  * @param {object} message object contains everything about the message.
- * @returns true/false
+ * @returns {Boolean}
  */
 function dilationGrindCheck(id, message) {
   return config.ids.endgame.includes(id) || config.ids.common.includes(id) || botCommandsCheck(id, message) || config.ids.ecs[1] === id;
@@ -117,7 +117,7 @@ function dilationGrindCheck(id, message) {
  * Checks if the ID specified is for early infinity channels
  * @param {string} id the ID of the message channel.
  * @param {object} message object contains everything about the message.
- * @returns true/false
+ * @returns {Boolean}
  */
 function earlyInfinityCheck(id, message) {
   return config.ids.earlyGame[1] === id || config.ids.common.includes(id) || botCommandsCheck(id, message);
@@ -127,7 +127,7 @@ function earlyInfinityCheck(id, message) {
  * Checks if the ID specified matches the correct channels for eternity grinding
  * @param {string} id the ID of the message channel.
  * @param {object} message object contains everything about the message.
- * @returns true/false
+ * @returns {Boolean}
  */
 function eternityGrindingCheck(id, message) {
   return earlyEternityCheck(id, message) || config.ids.ecs.includes(id) || config.ids.endgame.includes(id);
@@ -137,7 +137,7 @@ function eternityGrindingCheck(id, message) {
  * Checks if the ID specified matches the correct channels for setting the crunch autobuyer
  * @param {string} id the ID of the message channel.
  * @param {object} message object contains everything about the message.
- * @returns true/false
+ * @returns {Boolean}
  */
 function setCrunchAutoCheck(id, message) {
   return earlyGameCheck(id, message) || config.ids.break.includes(id);
@@ -147,7 +147,7 @@ function setCrunchAutoCheck(id, message) {
  * Checks if the ID specified matches the correct channels for requesting a study tree
  * @param {String} id the ID of the message channel.
  * @param {object} message object contains everything about the message.
- * @returns true/false
+ * @returns {Boolean}
  */
 function studytreeCheck(id, message) {
   return ecsCheck(id, message) || earlyEternityCheck(id, message) || endgameCheck(id, message);
@@ -156,7 +156,7 @@ function studytreeCheck(id, message) {
 /**
  * Sums all commands for the help command
  * @param {Array} fields array
- * @returns the number of commands, based on the fieldsArray array that's passed in
+ * @returns {Number} the number of commands, based on the fieldsArray array that's passed in
  */
 function sumAllCommands(fields) {
   let sum = 0;
@@ -169,7 +169,7 @@ function sumAllCommands(fields) {
 /**
  * The help description used in the help command
  * @param {Number} sum of all commands
- * @returns the help description string
+ * @returns {String} the help description string
  */
 function getHelpDescription(sum) {
   return `A comprehensive list of all commands (and their arguments, when applicable).\nThere are currently ${sum} commands.\n It is encouraged (by me, at least), to use the bot in DMs! This helps reduce spam from the bot and will still function as normal!`;
@@ -177,8 +177,8 @@ function getHelpDescription(sum) {
 
 /**
  * The footer used in the help command
- * @param {String} ver
- * @returns the footer string for help
+ * @param {String} version of the bot
+ * @returns {String} the footer string for help
  */
 function getFooter(ver) {
   return `This superfluous bot was created by @earth#1337. Bug him for more commands, or use "++meta suggest".\nUse ++help [number] to go to more pages of commands.\nBot version: ${ver}`;
@@ -187,7 +187,7 @@ function getFooter(ver) {
 /**
  * Parses a number using parseInt(), just shorthand
  * @param {String} string parses a string and turns it to a Number
- * @returns Number
+ * @returns {Number}
  */
 function toNumber(string) {
   return parseInt(string, 10);
@@ -196,7 +196,7 @@ function toNumber(string) {
 /**
  * Turns a string into a variable and returns it
  * @param {String} str takes the path string for studytree
- * @returns the variables declared at the top
+ * @returns {String} the variables declared at the top
  */
 function toPath(str = "active") {
   switch (str.toLowerCase()) {
@@ -210,7 +210,7 @@ function toPath(str = "active") {
 /**
  * Creates a tree for early eternity
  * @param {Number} theorem
- * @returns object with the appropriate tree array
+ * @returns {Object} object with the appropriate tree array
  */
 function earlyEternity(theorem) {
   const tree = {};
@@ -233,7 +233,7 @@ function earlyEternity(theorem) {
  * Creates a tree for second split
  * @param {Number} theorem number of time theorems
  * @param {String} path string with the path the user gives
- * @returns object with the appropriate tree array and description
+ * @returns {Object} with the appropriate tree array and description
  */
 function secondSplit(theorem, path) {
   const tree = {};
@@ -257,7 +257,7 @@ function secondSplit(theorem, path) {
 /**
  * Creates a teree for light/dark time studies
  * @param {Number} theorem number of time theorems
- * @returns object with the appropriate tree array and description
+ * @returns {Object} object with the appropriate tree array and description
  */
 function lightDark(theorem) {
   const BASE = [PRE_SPLIT, TIME, 111, ACTIVE, POST_SPLIT, EXTRA];
@@ -292,7 +292,7 @@ function lightDark(theorem) {
  * Generates a tree based on the number of time theorems given
  * @param {Number} theorem number of time theorems
  * @param {String} path string with the appropriate numbers in it
- * @returns string with the tree as well as the description when applicable
+ * @returns {String} string with the tree as well as the description when applicable
  */
 function generateTree(theorem, path) {
   let tree;
@@ -312,7 +312,7 @@ function generateTree(theorem, path) {
  * Constructs an embed object for each help page
  * @param {Number} number help number specified by user
  * @param {Array} fieldsArray array of the fields specified in bot.js
- * @returns object containing all information about the embed
+ * @returns {Object} object containing all information about the embed
  */
 function constructEmbedObject(number, fieldsArray) {
   if (number < fieldsArray.length || number === 69) {
@@ -340,7 +340,7 @@ function constructEmbedObject(number, fieldsArray) {
 /**
  * Check if value is undefined
  * @param {Any} val can be anything
- * @returns true/false
+ * @returns {Boolean}
  */
 function isUndefined(val) {
   return val === undefined;
@@ -375,7 +375,7 @@ function help(message, fieldsArray, stuff) {
 /**
  * Does exactly what it says on the tin
  * @param {Number} ms mumber of milliseconds as specified by the input
- * @returns object containing days, hours, minutes, seconds, and the clock used in ++meta uptime
+ * @returns {Object} object containing days, hours, minutes, seconds, and the clock used in ++meta uptime
  */
 function convertMillisecondsToDigitalClock(ms) {
   const days = Math.floor(ms / (3600000 * 24)),
@@ -396,7 +396,7 @@ function convertMillisecondsToDigitalClock(ms) {
 
 /**
  * Generates the message for ++channel that contains all channels that each command works in
- * @returns a string for the ++channel command
+ * @returns {String} a string for the ++channel command
  */
 function generateChannelMessage() {
   const ids = config.ids;
@@ -440,7 +440,7 @@ function getMessage(command, stuff = {}) {
 /**
  * Gets the message for case "noWorky" in getMessage
  * @param {String} worky String that is used in the switch statment to get a message.
- * @returns String with the message
+ * @returns {String} String with the message
  */
 function noWorkyMessage(worky) {
   switch (worky) {
@@ -489,7 +489,7 @@ function setBotStatus(client) {
  * The following function calculates the logarithm of y with base x
  * @param {Number} x base of the logarithm
  * @param {Number} y number being inputted as the logarithm
- * @returns Number
+ * @returns {Number}
  */
 function getBaseLog(x, y) {
   return Math.log(y) / Math.log(x);
