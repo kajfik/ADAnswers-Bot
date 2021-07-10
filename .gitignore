@@ -2,4 +2,4 @@ config.json
 /node_modules
 package.json
 package-lock.json
-database.sqlite
+*.sqlite
