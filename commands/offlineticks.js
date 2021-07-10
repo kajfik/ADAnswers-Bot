@@ -16,6 +16,6 @@ module.exports = {
     It's how many ticks of progress you can get at maximum when the game isn't active
     Normally 1 second = 20 ticks, so if your max offline ticks is less than that amount (e.g. 1 hour = 3600 seconds = 72,000 ticks) that's simply how much you get. If your max offline ticks are lower than that, your ticks get spaced out so they represent more time each. For instance in the above, if you have a max of 25K, each offline tick would need to be about 130ms long or so.
     You still get the same amount of time of progress, but if your ticks get spaced out to be too long it can affect autobuyers and the like. For instance in the above case, your autobuyers would only be able to activate every 130ms instead of every 50ms, meaning it might impact progress a little
-    The downside of max offline ticks is the time it takes when loading the game. Since the game has to calculate it all when you load it back up, it can easily take several minutes to re-calculate your progress, if you set it to a really high value and are AFK for several hours.`]
+    The downside of max offline ticks is the time it takes when loading the game. Since the game has to calculate it all when you load it back up, it can easily take several minutes to re-calculate your progress, especially if you set it to a really high value and are AFK for several hours.`]
   })
 };

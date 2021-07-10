@@ -37,7 +37,7 @@ const sequelize = new Sequelize({
   storage: "./database.sqlite"
 });
 
-client.once("ready", async function() {
+client.once("ready", async () => {
   const NOW = Date.now();
   setup();
   functions.internal.startIntervals(client);
