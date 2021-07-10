@@ -9,6 +9,7 @@
 // ANYTHING TO IT THAT YOU MAY USE OUTSIDE OF ONE FILE
 
 const config = require("./config.json");
+const Sequelize = require("sequelize");
 
 const PRE_SPLIT_EARLY = "11,21,33,31,41";
 const PRE_SPLIT = "11,22,32,42,51,61";
@@ -544,6 +545,6 @@ module.exports = {
   },
   internal: {
     startIntervals,
-    setBotStatus
+    setBotStatus,
   }
 };

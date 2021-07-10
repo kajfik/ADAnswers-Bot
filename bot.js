@@ -40,36 +40,12 @@ const sequelize = new Sequelize({
 client.once("ready", async function() {
   const NOW = Date.now();
   setup();
-  console.log(`\n\nGood morning. The current date and time is ${Date()}.`);
   functions.internal.startIntervals(client);
   console.log(`Setting and sorting commands took ${Date.now() - NOW}ms.`);
 
-  try {
-    for (let command in commandNames) {
-      console.log(commandNames[command])
-      const tag = await Tags.create({
-        name: commandNames[command],
-        timesUsed: 0
-      });
-      Tags.create({
-        name: "totalRequests",
-        timesUsed: 0
-      });
-    
-      Tags.create({
-        name: "totalSuccesses",
-        timesUsed: 0
-      });
-      console.log(`Tag ${tag.name} added.`);
-    }
-  } catch (e) {
-    if (e.name === "SequelizeUniqueConstraintError") console.log(`Tag already exists!`);
-    else console.log(`Something went wrong while adding tag, ${e}`)
-  }
+  await createTags(0);
 
-  const tagList = await Tags.findAll({ attributes: ["name", "timesUsed"] });
-  const tagString = tagList.map(t => t.name).join(', ') || 'No tags set.';
-  console.log(`List of tags: ${tagString}`);
+  console.log(`List of tags: ${getTagString()}`);
 
   try {
     await sequelize.authenticate();
@@ -80,6 +56,8 @@ client.once("ready", async function() {
 
   Tags.sync();
 
+  console.log(`\n\nGood morning. The current date and time is ${Date()}.\n\n`);
+
   // Uncomment for /docs
   // const allFields = [];
   // for (const field of fieldsArray) {
@@ -88,8 +66,10 @@ client.once("ready", async function() {
   // console.log(allFields);
 });
 
-client.on("error", (message, error) => {
-  message.channel.send(`There has been an internal error with the bot. Cause: ${error}`);
+client.on("error", error => {
+  client.channels.fetch("351476683016241166").then(channel => { 
+    channel.send(`There has been an internal error with the bot. Cause: ${error}`);
+  });
 });
 
 function setup() {
@@ -130,20 +110,60 @@ function setup() {
   });
 }
 
+async function getTagString() {
+  const tagList = await Tags.findAll({ attributes: ["name", "timesUsed"] });
+  const tagString = tagList.map(t => t.name).join(', ') || 'No tags set.';
+  return tagString;
+}
+
+async function createTags(startingValue) {
+  if (startingValue > commandNames.length) return;
+  try {
+    for (let i = startingValue; i < commandNames.length; i++) {
+      console.log(commandNames[i]);
+      const tag = await Tags.create({
+        name: commandNames[i],
+        timesUsed: 0
+      });
+      Tags.create({
+        name: "totalRequests",
+        timesUsed: 0
+      });
+      Tags.create({
+        name: "totalSuccesses",
+        timesUsed: 0
+      });
+      Tags.create({
+        name: "help",
+        timesUsed: 0
+      });
+      console.log(`Tag ${tag.name} added.`);
+    }
+  } catch (e) {
+    if (e.name === "SequelizeUniqueConstraintError") {
+      console.log(`Tag already exists!`);
+      createTags(startingValue + 1);
+    }
+    else console.log(`Something went wrong while adding tag, ${e}`);
+  }
+}
+
+async function incrementTag(name) {
+  let tag = await Tags.findOne({ where: { name: name }});
+  if (tag) {
+    tag.increment("timesUsed");
+    console.log(`Tag ${name} incremented successfully. New value: ${tag.timesUsed}`);
+  }
+}
+
 client.on("message", async message => {
   try {
     if (!message.content.startsWith(config.prefix)) return;
+    incrementTag("totalRequests");
     // eslint-disable-next-line require-unicode-regexp
-    let requestsTag = await Tags.findOne({ where: { name: "totalRequests" }});
-    if (requestsTag) {
-      requestsTag.increment("timesUsed");
-      console.log(`Tag ${requestsTag.name} incremented successfully. New value: ${requestsTag.timesUsed}`)
-    }
     const args = message.content.slice(config.prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
     const id = message.channel.id;
-
-    functions.help(message, fieldsArray, { command, args, id, Tags });
 
     if (!client.commands.has(command) && command !== "help") {
       if (command.startsWith("ec") && command.includes("x")) {
@@ -155,11 +175,8 @@ client.on("message", async message => {
           // to improve code slightly.
           // The args has to be passed in as an array or else it's read as a string in eternitychallenge.js
           client.commands.get("eternitychallenge").execute(message, [a[1]], id);
-          const tag = await Tags.findOne({ where: { name: "ec" } });
-          if (tag) {
-            tag.increment("timesUsed");
-            console.log(`Tag ${tag.name} incremented successfully. New value: ${tag.timesUsed}`)
-          }
+          incrementTag("ec");
+          incrementTag("totalSuccesses");
           return;
         } catch (error) {
           console.log(error);
@@ -169,6 +186,8 @@ client.on("message", async message => {
       return;
     } 
     if (!client.commands.has(command) && command === "help") {
+      incrementTag("help");
+      functions.help(message, fieldsArray, { command, args, id });
       return;
     }
 
@@ -176,17 +195,14 @@ client.on("message", async message => {
       // This is a lot of parameters and eventually I think it would be cool
       // to make it all one object.
       client.commands.get(command).execute(message, args, id);
-      const tag = await Tags.findOne({ where: { name: command } });
-      if (tag) {
-        tag.increment("timesUsed");
-        console.log(`Tag ${tag.name} incremented successfully. New value: ${tag.timesUsed}`)
-      }
+      incrementTag(command);
+      incrementTag("totalSuccesses");
     } catch (error) {
       console.error(error);
       console.log(`${Date()}`);
       console.log(`${message.url}`);
       // eslint-disable-next-line max-len
-      message.reply(`Command \`${command}\` is, in fact, a command, but it appears there was an internal issue with the bot and the bot is going offline. Thank you for your patience. Paging earth...<@213071245896450068>`);
+      message.reply(`Command \`${command}\` is, in fact, a command, but it appears there was an internal issue with the bot. Thank you for your patience. Paging earth...<@213071245896450068>`);
     }
   } catch (error) {
     // This catch has actually happened once! I don't remember what caused it, though.
