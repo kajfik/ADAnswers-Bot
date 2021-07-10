@@ -9,12 +9,16 @@ const functions = require("../functions");
 
 class TimeStudyCommand extends Command {
   execute(message, args, id) {
-    if (functions.botCommandsCheck(id, message)) message.channel.send(this.getArgMessage(args));
-    else if (this.getCheck(id, message)) message.author.send(this.getArgMessage(args)).catch(() => {
+    const argMessage = this.getArgMessage(args);
+    const argMessageWithDM = this.getArgMessage(args, true);
+    const check = this.getCheck(id, message);
+
+    if (functions.botCommandsCheck(id, message)) message.channel.send(argMessage);
+    else if (check) message.author.send(argMessage).catch(() => {
       message.reply("I can't DM you!");
     }).then(() => {
       message.react("☑️");
-      if (this.name === "eternitychallenge" || this.name === "ec") message.author.send(this.getArgMessage(args, true));
+      if (this.name === "eternitychallenge" || this.name === "ec") message.author.send(argMessageWithDM);
     });
     else if (args[0] === undefined) message.channel.send(functions.getMessage("missingArg", { name: this.name, acceptableArgs: this.acceptableArgs }));
     else if (!(args[0] === undefined)) message.channel.send(functions.getMessage("error", { args, name: this.name, acceptableArgs: this.acceptableArgs }));
