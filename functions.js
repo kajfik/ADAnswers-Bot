@@ -195,16 +195,6 @@ function toNumber(string) {
 }
 
 /**
- * Pushes all entries of an array to another
- * @param  {...Array} entries takes all entries of an array and pushes it
- * @returns {Array} the modified array
- */
-Array.prototype.pushAll = function(...entries) {
-  entries.forEach(a => this.push(a));
-  return this;
-};
-
-/**
  * Turns a string into a variable and returns it
  * @param {String} str takes the path string for studytree
  * @returns {String} the variables declared at the top
@@ -274,26 +264,26 @@ function lightDark(theorem) {
   const BASE = [PRE_SPLIT, TIME, 111, ACTIVE, POST_SPLIT, EXTRA];
   const tree = {};
   if (theorem >= 12500) {
-    tree.ts = BASE.pushAll(191, 211, 222, 212, 224, 232, 192, 201, INFINITY, 193, 214, 228, 234, 213, 226);
+    tree.ts = BASE.concat(191, 211, 222, 212, 224, 232, 192, 201, INFINITY, 193, 214, 228, 234, 213, 226);
     tree.desc = "If you cannot get the last TT to unlock dilation, use ++dilationgrind.";
   } else if (theorem >= 4945) {
-    tree.ts = BASE.pushAll(191, 211, 222, 212, 224, 232, 192, 201, INFINITY, 193, 214, 228, 234, 213, 226);
+    tree.ts = BASE.concat(191, 211, 222, 212, 224, 232, 192, 201, INFINITY, 193, 214, 228, 234, 213, 226);
   } else if (theorem >= 3925) {
-    tree.ts = BASE.pushAll(191, 212, 223, 232, 192, 201, INFINITY, 211, 193, 214, 213);
+    tree.ts = BASE.concat(191, 212, 223, 232, 192, 201, INFINITY, 211, 193, 214, 213);
   } else if (theorem >= 3712) {
-    tree.ts = BASE.pushAll(191, 211, 222, 212, 224, 232, 193, 214);
+    tree.ts = BASE.concat(191, 211, 222, 212, 224, 232, 193, 214);
   } else if (theorem >= 3542) {
-    tree.ts = BASE.pushAll(191, 211, 212, 223, 232, 192, 193, 214);
+    tree.ts = BASE.concat(191, 211, 212, 223, 232, 192, 193, 214);
   } else if (theorem >= 2692) {
-    tree.ts = BASE.pushAll(191, 212, 223, 232, 193, 214, 211, 213);
+    tree.ts = BASE.concat(191, 212, 223, 232, 193, 214, 211, 213);
   } else if (theorem >= 2272) {
-    tree.ts = BASE.pushAll(191, 212, 223, 232, 211);
+    tree.ts = BASE.concat(191, 212, 223, 232, 211);
   } else if (theorem >= 2142) {
-    tree.ts = BASE.pushAll(193, 214, 228, 234);
+    tree.ts = BASE.concat(193, 214, 228, 234);
   } else if (theorem >= 1292) {
-    tree.ts = BASE.pushAll(191, 212, 193, 214, 211, 213);
+    tree.ts = BASE.concat(191, 212, 193, 214, 211, 213);
   } else {
-    tree.ts = BASE.pushAll(191, 212, 211);
+    tree.ts = BASE.concat(191, 212, 211);
     tree.desc = "Do note: EC10 is done between the last list and this one.";
   }
   return tree;
