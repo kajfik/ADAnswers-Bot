@@ -1,14 +1,16 @@
-/* eslint-disable max-len */
 "use strict";
 
-const { execute } = require("./challenge");
+const { Command } = require("../classes/Command");
+const ChallengeCommand = require("./challenge");
 
 module.exports = {
-  number: 5,
-  name: "c9",
-  description: "shorthand for `++challenge c9`",
-  type: "shorthand",
-  execute(message) {
-    execute(message, ["c9"], message.channel.id);
-  }
+  command: new Command({
+    number: 7,
+    name: "c9",
+    description: "shorthand for `++challenge c9`",
+    type: "shorthand",
+    check: "earlyInfinity",
+    sent: [ChallengeCommand.command.getArgMessage("c9")],
+    acceptableArgs: undefined
+  })
 };

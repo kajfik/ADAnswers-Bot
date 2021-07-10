@@ -1,11 +1,15 @@
 "use strict";
 
+const { Command } = require("../classes/Command");
+
 module.exports = {
-  number: 5,
-  name: "abb",
-  description: "sends an abbreviation guide",
-  execute(message) {
-    message.channel.send(`
+  command: new Command({
+    name: "abb",
+    number: 5,
+    description: "sends an abbreviation guide",
+    check: true,
+    acceptableArgs: undefined,
+    sent: [`
     AM - Antimatter
     IP - ||Infinity Points||
     EP - ||Eternity Points||
@@ -19,6 +23,6 @@ module.exports = {
     TT - ||Time Theorem||
     DT - ||Dilated Time||
     TP - ||Tachyon Particles||
-    BInf - ||Banked Infinities||`);
-  }
+    BInf - ||Banked Infinities||`]
+  })
 };

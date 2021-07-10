@@ -1,25 +1,23 @@
+/* eslint-disable max-len */
 "use strict";
 
+const { EternityPointCommand } = require("../classes/EternityPointCommand");
 const functions = require("../functions");
 
 module.exports = {
-  number: 3,
-  name: "ep",
-  description: "calculates the amount of IP required to get the number of EP specified. Works up to 1000.",
-  execute(message, args, id) {
-    if (functions.earlyEternityCheck(id, message)) {
-      if (args[0] === undefined || Number.isNaN(args[0]) || args[0] === null) {
-        message.channel.send(`Unknown arg ${args[0]} used in command \`++ep\``);
-        return;
-      }
-      if (args[0] >= 1000) {
-        message.channel.send(`In command \`++ep\`, you cannot use a number higher than 1000.`);
-        return;
-      }
-      const ip = Math.ceil((308 * functions.misc.getBaseLog(5, args[0])) + 215.6);
-      message.channel.send(`To get ${args[0]} EP, you need e${ip} Infinity Points.`);
-    } else {
-      message.reply(functions.getMessage("noWorky", { worky: "earlyEternity" }));
+  command: new EternityPointCommand({
+    number: 3,
+    name: "ep",
+    description: "calculates the amount of IP required to get the number of EP specified. Works up to 1000. Excludes any possible multipliers.",
+    check: "earlyEternity",
+    acceptableArgs: ["any number within 2-1000"],
+    sent: undefined,
+    getArgMessage(arg) {
+      const a = Math.floor(Math.abs(arg));
+      if (a > 1000) return `In command \`++ep\`, you cannot use a number higher than 1000.`;
+      if (a <= 1) return `In command \`++ep\`, you cannot use a number lesser or equal to 1.`;
+      const ip = Math.ceil((308 * functions.misc.getBaseLog(5, Math.floor(Math.abs(a)))) + 215.6);
+      return `Before any multipliers, to get ${a} Eternity Points, you need e${ip} Infinity Points`;
     }
-  }
+  })
 };

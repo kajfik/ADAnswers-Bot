@@ -1,14 +1,20 @@
+/* eslint-disable max-len */
 "use strict";
 
-const { execute } = require("./studytree");
+const { TimeStudyCommand } = require("../classes/TimeStudyCommand");
+const StudyTreeCommand = require("./studytree");
 
 module.exports = {
-  name: "ts",
-  number: 6,
-  description: "shorthand for ++studytree",
-  type: "shorthand",
-  // eslint-disable-next-line max-params
-  execute(message, args, id, weirdStuff) {
-    execute(message, args, id, weirdStuff);
-  }
+  command: new TimeStudyCommand({
+    number: 6,
+    name: "ts",
+    description: "shorthand for `++studytree`",
+    type: "shorthand",
+    check: "studyTreeCheck",
+    sent: undefined,
+    acceptableArgs: [["Any number"], ["active", "passive", "idle"]],
+    getArgMessage(args) {
+      return StudyTreeCommand.command.getArgMessage(args);
+    }
+  })
 };

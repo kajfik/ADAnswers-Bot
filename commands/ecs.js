@@ -1,14 +1,17 @@
 /* eslint-disable max-len */
 "use strict";
 
-const { execute } = require("./challenge");
+const { Command } = require("../classes/Command");
+const ChallengeCommand = require("./challenge");
 
 module.exports = {
-  number: 5,
-  name: "ecs",
-  description: "shorthand for `++challenge ecs`",
-  type: "shorthand",
-  execute(message) {
-    execute(message, ["ecs"], message.channel.id);
-  }
+  command: new Command({
+    number: 7,
+    name: "ecs",
+    description: "shorthand for `++challenge ecs`",
+    type: "shorthand",
+    check: "ecsCheck",
+    sent: [ChallengeCommand.command.getArgMessage("ecs")],
+    acceptableArgs: undefined
+  })
 };

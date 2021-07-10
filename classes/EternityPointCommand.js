@@ -1,0 +1,25 @@
+/* eslint-disable no-negated-condition */
+/* eslint-disable max-len */
+"use strict";
+
+const { Command } = require("./Command");
+const functions = require("../functions");
+
+class EternityPointCommand extends Command {
+  execute(message, args, id) {
+    const a = functions.misc.toNumber(args[0]);
+    const argMessage = this.getArgMessage(a);
+    const check = this.getCheck(id, message);
+
+    if (!isNaN(a) && check && !(a > 1000)) message.channel.send(argMessage);
+    else if (args[0] === undefined) message.channel.send(functions.getMessage("missingArg", { name: this.name, acceptableArgs: this.acceptableArgs }));
+    else if (!isNaN(a) && check && a > 1000) message.channel.send(`In command \`++ep\`, you cannot use a number higher than 1000.`);
+    else if (isNaN(a) && check) message.channel.send(functions.getMessage("error", { args, name: this.name, acceptableArgs: this.acceptableArgs }));
+    else if (!check) message.channel.send(this.getFailMessage());
+    else message.channel.send(functions.getMessage("shouldNeverAppear"));
+  }
+}
+
+module.exports = {
+  EternityPointCommand
+};

@@ -1,14 +1,15 @@
 /* eslint-disable max-len */
 "use strict";
 
-const functions = require("../functions");
+const { Command } = require("../classes/Command");
 
 module.exports = {
-  number: 4,
-  name: "dilation",
-  description: "describes dilation",
-  execute(message) {
-    if (functions.endgameCheck(message.channel.id, message)) message.channel.send(`(Check out the pins in <#443492392801140786>!) If you can reach 1.80e308 IP and then complete the Eternity while Dilated, you will be rewarded with Tachyon Particles. You can dilate as many times as you want, but Tachyon Particles cannot be farmed like other resources. Instead, you can only gain more Tachyon Particles by passing your previous highest antimatter within Time Dilation, and you will only gain more based on your new highest antimatter from this new run.`);
-    else message.channel.send("This command only works in Dilation channels!");
-  }
+  command: new Command({
+    name: "dilation",
+    number: 6,
+    description: "describes dilation",
+    check: "endgame",
+    acceptableArgs: undefined,
+    sent: [`(Check out the pins in <#443492392801140786>!) If you can reach 1.80e308 IP and then complete the Eternity while Dilated, you will be rewarded with Tachyon Particles. You can dilate as many times as you want, but Tachyon Particles cannot be farmed like other resources. Instead, you can only gain more Tachyon Particles by passing your previous highest antimatter within Time Dilation, and you will only gain more based on your new highest antimatter from this new run.`]
+  }),
 };

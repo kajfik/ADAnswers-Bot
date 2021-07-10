@@ -1,6 +1,3 @@
-/* eslint-disable capitalized-comments */
-/* eslint-disable complexity */
-/* eslint-disable max-len */
 /* eslint-disable no-console */
 
 "use strict";
@@ -10,7 +7,8 @@
 // ANYTHING TO IT THAT YOU MAY USE OUTSIDE OF ONE FILE
 
 const Discord = require("discord.js");
-const fs = require("fs");
+const Sequelize = require("sequelize");
+const fs = require("fs"); 
 const config = require("./config.json");
 const functions = require("./functions");
 
@@ -25,60 +23,160 @@ const fieldsVar4 = [];
 const fieldsVar5 = [];
 const fieldsVar6 = [];
 const fieldsVar7 = [];
-// const fieldsVar8 = [];
 const fieldsVar69 = [];
-
 const fieldsArray = [fieldsVar, fieldsVar2, fieldsVar3, fieldsVar4, fieldsVar5, fieldsVar6, fieldsVar7, fieldsVar69];
 
-client.once("ready", () => {
-  console.log(`Good morning. The current date and time is ${Date()}.`);
-  functions.internal.startIntervals(client);
-});
+let Tags = undefined;
+
+const commandNames = [];
 
 client.login(config.token);
 
-for (const file of commandFiles) {
-  const command = require(`./commands/${file}`);
-  client.commands.set(command.name, command);
-}
-
-client.commands.forEach(element => {
-  // Some commands have type: "shorthand" to make it not appear in the help embeds. This just works lol If you're adding a shorthand, please make sure to put that in.
-  if (element.type !== "shorthand") {
-    if (element.number > 0 && element.number < fieldsArray.length) fieldsArray[element.number - 1].push({ name: element.name, value: element.description });
-    else if (element.number === 69) fieldsArray[fieldsArray.length - 1].push({ name: element.name, value: element.description });
-    else console.log(element);
-  }
+const sequelize = new Sequelize({
+  dialect: "sqlite",
+  storage: "./database.sqlite"
 });
 
+client.once("ready", async () => {
+  const NOW = Date.now();
+  setup();
+  functions.internal.startIntervals(client);
+  console.log(`Setting and sorting commands took ${Date.now() - NOW}ms.`);
 
-// Uncomment for docs
-// const allFields = [];
-// for (const field of fieldsArray) {
-//   allFields.push(...field);
-// }
-// console.log(allFields);
+  await createTags(0);
 
-client.on("message", message => {
+  console.log(`List of tags: ${getTagString()}`);
+
+  try {
+    await sequelize.authenticate();
+    console.log('Connection has been established successfully.');
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
+
+  Tags.sync();
+
+  console.log(`\n\nGood morning. The current date and time is ${Date()}.\n\n`);
+
+  // Uncomment for /docs
+  // const allFields = [];
+  // for (const field of fieldsArray) {
+  //   allFields.push(...field);
+  // }
+  // console.log(allFields);
+});
+
+client.on("error", error => {
+  client.channels.fetch("351476683016241166").then(channel => { 
+    channel.send(`There has been an internal error with the bot. Cause: ${error}`);
+  });
+});
+
+function setup() {
+  Tags = sequelize.define("tags", {
+    name: {
+      type: Sequelize.STRING,
+      unique: true,
+    },
+    timesUsed: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0,
+      allowNull: false
+    }
+  });
+  let iteration = 0;
+  let jiteration = 0;
+  for (const file of commandFiles) {
+    const command = require(`./commands/${file}`);
+    iteration++;
+    console.log(`Setting command ${command.command.name}, command ${iteration}...`);
+    client.commands.set(command.command.name, command.command);
+  }
+  console.log(`\n\n\nSetting commands complete. Beginning sorting...\n\n\n`);
+  client.commands.forEach(element => {
+    // Some commands have type: "shorthand" to make it not appear in the help embeds. This just works lol 
+    // If you're adding a shorthand, please make sure to put that in.
+    const e = element;
+    commandNames.push(e.name);
+    if (e.type === undefined) {
+      jiteration++;
+      console.log(`Sorting command ${e.name}, command ${jiteration}...`);
+      // eslint-disable-next-line max-len
+      if (e.number > 0 && e.number < fieldsArray.length) fieldsArray[e.number - 1].push({ name: e.name, value: e.description });
+      // eslint-disable-next-line max-len
+      else if (e.number === 69) fieldsArray[fieldsArray.length - 1].push({ name: e.name, value: e.description });
+      else console.log(e);
+    }
+  });
+}
+
+async function getTagString() {
+  const tagList = await Tags.findAll({ attributes: ["name", "timesUsed"] });
+  const tagString = tagList.map(t => t.name).join(', ') || 'No tags set.';
+  return tagString;
+}
+
+async function createTags(startingValue) {
+  if (startingValue > commandNames.length) return;
+  try {
+    for (let i = startingValue; i < commandNames.length; i++) {
+      console.log(commandNames[i]);
+      const tag = await Tags.create({
+        name: commandNames[i],
+        timesUsed: 0
+      });
+      Tags.create({
+        name: "totalRequests",
+        timesUsed: 0
+      });
+      Tags.create({
+        name: "totalSuccesses",
+        timesUsed: 0
+      });
+      Tags.create({
+        name: "help",
+        timesUsed: 0
+      });
+      console.log(`Tag ${tag.name} added.`);
+    }
+  } catch (e) {
+    if (e.name === "SequelizeUniqueConstraintError") {
+      console.log(`Tag already exists!`);
+      createTags(startingValue + 1);
+    }
+    else console.log(`Something went wrong while adding tag, ${e}`);
+  }
+}
+
+async function incrementTag(name) {
+  let tag = await Tags.findOne({ where: { name: name }});
+  if (tag) {
+    tag.increment("timesUsed");
+    console.log(`Tag ${name} incremented successfully. New value: ${tag.timesUsed}`);
+  }
+}
+
+client.on("message", async message => {
   try {
     if (!message.content.startsWith(config.prefix)) return;
+    incrementTag("totalRequests");
     // eslint-disable-next-line require-unicode-regexp
     const args = message.content.slice(config.prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
     const id = message.channel.id;
-
-    functions.help(message, fieldsArray, { command, args, id });
 
     if (!client.commands.has(command) && command !== "help") {
       if (command.startsWith("ec") && command.includes("x")) {
         try {
           // Gets the completion and number
           const a = command.split("c");
-          const b = a[1].split("x");
           // Tries to execute the EC command.
           // Here we access the EC command directly instead of routing it through ec.js 
           // to improve code slightly.
-          client.commands.get("eternitychallenge").execute(message, b, id);
+          // The args has to be passed in as an array or else it's read as a string in eternitychallenge.js
+          client.commands.get("eternitychallenge").execute(message, [a[1]], id);
+          incrementTag("ec");
+          incrementTag("totalSuccesses");
           return;
         } catch (error) {
           console.log(error);
@@ -88,21 +186,26 @@ client.on("message", message => {
       return;
     } 
     if (!client.commands.has(command) && command === "help") {
+      incrementTag("help");
+      functions.help(message, fieldsArray, { command, args, id });
       return;
     }
 
     try {
       // This is a lot of parameters and eventually I think it would be cool
-      // to make it all one object. As of right now, though, the object at the end is
-      // solely for being able to do something like ++ts 12x5. It's finicky, it's cool it works.
-      client.commands.get(command).execute(message, args, id, { c: client.commands });
+      // to make it all one object.
+      client.commands.get(command).execute(message, args, id);
+      incrementTag(command);
+      incrementTag("totalSuccesses");
     } catch (error) {
       console.error(error);
       console.log(`${Date()}`);
       console.log(`${message.url}`);
-      message.reply(`Command \`${command}\` is not a command.`);
+      // eslint-disable-next-line max-len
+      message.reply(`Command \`${command}\` is, in fact, a command, but it appears there was an internal issue with the bot. Thank you for your patience. Paging earth...<@213071245896450068>`);
     }
   } catch (error) {
+    // This catch has actually happened once! I don't remember what caused it, though.
     console.log(`something went sicko mode ${error}`);
     message.channel.send(`something went sicko mode ${error}`);
   }

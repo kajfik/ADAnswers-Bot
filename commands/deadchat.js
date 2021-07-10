@@ -1,11 +1,15 @@
 /* eslint-disable max-len */
 "use strict";
 
+const { Command } = require("../classes/Command");
+
 module.exports = {
-  name: "deadchat",
-  description: "sends that one message from spec that he said that one time",
-  number: 7,
-  execute(message) {
-    message.channel.send(`If chat is quiet, just move on and do something else instead of annoying people with what effectively amounts to "hey someone talk already"`);
-  }
+  command: new Command({
+    name: "deadchat",
+    number: 7,
+    description: "sends that one message from spec that he said that one time",
+    check: true,
+    acceptableArgs: undefined,
+    sent: [`If chat is quiet, just move on and do something else instead of annoying people with what effectively amounts to "hey someone talk already"`]
+  }),
 };

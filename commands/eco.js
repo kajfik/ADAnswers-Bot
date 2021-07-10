@@ -1,13 +1,20 @@
+/* eslint-disable max-len */
 "use strict";
 
-const { execute } = require("./eternitychallengeorder");
+const { EternityChallengeOrderCommand } = require("../classes/EternityChallengeOrderCommand");
+const EternityChallengeOrder = require("./eternitychallengeorder");
 
 module.exports = {
-  name: "eco",
-  number: 6,
-  description: "shorthand for ++eternitychallengeorder",
-  type: "shorthand",
-  execute(message, args, id) {
-    execute(message, args, id);
-  }
+  command: new EternityChallengeOrderCommand({
+    name: "eco",
+    number: 3,
+    description: EternityChallengeOrder.command.description,
+    type: "shorthand",
+    check: EternityChallengeOrder.command.check,
+    sent: EternityChallengeOrder.command.sent,
+    acceptableArgs: EternityChallengeOrder.command.acceptableArgs,
+    getArgMessage(arg) {
+      return EternityChallengeOrder.command.getArgMessage(arg);
+    }
+  })
 };
