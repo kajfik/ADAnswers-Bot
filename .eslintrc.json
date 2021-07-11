@@ -5,10 +5,11 @@
   "env": {
     "es2021": true,
     "browser": true,
-    "jquery": true
+    "jquery": true,
+    "node": true
   },
   "parserOptions": {
-    "ecmaVersion": 6,
+    "ecmaVersion": 2021,
     "ecmaFeatures": {
       "impliedStrict": false
     }
