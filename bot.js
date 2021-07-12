@@ -6,6 +6,10 @@
 // CONFIG LOOKS LIKE THIS https://i.imgur.com/WuAs6b5.png IF YOU NEED ME TO ADD
 // ANYTHING TO IT THAT YOU MAY USE OUTSIDE OF ONE FILE
 
+// A lot of these things are exclusively for the database. As such, please refrain from touching anything
+// to do with Tags or Sequelize. With that, there are plenty of functions in this file too that eventually
+// I would like to remove and place into functions.js. For now, though, I'm just going to leave them here.
+
 const Discord = require("discord.js");
 const Sequelize = require("sequelize");
 const fs = require("fs"); 

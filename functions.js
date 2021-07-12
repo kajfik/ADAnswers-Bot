@@ -368,7 +368,7 @@ function help(message, fieldsArray, stuff) {
       console.log(err);
     }
   } else if (stuff.command === "help" && !botCommandsCheck(stuff.id, message)) {
-    message.channel.send("Please use <#351479640755404820> for `++help`.");
+    message.reply("Please use <#351479640755404820> for `++help`.");
   }
 }
 
