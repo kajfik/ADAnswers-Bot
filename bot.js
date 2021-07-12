@@ -41,7 +41,7 @@ const sequelize = new Sequelize({
   storage: "./database.sqlite"
 });
 
-client.once("ready", async () => {
+client.once("ready", async() => {
   const NOW = Date.now();
   setup();
   functions.internal.startIntervals(client);
@@ -147,20 +147,19 @@ async function createTags(startingValue) {
     if (e.name === "SequelizeUniqueConstraintError") {
       console.log(`Tag already exists!`);
       createTags(startingValue + 1);
-    }
-    else console.log(`Something went wrong while adding tag, ${e}`);
+    } else console.log(`Something went wrong while adding tag, ${e}`);
   }
 }
 
 async function incrementTag(name) {
-  let tag = await Tags.findOne({ where: { name: name }});
+  const tag = await Tags.findOne({ where: { name } });
   if (tag) {
     tag.increment("timesUsed");
     console.log(`Tag ${name} incremented successfully. New value: ${tag.timesUsed}`);
   }
 }
 
-client.on("message", async message => {
+client.on("message", message => {
   try {
     if (!message.content.startsWith(config.prefix)) return;
     incrementTag("totalRequests");

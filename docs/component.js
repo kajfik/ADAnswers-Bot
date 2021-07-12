@@ -1,6 +1,8 @@
 /* eslint-disable max-len */
 "use strict";
 
+// It's used in the vue within a string, so it's not actually registering as being used.
+// eslint-disable-next-line no-unused-vars
 const commands = [
   {
     name: "1minuteinf",
@@ -227,6 +229,8 @@ const StuffComponent = {
   `
 };
 
+// It is???????????????
+// eslint-disable-next-line no-unused-vars
 let vue;
 
 window.onload = () => {
