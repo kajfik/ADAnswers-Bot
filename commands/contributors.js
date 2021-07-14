@@ -9,7 +9,6 @@ module.exports = {
     number: 4,
     description: "sends a list of contributors and what they helped with! this bot would not be possible without them.",
     check: "botCommands",
-    acceptableArgs: undefined,
     sent: [`Hellbach: basis for most of the commands, provided much of the information used in this bot,
     Kajfik: Code contributions, notably in eternitychallenge.js,
     L4R5: EC database,

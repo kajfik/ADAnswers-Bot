@@ -8,7 +8,6 @@ module.exports = {
     number: 5,
     description: "sends an abbreviation guide",
     check: true,
-    acceptableArgs: undefined,
     sent: [`
     AM - Antimatter
     IP - ||Infinity Points||

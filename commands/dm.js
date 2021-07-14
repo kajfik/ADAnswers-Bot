@@ -9,7 +9,6 @@ module.exports = {
     name: "dm",
     description: "Yes, you can use the bot in your DM's with it.",
     check: true,
-    acceptableArgs: undefined,
     sent: [`You can use all of the bot's commands directly in DM's with the bot, or, if you prefer to not do that, you can use them in bot commands.
     
     Asking for some of the mid-Eternity commands will make the bot DM you instead of posting the response in the channel, to cut down on most of the spam.

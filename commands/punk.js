@@ -9,7 +9,6 @@ module.exports = {
     name: "punk",
     description: "punk?",
     check: "botCommands",
-    acceptableArgs: undefined,
     sent: [`i have never spoken to punk but i really like their modding style`]
   })
 };

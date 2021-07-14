@@ -9,7 +9,6 @@ module.exports = {
     number: 5,
     description: "sends the pinned message from the mobile channel describing the differences. Mobile and web have some notable differences -- mostly quality of life (QoL) changes. Due to this, many people prefer to play on mobile. Web will be essentially identical with the release of the Reality update as many of these changes were taken from there.",
     check: true,
-    acceptableArgs: undefined,
     sent: [`
     - The 1st galaxy is 12.5% instead of 12%
  - Each achievement grants additional 1.03x multiplier to Normal dimensions

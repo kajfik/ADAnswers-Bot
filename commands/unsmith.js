@@ -9,7 +9,6 @@ module.exports = {
     name: "unsmith",
     description: ":unsmith:",
     check: "botCommands",
-    acceptableArgs: undefined,
     sent: ["this command is dedicated to platonic. creator of synergism. love ya. go play synergism at https://pseudo-corp.github.io/SynergismOfficial/"]
   })
 };

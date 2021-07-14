@@ -9,7 +9,6 @@ module.exports = {
     number: 7,
     description: "sends that one message from spec that he said that one time",
     check: true,
-    acceptableArgs: undefined,
     sent: [`If chat is quiet, just move on and do something else instead of annoying people with what effectively amounts to "hey someone talk already"`]
   }),
 };

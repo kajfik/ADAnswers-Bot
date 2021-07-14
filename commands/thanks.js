@@ -8,7 +8,6 @@ module.exports = {
     description: "say thanks",
     number: 7,
     check: true,
-    acceptableArgs: undefined,
     sent: ["fuck you afyinee"]
   })
 };

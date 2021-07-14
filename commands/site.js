@@ -8,7 +8,6 @@ module.exports = {
     description: "Says the game site",
     number: 6,
     check: true,
-    acceptableArgs: undefined,
     sent: [`https://ivark.github.io/`],
   }),
 };

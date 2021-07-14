@@ -12,7 +12,6 @@ module.exports = {
     name: "channels",
     description: "Sends a list of channels and their ids/part of game progress",
     check: "botCommands",
-    acceptableArgs: undefined,
     sent: [functions.getMessage("channel")]
   }),
 };

@@ -12,6 +12,5 @@ module.exports = {
     type: "shorthand",
     check: "ecsCheck",
     sent: [ChallengeCommand.command.getArgMessage("ecs")],
-    acceptableArgs: undefined
   })
 };

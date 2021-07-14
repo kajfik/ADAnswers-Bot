@@ -8,7 +8,6 @@ module.exports = {
     name: "slightsmile",
     description: "kaj no",
     check: "botCommands",
-    acceptableArgs: undefined,
     sent: ["\u{1F642}"]
   })
 };

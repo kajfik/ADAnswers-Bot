@@ -18,7 +18,7 @@ class Command {
     // Description is what appears on the help command.
     // Check is what's checked to see if the message works. Also used for getting the fail message.
     // AcceptableArgs is args that work in the command, when applicable.
-    // Sent is an array with all the possible send messages.
+    // Sent is an array with all the possible send messages. Sent being an array is a relic from an old system that I thought would work where it stores all the possible messages that can be sent, but instead I made getArgMessage().
     // Type is something only shorthand commands have and is used to remove them from the help command.
     this.name = config.name;
     this.number = config.number;

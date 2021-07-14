@@ -41,7 +41,7 @@ const sequelize = new Sequelize({
   storage: "./database.sqlite"
 });
 
-client.once("ready", async() => {
+async function ready() {
   const NOW = Date.now();
   setup();
   functions.internal.startIntervals(client);
@@ -68,7 +68,9 @@ client.once("ready", async() => {
   //   allFields.push(...field);
   // }
   // console.log(allFields);
-});
+};
+
+client.once("ready", ready);
 
 client.on("error", error => {
   client.channels.fetch("351476683016241166").then(channel => { 
@@ -169,7 +171,7 @@ client.on("message", message => {
     const id = message.channel.id;
 
     if (!client.commands.has(command) && command !== "help") {
-      if (command.startsWith("ec") && command.includes("x")) {
+      if (command.startsWith("ec") && (command.includes("x") || command.includes("×"))) {
         try {
           // Gets the completion and number
           const a = command.split("c");

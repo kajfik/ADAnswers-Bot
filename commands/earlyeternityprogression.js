@@ -9,7 +9,6 @@ module.exports = {
     name: "earlyeternityprogression",
     description: "describes getting through the first few eternities",
     check: "earlyEternity",
-    acceptableArgs: undefined,
     sent: [`1.  First eternity's EP on TD1
     2.  (Buying TS21 path + RESPEC) Eternity at e426IP for 3EP, spend all on TT
     3.  (Buy TS42) Eternity at e500IP for 4 EP

@@ -9,7 +9,6 @@ module.exports = {
     number: 3,
     description: "sends how to farm infinities for banking",
     check: "bankedInfs",
-    acceptableArgs: undefined,
     sent: [`INFINITY FARMING: (Do this on long AFKs) ---- EC10 diminishing returns, reach at least 5 billion eventually (achievement)
 
     Method:

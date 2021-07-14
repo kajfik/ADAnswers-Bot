@@ -12,6 +12,5 @@ module.exports = {
     type: "shorthand",
     check: "breakCheck",
     sent: [ChallengeCommand.command.getArgMessage("ic6")],
-    acceptableArgs: undefined
   })
 };

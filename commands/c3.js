@@ -11,6 +11,5 @@ module.exports = {
     type: "shorthand",
     check: "earlyInfinity",
     sent: [ChallengeCommand.command.getArgMessage("c3")],
-    acceptableArgs: undefined
   })
 };

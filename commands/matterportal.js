@@ -9,7 +9,6 @@ module.exports = {
     name: "matterportal",
     description: "Matter Portal news tickers",
     check: true,
-    acceptableArgs: undefined,
     sent: [`The story is called "Antimatter War" and it was written by Buck (one of the android version testers), you can find the original version here: <https://pastebin.pl/view/cb7a92ef> \n
     You can also find a prequel to that story called "Matter Portal: Origins" here: <https://pastebin.pl/view/44b5585f>`]
   })

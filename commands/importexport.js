@@ -9,7 +9,6 @@ module.exports = {
     name: "importexport",
     description: "How to import/export saves",
     check: true,
-    acceptableArgs: undefined,
     sent: [`android -> web:
     Click "Export to web", open <https://paste.ee/>, submit new paste, open the paste link on pc, copy the save, press "Import" in the web version. 
     

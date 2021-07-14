@@ -9,7 +9,6 @@ module.exports = {
     name: "swipetrick",
     description: "Explains swipe trick for mobile",
     check: true,
-    acceptableArgs: undefined,
     sent: [`This trick can be performed on mobile to activate bottom buttons without holding them down.
     Make sure swipe navigation is enabled in settings. Now "swipe the button to a different tab". If you set your bottom buttons to \`MIDDLE\` it will be easier to swipe to the left and right.
     This trick works with every bottom button. (You can enable more bottom buttons by setting bottom buttons to \`all\`.)

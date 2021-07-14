@@ -9,7 +9,6 @@ module.exports = {
     name: "pins",
     description: "pins",
     check: true,
-    acceptableArgs: undefined,
     sent: [`pins. read them.`]
   })
 };

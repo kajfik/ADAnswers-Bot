@@ -10,7 +10,6 @@ module.exports = {
     type: "shorthand",
     check: "earlyEternity",
     description: "shorthand for ++earlyeternityprogression",
-    acceptableArgs: undefined,
     sent: [EarlyEternityProgression.command.sent[0]]
   }),
 };
