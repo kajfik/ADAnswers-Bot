@@ -154,6 +154,16 @@ function studytreeCheck(id, message) {
 }
 
 /**
+ * Checks if the ID specified matches the correct channels for requesting a reality command
+ * @param {String} id the ID of the message channel.
+ * @param {object} message object contains everything about the message.
+ * @returns {Boolean}
+ */
+function e4000Check(id, message) {
+  return config.ids.endgame[1] === id || config.ids.common.includes(id) || botCommandsCheck(id, message);
+}
+
+/**
  * Sums all commands for the help command
  * @param {Array} fields array
  * @returns {Number} the number of commands, based on the fieldsArray array that's passed in
@@ -456,6 +466,7 @@ function noWorkyMessage(worky) {
   case "bankedInfs": return `This command only works in the post-TS181 channel and on. You can also use <#351479640755404820>!`;
   case "dilationGrind": return `This command only works in the channel directly before Dilation, bot commands, or the common channels. Use \`++channels\` to see which channels that is!`;
   case "endgame": return `This command only works in the endgame channels, bot commands, or the common channels. Use \`++channels\` to see which channels that is!`;
+  case "e4000": return `This command only works in <#459834206147837972>, bot commands, or the common channels. Use \`++channels\` to see which channels that is!`;
   case true: return `This check should never appear and is only here to say hi. How are you guys doing?`;
   default: return `What kind of error message are you trying to get?`;
   }
@@ -503,6 +514,7 @@ module.exports = {
   endgameCheck,
   botCommandsCheck,
   commonCheck,
+  e4000Check,
   constructEmbedObject,
   help,
   getMessage,

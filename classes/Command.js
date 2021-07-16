@@ -74,6 +74,7 @@ class Command {
     case "dilationGrind": return functions.special.dilationGrindCheck(id, message);
     case "endgame": return functions.endgameCheck(id, message);
     case "botCommands": return functions.botCommandsCheck(id, message);
+    case "e4000": return functions.e4000Check(id, message);
     case true: return true;
     default: throw `Unknown check.`;
     }
