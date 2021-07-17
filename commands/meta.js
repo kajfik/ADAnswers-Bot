@@ -1,12 +1,12 @@
 /* eslint-disable max-len */
 "use strict";
 
-const NOW = Date();
+const NOW = new Date();
 
 const { MetaCommand } = require("../classes/MetaCommand");
 
 const metaMessageObject = {
-  "lastRestart": NOW,
+  "lastrestart": `The last restart was on <t:${Date.parse(NOW) / 1000}>.`,
   "uptime": `The bot has been up for (Waiting for edit...).`,
   "ping": `Pinging...`,
   "suggest": `Submit an issue on GitHub at <https://github.com/earthernsence/ADAnswers-Bot/issues> to suggest more commands!`,
@@ -18,12 +18,12 @@ module.exports = {
   command: new MetaCommand({
     number: 4,
     name: "meta",
-    description: "Args: `lastRestart`, `uptime`, `ping`, `suggest`, `invite`. internal bot information",
+    description: "Args: `lastrestart`, `uptime`, `ping`, `suggest`, `invite`, `contributing`. internal bot information",
     check: "botCommands",
     sent: undefined,
     acceptableArgs: Object.keys(metaMessageObject),
     getArgMessage(arg) {
-      if (this.acceptableArgs.includes(arg)) return metaMessageObject[arg];
+      if (this.acceptableArgs.includes(arg.toLowerCase())) return metaMessageObject[arg.toLowerCase()];
       return `Unknown arg in meta command`;
     }
   })

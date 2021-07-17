@@ -7,7 +7,7 @@ const functions = require("../functions");
 
 class MetaCommand extends Command {
   execute(message, args, id) {
-    const argMessage = this.getArgMessage(args[0]);
+    const argMessage = this.getArgMessage(args[0].toLowerCase());
     const check = this.getCheck(id, message);
 
     if (args[0] === undefined) message.channel.send(functions.getMessage("missingArg", { name: this.name, acceptableArgs: this.acceptableArgs }));
