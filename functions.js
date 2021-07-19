@@ -174,6 +174,16 @@ function ecsPlusCheck(id, message) {
 }
 
 /**
+ * Checks if the ID specified matches the correct channels for requesting a command
+ * @param {String} id the ID of the message channel.
+ * @param {object} message object contains everything about the message.
+ * @returns {Boolean}
+ */
+function weirdICsCheck(id, message) {
+  return config.ids.earlyEternity.includes(id) || config.ids.break.includes(id) || config.ids.common.includes(id) || botCommandsCheck(id, message);
+}
+
+/**
  * Sums all commands for the help command
  * @param {Array} fields array
  * @returns {Number} the number of commands, based on the fieldsArray array that's passed in
@@ -446,7 +456,7 @@ function getMessage(command, stuff = {}) {
   case "error":
     return `Unknown arg ${stuff.args[0]} in command ${stuff.name}. The args for this command are ${stuff.acceptableArgs.join(", ")}.`;
   case "noWorky":
-    return noWorkyMessage(stuff.worky);
+    return noWorkyMessageObject[stuff.worky];
   case "missingArg":
     return `Command \`${stuff.name}\` requires an arg. The args for this command are ${stuff.acceptableArgs.join(", ")}.`;
   case "shouldNeverAppear":
@@ -457,31 +467,25 @@ function getMessage(command, stuff = {}) {
   }
 }
 
-/**
- * Gets the message for case "noWorky" in getMessage
- * @param {String} worky String that is used in the switch statment to get a message.
- * @returns {String} String with the message
- */
-function noWorkyMessage(worky) {
-  switch (worky) {
-  case "earlyGame": return `This command only works in the early game channels or the common channels. Use \`++channels\` to see which channels that is!`;
-  case "earlyInfinity": return `This command only works in the early infinity channels or the common channels.`;
-  case "setCrunchAutoCheck": return `This command only works in the channels it applies in.`;
-  case "breakCheck": return `This command only works in the break infinity channels or the common channels. Use \`++channels\` to seee which channels that is!`;
-  case "earlyEternity": return `This command only works in the early Eternity channels, bot commands, or the common channels! Use \`++channels\` to see which channels that is!`;
-  case "studyTreeCheck": return `This command only works in the Eternity channels, bot commands, or the common channels! Use \`++channels\` to see which ochannels that is!`;
-  case "eternityGrinding": return `This command only works in the Eternity channels, bot commands, or the common channels. Use \`++channels\` to see which channels that is!`;
-  case "ecsCheck": return `This command only works in the Eternity Challenge channels, bot commands, or the common channels. Use \`++channels\` to see which channels that is!`;
-  case "ecsPlus": return `This command only works in the Eternity Challenge channels, endgame channels, bot commands, or the common channels. Use \`++channels\` to see which channels that is!`;
-  case "botCommands": return `This is a miscellaneous command and is only allowed in <#351479640755404820>`;
-  case "bankedInfs": return `This command only works in the post-TS181 channel and on. You can also use <#351479640755404820>!`;
-  case "dilationGrind": return `This command only works in the channel directly before Dilation, bot commands, or the common channels. Use \`++channels\` to see which channels that is!`;
-  case "endgame": return `This command only works in the endgame channels, bot commands, or the common channels. Use \`++channels\` to see which channels that is!`;
-  case "e4000": return `This command only works in <#459834206147837972>, bot commands, or the common channels. Use \`++channels\` to see which channels that is!`;
-  case true: return `This check should never appear and is only here to say hi. How are you guys doing?`;
-  default: return `What kind of error message are you trying to get?`;
-  }
-}
+const use = `Use \`++channels\` to see which channels that is!`;
+const noWorkyMessage = (channels, secondaryChannels) => `This command only works in the ${channels} channel(s),${secondaryChannels ? ` ${secondaryChannels} channels,` : ``} bot commands, or the common channels. ${use}`;
+const noWorkyMessageObject = {
+  "earlyGame": noWorkyMessage("early game"),
+  "earlyInfinity": noWorkyMessage("early Infinity"),
+  "breakCheck": noWorkyMessage("Break Infinity"),
+  "setCrunchAutoCheck": noWorkyMessage("early Break Infinity"),
+  "earlyEternity": noWorkyMessage("early Eternity"),
+  "studyTreeCheck": noWorkyMessage("Eternity"),
+  get "eternityGrinding"() { return this.studyTreeCheck; },
+  "ecsCheck": noWorkyMessage("Eternity Challenge"),
+  "ecsPlus": noWorkyMessage("Eternity Challenge", "endgame"),
+  "botCommands": `This is a miscellaneous command and is only allowed in <#351479640755404820>`,
+  "bankedInfs": `This command only works in the post-TS181 channel and on. You can also use <#351479640755404820>!`,
+  "dilationGrind": `This command only works in the channel directly before Dilation, bot commands, or the common channels. Use \`++channels\` to see which channels that is!`,
+  "endgame": noWorkyMessage("endgame"),
+  "e4000": noWorkyMessage("e4000 EP"),
+  "ic4/5": noWorkyMessage("Break Infinity", "early Eternity"),
+};
 
 /**
  * Starts intervals for the bot. Currently, the only interval being started is the switching bot status.
@@ -529,7 +533,6 @@ module.exports = {
   constructEmbedObject,
   help,
   getMessage,
-  noWorkyMessage,
   misc: {
     sumAllCommands,
     getHelpDescription,
@@ -554,10 +557,35 @@ module.exports = {
     eternityGrindingCheck,
     setCrunchAutoCheck,
     studytreeCheck,
-    ecsPlusCheck
+    ecsPlusCheck,
+    weirdICsCheck
   },
   internal: {
     startIntervals,
     setBotStatus,
+  },
+  checkObject: {
+    "earlyGame": earlyGameCheck,
+    "earlyInfinity": earlyInfinityCheck,
+    // We're doing this because the way we access it in Command.js means that we access this object by using the 
+    // array entry thing (i.e. return functions.checkObject[this.check]), so we keep it here. In any other case
+    // this is an important rule to hold on to.
+    // eslint-disable-next-line object-shorthand
+    "breakCheck": breakCheck,
+    "earlyEternity": earlyEternityCheck,
+    // eslint-disable-next-line object-shorthand
+    "ecsCheck": ecsCheck,
+    "ecsPlus": ecsPlusCheck,
+    "endgame": endgameCheck,
+    "botCommands": botCommandsCheck,
+    "e4000": e4000Check,
+    "dilationGrind": dilationGrindCheck,
+    "bankedInfs": bankedInfsCheck,
+    "studyTreeCheck": studytreeCheck,
+    "eternityGrinding": eternityGrindingCheck,
+    "ic4/5": weirdICsCheck,
+    // eslint-disable-next-line object-shorthand
+    "setCrunchAutoCheck": setCrunchAutoCheck,
+    "true": true
   }
 };

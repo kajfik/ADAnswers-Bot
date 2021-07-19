@@ -61,24 +61,8 @@ class Command {
    * @returns True/false
    */
   getCheck(id, message) {
-    switch (this.check) {
-    case "earlyGame": return functions.earlyGameCheck(id, message);
-    case "earlyInfinity": return functions.special.earlyInfinityCheck(id, message);
-    case "setCrunchAutoCheck": return functions.special.setCrunchAutoCheck(id, message);
-    case "breakCheck": return functions.breakCheck(id, message);
-    case "earlyEternity": return functions.earlyEternityCheck(id, message);
-    case "studyTreeCheck": return functions.special.studytreeCheck(id, message);
-    case "eternityGrinding": return functions.special.eternityGrindingCheck(id, message);
-    case "ecsPlus": return functions.special.ecsPlusCheck(id, message);
-    case "ecsCheck": return functions.ecsCheck(id, message);
-    case "bankedInfs": return functions.special.bankedInfsCheck(id, message);
-    case "dilationGrind": return functions.special.dilationGrindCheck(id, message);
-    case "endgame": return functions.endgameCheck(id, message);
-    case "botCommands": return functions.botCommandsCheck(id, message);
-    case "e4000": return functions.e4000Check(id, message);
-    case true: return true;
-    default: throw `Unknown check.`;
-    }
+    if (functions.checkObject[this.check]) return functions.checkObject[this.check](id, message);
+    throw `Unknown check.`;
   }
 
   /**
