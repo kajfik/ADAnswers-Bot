@@ -69,6 +69,7 @@ class Command {
     case "earlyEternity": return functions.earlyEternityCheck(id, message);
     case "studyTreeCheck": return functions.special.studytreeCheck(id, message);
     case "eternityGrinding": return functions.special.eternityGrindingCheck(id, message);
+    case "ecsPlus": return functions.special.ecsPlusCheck(id, message);
     case "ecsCheck": return functions.ecsCheck(id, message);
     case "bankedInfs": return functions.special.bankedInfsCheck(id, message);
     case "dilationGrind": return functions.special.dilationGrindCheck(id, message);

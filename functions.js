@@ -164,6 +164,16 @@ function e4000Check(id, message) {
 }
 
 /**
+ * Checks if the ID specified matches the correct channels for requesting a command
+ * @param {String} id the ID of the message channel.
+ * @param {object} message object contains everything about the message.
+ * @returns {Boolean}
+ */
+function ecsPlusCheck(id, message) {
+  return config.ids.ecs.includes(id) || config.ids.endgame.includes(id) || config.ids.common.includes(id) || botCommandsCheck(id, message);
+}
+
+/**
  * Sums all commands for the help command
  * @param {Array} fields array
  * @returns {Number} the number of commands, based on the fieldsArray array that's passed in
@@ -462,6 +472,7 @@ function noWorkyMessage(worky) {
   case "studyTreeCheck": return `This command only works in the Eternity channels, bot commands, or the common channels! Use \`++channels\` to see which ochannels that is!`;
   case "eternityGrinding": return `This command only works in the Eternity channels, bot commands, or the common channels. Use \`++channels\` to see which channels that is!`;
   case "ecsCheck": return `This command only works in the Eternity Challenge channels, bot commands, or the common channels. Use \`++channels\` to see which channels that is!`;
+  case "ecsPlus": return `This command only works in the Eternity Challenge channels, endgame channels, bot commands, or the common channels. Use \`++channels\` to see which channels that is!`;
   case "botCommands": return `This is a miscellaneous command and is only allowed in <#351479640755404820>`;
   case "bankedInfs": return `This command only works in the post-TS181 channel and on. You can also use <#351479640755404820>!`;
   case "dilationGrind": return `This command only works in the channel directly before Dilation, bot commands, or the common channels. Use \`++channels\` to see which channels that is!`;
@@ -542,7 +553,8 @@ module.exports = {
     earlyInfinityCheck,
     eternityGrindingCheck,
     setCrunchAutoCheck,
-    studytreeCheck
+    studytreeCheck,
+    ecsPlusCheck
   },
   internal: {
     startIntervals,
