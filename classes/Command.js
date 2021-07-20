@@ -61,7 +61,8 @@ class Command {
    * @returns True/false
    */
   getCheck(id, message) {
-    if (functions.checkObject[this.check]) return functions.checkObject[this.check](id, message);
+    if (typeof functions.checkObject[this.check] === "function") return functions.checkObject[this.check](id, message);
+    if (typeof functions.checkObject[this.check] === "boolean") return functions.checkObject[this.check];
     throw `Unknown check.`;
   }
 
