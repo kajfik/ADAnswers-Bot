@@ -68,7 +68,7 @@ async function ready() {
   //   allFields.push(...field);
   // }
   // console.log(allFields);
-};
+}
 
 client.once("ready", ready);
 
