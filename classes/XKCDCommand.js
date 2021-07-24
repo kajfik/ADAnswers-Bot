@@ -13,7 +13,7 @@ class XKCDCommand extends Command {
 
     if (check && !argIsNaN) message.channel.send(argMessage);
     else if (check && argIsNaN) message.channel.send(functions.getMessage("error", { args, name: this.name, acceptableArgs: this.acceptableArgs }));
-    else if (args[0] === undefined) message.channel.send(functions.getMessage("missingArg", { name: this.name, acceptableArgs: this.acceptableArgs }));
+    else if (args[0] === undefined) this.doMissingArgCatch(message, args);
     else message.channel.send(functions.getMessage("shouldNeverAppear"));
   }
 }

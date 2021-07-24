@@ -21,7 +21,7 @@ class TimeStudyCommand extends Command {
       if (this.name === "eternitychallenge" || this.name === "ec") message.author.send(argMessageWithDM);
     });
     else if (!check) message.channel.send(this.getFailMessage());
-    else if (args[0] === undefined) message.channel.send(functions.getMessage("missingArg", { name: this.name, acceptableArgs: this.acceptableArgs }));
+    else if (args[0] === undefined) this.doMissingArgCatch(message, args);
     else if (!(args[0] === undefined)) message.channel.send(functions.getMessage("error", { args, name: this.name, acceptableArgs: this.acceptableArgs }));
     else message.channel.send(functions.getMessage("shouldNeverAppear"));
   }

@@ -66,6 +66,12 @@ class Command {
     throw `Unknown check.`;
   }
 
+  doMissingArgCatch(message, args) {
+    if (args[0] === undefined) {
+      message.channel.send(functions.getMessage("missingArg", { name: this.name, acceptableArgs: this.acceptableArgs }));
+    }
+  }
+
   /**
    * Does the regular command execution. Made to reduce clutter in the main execute() method.
    * @param {Object} message Object that contains all the information about the message.
@@ -73,7 +79,7 @@ class Command {
    * @param {String} id String with the ID of the channel the message was sent in.
    */
   regularCommand(message, args, id) {
-    if (args[0] === undefined) message.channel.send(functions.getMessage("missingArg", { name: this.name, acceptableArgs: this.acceptableArgs }));
+    if (args[0] === undefined) this.doMissingArgCatch(message, args);
     else if (this.getCheck(id, message) && this.acceptableArgs.includes(args[0].toLowerCase())) message.channel.send(this.getArgMessage(args[0].toLowerCase()));
     else if (!(args[0] === undefined)) message.channel.send(functions.getMessage("error", { args, name: this.name, acceptableArgs: this.acceptableArgs }));
     else message.channel.send(functions.getMessage("shouldNeverAppear"));

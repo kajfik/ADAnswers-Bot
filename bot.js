@@ -49,8 +49,6 @@ async function ready() {
 
   await createTags(0);
 
-  console.log(`List of tags: ${getTagString()}`);
-
   try {
     await sequelize.authenticate();
     console.log('Connection has been established successfully.');
