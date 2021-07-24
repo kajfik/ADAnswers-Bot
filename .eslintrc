@@ -128,7 +128,8 @@
     "max-len": [
       "warn",
       {
-        "code": 240
+        "code": 240,
+        "ignoreStrings": true
       }
     ],
     "max-params": "warn",

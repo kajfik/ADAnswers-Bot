@@ -22,6 +22,7 @@ module.exports = {
     TT - ||Time Theorem||
     DT - ||Dilated Time||
     TP - ||Tachyon Particles||
-    BInf - ||Banked Infinities||`]
+    BInf - ||Banked Infinities||
+    EU - ||Eternity Upgrade||`]
   })
 };
