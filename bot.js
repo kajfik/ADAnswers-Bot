@@ -70,12 +70,6 @@ async function ready() {
 
 client.once("ready", ready);
 
-client.on("error", error => {
-  client.channels.fetch("351476683016241166").then(channel => { 
-    channel.send(`There has been an internal error with the bot. Cause: ${error}`);
-  });
-});
-
 function setup() {
   Tags = sequelize.define("tags", {
     name: {
@@ -114,17 +108,10 @@ function setup() {
   });
 }
 
-async function getTagString() {
-  const tagList = await Tags.findAll({ attributes: ["name", "timesUsed"] });
-  const tagString = tagList.map(t => t.name).join(', ') || 'No tags set.';
-  return tagString;
-}
-
 async function createTags(startingValue) {
   if (startingValue > commandNames.length) return;
   try {
     for (let i = startingValue; i < commandNames.length; i++) {
-      console.log(commandNames[i]);
       const tag = await Tags.create({
         name: commandNames[i],
         timesUsed: 0
@@ -145,7 +132,6 @@ async function createTags(startingValue) {
     }
   } catch (e) {
     if (e.name === "SequelizeUniqueConstraintError") {
-      console.log(`Tag already exists!`);
       createTags(startingValue + 1);
     } else console.log(`Something went wrong while adding tag, ${e}`);
   }
