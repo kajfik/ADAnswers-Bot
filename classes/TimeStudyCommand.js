@@ -5,14 +5,21 @@
 const { Command } = require("./Command");
 const functions = require("../functions");
 
-// This also works for EC
+// This also works for EC and all of the challenges
 
 class TimeStudyCommand extends Command {
   execute(message, args, id) {
-    const argMessage = this.getArgMessage(args);
-    const argMessageWithDM = this.getArgMessage(args, true);
+    let argMessage;
+    let argMessageWithDM;
     const check = this.getCheck(id, message);
 
+    if (this.type !== "shorthand" || this.name === "ts") {
+      argMessage = this.getArgMessage(args);
+      argMessageWithDM = this.getArgMessage(args, true);
+    } else if (this.type === "shorthand") {
+      argMessage = this.sent[0];
+      argMessageWithDM = this.sent[0];
+    } 
     if (functions.botCommandsCheck(id, message)) message.channel.send(argMessage);
     else if (check) message.author.send(argMessage).catch(() => {
       message.reply("I can't DM you!");
