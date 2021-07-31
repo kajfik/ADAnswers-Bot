@@ -193,7 +193,7 @@ client.on("message", message => {
       Attempted command: ${command}
       Channel type: ${message.channel.type}
       Time: ${Date()}
-      URL: ${message.channel.type==="dm"?"N/A":`${message.url}`}`);
+      URL: ${message.channel.type === "dm" ? "N/A" : `${message.url}`}`);
       // eslint-disable-next-line max-len
       message.reply(`Command \`${command}\` is, in fact, a command, but it appears there was an internal issue with the bot. Thank you for your patience.`);
     }
