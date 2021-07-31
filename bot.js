@@ -188,10 +188,14 @@ client.on("message", message => {
       incrementTag("totalSuccesses");
     } catch (error) {
       console.error(error);
-      console.log(`${Date()}`);
-      console.log(`${message.url}`);
+      console.log(`From: ${message.author.username}#${message.author.discriminator}
+      Content: ${message.content}
+      Attempted command: ${command}
+      Channel type: ${message.channel.type}
+      Time: ${Date()}
+      URL: ${message.channel.type==="dm"?"N/A":`${message.url}`}`);
       // eslint-disable-next-line max-len
-      message.reply(`Command \`${command}\` is, in fact, a command, but it appears there was an internal issue with the bot. Thank you for your patience. Paging earth...<@213071245896450068>`);
+      message.reply(`Command \`${command}\` is, in fact, a command, but it appears there was an internal issue with the bot. Thank you for your patience.`);
     }
   } catch (error) {
     // This catch has actually happened once! I don't remember what caused it, though.

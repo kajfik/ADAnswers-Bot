@@ -13,7 +13,7 @@ class TimeStudyCommand extends Command {
     let argMessageWithDM;
     const check = this.getCheck(id, message);
 
-    if (this.type !== "shorthand" || this.name === "ts") {
+    if (this.type !== "shorthand" || this.name === "ts" || this.name === "ec") {
       argMessage = this.getArgMessage(args);
       argMessageWithDM = this.getArgMessage(args, true);
     } else if (this.type === "shorthand") {
