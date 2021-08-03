@@ -1,12 +1,15 @@
 {
-  "extends": "eslint:recommended",
+  "extends": [
+    "eslint:recommended"
+  ],
   "env": {
     "es2021": true,
     "browser": true,
+    "jquery": true,
     "node": true
   },
   "parserOptions": {
-    "ecmaVersion": "latest",
+    "ecmaVersion": 2021,
     "ecmaFeatures": {
       "impliedStrict": false
     }
@@ -113,7 +116,7 @@
       "temp",
       "tmp"
     ],
-    "indent": ["error", 2],
+    "indent": ["warn", 2, { "SwitchCase": 1 }],
     "key-spacing": "error",
     "keyword-spacing": "error",
     "line-comment-position": "error",
@@ -128,8 +131,7 @@
     "max-len": [
       "warn",
       {
-        "code": 240,
-        "ignoreStrings": true
+        "code": 150
       }
     ],
     "max-params": "warn",

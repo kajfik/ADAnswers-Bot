@@ -230,10 +230,10 @@ function toNumber(string) {
  */
 function toPath(str = "active") {
   switch (str.toLowerCase()) {
-  case "active": return ACTIVE;
-  case "passive": return PASSIVE;
-  case "idle": return IDLE;
-  default: throw `Unknown argument: Expected path name (\`active\`, \`passive\`, \`idle\`) but found: --> ${str} <--`;
+    case "active": return ACTIVE;
+    case "passive": return PASSIVE;
+    case "idle": return IDLE;
+    default: throw `Unknown argument: Expected path name (\`active\`, \`passive\`, \`idle\`) but found: --> ${str} <--`;
   }
 }
 
@@ -449,21 +449,21 @@ function generateChannelMessage() {
  */
 function getMessage(command, stuff = {}) {
   switch (command) {
-  case "ts":
-    return generateTree(stuff.theorem, stuff.path);
-  case "channel":
-    return generateChannelMessage();
-  case "error":
-    return `Unknown arg ${stuff.args[0]} in command ${stuff.name}. The args for this command are ${stuff.acceptableArgs.join(", ")}.`;
-  case "noWorky":
-    return noWorkyMessageObject[stuff.worky];
-  case "missingArg":
-    return `Command \`${stuff.name}\` requires an arg. The args for this command are ${stuff.acceptableArgs.join(", ")}.`;
-  case "shouldNeverAppear":
-    return `This message should never appear. If it does, let earth know with a screenshot of the message that caused it.`;
-  default:
-    console.error("Unknown command for getMessage!");
-    return "Something went wrong";
+    case "ts":
+      return generateTree(stuff.theorem, stuff.path);
+    case "channel":
+      return generateChannelMessage();
+    case "error":
+      return `Unknown arg ${stuff.args[0]} in command ${stuff.name}. The args for this command are ${stuff.acceptableArgs.join(", ")}.`;
+    case "noWorky":
+      return noWorkyMessageObject[stuff.worky];
+    case "missingArg":
+      return `Command \`${stuff.name}\` requires an arg. The args for this command are ${stuff.acceptableArgs.join(", ")}.`;
+    case "shouldNeverAppear":
+      return `This message should never appear. If it does, let earth know with a screenshot of the message that caused it.`;
+    default:
+      console.error("Unknown command for getMessage!");
+      return "Something went wrong";
   }
 }
 
