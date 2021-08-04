@@ -145,6 +145,11 @@ async function incrementTag(name) {
   }
 }
 
+client.on("error", error => {
+  console.error(error);
+  client.channels.fetch("722912387287744572").send(`ADAnswersBot has run into an error, ${error}.`);
+});
+
 client.on("message", message => {
   try {
     if (!message.content.startsWith(config.prefix)) return;
@@ -183,17 +188,28 @@ client.on("message", message => {
     try {
       // This is a lot of parameters and eventually I think it would be cool
       // to make it all one object.
+
+      // I'm keeping this block of code here because I'm lazy.
+      if (command === "xkcd") {
+        client.commands.get(command).execute({ message, args, id, client, });
+        incrementTag(command);
+        incrementTag("totalSuccesses");
+        return;
+      }
       client.commands.get(command).execute(message, args, id);
       incrementTag(command);
       incrementTag("totalSuccesses");
     } catch (error) {
-      console.error(error);
-      console.log(`From: ${message.author.username}#${message.author.discriminator}
+      const moreInfo = `From: ${message.author.username}#${message.author.discriminator}
       Content: ${message.content}
       Attempted command: ${command}
       Channel type: ${message.channel.type}
       Time: ${Date()}
-      URL: ${message.channel.type === "dm" ? "N/A" : `${message.url}`}`);
+      URL: ${message.channel.type === "dm" ? "N/A" : `${message.url}`}`;
+      console.log(moreInfo);
+      client.channels.cache.get("722912387287744572").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
+      client.users.cache.get("213071245896450068").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
+      console.error(error);
       // eslint-disable-next-line max-len
       message.reply(`Command \`${command}\` is, in fact, a command, but it appears there was an internal issue with the bot. Thank you for your patience.`);
     }

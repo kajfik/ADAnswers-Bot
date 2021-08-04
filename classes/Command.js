@@ -38,8 +38,12 @@ class Command {
    * @returns A successful command execution (when the response is sent) or a failure from an error.
    */
   execute(message, args, id) {
+    if (message.content.length > 1995) {
+      message.channel.send(`You cannot try to trigger a command over this length!`);
+      return;
+    }
     if (this.acceptableArgs === undefined) {
-      if (this.getCheck(id, message)) message.channel.send(this.sent[0]);
+      if (this.getCheck(id, message)) message.channel.send(this.sent[0], { split: true });
       else message.channel.send(this.getFailMessage());
     } else if (this.acceptableArgs !== undefined) {
       this.regularCommand(message, args, id);
@@ -68,7 +72,7 @@ class Command {
 
   doMissingArgCatch(message, args) {
     if (args[0] === undefined) {
-      message.channel.send(functions.getMessage("missingArg", { name: this.name, acceptableArgs: this.acceptableArgs }));
+      message.channel.send(functions.getMessage("missingArg", { name: this.name, acceptableArgs: this.acceptableArgs }), { split: true });
     }
   }
 
@@ -80,9 +84,9 @@ class Command {
    */
   regularCommand(message, args, id) {
     if (args[0] === undefined) this.doMissingArgCatch(message, args);
-    else if (this.getCheck(id, message) && this.acceptableArgs.includes(args[0].toLowerCase())) message.channel.send(this.getArgMessage(args[0].toLowerCase()));
-    else if (!(args[0] === undefined)) message.channel.send(functions.getMessage("error", { args, name: this.name, acceptableArgs: this.acceptableArgs }));
-    else message.channel.send(functions.getMessage("shouldNeverAppear"));
+    else if (this.getCheck(id, message) && this.acceptableArgs.includes(args[0].toLowerCase())) message.channel.send(this.getArgMessage(args[0].toLowerCase()), { split: true });
+    else if (!(args[0] === undefined)) message.channel.send(functions.getMessage("error", { args, name: this.name, acceptableArgs: this.acceptableArgs }), { split: true });
+    else message.channel.send(functions.getMessage("shouldNeverAppear"), { split: true });
   }
 }
 

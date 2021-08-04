@@ -12,6 +12,11 @@ class EternityPointCommand extends Command {
     const check = this.getCheck(id, message);
     const aIsNaN = isNaN(a);
 
+    if (message.content.length > 1995) {
+      message.channel.send(`You cannot try to trigger a command over this length!`);
+      return;
+    }
+
     if (!aIsNaN && check && !(a > 1000)) message.channel.send(argMessage);
     else if (args[0] === undefined) this.doMissingArgCatch(message, args);
     else if (!aIsNaN && check && a > 1000) message.channel.send(`In command \`++ep\`, you cannot use a number higher than 1000.`);

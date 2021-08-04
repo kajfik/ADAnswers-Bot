@@ -7,10 +7,16 @@ const functions = require("../functions");
 
 class MetaCommand extends Command {
   execute(message, args, id) {
+    if (message.content.length > 1995) {
+      message.channel.send(`You cannot try to trigger a command over this length!`);
+      return;
+    }
+
     if (args[0] === undefined) {
       this.doMissingArgCatch(message, args);
       return;
     }
+    
     const argMessage = this.getArgMessage(args[0].toLowerCase());
     const check = this.getCheck(id, message);
 

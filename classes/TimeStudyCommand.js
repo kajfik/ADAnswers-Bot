@@ -12,6 +12,11 @@ class TimeStudyCommand extends Command {
     let argMessage;
     let argMessageWithDM;
     const check = this.getCheck(id, message);
+    
+    if (message.content.length > 1995) {
+      message.channel.send(`You cannot try to trigger a command over this length!`);
+      return;
+    }
 
     if (this.type !== "shorthand" || this.name === "ts" || this.name === "ec") {
       argMessage = this.getArgMessage(args);
@@ -20,8 +25,8 @@ class TimeStudyCommand extends Command {
       argMessage = this.sent[0];
       argMessageWithDM = this.sent[0];
     } 
-    if (functions.botCommandsCheck(id, message)) message.channel.send(argMessage);
-    else if (check) message.author.send(argMessage).catch(() => {
+    if (functions.botCommandsCheck(id, message)) message.channel.send(argMessage, { split: true });
+    else if (check) message.author.send(argMessage, { split: true }).catch(() => {
       message.reply("I can't DM you!");
     }).then(() => {
       message.react("☑️");

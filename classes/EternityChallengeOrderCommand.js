@@ -10,6 +10,11 @@ class EternityChallengeOrderCommand extends Command {
     let check = this.getCheck(id, message);
     let acceptableArgsIncludes;
 
+    if (message.content.length > 1995) {
+      message.channel.send(`You cannot try to trigger a command over this length!`);
+      return;
+    }
+
     if (args[0] === undefined) {
       argMessage = this.sent[0];
       acceptableArgsIncludes = false;
