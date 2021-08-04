@@ -168,6 +168,11 @@ client.on("message", message => {
           // Here we access the EC command directly instead of routing it through ec.js 
           // to improve code slightly.
           // The args has to be passed in as an array or else it's read as a string in eternitychallenge.js
+          // eslint-disable-next-line max-depth
+          if (message.content.length > 1995) {
+            message.channel.send(`You cannot try to trigger a command over this length!`);
+            return;
+          }
           client.commands.get("eternitychallenge").execute(message, [a[1]], id);
           incrementTag("ec");
           incrementTag("totalSuccesses");
@@ -188,6 +193,11 @@ client.on("message", message => {
     try {
       // This is a lot of parameters and eventually I think it would be cool
       // to make it all one object.
+
+      if (message.content.length > 1995) {
+        message.channel.send(`You cannot try to trigger a command over this length!`);
+        return;
+      }
 
       // I'm keeping this block of code here because I'm lazy.
       if (command === "xkcd") {

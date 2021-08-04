@@ -8,15 +8,14 @@ class XKCDCommand extends Command {
   // Uses args, id, message and client.
   execute(p = {}) {
     try {
-      const argToNumber = functions.misc.toNumber(p.args[0]);
-      const argMessage = this.getArgMessage(argToNumber);
-      const check = this.getCheck(p.id, p.message);
-      const argIsNaN = isNaN(argToNumber);
-      
       if (p.message.content.length > 1995) {
         p.message.channel.send(`You cannot try to trigger a command over this length!`);
         return;
       }
+      const argToNumber = functions.misc.toNumber(p.args[0]);
+      const argMessage = this.getArgMessage(argToNumber);
+      const check = this.getCheck(p.id, p.message);
+      const argIsNaN = isNaN(argToNumber);
 
       if (check && !argIsNaN) p.message.channel.send(argMessage);
       else if (check && argIsNaN) p.message.channel.send(functions.getMessage("error", { args: p.args, name: this.name, acceptableArgs: this.acceptableArgs }));

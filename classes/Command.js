@@ -71,6 +71,10 @@ class Command {
   }
 
   doMissingArgCatch(message, args) {
+    if (message.content.length > 1995) {
+      message.channel.send(`You cannot try to trigger a command over this length!`);
+      return;
+    }
     if (args[0] === undefined) {
       message.channel.send(functions.getMessage("missingArg", { name: this.name, acceptableArgs: this.acceptableArgs }), { split: true });
     }
@@ -83,6 +87,10 @@ class Command {
    * @param {String} id String with the ID of the channel the message was sent in.
    */
   regularCommand(message, args, id) {
+    if (message.content.length > 1995) {
+      message.channel.send(`You cannot try to trigger a command over this length!`);
+      return;
+    }
     if (args[0] === undefined) this.doMissingArgCatch(message, args);
     else if (this.getCheck(id, message) && this.acceptableArgs.includes(args[0].toLowerCase())) message.channel.send(this.getArgMessage(args[0].toLowerCase()), { split: true });
     else if (!(args[0] === undefined)) message.channel.send(functions.getMessage("error", { args, name: this.name, acceptableArgs: this.acceptableArgs }), { split: true });
