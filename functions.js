@@ -81,7 +81,7 @@ function endgameCheck(id, message) {
 function botCommandsCheck(id, message) {
   // 603002159864348703 is #bots in Earth's things
   // 722268615973273725 is #general in bot test server
-  return config.ids.botCommands.includes(id) || id === "603002159864348703" || id === "722268615973273725" || message.channel.type === "dm";
+  return config.ids.botCommands.includes(id) || id === "603002159864348703" || id === "722268615973273725" || message.channel.type === "DM";
 }
 
 /**

@@ -4,7 +4,7 @@
 const { NewsCommand } = require("../classes/NewsCommand");
 
 const newsMessageObject = {
-  "listmobile": "<https://paste.ee/p/LGLeE>",
+  "listmobile": "<https://gist.github.com/earthernsence/2661619a3e4ca8089709f9fe19395f77>",
   "listweb": "<https://github.com/IvarK/IvarK.github.io/blob/master/javascripts/core/newsticker.js>"
 };
 
