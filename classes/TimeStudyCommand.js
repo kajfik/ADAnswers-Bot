@@ -13,7 +13,7 @@ class TimeStudyCommand extends Command {
     let argMessageWithDM;
     const check = this.getCheck(id, message);
     
-    if (message.content.length > 1995) {
+    if (message.content.length > 1000) {
       message.channel.send(`You cannot try to trigger a command over this length!`);
       return;
     }

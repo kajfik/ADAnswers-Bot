@@ -38,7 +38,7 @@ class Command {
    * @returns A successful command execution (when the response is sent) or a failure from an error.
    */
   execute(message, args, id) {
-    if (message.content.length > 1995) {
+    if (message.content.length > 1000) {
       message.channel.send(`You cannot try to trigger a command over this length!`);
       return;
     }
@@ -71,7 +71,7 @@ class Command {
   }
 
   doMissingArgCatch(message, args) {
-    if (message.content.length > 1995) {
+    if (message.content.length > 1000) {
       message.channel.send(`You cannot try to trigger a command over this length!`);
       return;
     }
@@ -87,7 +87,7 @@ class Command {
    * @param {String} id String with the ID of the channel the message was sent in.
    */
   regularCommand(message, args, id) {
-    if (message.content.length > 1995) {
+    if (message.content.length > 1000) {
       message.channel.send(`You cannot try to trigger a command over this length!`);
       return;
     }

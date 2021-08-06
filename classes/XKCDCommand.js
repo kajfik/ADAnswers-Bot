@@ -8,7 +8,7 @@ class XKCDCommand extends Command {
   // Uses args, id, message and client.
   execute(p = {}) {
     try {
-      if (p.message.content.length > 1995) {
+      if (p.message.content.length > 1000) {
         p.message.channel.send(`You cannot try to trigger a command over this length!`);
         return;
       }

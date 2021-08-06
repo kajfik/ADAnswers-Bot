@@ -16,7 +16,7 @@ const fs = require("fs");
 const config = require("./config.json");
 const functions = require("./functions");
 
-const client = new Discord.Client();
+const client = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES] });
 const commandFiles = fs.readdirSync("./commands").filter(file => file.endsWith(".js"));
 client.commands = new Discord.Collection();
 
@@ -147,13 +147,18 @@ async function incrementTag(name) {
 
 client.on("error", error => {
   console.error(error);
-  client.channels.fetch("722912387287744572").send(`ADAnswersBot has run into an error, ${error}.`);
+  client.channels.cache.get("722912387287744572").send(`ADAnswersBot has ran into an error, ${error}`);
+  client.users.cache.get("213071245896450068").send(`ADAnswersBot has ran into an error, ${error}.`);
 });
 
-client.on("message", message => {
+client.on("messageCreate", message => {
   try {
     if (!message.content.startsWith(config.prefix)) return;
     incrementTag("totalRequests");
+    if (message.content.length > 1000) {
+      message.channel.send(`You cannot try to trigger a command over this length!`);
+      return;
+    }
     // eslint-disable-next-line require-unicode-regexp
     const args = message.content.slice(config.prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
@@ -169,7 +174,7 @@ client.on("message", message => {
           // to improve code slightly.
           // The args has to be passed in as an array or else it's read as a string in eternitychallenge.js
           // eslint-disable-next-line max-depth
-          if (message.content.length > 1995) {
+          if (message.content.length > 1000) {
             message.channel.send(`You cannot try to trigger a command over this length!`);
             return;
           }
@@ -194,7 +199,7 @@ client.on("message", message => {
       // This is a lot of parameters and eventually I think it would be cool
       // to make it all one object.
 
-      if (message.content.length > 1995) {
+      if (message.content.length > 1000) {
         message.channel.send(`You cannot try to trigger a command over this length!`);
         return;
       }

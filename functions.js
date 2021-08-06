@@ -9,6 +9,7 @@
 // ANYTHING TO IT THAT YOU MAY USE OUTSIDE OF ONE FILE
 
 const config = require("./config.json");
+const { MessageActionRow, MessageButton } = require("discord.js");
 
 const PRE_SPLIT_EARLY = "11,21,33,31,41";
 const PRE_SPLIT = "11,22,32,42,51,61";
@@ -376,6 +377,50 @@ function isUndefined(val) {
   return val === undefined;
 }
 
+// This next line is courtesy of github copilot. I don't know how it came up with it, but...ouch.
+// See https://ptb.discord.com/channels/351476683016241162/351478114620145665/873055661485883402
+// This area of code is for help. It's a mess. I'm sorry. -_- 
+
+const getRow = disabled => new MessageActionRow()
+  .addComponents(
+    new MessageButton()
+      .setCustomId("primary-previous-page")
+      .setEmoji("◀️")
+    // .setLabel("Previous page")
+      .setDisabled(disabled)
+      .setStyle("PRIMARY"),
+    new MessageButton()
+      .setCustomId("primary-next-page")
+      .setEmoji("▶️")
+      // .setLabel("Next page")
+      .setDisabled(disabled)
+      .setStyle("PRIMARY"),
+  );
+function pageChange(page, up) {
+  let p = page;
+  if (up) {
+    if (p >= 69) {
+      p = 1;
+    } else if (p < 1 || p === 7) {
+      p = 69;
+    } else {
+      if (p + 1 === 70) {
+        p = 1;
+      }
+      p++;
+    }
+  } else if (!up) {
+    if (p >= 69) {
+      p = 7;
+    } else if (p < 1) {
+      p = 69;
+    } else if (p - 1 === 0) {
+      p = 69;
+    } else p--;
+  }
+  return p;
+}
+
 /**
  * The actual help command that does stuff
  * @param {Object} message object that contains all information about the message
@@ -385,13 +430,92 @@ function isUndefined(val) {
  */
 function help(message, fieldsArray, stuff) {
   if (stuff.command === "help" && botCommandsCheck(stuff.id, message)) {
-    const a = toNumber(stuff.args[0]);
-    if (Number.isNaN(a) || isUndefined(a) || a === null) {
-      message.channel.send({ embed: constructEmbedObject(1, fieldsArray) });
+    let page = toNumber(stuff.args[0]);
+    const filter = i => i.customId.startsWith("primary");
+
+    // Works for 60 seconds.
+    const collector = message.channel.createMessageComponentCollector({ filter, time: 60000 });
+    let row = getRow(false);
+
+    if (Number.isNaN(page) || isUndefined(page) || page === null) {
+      page = 1;
+      message.channel.send({ embeds: [constructEmbedObject(1, fieldsArray)], components: [row] }).then(sentMessage => {
+
+        collector.on("collect", async i => {
+          if (i.user.id !== message.author.id) return;
+          try {
+            if (i.customId === "primary-next-page") {
+              page = pageChange(page, true);
+              await i.update({ embeds: [constructEmbedObject(page, fieldsArray)], components: [row] });
+            } else if (i.customId === "primary-previous-page") {
+              page = pageChange(page, false);
+              await i.update({ embeds: [constructEmbedObject(page, fieldsArray)], components: [row] });
+            } else if (i.customId === "primary-first-page") {
+              page = 1;
+              await i.update({ embeds: [constructEmbedObject(page, fieldsArray)], components: [row] });
+            } else if (i.customId === "primary-last-page") {
+              page = 69;
+              await i.update({ embeds: [constructEmbedObject(page, fieldsArray)], components: [row] });
+            }
+          } catch (error) {
+            message.channel.send(`Bot ran into an error idk how to fix itm`);
+            const moreInfo = `From: ${message.author.username}#${message.author.discriminator}
+                              Content: ${message.content}
+                              Attempted command: help
+                              Channel type: ${message.channel.type}
+                              Time: ${Date()}
+                              URL: ${message.channel.type === "dm" ? "N/A" : `${message.url}`}`;
+            console.log(moreInfo);
+            client.channels.cache.get("722912387287744572").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
+            client.users.cache.get("213071245896450068").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
+            console.log(error);
+          }
+        });
+        collector.on("end", () => {
+          row = getRow(true);
+          sentMessage.edit({ embeds: [constructEmbedObject(page, fieldsArray)], components: [row] });
+        });
+      });
       return;
     }
     try {
-      message.channel.send({ embed: constructEmbedObject(a, fieldsArray) });
+      message.channel.send({ embeds: [constructEmbedObject(page, fieldsArray)], components: [row] }).then(sentMessage => {
+
+        collector.on("collect", async i => {
+          if (i.user.id !== message.author.id) return;
+          try {
+            if (i.customId === "primary-next-page") {
+              page = pageChange(page, true);
+              await i.update({ embeds: [constructEmbedObject(page, fieldsArray)], components: [row] });
+            } else if (i.customId === "primary-previous-page") {
+              page = pageChange(page, false);
+              await i.update({ embeds: [constructEmbedObject(page, fieldsArray)], components: [row] });
+            } else if (i.customId === "primary-first-page") {
+              page = 1;
+              await i.update({ embeds: [constructEmbedObject(page, fieldsArray)], components: [row] });
+            } else if (i.customId === "primary-last-page") {
+              page = 69;
+              await i.update({ embeds: [constructEmbedObject(page, fieldsArray)], components: [row] });
+            }
+          } catch (error) {
+            message.channel.send(`Bot ran into an error idk how to fix itm`);
+            const moreInfo = `From: ${message.author.username}#${message.author.discriminator}
+                              Content: ${message.content}
+                              Attempted command: help
+                              Channel type: ${message.channel.type}
+                              Time: ${Date()}
+                              URL: ${message.channel.type === "dm" ? "N/A" : `${message.url}`}`;
+            console.log(moreInfo);
+            client.channels.cache.get("722912387287744572").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
+            client.users.cache.get("213071245896450068").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
+            console.log(error);
+          }
+        });
+        collector.on("end", () => {
+          row = getRow(true);
+          sentMessage.edit({ embeds: [constructEmbedObject(page, fieldsArray)], components: [row] });
+        });
+      });
     } catch (err) {
       message.channel.send("Unknown input");
       // eslint-disable-next-line no-console
