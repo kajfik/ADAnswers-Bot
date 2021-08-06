@@ -1,7 +1,7 @@
 {
   "token": "",
   "prefix": "++",
-  "version": "2",
+  "version": "v2.1 (Buttons!)",
   "ids": {
     "botCommands": ["351479640755404820"],
     "common": [
