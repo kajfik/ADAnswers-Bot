@@ -171,6 +171,8 @@ client.on("interactionCreate", async interaction => {
 
   try {
     client.commands.get(interaction.commandName).execute(interaction, interaction.channelId);
+    incrementTag(interaction.commandName);
+    incrementTag("totalSuccesses");
   } catch (error) {
     console.error(error);
     await interaction.reply({ content: "There was an error while executing this command!", ephemeral: true });
@@ -202,7 +204,7 @@ client.on("messageCreate", async message => {
       return;
     }
 
-    if (!client.commands.has(command) && command !== "help") {
+    if (!client.commands.has(command)) {
       if (command.startsWith("ec") && (command.includes("x") || command.includes("×"))) {
         try {
           // Gets the completion and number
@@ -227,11 +229,6 @@ client.on("messageCreate", async message => {
       message.reply(`Command \`${command}\` is not a command!`);
       return;
     } 
-    if (!client.commands.has(command) && command === "help") {
-      incrementTag("help");
-      functions.help(message, fieldsArray, { command, args, id, client });
-      return;
-    }
 
     try {
       // This is a lot of parameters and eventually I think it would be cool

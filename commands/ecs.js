@@ -1,16 +1,16 @@
 /* eslint-disable max-len */
 "use strict";
 
-const { TimeStudyCommand } = require("../classes/TimeStudyCommand");
+const { TimeStudyApplicationCommand } = require("../classes/ApplicationCommand/TimeStudyApplicationCommand");
 const ChallengeCommand = require("./challenge");
 
 module.exports = {
-  command: new TimeStudyCommand({
+  command: new TimeStudyApplicationCommand({
     number: 7,
     name: "ecs",
     description: "shorthand for `++challenge ecs`",
     type: "shorthand",
     check: "ecsCheck",
-    sent: [ChallengeCommand.command.getArgMessage(["ecs"])],
+    sent: [ChallengeCommand.command.messageObject.ecs],
   })
 };

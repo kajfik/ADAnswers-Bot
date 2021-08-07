@@ -20,7 +20,7 @@ function getMessageObject(command) {
   }
 }
 
-function getChoices(command) {
+function getChoices(command, which) {
   const choices = [];
   if (command === "achievements") {
     for (const ach in getMessageObject(command)) {
@@ -31,6 +31,17 @@ function getChoices(command) {
           type: "STRING"
         });
       }
+    }
+  } else if (command === "eternitychallenge") {
+    let max = 0;
+    if (which === "challenges") max = 12;
+    else max = 5;
+    for (let i = 1; i <= max; i++) {
+      choices.push({
+        name: i,
+        value: i,
+        type: "Number"
+      });
     }
   } else {
     for (const ach in getMessageObject(command)) {
@@ -190,10 +201,37 @@ module.exports = {
       description: "Describes how to progress pre-2x better Galaxies"
     },
     { name: "earth", description: "who i am n shit" },
-    { name: "ec", description: "shorthand for ++eternitychallenge" },
+    { name: "ec", description: "shorthand for ++eternitychallenge", options: [{
+      name: "ec",
+      type: "NUMBER",
+      description: "What Eternity Challenge are you doing?",
+      required: true,
+      choices: getChoices("eternitychallenge", "challenges")
+    },
+    {
+      name: "completion",
+      type: "NUMBER",
+      description: "What is the completion number?",
+      required: true,
+      choices: getChoices("eternitychallenge", "completions")
+    }] },
     {
       name: "eco",
       description: "Shorthand of ++eternitychallengeorder.",
+      options: [{
+        name: "ec",
+        type: "NUMBER",
+        description: "What Eternity Challenge are you doing?",
+        required: true,
+        choices: getChoices("eternitychallenge", "challenges")
+      },
+      {
+        name: "completion",
+        type: "NUMBER",
+        description: "What is the completion number?",
+        required: true,
+        choices: getChoices("eternitychallenge", "completions")
+      }]
     },
     { name: "ecs", description: "shorthand for `++challenge ecs`" },
     {
@@ -212,7 +250,21 @@ module.exports = {
     },
     {
       name: "eternitychallenge",
-      description: "Requires one argument: `++eternitychallenge [ECNumber]x[CompletionNumber]`. "
+      description: "Requires one argument: `++eternitychallenge [ECNumber]x[CompletionNumber]`.",
+      options: [{
+        name: "ec",
+        type: "NUMBER",
+        description: "What Eternity Challenge are you doing?",
+        required: true,
+        choices: getChoices("eternitychallenge", "challenges")
+      },
+      {
+        name: "completion",
+        type: "NUMBER",
+        description: "What is the completion number?",
+        required: true,
+        choices: getChoices("eternitychallenge", "completions")
+      }]
     },
     {
       name: `ttforecs`,
@@ -220,7 +272,21 @@ module.exports = {
     },
     {
       name: "eternitychallengeorder",
-      description: "Returns the EC order. Will show the previous EC when provided a challenge."
+      description: "Returns the EC order. Will show the previous EC when provided a challenge.",
+      options: [{
+        name: "ec",
+        type: "NUMBER",
+        description: "What Eternity Challenge are you doing?",
+        required: false,
+        choices: getChoices("eternitychallenge", "challenges")
+      },
+      {
+        name: "completion",
+        type: "NUMBER",
+        description: "What is the completion number?",
+        required: false,
+        choices: getChoices("eternitychallenge", "completions")
+      }]
     },
     {
       name: "eternitygrinding",
