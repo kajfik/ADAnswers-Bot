@@ -40,9 +40,23 @@ function getChoices(command, which) {
       choices.push({
         name: i,
         value: i,
-        type: "Number"
+        type: "NUMBER"
       });
     }
+  } else if (command === "studytree") {
+    choices.push({
+      name: "active",
+      value: "active",
+      type: "STRING",
+    }, {
+      name: "passive",
+      value: "passive",
+      type: "STRING",
+    }, {
+      name: "idle",
+      value: "idle",
+      type: "STRING",
+    });
   } else {
     for (const ach in getMessageObject(command)) {
       choices.push({
@@ -466,14 +480,43 @@ module.exports = {
     { name: "spectralflame", description: "spec!" },
     {
       name: "studytree",
-      description: "Generates a Time Study tree based on your total Time Theorems."
+      description: "Generates a Time Study tree based on your total Time Theorems.",
+      options: [{
+        name: "theorems",
+        type: "NUMBER",
+        description: "The number of Time Theorems you have",
+        required: true
+      },
+      {
+        name: "path",
+        type: "STRING",
+        description: "The path you want to use in your tree. Only takes effect after 54 TT",
+        required: false,
+        choices: getChoices("studytree") 
+      }]
     },
     {
       name: "swipetrick",
       description: "Explains swipe trick for mobile"
     },
     { name: "thanks", description: "say thanks" },
-    { name: "ts", description: "shorthand for `++studytree`" },
+    { 
+      name: "ts", 
+      description: "shorthand for `++studytree`", 
+      options: [{
+        name: "theorems",
+        type: "NUMBER",
+        description: "The number of Time Theorems you have",
+        required: true
+      },
+      {
+        name: "path",
+        type: "STRING",
+        description: "The path you want to use in your tree. Only takes effect after 54 TT",
+        required: false,
+        choices: getChoices("studytree") 
+      }] 
+    },
     {
       name: "tstreerange",
       description: "Says why sometimes the bot will recommend a tree for more TT than you have"
@@ -482,7 +525,13 @@ module.exports = {
     { name: "waitingidly", description: "idly!" },
     {
       name: "xkcd",
-      description: "has an arg: XKCD number. sends the link to that xkcd"
+      description: "has an arg: XKCD number. sends the link to that xkcd",
+      options: [{
+        name: "xkcd",
+        type: "NUMBER",
+        description: "XKCD number",
+        required: true
+      }]
     },
     {
       name: "help",
@@ -494,7 +543,7 @@ module.exports = {
           type: "INTEGER"
         }
       ]
-    }
+    },
   ],
   find(name) {
     return this.all.find(ob => ob.name === name) ?? "Unknown command";

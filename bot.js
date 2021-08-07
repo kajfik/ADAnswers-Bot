@@ -159,6 +159,8 @@ client.on("interactionCreate", async interaction => {
 
   if (!client.commands.has(interaction.commandName) && interaction.commandName !== "help") return;
 
+  incrementTag("totalRequests");
+
   if (interaction.commandName === "help") { 
     const args = interaction.options.getInteger("page") ? interaction.options.getInteger("page") : 1; 
     if (args > fieldsArray.length && args !== 69) {
@@ -182,18 +184,12 @@ client.on("interactionCreate", async interaction => {
 // eslint-disable-next-line complexity
 client.on("messageCreate", async message => {
   try {
-    if (!message.content.startsWith(config.prefix)) return;
-    incrementTag("totalRequests");
-    if (message.content.length > 1000) {
-      message.channel.send(`You cannot try to trigger a command over this length!`);
+    if (message.author.id !== "213071245896450068" && message.author.id !== "830197123378053172" && message.content.startsWith(config.prefix)) {
+      message.reply("Using the ++ prefix is now deprecated. Please switch to using slash commands. You can start by typing /");
       return;
     }
-    // eslint-disable-next-line require-unicode-regexp
-    const args = message.content.slice(config.prefix.length).trim().split(/ +/);
-    const command = args.shift().toLowerCase();
-    const id = message.channel.id;
     if (!client.application?.owner) await client.application?.fetch();
-    if (message.content.toLowerCase() === "++deploy") {
+    if (message.content.toLowerCase() === "++deploy" && message.author.id === "213071245896450068") {
       message.reply(`Beginning hostile takeover. Thank you for your patience and cooperation.`);
       await client.application?.commands.set(commands.all).then(() => {
         message.reply({ content: `Successfully deployed commands globally.`, ephemeral: true });
@@ -203,70 +199,8 @@ client.on("messageCreate", async message => {
       });
       return;
     }
-
-    if (!client.commands.has(command)) {
-      if (command.startsWith("ec") && (command.includes("x") || command.includes("×"))) {
-        try {
-          // Gets the completion and number
-          const a = command.split("c");
-          // Tries to execute the EC command.
-          // Here we access the EC command directly instead of routing it through ec.js 
-          // to improve code slightly.
-          // The args has to be passed in as an array or else it's read as a string in eternitychallenge.js
-          // eslint-disable-next-line max-depth
-          if (message.content.length > 1000) {
-            message.channel.send(`You cannot try to trigger a command over this length!`);
-            return;
-          }
-          client.commands.get("eternitychallenge").execute(message, [a[1]], id);
-          incrementTag("ec");
-          incrementTag("totalSuccesses");
-          return;
-        } catch (error) {
-          console.log(error);
-        }
-      }
-      message.reply(`Command \`${command}\` is not a command!`);
-      return;
-    } 
-
-    try {
-      // This is a lot of parameters and eventually I think it would be cool
-      // to make it all one object.
-
-      if (message.content.length > 1000) {
-        message.channel.send(`You cannot try to trigger a command over this length!`);
-        return;
-      }
-
-      // I'm keeping this block of code here because I'm lazy.
-      if (command === "xkcd") {
-        client.commands.get(command).execute({ message, args, id, client, });
-        incrementTag(command);
-        incrementTag("totalSuccesses");
-        return;
-      }
-      client.commands.get(command).execute(message, args, id);
-      incrementTag(command);
-      incrementTag("totalSuccesses");
-    } catch (error) {
-      const moreInfo = `From: ${message.author.username}#${message.author.discriminator}
-      Content: ${message.content}
-      Attempted command: ${command}
-      Channel type: ${message.channel.type}
-      Time: ${Date()}
-      URL: ${message.channel.type === "dm" ? "N/A" : `${message.url}`}`;
-      console.log(moreInfo);
-      client.channels.cache.get("722912387287744572").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
-      client.users.cache.get("213071245896450068").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
-      console.error(error);
-      // eslint-disable-next-line max-len
-      message.reply(`Command \`${command}\` is, in fact, a command, but it appears there was an internal issue with the bot. Thank you for your patience.`);
-    }
-  } catch (error) {
-    // This catch has actually happened once! I don't remember what caused it, though.
-    console.log(`something went sicko mode ${error}`);
-    message.channel.send(`something went sicko mode ${error}`);
+  } catch (e) {
+    console.log(`Deployment failed.`);
   }
 });
 

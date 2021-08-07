@@ -13,7 +13,7 @@ class XKCDCommand extends Command {
         return;
       }
       const argToNumber = functions.misc.toNumber(p.args[0]);
-      const argMessage = this.getArgMessage(argToNumber);
+      const argMessage = this.getArgMessage(argToNumber, p.args);
       const check = this.getCheck(p.id, p.message);
       const argIsNaN = isNaN(argToNumber);
 
