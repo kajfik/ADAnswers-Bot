@@ -1,9 +1,9 @@
 "use strict";
 
-const { Command } = require("../classes/Command");
+const { ApplicationCommand } = require("../classes/ApplicationCommand/ApplicationCommand");
 
 module.exports = {
-  command: new Command({
+  command: new ApplicationCommand({
     name: "challengecodes",
     description: "Sends a picture with all of the challenges notated with their \"code\"",
     number: 2,

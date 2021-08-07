@@ -1,9 +1,9 @@
 "use strict";
 
-const { Command } = require("../classes/Command");
+const { ApplicationCommand } = require("../classes/ApplicationCommand/ApplicationCommand");
 
 module.exports = {
-  command: new Command({
+  command: new ApplicationCommand({
     name: "changeectree",
     description: "Describes how to change your tree for doing an EC",
     number: 4,

@@ -1,10 +1,10 @@
 "use strict";
 
-const { Command } = require("../classes/Command");
+const { ApplicationCommand } = require("../classes/ApplicationCommand/ApplicationCommand");
 const EarlyEternityProgression = require("./earlyeternityprogression");
 
 module.exports = {
-  command: new Command({
+  command: new ApplicationCommand({
     name: "eep",
     number: 3,
     type: "shorthand",

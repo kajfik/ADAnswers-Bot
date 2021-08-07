@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 "use strict";
 
-const { NewsCommand } = require("../classes/NewsCommand");
+const { AchievementApplicationCommand } = require("../classes/ApplicationCommand/AchievementApplicationCommand");
 
 const newsMessageObject = {
   "listmobile": "<https://gist.github.com/earthernsence/2661619a3e4ca8089709f9fe19395f77>",
@@ -9,7 +9,7 @@ const newsMessageObject = {
 };
 
 module.exports = {
-  command: new NewsCommand({
+  command: new AchievementApplicationCommand({
     number: 6,
     name: "news",
     description: "Args: `listmobile` and `listweb`. Explains what the news ticker is and where it came from",
@@ -19,6 +19,11 @@ module.exports = {
     getArgMessage(arg) {
       if (this.acceptableArgs.includes(arg.toLowerCase())) return newsMessageObject[arg.toLowerCase()];
       return `Unknown arg in command news`;
-    }
+    },
+    argInfo: {
+      key: "list",
+      type: "string",
+    },
+    messageObject: newsMessageObject,
   })
 };

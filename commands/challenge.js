@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 "use strict";
 
-const { TimeStudyCommand } = require("../classes/TimeStudyCommand");
+const { ApplicationCommand } = require("../classes/ApplicationCommand/ApplicationCommand");
 
 const base = `It is recommended to have at least the first 12 infinity upgrades and 100 spare IP.
 If you want to get those 100 IP, you probably want to get upgrade 13 and 14 as well to speed things up. (Note: Those upgrades won't work inside challenges.)`;
@@ -47,7 +47,7 @@ Post-Eternity guide (has Eternity spoilers!): ||https://cdn.discordapp.com/attac
 };
 
 module.exports = {
-  command: new TimeStudyCommand({
+  command: new ApplicationCommand({
     number: 1,
     name: "challenge",
     description: "Args: all challenges, including `ecs`. Returns a guide for each argument. All of these commands have shorthands as well, f.e `++challenge c2` will return the same result as `++c2`",
@@ -55,8 +55,13 @@ module.exports = {
     acceptableArgs: Object.keys(challengeMessageObject),
     sent: undefined,
     getArgMessage(arg) {
-      if (this.acceptableArgs.includes(arg[0].toLowerCase())) return challengeMessageObject[arg[0].toLowerCase()];
+      if (this.acceptableArgs.includes(arg)) return challengeMessageObject[arg];
       return `Unknown arg in command challenge.`;
+    },
+    messageObject: challengeMessageObject,
+    argInfo: {
+      key: "challenge",
+      type: "string",
     }
   }),
 };

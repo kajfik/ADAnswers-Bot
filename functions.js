@@ -81,7 +81,7 @@ function endgameCheck(id, message) {
 function botCommandsCheck(id, message) {
   // 603002159864348703 is #bots in Earth's things
   // 722268615973273725 is #general in bot test server
-  return config.ids.botCommands.includes(id) || id === "603002159864348703" || id === "722268615973273725" || message.channel.type === "DM";
+  return config.ids.botCommands.includes(id) || id === "603002159864348703" || id === "722268615973273725" || message.channel.type === "DM" || id === "873209506430066808";
 }
 
 /**
@@ -435,14 +435,14 @@ function help(message, fieldsArray, stuff) {
 
     // Works for 60 seconds.
     const collector = message.channel.createMessageComponentCollector({ filter, time: 60000 });
-    let row = getRow(false);
+    const row = getRow(false);
 
     if (Number.isNaN(page) || isUndefined(page) || page === null) {
       page = 1;
-      message.channel.send({ embeds: [constructEmbedObject(1, fieldsArray)], components: [row] }).then(sentMessage => {
+      message.reply({ embeds: [constructEmbedObject(1, fieldsArray)], components: [row], ephemeral: true }).then(() => {
 
         collector.on("collect", async i => {
-          if (i.user.id !== message.author.id) return;
+          if (i.user.id !== message.user.id) return;
           try {
             if (i.customId === "primary-next-page") {
               page = pageChange(page, true);
@@ -458,7 +458,7 @@ function help(message, fieldsArray, stuff) {
               await i.update({ embeds: [constructEmbedObject(page, fieldsArray)], components: [row] });
             }
           } catch (error) {
-            message.channel.send(`Bot ran into an error idk how to fix itm`);
+            message.reply({ content: `Bot ran into an error idk how to fix itm error happens when two instances of help are active at once so basicall y just uhhhhhhh wait and it'll work later idk how to fix its wacky`, ephemeral: true });
             const moreInfo = `From: ${message.author.username}#${message.author.discriminator}
                               Content: ${message.content}
                               Attempted command: help
@@ -466,23 +466,20 @@ function help(message, fieldsArray, stuff) {
                               Time: ${Date()}
                               URL: ${message.channel.type === "dm" ? "N/A" : `${message.url}`}`;
             console.log(moreInfo);
-            client.channels.cache.get("722912387287744572").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
-            client.users.cache.get("213071245896450068").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
+            stuff.client.channels.cache.get("722912387287744572").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
+            stuff.client.users.cache.get("213071245896450068").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
+            message.channel.send(`ADAnswersBot has ran into an error, ${error}.`);
             console.log(error);
           }
-        });
-        collector.on("end", () => {
-          row = getRow(true);
-          sentMessage.edit({ embeds: [constructEmbedObject(page, fieldsArray)], components: [row] });
         });
       });
       return;
     }
     try {
-      message.channel.send({ embeds: [constructEmbedObject(page, fieldsArray)], components: [row] }).then(sentMessage => {
+      message.reply({ embeds: [constructEmbedObject(page, fieldsArray)], components: [row], ephemeral: true }).then(() => {
 
         collector.on("collect", async i => {
-          if (i.user.id !== message.author.id) return;
+          if (i.user.id !== message.user.id) return;
           try {
             if (i.customId === "primary-next-page") {
               page = pageChange(page, true);
@@ -498,7 +495,7 @@ function help(message, fieldsArray, stuff) {
               await i.update({ embeds: [constructEmbedObject(page, fieldsArray)], components: [row] });
             }
           } catch (error) {
-            message.channel.send(`Bot ran into an error idk how to fix itm`);
+            message.reply(`Bot ran into an error idk how to fix itm`);
             const moreInfo = `From: ${message.author.username}#${message.author.discriminator}
                               Content: ${message.content}
                               Attempted command: help
@@ -506,14 +503,11 @@ function help(message, fieldsArray, stuff) {
                               Time: ${Date()}
                               URL: ${message.channel.type === "dm" ? "N/A" : `${message.url}`}`;
             console.log(moreInfo);
-            client.channels.cache.get("722912387287744572").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
-            client.users.cache.get("213071245896450068").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
+            stuff.client.channels.cache.get("722912387287744572").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
+            stuff.client.users.cache.get("213071245896450068").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
+            message.channel.send(`ADAnswersBot has ran into an error, ${error}.`);
             console.log(error);
           }
-        });
-        collector.on("end", () => {
-          row = getRow(true);
-          sentMessage.edit({ embeds: [constructEmbedObject(page, fieldsArray)], components: [row] });
         });
       });
     } catch (err) {

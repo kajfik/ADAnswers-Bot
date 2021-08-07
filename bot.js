@@ -15,8 +15,10 @@ const Sequelize = require("sequelize");
 const fs = require("fs"); 
 const config = require("./config.json");
 const functions = require("./functions");
+const commands = require("./commands");
 
-const client = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.DIRECT_MESSAGES], partials: ["MESSAGE", "CHANNEL", "USER"] });
+// eslint-disable-next-line max-len
+const client = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.DIRECT_MESSAGES, Discord.Intents.FLAGS.GUILD_INTEGRATIONS], partials: ["MESSAGE", "CHANNEL", "USER", "REACTION", "GUILD_MEMBER"] });
 const commandFiles = fs.readdirSync("./commands").filter(file => file.endsWith(".js"));
 client.commands = new Discord.Collection();
 
@@ -151,7 +153,32 @@ client.on("error", error => {
   client.users.cache.get("213071245896450068").send(`ADAnswersBot has ran into an error, ${error}.`);
 });
 
-client.on("messageCreate", message => {
+client.on("interactionCreate", async interaction => {
+  if (!interaction.isCommand()) return;
+  if (!client.application?.owner) await client.application?.fetch();
+
+  if (!client.commands.has(interaction.commandName) && interaction.commandName !== "help") return;
+
+  if (interaction.commandName === "help") { 
+    const args = interaction.options.getInteger("page") ? interaction.options.getInteger("page") : 1; 
+    if (args > fieldsArray.length && args !== 69) {
+      interaction.reply({ content: `I'm sorry, I don't know what page you're looking for.`, ephemeral: true });
+      return; 
+    }
+    functions.help(interaction, fieldsArray, { command: "help", args: [args], id: interaction.channelId, client });
+    return;
+  }
+
+  try {
+    client.commands.get(interaction.commandName).execute(interaction, interaction.channelId);
+  } catch (error) {
+    console.error(error);
+    await interaction.reply({ content: "There was an error while executing this command!", ephemeral: true });
+  }
+});
+
+// eslint-disable-next-line complexity
+client.on("messageCreate", async message => {
   try {
     if (!message.content.startsWith(config.prefix)) return;
     incrementTag("totalRequests");
@@ -163,6 +190,17 @@ client.on("messageCreate", message => {
     const args = message.content.slice(config.prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
     const id = message.channel.id;
+    if (!client.application?.owner) await client.application?.fetch();
+    if (message.content.toLowerCase() === "++deploy") {
+      message.reply(`Beginning hostile takeover. Thank you for your patience and cooperation.`);
+      await client.application?.commands.set(commands.all).then(() => {
+        message.reply({ content: `Successfully deployed commands globally.`, ephemeral: true });
+      });
+      await client.guilds.cache.get("722268615973273722")?.commands.set(commands.all).then(() => {
+        message.reply({ content: `Successfully deployed commands to test server.`, ephemeral: true });
+      });
+      return;
+    }
 
     if (!client.commands.has(command) && command !== "help") {
       if (command.startsWith("ec") && (command.includes("x") || command.includes("×"))) {
@@ -191,7 +229,7 @@ client.on("messageCreate", message => {
     } 
     if (!client.commands.has(command) && command === "help") {
       incrementTag("help");
-      functions.help(message, fieldsArray, { command, args, id });
+      functions.help(message, fieldsArray, { command, args, id, client });
       return;
     }
 

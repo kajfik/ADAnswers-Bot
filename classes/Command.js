@@ -81,8 +81,8 @@ class Command {
   }
 
   send(message, sent) {
-    if (message.channel.type === "dm") message.author.send(sent, { split: true });
-    else message.channel.send(sent, { split: true });
+    if (message.channel.type === "DM") message.author.send(sent, { split: true });
+    else message.channel.send({ content: sent, ephemeral: true });
   }
 
   /**
@@ -96,9 +96,12 @@ class Command {
       message.channel.send(`You cannot try to trigger a command over this length!`);
       return;
     }
+    if (args[0] === undefined) {
+      this.doMissingArgCatch(message, args);
+      return;
+    }
     const sent = this.getArgMessage(args[0].toLowerCase());
-    if (args[0] === undefined) this.doMissingArgCatch(message, args);
-    else if (this.getCheck(id, message) && this.acceptableArgs.includes(args[0].toLowerCase())) this.send(message, sent);
+    if (this.getCheck(id, message) && this.acceptableArgs.includes(args[0].toLowerCase())) this.send(message, sent);
     else if (!(args[0] === undefined)) this.send(message, functions.getMessage("error", { args, name: this.name, acceptableArgs: this.acceptableArgs }));
     else message.channel.send(functions.getMessage("shouldNeverAppear"), { split: true });
   }

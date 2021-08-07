@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 "use strict";
 
-const { Command } = require("../classes/Command");
+const { ApplicationCommand } = require("../classes/ApplicationCommand/ApplicationCommand");
 
 const realityMessageObject = {
   "link": "https://ivark.github.io/Reality/",
@@ -14,7 +14,7 @@ const realityMessageObject = {
 };
 
 module.exports = {
-  command: new Command({
+  command: new ApplicationCommand({
     number: 4,
     name: "reality",
     description: "Args: `link`, `automator`, `celestials`, `blackhole`, `reset`, `perks`, `releasedate`. Most of this information was either in an official Hevi spoiler or has been said in <#351477847090659341>. Information surrounding the upcoming reality update.",
@@ -24,6 +24,11 @@ module.exports = {
     getArgMessage(arg) {
       if (this.acceptableArgs.includes(arg.toLowerCase())) return realityMessageObject[arg.toLowerCase()];
       return `Unknown arg in command reality`;
-    }
+    },
+    argInfo: {
+      key: "feature",
+      type: "string",
+    },
+    messageObject: realityMessageObject,
   })
 };

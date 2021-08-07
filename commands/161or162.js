@@ -1,10 +1,10 @@
 /* eslint-disable max-len */
 "use strict";
 
-const { Command } = require("../classes/Command");
+const { ApplicationCommand } = require("../classes/ApplicationCommand/ApplicationCommand");
 
 module.exports = {
-  command: new Command({ 
+  command: new ApplicationCommand({ 
     name: "161or162",
     number: 3,
     description: "Early Eternity command. Explains whether to chose TS161 or TS162", 

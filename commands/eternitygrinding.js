@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 "use strict";
 
-const { Command } = require("../classes/Command");
+const { ApplicationCommand } = require("../classes/ApplicationCommand/ApplicationCommand");
 
 const eternityGrindingMessageObject = {
   "early": `Eternity buyer to 0, crunch (theoretically best to worst) 2e308, 1e154,1e103, 1e77 (all with "x times last" setting)
@@ -31,7 +31,7 @@ const eternityGrindingMessageObject = {
 };
 
 module.exports = {
-  command: new Command({
+  command: new ApplicationCommand({
     name: "eternitygrinding",
     number: 3,
     description: "describes how to eternity grind",
@@ -41,6 +41,11 @@ module.exports = {
     getArgMessage(arg) {
       if (this.acceptableArgs.includes(arg.toLowerCase())) return eternityGrindingMessageObject[arg.toLowerCase()];
       return `Unknown arg in command challenge.`;
+    },
+    messageObject: eternityGrindingMessageObject,
+    argInfo: {
+      key: "when",
+      type: "string"
     }
   })
 };
