@@ -4,6 +4,8 @@
 const { MessageActionRow, MessageButton } = require("discord.js");
 const config = require("../config.json");
 const footerMessages = require("../footerMessages");
+const { botCommandsCheck } = require("./checks");
+const { toNumber, isUndefined } = require("./misc");
 
 /**
  * Sums all commands for the help command
@@ -212,7 +214,7 @@ function help(message, fieldsArray, stuff) {
       console.log(err);
     }
   } else if (stuff.command === "help" && !botCommandsCheck(stuff.id, message)) {
-    message.reply("Please use <#351479640755404820> for `++help`.");
+    message.reply({ content: "Please use <#351479640755404820> for `++help`.", ephemeral: true });
   }
 }
 
