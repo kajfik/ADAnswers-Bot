@@ -13,9 +13,9 @@
 const Discord = require("discord.js");
 const Sequelize = require("sequelize");
 const fs = require("fs"); 
-const config = require("./config.json");
-const functions = require("./functions");
-const commands = require("./commands");
+const config = require("./utils/config.json");
+const functions = require("./utils/functions");
+const commands = require("./utils/commands");
 
 // eslint-disable-next-line max-len
 const client = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.DIRECT_MESSAGES, Discord.Intents.FLAGS.GUILD_INTEGRATIONS], partials: ["MESSAGE", "CHANNEL", "USER", "REACTION", "GUILD_MEMBER"] });
@@ -35,6 +35,7 @@ const fieldsArray = [fieldsVar, fieldsVar2, fieldsVar3, fieldsVar4, fieldsVar5, 
 let Tags = undefined;
 
 const commandNames = [];
+const allCommands = [];
 
 client.login(config.token);
 
@@ -43,6 +44,10 @@ const sequelize = new Sequelize({
   storage: "./database.sqlite"
 });
 
+/**
+ * Handles the bot being ready.
+ * @async
+ */
 async function ready() {
   const NOW = Date.now();
   setup();
@@ -62,6 +67,7 @@ async function ready() {
 
   console.log(`\n\nGood morning. The current date and time is ${Date()}.\n\n`);
 
+  // Console.log(allCommands);
   // Uncomment for /docs
   // const allFields = [];
   // for (const field of fieldsArray) {
@@ -72,6 +78,9 @@ async function ready() {
 
 client.once("ready", ready);
 
+/**
+ * Sets up the bot to be able to use the database, prepares the commands, and sorts them into help pages.
+ */
 function setup() {
   Tags = sequelize.define("tags", {
     name: {
@@ -98,6 +107,7 @@ function setup() {
     // If you're adding a shorthand, please make sure to put that in.
     const e = element;
     commandNames.push(e.name);
+    allCommands.push({ name: e.name, value: e.description });
     if (e.type === undefined) {
       jiteration++;
       console.log(`Sorting command ${e.name}, command ${jiteration}...`);
@@ -110,6 +120,10 @@ function setup() {
   });
 }
 
+/**
+ * Creates sequelize tags.
+ * @param {Number} startingValue - the value at which to start the for loop.
+ */
 async function createTags(startingValue) {
   if (startingValue > commandNames.length) return;
   try {
@@ -139,6 +153,10 @@ async function createTags(startingValue) {
   }
 }
 
+/**
+ * Increments a sequelize tag.
+ * @param {String} name - name of the tag to increment
+ */
 async function incrementTag(name) {
   const tag = await Tags.findOne({ where: { name } });
   if (tag) {

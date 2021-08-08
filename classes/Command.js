@@ -2,7 +2,7 @@
 /* eslint-disable max-len */
 "use strict";
 
-const functions = require("../functions");
+const functions = require("../utils/functions");
 
 /**
  * Class representing a command. This handles all the backend of it and you only need to provide what is in the config.
@@ -20,6 +20,7 @@ class Command {
     // AcceptableArgs is args that work in the command, when applicable.
     // Sent is an array with all the possible send messages. Sent being an array is a relic from an old system that I thought would work where it stores all the possible messages that can be sent, but instead I made getArgMessage().
     // Type is something only shorthand commands have and is used to remove them from the help command.
+    // getArgMessage is a function that gets the message.
     this.name = config.name;
     this.number = config.number;
     this.description = config.description;
@@ -70,6 +71,11 @@ class Command {
     throw `Unknown check.`;
   }
 
+  /**
+   * Sends the message if there is a missing arg.
+   * @param {Object} message Object that contains all the information about the message.
+   * @param {Array} args An array with the args provided by the user in the command message.
+   */
   doMissingArgCatch(message, args) {
     if (message.content.length > 1000) {
       this.send(message, `You cannot try to trigger a command over this length!`);
@@ -80,6 +86,11 @@ class Command {
     }
   }
 
+  /**
+   * Sends the message.
+   * @param {Object} message Object that contains all the information about the message.
+   * @param {String} sent String with the message to send.
+   */
   send(message, sent) {
     if (message.channel.type === "DM") message.author.send(sent, { split: true });
     else message.channel.send({ content: sent, ephemeral: true });

@@ -2,7 +2,16 @@
 
 const { ApplicationCommand } = require("./ApplicationCommand");
 
+/**
+ * @class AchievementApplicationCommand
+ * @extends ApplicationCommand
+ * @classdesc Command for executing achievements.js.
+ */
 class AchievementApplicationCommand extends ApplicationCommand {
+  /**
+   * Executes the command.
+   * @param {Object} interaction - The interaction object used for the command that contains all useful information
+   */
   execute(interaction) {
     const args = [this.getArgs(interaction)];
     if (args[0] === null) {

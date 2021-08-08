@@ -1,11 +1,23 @@
 /* eslint-disable max-len */
 "use strict";
 
-const functions = require("../functions");
-const { Command } = require("./Command");
+// I'm keeping this because I don't really want to get rid of it, to be completely honest. It isn't used anywhere,
+// but I want to keep it for posterity, I guess.
 
+const functions = require("../../utils/functions");
+const { Command } = require("../Command");
+
+/** 
+ * @class XKCDCommand
+ * @extends {Command}
+ * Class representing a XKCD Command. Extends base {@link Command} class.
+ * No constructor, as it has no extra data in the config provided in the command files where this class is used.
+ */
 class XKCDCommand extends Command {
   // Uses args, id, message and client.
+  /**
+   * @param {Object} p Contains all information necessary to execute the command, such as args, id, message, and client.
+   */
   execute(p = {}) {
     try {
       if (p.message.content.length > 1000) {

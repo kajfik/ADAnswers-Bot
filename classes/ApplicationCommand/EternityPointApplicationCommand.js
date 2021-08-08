@@ -2,9 +2,18 @@
 "use strict";
 
 const { ApplicationCommand } = require("./ApplicationCommand");
-const functions = require("../../functions");
+const functions = require("../../utils/functions");
 
+/**
+ * @class EternityPointApplicationCommand
+ * @extends ApplicationCommand
+ * @classdesc Class for executing ep.js
+ */
 class EternityPointApplicationCommand extends ApplicationCommand {
+  /**
+   * Executes the command.
+   * @param {Object} interaction - The interaction object used for the command that contains all useful information
+   */
   execute(interaction) {
     const args = [this.getArgs(interaction)];
     const id = interaction.channelId;

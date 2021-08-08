@@ -10,6 +10,7 @@
 
 const config = require("./config.json");
 const { MessageActionRow, MessageButton } = require("discord.js");
+const footerMessages = require("./footerMessages");
 
 const PRE_SPLIT_EARLY = "11,21,33,31,41";
 const PRE_SPLIT = "11,22,32,42,51,61";
@@ -212,7 +213,7 @@ function getHelpDescription(sum) {
  * @returns {String} the footer string for help
  */
 function getFooter(ver) {
-  return `This superfluous bot was created by @earth#1337. Bug him for more commands, or use "++meta suggest".\nUse ++help [number] to go to more pages of commands.\nBot version: ${ver}`;
+  return `This superfluous bot was created by @earth#1337. Bug him for more commands, or use "++meta suggest".\nUse ++help [number] to go to more pages of commands.\nBot version: ${ver}\n${footerMessages.random()}`;
 }
 
 /**
@@ -381,6 +382,11 @@ function isUndefined(val) {
 // See https://ptb.discord.com/channels/351476683016241162/351478114620145665/873055661485883402
 // This area of code is for help. It's a mess. I'm sorry. -_- 
 
+/**
+ * Gets a MessageActionRow.
+ * @param {Boolean} disabled - if true, the row will be disabled
+ * @returns {MessageActionRow}
+ */
 const getRow = disabled => new MessageActionRow()
   .addComponents(
     new MessageButton()
@@ -396,6 +402,13 @@ const getRow = disabled => new MessageActionRow()
       .setDisabled(disabled)
       .setStyle("PRIMARY"),
   );
+
+/**
+ * Changes the page of an embed.
+ * @param {Number} page - the current page of the embed.
+ * @param {Boolean} up - if true, the page will be incremented.
+ * @returns {Number} the new page of the embed.
+ */
 function pageChange(page, up) {
   let p = page;
   if (up) {

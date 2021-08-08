@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 "use strict";
 
-const { Command } = require("./Command");
+const { Command } = require("../Command");
 const functions = require("../functions");
 
 class EternityChallengeOrderCommand extends Command {

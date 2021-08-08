@@ -2,8 +2,8 @@
 /* eslint-disable max-len */
 "use strict";
 
-const { Command } = require("./Command");
-const functions = require("../functions");
+const { Command } = require("../Command");
+const functions = require("../../utils/functions");
 
 class MetaCommand extends Command {
   execute(message, args, id) {

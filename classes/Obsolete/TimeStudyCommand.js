@@ -2,12 +2,26 @@
 /* eslint-disable max-len */
 "use strict";
 
-const { Command } = require("./Command");
-const functions = require("../functions");
+// I'm keeping this because I don't really want to get rid of it, to be completely honest. It isn't used anywhere,
+// but I want to keep it for posterity, I guess.
+
+const { Command } = require("../Command");
+const functions = require("../../utils/functions");
 
 // This also works for EC and all of the challenges
 
+/**
+ * @class TimeStudyCommand
+ * @extends {Command}
+ * Class representing a XKCD Command. Extends base {@link Command} class.
+ * No constructor, as it has no extra data in the config provided in the command files where this class is used.
+ */
 class TimeStudyCommand extends Command {
+  /**
+   * @param {string} message - Message object that contains everything about the message.
+   * @param {Array} args - Array of arguments that are passed to the command.
+   * @param {string} id - ID of the channel the command was sent in
+   */
   execute(message, args, id) {
     let argMessage;
     let argMessageWithDM;

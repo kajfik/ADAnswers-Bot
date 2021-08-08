@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 "use strict";
 
-const { Command } = require("./Command");
+const { Command } = require("../Command");
 
 class AchievementsCommand extends Command {
   constructor(config) {
