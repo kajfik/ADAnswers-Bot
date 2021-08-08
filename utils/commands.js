@@ -144,7 +144,7 @@ module.exports = {
       description: "sends that screenshot of the break infinity upgrade order spreadsheet"
     },
     { name: "bulkbuy", description: "describes bulk buy" },
-    { name: "c9", description: "shorthand for `++challenge c9`" },
+    { name: "c9", description: "shorthand for `/challenge c9`" },
     {
       name: "challenge",
       description: "Args: all challenges, including `ecs`. Returns a guide for each argument.",
@@ -225,7 +225,7 @@ module.exports = {
       description: "Describes how to progress pre-2x better Galaxies"
     },
     { name: "earth", description: "who i am n shit" },
-    { name: "ec", description: "shorthand for ++eternitychallenge", options: [{
+    { name: "ec", description: "shorthand for /eternitychallenge", options: [{
       name: "ec",
       type: "NUMBER",
       description: "What Eternity Challenge are you doing?",
@@ -241,7 +241,7 @@ module.exports = {
     }] },
     {
       name: "eco",
-      description: "Shorthand of ++eternitychallengeorder.",
+      description: "Shorthand of /eternitychallengeorder.",
       options: [{
         name: "ec",
         type: "NUMBER",
@@ -257,10 +257,10 @@ module.exports = {
         choices: getChoices("eternitychallenge", "completions")
       }]
     },
-    { name: "ecs", description: "shorthand for `++challenge ecs`" },
+    { name: "ecs", description: "shorthand for `/challenge ecs`" },
     {
       name: "eep",
-      description: "shorthand for ++earlyeternityprogression"
+      description: "shorthand for /earlyeternityprogression"
     },
     {
       name: "ep",
@@ -274,7 +274,7 @@ module.exports = {
     },
     {
       name: "eternitychallenge",
-      description: "Requires one argument: `++eternitychallenge [ECNumber]x[CompletionNumber]`.",
+      description: "Requires one argument: `/eternitychallenge [ECNumber]x[CompletionNumber]`.",
       options: [{
         name: "ec",
         type: "NUMBER",
@@ -292,7 +292,7 @@ module.exports = {
     },
     {
       name: `ttforecs`,
-      description: "Describes why sometimes the same tree gets a different cost on ++ec."
+      description: "Describes why sometimes the same tree gets a different cost on /ec."
     },
     {
       name: "eternitychallengeorder",
@@ -360,8 +360,8 @@ module.exports = {
       name: "helpnumbers",
       description: "sends what each of the help pages has on it"
     },
-    { name: "ic4", description: "shorthand for `++challenge ic4`" },
-    { name: "ic5", description: "shorthand for `++challenge ic5`" },
+    { name: "ic4", description: "shorthand for `/challenge ic4`" },
+    { name: "ic5", description: "shorthand for `/challenge ic5`" },
     { name: "importexport", description: "How to import/export saves" },
     {
       name: "infinity",
@@ -512,7 +512,7 @@ module.exports = {
     { name: "thanks", description: "say thanks" },
     { 
       name: "ts", 
-      description: "shorthand for `++studytree`", 
+      description: "shorthand for `/studytree`", 
       options: [{
         name: "theorems",
         type: "NUMBER",

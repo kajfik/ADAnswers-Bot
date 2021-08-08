@@ -7,7 +7,7 @@ module.exports = {
   command: new TimeStudyApplicationCommand({
     name: "ec",
     number: 6,
-    description: "shorthand for ++eternitychallenge",
+    description: "shorthand for /eternitychallenge",
     type: "shorthand",
     check: "ecsCheck",
     sent: undefined,

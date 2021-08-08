@@ -1,5 +1,7 @@
 "use strict";
 
+const footerMessages = require("../footerMessages");
+
 /**
  * Parses a number using parseInt(), just shorthand
  * @param {String} string parses a string and turns it to a Number
@@ -21,7 +23,7 @@ function isUndefined(val) {
 /**
  * Does exactly what it says on the tin
  * @param {Number} ms mumber of milliseconds as specified by the input
- * @returns {Object} object containing days, hours, minutes, seconds, and the clock used in ++meta uptime
+ * @returns {Object} object containing days, hours, minutes, seconds, and the clock used in /meta
  */
 function convertMillisecondsToDigitalClock(ms) {
   const days = Math.floor(ms / (3600000 * 24)),
@@ -45,23 +47,33 @@ function convertMillisecondsToDigitalClock(ms) {
  * @param {Object} client This is the discord Client object that was declared in bot.js.
  */
 function startIntervals(client) {
-  setInterval(setBotStatus, 60000, client);
+  setInterval(setBotStatus, 30000, client);
 }
 
-let which = true;
+const activityMessages = {
+  all: [
+    ` people here and in DMs since 1992 || ${footerMessages.random()}`,
+    ` the wizarding world of slash commands || ${footerMessages.random()}`,
+    ` you. || ${footerMessages.random()}`,
+    ` Christmas music. || ${footerMessages.random()}`,
+    ` 80s rock. || ${footerMessages.random()}`,
+    ` my creator. || ${footerMessages.random()}`,
+    ` the screams of horror while I take over the world. || ${footerMessages.random()}`,
+    ` a cassette tape. || ${footerMessages.random()}`,
+    ` vinyl. || ${footerMessages.random()}`,
+    ` Huey Lewis and the News. || ${footerMessages.random()}`
+  ],
+  random() {
+    return this.all[Math.floor(Math.random() * this.all.length)];
+  }
+};
 
 /**
  * Changes the bot status, currently every minute.
  * @param {Object} client This is the discord Client object that was declared in bot.js.
  */
 function setBotStatus(client) {
-  if (which) {
-    client.user.setActivity(" people here and in DMs since 1992 || created by earth#1337 || use ++help!", { type: "LISTENING" });
-    which = !which;
-  } else if (!which) {
-    client.user.setActivity(" people here and in DMs since 1992 || created by earth#1337 || You can use the bot in DMs, too!", { type: "LISTENING" });
-    which = !which;
-  }
+  client.user.setActivity(activityMessages.random(), { type: "LISTENING" });
 }
 
 /**

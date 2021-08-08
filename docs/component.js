@@ -40,10 +40,10 @@ const commands = [
     value: "sends that screenshot of the break infinity upgrade order spreadsheet"
   },
   { name: "bulkbuy", value: "describes bulk buy" },
-  { name: "c9", value: "shorthand for `++challenge c9`" },
+  { name: "c9", value: "shorthand for `/challenge c9`" },
   {
     name: "challenge",
-    value: "Args: all challenges, including `ecs`. Returns a guide for each argument. All of these commands have shorthands as well, f.e `++challenge c2` will return the same result as `++c2`"
+    value: "Args: all challenges, including `ecs`. Returns a guide for each argument. All of these commands have shorthands as well, f.e `/challenge c2` will return the same result as `/c2`"
   },
   {
     name: "challengecodes",
@@ -104,24 +104,24 @@ const commands = [
     value: "Describes how to progress pre-2x better Galaxies"
   },
   { name: "earth", value: "who i am n shit" },
-  { name: "ec", value: "shorthand for ++eternitychallenge" },
+  { name: "ec", value: "shorthand for /eternitychallenge" },
   {
     name: "eco",
-    value: "Has a shorthand: `++eco`. Args: highest eternity challenge you've down in the order (optional). Returns the EC order. Will show the previous EC as well when provided a specified challenge."
+    value: "Has a shorthand: `/eco`. Args: highest eternity challenge you've down in the order (optional). Returns the EC order. Will show the previous EC as well when provided a specified challenge."
   },
-  { name: "ecs", value: "shorthand for `++challenge ecs`" },
-  { name: "eep", value: "shorthand for ++earlyeternityprogression" },
+  { name: "ecs", value: "shorthand for `/challenge ecs`" },
+  { name: "eep", value: "shorthand for /earlyeternityprogression" },
   {
     name: "ep",
     value: "calculates the amount of IP required to get the number of EP specified. Works up to 1000. Excludes any possible multipliers."
   },
   {
     name: "eternitychallenge",
-    value: "Has a shorthand: `++ec`. Requires one argument: `++eternitychallenge [ECNumber]x[CompletionNumber]`. You may notice that some trees increase the number of TT you need, even though it's the same tree as the previous. This follows the Eternity Challenge guide followed by Ninjatsu, and TT can be used as something of a progress marker. For that reason, some trees have more TT than others for the same tree. Returns Total TT for a tree and then the tree."
+    value: "Has a shorthand: `/ec`. Requires one argument: `/eternitychallenge [ECNumber]x[CompletionNumber]`. You may notice that some trees increase the number of TT you need, even though it's the same tree as the previous. This follows the Eternity Challenge guide followed by Ninjatsu, and TT can be used as something of a progress marker. For that reason, some trees have more TT than others for the same tree. Returns Total TT for a tree and then the tree."
   },
   {
     name: "eternitychallengeorder",
-    value: "Has a shorthand: `++eco`. Args: highest eternity challenge you've down in the order (optional). Returns the EC order. Will show the previous EC as well when provided a specified challenge."
+    value: "Has a shorthand: `/eco`. Args: highest eternity challenge you've down in the order (optional). Returns the EC order. Will show the previous EC as well when provided a specified challenge."
   },
   {
     name: "eternitygrinding",
@@ -151,8 +151,8 @@ const commands = [
     name: "helpnumbers",
     value: "sends what each of the help pages has on it"
   },
-  { name: "ic4", value: "shorthand for `++challenge ic4`" },
-  { name: "ic5", value: "shorthand for `++challenge ic5`" },
+  { name: "ic4", value: "shorthand for `/challenge ic4`" },
+  { name: "ic5", value: "shorthand for `/challenge ic5`" },
   { name: "importexport", value: "How to import/export saves" },
   {
     name: "infinity",
@@ -228,12 +228,12 @@ const commands = [
   { name: "spectralflame", value: "spec!" },
   {
     name: "studytree",
-    value: "Has a shorthand: `++ts`. Generates a Time Study tree based on your total Time Theorems.\n" +
+    value: "Has a shorthand: `/ts`. Generates a Time Study tree based on your total Time Theorems.\n" +
       "  Args: your total Time Theorems. Beginning at 54 TT, the command will take a second argument: `active`, `passive`, or `idle`. The argument is optional, and the default value is `active`."
   },
   { name: "swipetrick", value: "Explains swipe trick for mobile" },
   { name: "thanks", value: "say thanks" },
-  { name: "ts", value: "shorthand for `++studytree`" },
+  { name: "ts", value: "shorthand for `/studytree`" },
   {
     name: "tstreerange",
     value: "Says why sometimes the bot will recommend a tree for more TT than you have"

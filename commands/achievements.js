@@ -61,7 +61,7 @@ const achievementsMessageObject = {
   "r126": `Reach at least 180 max RGs (can buy antimatter galaxies). Use active path because of 50% more RGs. Disable galaxy autobuyer, crunch, then buy 180 RGs.`,
   get "pm"() { return this.r126; },
 
-  "r131": `See \`++infinitygrinding\`. Done in conjunction with r134 (When Will It Be Enough).`,
+  "r131": `See \`/infinitygrinding late\`. Done in conjunction with r134 (When Will It Be Enough).`,
   get "nec"() { return this.r131; },
 
   "r133": `Disable your ID autobuyer and the autobuyer for the 2xIP multiplier on the Infinity Upgrades (not Break Infinity Upgrades!) tab.

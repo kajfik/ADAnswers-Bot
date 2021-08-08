@@ -455,7 +455,7 @@ const revampedECs = [
     completion: 1,
     tt: 5600,
     ip: "`1e500`",
-    note: "`Get the Popular Music - achievement first (if you need help with it use ++achievements pm).`",
+    note: "`Get the Popular Music - achievement first (if you need help with it use /achievements pm).`",
     tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,121,131,141,151,161,162,171,181,191,192,193,211,212,213,222,225,231,233|11`"
   },
   {
@@ -463,7 +463,7 @@ const revampedECs = [
     completion: 2,
     tt: 5600,
     ip: "`1e700`",
-    note: "`Get the Popular Music - achievement first (if you need help with it use ++achievements pm).`",
+    note: "`Get the Popular Music - achievement first (if you need help with it use /achievements pm).`",
     tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,121,131,141,151,161,162,171,181,191,192,193,211,212,213,222,225,231,233|11`"
   },
   {
@@ -471,7 +471,7 @@ const revampedECs = [
     completion: 3,
     tt: 5950,
     ip: "`1e900`",
-    note: "`Get the Popular Music - achievement first (if you need help with it use ++achievements pm).`",
+    note: "`Get the Popular Music - achievement first (if you need help with it use /achievements pm).`",
     tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,123,133,143,151,161,162,171,181,191,192,193,211,212,213,222,223,225,231,233|11`"
   },
   {
@@ -479,7 +479,7 @@ const revampedECs = [
     completion: 4,
     tt: 5950,
     ip: "`1e1100`",
-    note: "`Get the Popular Music - achievement first (if you need help with it use ++achievements pm).`",
+    note: "`Get the Popular Music - achievement first (if you need help with it use /achievements pm).`",
     tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,123,133,143,151,161,162,171,181,191,192,193,211,212,213,222,223,225,231,233|11`"
   },
   {
@@ -487,7 +487,7 @@ const revampedECs = [
     completion: 5,
     tt: 5950,
     ip: "`1e1300`",
-    note: "`This takes around 2h 45m. Get the Popular Music - achievement first (if you need help with it use ++achievements pm).`",
+    note: "`This takes around 2h 45m. Get the Popular Music - achievement first (if you need help with it use /achievements pm).`",
     tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,123,133,143,151,161,162,171,181,191,192,193,211,212,213,222,223,225,231,233|11`"
   },
   // EC12
@@ -539,7 +539,7 @@ module.exports = {
   command: new TimeStudyApplicationCommand({
     number: 4,
     name: "eternitychallenge",
-    description: "Has a shorthand: `++ec`. Requires one argument: `++eternitychallenge [ECNumber]x[CompletionNumber]`. You may notice that some trees increase the number of TT you need, even though it's the same tree as the previous. This follows the Eternity Challenge guide followed by Ninjatsu, and TT can be used as something of a progress marker. For that reason, some trees have more TT than others for the same tree. Returns Total TT for a tree and then the tree.",
+    description: "Has a shorthand: `/ec`. Requires one argument: `/eternitychallenge [ECNumber]x[CompletionNumber]`. You may notice that some trees increase the number of TT you need, even though it's the same tree as the previous. This follows the Eternity Challenge guide followed by Ninjatsu, and TT can be used as something of a progress marker. For that reason, some trees have more TT than others for the same tree. Returns Total TT for a tree and then the tree.",
     check: "ecsCheck",
     acceptableArgs: order.concat(orderWithMultSigns),
     sent: undefined,

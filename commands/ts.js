@@ -8,7 +8,7 @@ module.exports = {
   command: new TimeStudyApplicationCommand({
     number: 6,
     name: "ts",
-    description: "shorthand for `++studytree`",
+    description: "shorthand for `/studytree`",
     type: "shorthand",
     check: "studyTreeCheck",
     sent: undefined,

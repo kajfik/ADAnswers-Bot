@@ -195,7 +195,8 @@ client.on("interactionCreate", async interaction => {
     incrementTag("totalSuccesses");
   } catch (error) {
     console.error(error);
-    await interaction.reply({ content: "There was an error while executing this command!", ephemeral: true });
+    client.commands.get(interaction.commandName).error(interaction, error);
+    await interaction.reply({ content: `There was an error while executing command ${interaction.commandName}.`, ephemeral: true });
   }
 });
 
@@ -203,7 +204,10 @@ client.on("interactionCreate", async interaction => {
 client.on("messageCreate", async message => {
   try {
     if (message.author.id !== "213071245896450068" && message.author.id !== "830197123378053172" && message.content.startsWith(config.prefix)) {
-      message.reply("Using the ++ prefix is now deprecated. Please switch to using slash commands. You can start by typing /");
+      message.reply(`Using the ++ prefix is now deprecated. Please switch to using slash commands. You can start by typing /
+      
+      This change was made for the convenience of new users with the bot. I do understand that many of you are used to the ++, and if I
+      could've kept it I would've. But when push comes to shove, I believe that the slash commands are generally better for the bot.`);
       return;
     }
     if (!client.application?.owner) await client.application?.fetch();

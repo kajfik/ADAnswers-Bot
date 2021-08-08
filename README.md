@@ -14,7 +14,7 @@ The issues tab is my best friend for keeping track of what to do for each bot ve
 ### Step 1
 Navigate to the /commands folder. In this folder, you can find all commands. 
 ### Step 2
-Quiz yourself! What kind of command are you trying to make? From command `++helpNumbers`:
+Quiz yourself! What kind of command are you trying to make? From command `/helpNumbers`:
 ```
 Page 1 covers until break infinity
 Page 2 rest of infinity era + achievements and swipe trick

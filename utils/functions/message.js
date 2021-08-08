@@ -1,11 +1,12 @@
 /* eslint-disable no-console */
 "use strict";
 
+const tree = require("./tree");
 const config = require("../config.json");
 
 /**
- * Generates the message for ++channel that contains all channels that each command works in
- * @returns {String} a string for the ++channel command
+ * Generates the message for /channel that contains all channels that each command works in
+ * @returns {String} a string for the /channel command
  */
 function generateChannelMessage() {
   const ids = config.ids;
@@ -29,7 +30,7 @@ function generateChannelMessage() {
 function getMessage(command, stuff = {}) {
   switch (command) {
     case "ts":
-      return generateTree(stuff.theorem, stuff.path);
+      return tree.generateTree(stuff.theorem, stuff.path);
     case "channel":
       return generateChannelMessage();
     case "error":
@@ -46,7 +47,7 @@ function getMessage(command, stuff = {}) {
   }
 }
 
-const use = `Use \`++channels\` to see which channels that is!`;
+const use = `Use \`/channels\` to see which channels that is!`;
 const noWorkyMessage = (channels, secondaryChannels) => `This command only works in the ${channels} channel(s),${secondaryChannels ? ` ${secondaryChannels} channels,` : ``} bot commands, or the common channels. ${use}`;
 const noWorkyMessageObject = {
   "earlyGame": noWorkyMessage("early game"),
@@ -60,7 +61,7 @@ const noWorkyMessageObject = {
   "ecsPlus": noWorkyMessage("Eternity Challenge", "endgame"),
   "botCommands": `This is a miscellaneous command and is only allowed in <#351479640755404820>`,
   "bankedInfs": `This command only works in the post-TS181 channel and on. You can also use <#351479640755404820>!`,
-  "dilationGrind": `This command only works in the channel directly before Dilation, bot commands, or the common channels. Use \`++channels\` to see which channels that is!`,
+  "dilationGrind": `This command only works in the channel directly before Dilation, bot commands, or the common channels. ${use}`,
   "endgame": noWorkyMessage("endgame"),
   "e4000": noWorkyMessage("e4000 EP"),
   "ic4/5": noWorkyMessage("Break Infinity", "early Eternity"),

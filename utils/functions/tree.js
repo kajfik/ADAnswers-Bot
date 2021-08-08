@@ -82,7 +82,7 @@ function lightDark(theorem) {
   const tree = {};
   if (theorem >= 12500) {
     tree.ts = BASE.concat(191, 211, 222, 212, 224, 232, 192, 201, INFINITY, 193, 214, 228, 234, 213, 226);
-    tree.desc = "If you cannot get the last TT to unlock dilation, use ++dilationgrind.";
+    tree.desc = "If you cannot get the last TT to unlock dilation, use /dilationgrind.";
   } else if (theorem >= 4945) {
     tree.ts = BASE.concat(191, 211, 222, 212, 224, 232, 192, 201, INFINITY, 193, 214, 228, 234, 213, 226);
   } else if (theorem >= 3925) {

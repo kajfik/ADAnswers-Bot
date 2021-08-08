@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-negated-condition */
 "use strict";
 
@@ -8,7 +9,7 @@ const functions = require("../../utils/functions/functions");
 /** 
  * @class ApplicationCommand
  * @extends {Command}
- * Class that does slash command execution. Extends {@link Command} class.
+ * @classdesc Class that does slash command execution. Extends {@link Command} class.
  */
 class ApplicationCommand extends Command {
   /**
@@ -36,6 +37,26 @@ class ApplicationCommand extends Command {
     } else if (this.acceptableArgs !== undefined) {
       this.regularCommand(interaction, [this.getArgs(interaction)], id);
     }
+  }
+
+  /**
+   * Throws an error.
+   * @param {Object} interaction - Contains the information useful for throwing an error, like username, discriminator, etc.
+   * @param {String} error - The error message to be thrown.
+   */
+  error(interaction, error) {
+    const moreInfo = `From: ${interaction.users.username}#${interaction.user.discriminator}
+                             Attempted command: ${interaction.commandName}
+                             Channel type: ${interaction.channel.type}
+                             Time: ${Date()}
+                             URL: ${interaction.channel.type === "DM" ? "N/A" : `${message.url}`}
+                             Args: ${this.argKey ? this.getArgs(interaction) : `N/A`}`;
+    console.log(moreInfo);
+    interaction.client.channels.cache.get("722912387287744572").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
+    interaction.client.users.cache.get("213071245896450068").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
+    interaction.reply({ content: `There was an error while executing command ${interaction.commandName}.`, ephemeral: true });
+    interaction.followUp(`ADAnswersBot has ran into an error, ${error}.`);
+    console.log(error);
   }
 
   /**

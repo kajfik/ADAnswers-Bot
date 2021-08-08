@@ -9,7 +9,7 @@ module.exports = {
     number: 3,
     type: "shorthand",
     check: "earlyEternity",
-    description: "shorthand for ++earlyeternityprogression",
+    description: "shorthand for /earlyeternityprogression",
     sent: [EarlyEternityProgression.command.sent[0]]
   }),
 };

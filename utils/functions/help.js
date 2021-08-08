@@ -36,7 +36,7 @@ function getHelpDescription(sum) {
  * @returns {String} the footer string for help
  */
 function getFooter(ver) {
-  return `This superfluous bot was created by @earth#1337. Bug him for more commands, or use "++meta suggest".\nUse ++help [number] to go to more pages of commands.\nBot version: ${ver}\n${footerMessages.random()}`;
+  return `This superfluous bot was created by @earth#1337. Bug him for more commands, or use "/meta suggest".\nUse /help [number] to go to more pages of commands.\nBot version: ${ver}\n${footerMessages.random()}`;
 }
 /**
  * Constructs an embed object for each help page
@@ -214,7 +214,7 @@ function help(message, fieldsArray, stuff) {
       console.log(err);
     }
   } else if (stuff.command === "help" && !botCommandsCheck(stuff.id, message)) {
-    message.reply({ content: "Please use <#351479640755404820> for `++help`.", ephemeral: true });
+    message.reply({ content: "Please use <#351479640755404820> for `/help`.", ephemeral: true });
   }
 }
 
