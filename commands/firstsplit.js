@@ -1,10 +1,10 @@
 /* eslint-disable max-len */
 "use strict";
 
-const { Command } = require("../classes/Command");
+const { ApplicationCommand } = require("../classes/ApplicationCommand/ApplicationCommand");
 
 module.exports = {
-  command: new Command({
+  command: new ApplicationCommand({
     number: 3,
     name: "firstsplit",
     description: "Describes how to progress on the time study tree pre-TS171",

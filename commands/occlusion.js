@@ -1,10 +1,10 @@
 /* eslint-disable max-len */
 "use strict";
 
-const { Command } = require("../classes/Command");
+const { ApplicationCommand } = require("../classes/ApplicationCommand/ApplicationCommand");
 
 module.exports = {
-  command: new Command({
+  command: new ApplicationCommand({
     name: "occlusion",
     number: 6,
     description: "shows a guide of how to fix out-of-focus tabs on chrome not giving full progress",

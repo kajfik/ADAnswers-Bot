@@ -1,10 +1,10 @@
 /* eslint-disable max-len */
 "use strict";
 
-const { Command } = require("../classes/Command");
+const { ApplicationCommand } = require("../classes/ApplicationCommand/ApplicationCommand");
 
 module.exports = {
-  command: new Command({
+  command: new ApplicationCommand({
     number: 5,
     name: "savebank",
     description: "Provides a link to Buck's save bank.",

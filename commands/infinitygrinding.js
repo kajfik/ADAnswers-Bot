@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 "use strict";
 
-const { Command } = require("../classes/Command");
+const { ApplicationCommand } = require("../classes/ApplicationCommand/ApplicationCommand");
 
 const infinityGrindingMessageObject = {
   "early": "Crunch autobuyer on 5.1 seconds (because of the reward from 2mi (and for help with attaining this achievement, use `++achievements 2mi`)), and make sure you have TS32 for the extra multiplier based on DimBoosts",
@@ -19,7 +19,7 @@ const infinityGrindingMessageObject = {
 };
 
 module.exports = {
-  command: new Command({
+  command: new ApplicationCommand({
     name: "infinitygrinding",
     number: 3,
     description: "Args: `early`, `late`. Sends how to grind infinities for each of those time periods. Early is for EC4, late is for banking infinities.",
@@ -27,6 +27,11 @@ module.exports = {
     check: "ecsPlus",
     getArgMessage(arg) {
       return infinityGrindingMessageObject[arg.toLowerCase()];
-    }
+    },
+    argInfo: {
+      key: "when",
+      type: "string",
+    },
+    messageObject: infinityGrindingMessageObject,
   })
 };

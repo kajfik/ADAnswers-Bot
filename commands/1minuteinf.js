@@ -1,10 +1,10 @@
 /* eslint-disable max-len */
 "use strict";
 
-const { Command } = require("../classes/Command");
+const { ApplicationCommand } = require("../classes/ApplicationCommand/ApplicationCommand");
 
 module.exports = {
-  command: new Command({ 
+  command: new ApplicationCommand({ 
     name: "1minuteinf", 
     number: 1, 
     description: "explains the UI change at infinity in under a minute",

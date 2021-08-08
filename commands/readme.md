@@ -14,7 +14,7 @@ Create yourself a file! You will need to name it something useful, not like `ass
 Please make sure you have ESLint enabled. As soon as you start typing if you don't get an error, you do not have it enabled. It should automatically take the .eslintrc.json and .editorconfig files to conform to the style guidelines of this code
 
 ### Step 2
-If you intend on using `functions` in your command, add `const functions = require("../functions");` to it. This is very important!
+If you intend on using `functions` in your command, add `const functions = require("../utils/functions/functions");` to it. This is very important!
 Note: (Most) IDEs will automatically import it when you type `functions.`, same with the `Command` class when typing `new Command({})`.
 
 ### Step 3

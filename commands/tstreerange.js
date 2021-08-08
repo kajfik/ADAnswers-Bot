@@ -1,9 +1,9 @@
 "use strict";
 
-const { Command } = require("../classes/Command");
+const { ApplicationCommand } = require("../classes/ApplicationCommand/ApplicationCommand");
 
 module.exports = {
-  command: new Command({
+  command: new ApplicationCommand({
     name: "tstreerange",
     description: "Says why sometimes the bot will recommend a tree for more TT than you have",
     number: 4,

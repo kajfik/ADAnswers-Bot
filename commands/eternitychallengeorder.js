@@ -5,7 +5,7 @@
 const order = "1x1, 2x1, 1x2, 3x1, 4x1, 5x1, 1x3, 3x2, 2x2, 6x1, 1x4, 3x3, 7x1, 4x2, 4x3, 6x2, 1x5, 5x2, 2x3, 3x4, 7x2, 5x3, 8x1, 3x5, 6x3, 2x4, 5x4, 7x3, 2x5, 5x5, 4x4, 6x4, 7x4, 8x2, 6x5, 4x5, 8x3, 9x1, 9x2, 8x4, 9x3, 9x4, 8x5, 9x5, 10x1, 7x5, 10x2, 10x3, 10x4, 10x5, 11x1, 11x2, 11x3, 11x4, 11x5, 12x1, 12x2, 12x3, 12x4, 12x5";
 const orderInArray = ["1x1", "2x1", "1x2", "3x1", "4x1", "5x1", "1x3", "3x2", "2x2", "6x1", "1x4", "3x3", "7x1", "4x2", "4x3", "6x2", "1x5", "5x2", "2x3", "3x4", "7x2", "5x3", "8x1", "3x5", "6x3", "2x4", "5x4", "7x3", "2x5", "5x5", "4x4", "6x4", "7x4", "8x2", "6x5", "4x5", "8x3", "9x1", "9x2", "8x4", "9x3", "9x4", "8x5", "9x5", "10x1", "7x5", "10x2", "10x3", "10x4", "10x5", "11x1", "11x2", "11x3", "11x4", "11x5", "12x1", "12x2", "12x3", "12x4", "12x5"];
 
-const { EternityChallengeOrderCommand } = require("../classes/EternityChallengeOrderCommand");
+const { TimeStudyApplicationCommand } = require("../classes/ApplicationCommand/TimeStudyApplicationCommand");
 
 function otherCompletions(id, completion) {
   if (id < 1 || id > 12) {
@@ -41,7 +41,7 @@ function otherCompletions(id, completion) {
 }
 
 module.exports = {
-  command: new EternityChallengeOrderCommand({
+  command: new TimeStudyApplicationCommand({
     number: 3,
     name: "eternitychallengeorder",
     description: "Has a shorthand: `++eco`. Args: highest eternity challenge you've down in the order (optional). Returns the EC order. Will show the previous EC as well when provided a specified challenge.",
@@ -50,15 +50,19 @@ module.exports = {
     sent: [`${order}`],
     getArgMessage(arg) {
       const sentArr = [];
-      const ec = arg.split("x");
+      const ec = arg[0].split("x");
       const ecothers = otherCompletions(ec[0], ec[1]);
-      for (let i = orderInArray.indexOf(arg) - 1; i < orderInArray.length; i++) {
+      for (let i = orderInArray.indexOf(arg[0]) - 1; i < orderInArray.length; i++) {
         sentArr.push(orderInArray[i]);
       }
-      sentArr[sentArr.indexOf(arg)] = `__***${arg}***__`;
+      sentArr[sentArr.indexOf(arg[0])] = `__***${arg[0]}***__`;
       return `Order: ${sentArr.join(", ")}
       Other completions you need: \`${ecothers}\`
       For more information on beating this challenge, use the command \`++ec ${ec[0]}x${ec[1]}\``;
+    },
+    argInfo: {
+      ec: { key: "ec", type: "number" },
+      completion: { key: "completion", type: "number" },
     }
   })
 };

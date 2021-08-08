@@ -1,0 +1,561 @@
+/* eslint-disable max-len */
+"use strict";
+
+const AchievementsCommand = require("../commands/achievements");
+const AntitablesCommand = require("../commands/antitables");
+const ChallengeCommand = require("../commands/challenge");
+const DilationtreesCommand = require("../commands/dilationtrees");
+const infinitygrindingCommand = require("../commands/infinitygrinding");
+const RealityCommand = require("../commands/reality");
+
+/**
+ * @param {string} command - The command to get the message object for.
+ * @returns {Object} - The message object for the command.
+ */
+function getMessageObject(command) {
+  switch (command) {
+    case "antitables": return AntitablesCommand.command.messageObject;
+    case "achievements": return AchievementsCommand.command.messageObject;
+    case "challenge": return ChallengeCommand.command.messageObject;
+    case "dilationtrees": return DilationtreesCommand.command.messageObject;
+    case "infinitygrinding": return infinitygrindingCommand.command.messageObject;
+    case "reality": return RealityCommand.command.messageObject;
+    default: return `Unknown message object.`;
+  }
+}
+
+/**
+ * Gets the choices for a specific command.
+ * @param {string} command - The command to get the choices for.
+ * @param {string} which - Used in eternitychallenge for getting both completions and challenges.
+ * @returns {Array} - The choices for the command.
+ */
+function getChoices(command, which) {
+  const choices = [];
+  if (command === "achievements") {
+    for (const ach in getMessageObject(command)) {
+      if (ach.startsWith("r")) {
+        choices.push({
+          name: ach,
+          value: ach,
+          type: "STRING"
+        });
+      }
+    }
+  } else if (command === "eternitychallenge") {
+    let max = 0;
+    if (which === "challenges") max = 12;
+    else max = 5;
+    for (let i = 1; i <= max; i++) {
+      choices.push({
+        name: i,
+        value: i,
+        type: "NUMBER"
+      });
+    }
+  } else if (command === "studytree") {
+    choices.push({
+      name: "active",
+      value: "active",
+      type: "STRING",
+    }, {
+      name: "passive",
+      value: "passive",
+      type: "STRING",
+    }, {
+      name: "idle",
+      value: "idle",
+      type: "STRING",
+    });
+  } else {
+    for (const ach in getMessageObject(command)) {
+      choices.push({
+        name: ach,
+        value: ach,
+        type: "STRING"
+      });
+    }
+  }
+  return choices;
+}
+
+module.exports = {
+  getChoices,
+  all: [
+    {
+      name: "161or162",
+      description: "Early Eternity command. Explains whether to chose TS161 or TS162"
+    },
+    {
+      name: "1minuteinf",
+      description: "explains the UI change at infinity in under a minute"
+    },
+    {
+      name: "5hours",
+      description: "Explains the long-standing 5 hours joke"
+    },
+    { name: "abb", description: "sends an abbreviation guide" },
+    {
+      name: "achievements",
+      description: "sends link to achievements guide",
+      options: [{
+        name: "achievement",
+        type: "STRING",
+        description: "which achievement do you want to see a guide for? choice not required!",
+        required: false,
+        choices: getChoices("achievements")
+      }]
+    },
+    {
+      name: "adbonus",
+      description: "Sends ad bonus formulas/multipliers"
+    },
+    {
+      name: "androidorweb",
+      description: "sends the pinned message from the mobile channel describing the differences."
+    },
+    {
+      name: "antitables",
+      description: "Args: `prebreak`, `postbreak`, `posteternity`. Sends a guide to Antitables.",
+      options: [{
+        name: "when",
+        type: "STRING",
+        description: "At what point in the game are you? prebreak, postbreak, or posteternity?",
+        required: true,
+        choices: getChoices("antitables")
+      }]
+    },
+    { name: "archa", description: "archa!" },
+    {
+      name: "bankedinfinities",
+      description: "describes banked infinities, what they do, and how to get them."
+    },
+    { name: "blob", description: "blob" },
+    {
+      name: "bottombuttons",
+      description: "shows what the bottom buttons are"
+    },
+    {
+      name: "breakinfinity",
+      description: "describes break infinity and gives an order to get break infinity upgrades"
+    },
+    {
+      name: "bugo",
+      description: "sends that screenshot of the break infinity upgrade order spreadsheet"
+    },
+    { name: "bulkbuy", description: "describes bulk buy" },
+    { name: "c9", description: "shorthand for `++challenge c9`" },
+    {
+      name: "challenge",
+      description: "Args: all challenges, including `ecs`. Returns a guide for each argument.",
+      options: [{
+        name: "challenge",
+        type: "STRING",
+        description: "What challenge would you like to see a guide for?",
+        required: true,
+        choices: getChoices("challenge")
+      }]
+    },
+    {
+      name: "challengecodes",
+      description: 'Sends a picture with all of the challenges notated with their "code"'
+    },
+    {
+      name: "changeectree",
+      description: "Describes how to change your tree for doing an EC"
+    },
+    {
+      name: "channels",
+      description: "Sends a list of channels and their ids/part of game progress"
+    },
+    {
+      name: "columns",
+      description: "sends an image with the columns of infinity upgrades"
+    },
+    {
+      name: "commands",
+      description: "sends a link to the website with all commands"
+    },
+    {
+      name: "contributors",
+      description: "sends a list of contributors and what they helped with!"
+    },
+    {
+      name: "deadchat",
+      description: "sends that one message from spec that he said that one time"
+    },
+    {
+      name: "decimal",
+      description: "Explains how break_infinity.js works"
+    },
+    { name: "dilation", description: "describes dilation" },
+    {
+      name: "dilationgrind",
+      description: "sends a message pertaining to reaching dilation"
+    },
+    {
+      name: "dilationtrees",
+      description: "Sends a tree for your progress in dilation, `first` or `after3paths`",
+      options: [{
+        name: "when",
+        type: "STRING",
+        description: "At what point in the game are you? `first` or `after3paths`?",
+        required: true,
+        choices: getChoices("dilationtrees")
+      }]
+    },
+    {
+      name: "dimboostorgalaxy",
+      description: "tells you if you should do a dimboost or galaxy"
+    },
+    {
+      name: "discordformatting",
+      description: "returns a link to a list of discord formatting stuff"
+    },
+    {
+      name: "dm",
+      description: "Yes, you can use the bot in your DM's with it."
+    },
+    {
+      name: "earlyeternityprogression",
+      description: "describes getting through the first few eternities"
+    },
+    {
+      name: "earlyinfinity",
+      description: "Describes how to progress pre-2x better Galaxies"
+    },
+    { name: "earth", description: "who i am n shit" },
+    { name: "ec", description: "shorthand for ++eternitychallenge", options: [{
+      name: "ec",
+      type: "NUMBER",
+      description: "What Eternity Challenge are you doing?",
+      required: true,
+      choices: getChoices("eternitychallenge", "challenges")
+    },
+    {
+      name: "completion",
+      type: "NUMBER",
+      description: "What is the completion number?",
+      required: true,
+      choices: getChoices("eternitychallenge", "completions")
+    }] },
+    {
+      name: "eco",
+      description: "Shorthand of ++eternitychallengeorder.",
+      options: [{
+        name: "ec",
+        type: "NUMBER",
+        description: "What Eternity Challenge are you doing?",
+        required: true,
+        choices: getChoices("eternitychallenge", "challenges")
+      },
+      {
+        name: "completion",
+        type: "NUMBER",
+        description: "What is the completion number?",
+        required: true,
+        choices: getChoices("eternitychallenge", "completions")
+      }]
+    },
+    { name: "ecs", description: "shorthand for `++challenge ecs`" },
+    {
+      name: "eep",
+      description: "shorthand for ++earlyeternityprogression"
+    },
+    {
+      name: "ep",
+      description: "calculates the amount of IP required to get the number of EP specified < 1000.",
+      options: [{
+        name: "ep",
+        type: "NUMBER",
+        description: "How many EP do you want to calculate?",
+        required: true
+      }]
+    },
+    {
+      name: "eternitychallenge",
+      description: "Requires one argument: `++eternitychallenge [ECNumber]x[CompletionNumber]`.",
+      options: [{
+        name: "ec",
+        type: "NUMBER",
+        description: "What Eternity Challenge are you doing?",
+        required: true,
+        choices: getChoices("eternitychallenge", "challenges")
+      },
+      {
+        name: "completion",
+        type: "NUMBER",
+        description: "What is the completion number?",
+        required: true,
+        choices: getChoices("eternitychallenge", "completions")
+      }]
+    },
+    {
+      name: `ttforecs`,
+      description: "Describes why sometimes the same tree gets a different cost on ++ec."
+    },
+    {
+      name: "eternitychallengeorder",
+      description: "Returns the EC order. Will show the previous EC when provided a challenge.",
+      options: [{
+        name: "ec",
+        type: "NUMBER",
+        description: "What Eternity Challenge are you doing?",
+        required: false,
+        choices: getChoices("eternitychallenge", "challenges")
+      },
+      {
+        name: "completion",
+        type: "NUMBER",
+        description: "What is the completion number?",
+        required: false,
+        choices: getChoices("eternitychallenge", "completions")
+      }]
+    },
+    {
+      name: "eternitygrinding",
+      description: "describes how to eternity grind",
+      options: [{
+        name: "when",
+        type: "STRING",
+        description: "at what point in the game you are. early < 110k eternities, late < 1m",
+        required: true,
+        choices: [
+          {
+            name: "early",
+            value: "early",
+            description: "early eternity grinding to get 110k eternities",
+            type: "STRING"
+          },
+          {
+            name: "late",
+            value: "late",
+            description: "late eternity grinding to get 1 million eternities",
+            type: "STRING"
+          }
+        ]
+      }]
+    },
+    {
+      name: "failec",
+      description: "Describes what ECs you can fail and how/when"
+    },
+    {
+      name: "firstsplit",
+      description: "Describes how to progress on the time study tree pre-TS171"
+    },
+    {
+      name: "galaxyboost",
+      description: "compares the boost from 100 tickspeed upgrades with 0 galaxies and 1 galaxy"
+    },
+    {
+      name: "galaxyscaling",
+      description: "Explains the change in scaling at 100 (and 800) Antimatter Galaxies"
+    },
+    {
+      name: "grindingforbreak",
+      description: "Describes how to reach Break Infinity."
+    },
+    {
+      name: "helpnumbers",
+      description: "sends what each of the help pages has on it"
+    },
+    { name: "ic4", description: "shorthand for `++challenge ic4`" },
+    { name: "ic5", description: "shorthand for `++challenge ic5`" },
+    { name: "importexport", description: "How to import/export saves" },
+    {
+      name: "infinity",
+      description: "tells how much AM you need for infinity"
+    },
+    {
+      name: "infinitydimensions",
+      description: "Describes what infinity dimensions (and infinity power) does."
+    },
+    {
+      name: "infinitygrinding",
+      description: "Args: `early`, `late`. Early is for EC4, late is for banking infinities.",
+      options: [{
+        name: "when",
+        type: "STRING",
+        description: "at what point in the game you are. early is for EC4, late for Binfs",
+        required: true,
+        choices: [
+          {
+            name: "early",
+            value: "early",
+            description: "early infinity grinding to get EC4",
+            type: "STRING"
+          },
+          {
+            name: "late",
+            value: "late",
+            description: "late infinity grinding to get Binfs",
+            type: "STRING"
+          }
+        ]
+      }]
+    },
+    {
+      name: "invertedtheme",
+      description: "response to the frequent web bug report that the inverted theme is bugged."
+    },
+    {
+      name: "ipepcolor",
+      description: "Explains the coloring of the IP/EP numbers on their reset buttons"
+    },
+    {
+      name: "ipepcolour",
+      description: "Explains the colouring of the IP/EP numbers on their reset buttons"
+    },
+    { name: "justask", description: "sends a passive aggressive thing" },
+    { name: "kajfik", description: "kaj!" },
+    { name: "mage", description: "mage!" },
+    { name: "matterportal", description: "Matter Portal news tickers" },
+    {
+      name: "meta",
+      description: "internal bot information"
+    },
+    {
+      name: "modifications",
+      description: "Explains the modifications of AD"
+    },
+    {
+      name: "news",
+      description: "Args: `listmobile` and `listweb`. Args are optional.",
+      options: [{
+        name: "list",
+        type: "STRING",
+        description: "list mobile or web news",
+        required: false,
+        choices: [
+          {
+            name: "listmobile",
+            value: "listmobile",
+            description: "list mobile news",
+            type: "STRING"
+          },
+          {
+            name: "listweb",
+            value: "listweb",
+            description: "list web news",
+            type: "STRING"
+          }
+        ]
+      }]
+    },
+    {
+      name: "notations",
+      description: "Sends a link to the Notations GitHub repo."
+    },
+    {
+      name: "occlusion",
+      description: "a guide of how to fix out-of-focus tabs on chrome not giving full progress"
+    },
+    { name: "offlineticks", description: "offline ticks stuff" },
+    { name: "omsi", description: "omsi!" },
+    {
+      name: "oom",
+      description: "describes what an OoM (Order of Magnitude) is"
+    },
+    {
+      name: "paperclips",
+      description: "Explanation of the origin of paperclips."
+    },
+    { name: "pins", description: "pins" },
+    { name: "punk", description: "punk?" },
+    {
+      name: "reality",
+      description: "Information surrounding the upcoming reality update.",
+      options: [{
+        name: "feature",
+        type: "STRING",
+        description: "Choose a feature/thing you want to know more about",
+        required: true,
+        choices: getChoices("reality")
+      }]
+    },
+    { name: "respec", description: "Describes what respec studies does" },
+    { name: "sacrifice", description: "describes sacrifice and when to" },
+    {
+      name: "savebank",
+      description: "Provides a link to Buck's save bank."
+    },
+    { name: "secondsplit", description: "describes second split paths" },
+    {
+      name: "setcrunchauto",
+      description: "Describes how to set your crunch autobuyer."
+    },
+    { name: "site", description: "Says the game site" },
+    { name: "slightsmile", description: "kaj no" },
+    { name: "spectralflame", description: "spec!" },
+    {
+      name: "studytree",
+      description: "Generates a Time Study tree based on your total Time Theorems.",
+      options: [{
+        name: "theorems",
+        type: "NUMBER",
+        description: "The number of Time Theorems you have",
+        required: true
+      },
+      {
+        name: "path",
+        type: "STRING",
+        description: "The path you want to use in your tree. Only takes effect after 54 TT",
+        required: false,
+        choices: getChoices("studytree") 
+      }]
+    },
+    {
+      name: "swipetrick",
+      description: "Explains swipe trick for mobile"
+    },
+    { name: "thanks", description: "say thanks" },
+    { 
+      name: "ts", 
+      description: "shorthand for `++studytree`", 
+      options: [{
+        name: "theorems",
+        type: "NUMBER",
+        description: "The number of Time Theorems you have",
+        required: true
+      },
+      {
+        name: "path",
+        type: "STRING",
+        description: "The path you want to use in your tree. Only takes effect after 54 TT",
+        required: false,
+        choices: getChoices("studytree") 
+      }] 
+    },
+    {
+      name: "tstreerange",
+      description: "Says why sometimes the bot will recommend a tree for more TT than you have"
+    },
+    { name: "unsmith", description: ":unsmith:" },
+    { name: "waitingidly", description: "idly!" },
+    {
+      name: "xkcd",
+      description: "has an arg: XKCD number. sends the link to that xkcd",
+      options: [{
+        name: "xkcd",
+        type: "NUMBER",
+        description: "XKCD number",
+        required: true
+      }]
+    },
+    {
+      name: "help",
+      description: "Sends a help page.",
+      options: [
+        {
+          name: "page",
+          description: "The page to send. Defaults to `1`.",
+          type: "INTEGER"
+        }
+      ]
+    },
+  ],
+  find(name) {
+    return this.all.find(ob => ob.name === name) ?? "Unknown command";
+  }
+};

@@ -37,7 +37,8 @@
 // ANYTHING TO IT THAT YOU MAY USE OUTSIDE OF ONE FILE
 
 const config = require("./config.json");
-const Sequelize = require("sequelize");
+const { MessageActionRow, MessageButton } = require("discord.js");
+const footerMessages = require("./footerMessages");
 
 const PRE_SPLIT_EARLY = "11,21,33,31,41";
 const PRE_SPLIT = "11,22,32,42,51,61";
@@ -109,7 +110,7 @@ function endgameCheck(id, message) {
 function botCommandsCheck(id, message) {
   // 603002159864348703 is #bots in Earth's things
   // 722268615973273725 is #general in bot test server
-  return config.ids.botCommands.includes(id) || id === "603002159864348703" || id === "722268615973273725" || message.channel.type === "dm";
+  return config.ids.botCommands.includes(id) || id === "603002159864348703" || id === "722268615973273725" || message.channel.type === "DM" || id === "873209506430066808";
 }
 
 /**
@@ -183,6 +184,36 @@ function studytreeCheck(id, message) {
 }
 
 /**
+ * Checks if the ID specified matches the correct channels for requesting a reality command
+ * @param {String} id the ID of the message channel.
+ * @param {object} message object contains everything about the message.
+ * @returns {Boolean}
+ */
+function e4000Check(id, message) {
+  return config.ids.endgame[1] === id || config.ids.common.includes(id) || botCommandsCheck(id, message);
+}
+
+/**
+ * Checks if the ID specified matches the correct channels for requesting a command
+ * @param {String} id the ID of the message channel.
+ * @param {object} message object contains everything about the message.
+ * @returns {Boolean}
+ */
+function ecsPlusCheck(id, message) {
+  return config.ids.ecs.includes(id) || config.ids.endgame.includes(id) || config.ids.common.includes(id) || botCommandsCheck(id, message);
+}
+
+/**
+ * Checks if the ID specified matches the correct channels for requesting a command
+ * @param {String} id the ID of the message channel.
+ * @param {object} message object contains everything about the message.
+ * @returns {Boolean}
+ */
+function weirdICsCheck(id, message) {
+  return config.ids.earlyEternity.includes(id) || config.ids.break.includes(id) || config.ids.common.includes(id) || botCommandsCheck(id, message);
+}
+
+/**
  * Sums all commands for the help command
  * @param {Array} fields array
  * @returns {Number} the number of commands, based on the fieldsArray array that's passed in
@@ -210,7 +241,7 @@ function getHelpDescription(sum) {
  * @returns {String} the footer string for help
  */
 function getFooter(ver) {
-  return `This superfluous bot was created by @earth#1337. Bug him for more commands, or use "++meta suggest".\nUse ++help [number] to go to more pages of commands.\nBot version: ${ver}`;
+  return `This superfluous bot was created by @earth#1337. Bug him for more commands, or use "++meta suggest".\nUse ++help [number] to go to more pages of commands.\nBot version: ${ver}\n${footerMessages.random()}`;
 }
 
 /**
@@ -229,10 +260,10 @@ function toNumber(string) {
  */
 function toPath(str = "active") {
   switch (str.toLowerCase()) {
-  case "active": return ACTIVE;
-  case "passive": return PASSIVE;
-  case "idle": return IDLE;
-  default: throw `Unknown argument: Expected path name (\`active\`, \`passive\`, \`idle\`) but found: --> ${str} &lt;--`;
+    case "active": return ACTIVE;
+    case "passive": return PASSIVE;
+    case "idle": return IDLE;
+    default: throw `Unknown argument: Expected path name (\`active\`, \`passive\`, \`idle\`) but found: --> ${str} &lt;--`;
   }
 }
 
@@ -375,6 +406,62 @@ function isUndefined(val) {
   return val === undefined;
 }
 
+// This next line is courtesy of github copilot. I don't know how it came up with it, but...ouch.
+// See https://ptb.discord.com/channels/351476683016241162/351478114620145665/873055661485883402
+// This area of code is for help. It's a mess. I'm sorry. -_- 
+
+/**
+ * Gets a MessageActionRow.
+ * @param {Boolean} disabled - if true, the row will be disabled
+ * @returns {MessageActionRow}
+ */
+const getRow = disabled => new MessageActionRow()
+  .addComponents(
+    new MessageButton()
+      .setCustomId("primary-previous-page")
+      .setEmoji("◀️")
+    // .setLabel("Previous page")
+      .setDisabled(disabled)
+      .setStyle("PRIMARY"),
+    new MessageButton()
+      .setCustomId("primary-next-page")
+      .setEmoji("▶️")
+      // .setLabel("Next page")
+      .setDisabled(disabled)
+      .setStyle("PRIMARY"),
+  );
+
+/**
+ * Changes the page of an embed.
+ * @param {Number} page - the current page of the embed.
+ * @param {Boolean} up - if true, the page will be incremented.
+ * @returns {Number} the new page of the embed.
+ */
+function pageChange(page, up) {
+  let p = page;
+  if (up) {
+    if (p >= 69) {
+      p = 1;
+    } else if (p &lt; 1 || p === 7) {
+      p = 69;
+    } else {
+      if (p + 1 === 70) {
+        p = 1;
+      }
+      p++;
+    }
+  } else if (!up) {
+    if (p >= 69) {
+      p = 7;
+    } else if (p &lt; 1) {
+      p = 69;
+    } else if (p - 1 === 0) {
+      p = 69;
+    } else p--;
+  }
+  return p;
+}
+
 /**
  * The actual help command that does stuff
  * @param {Object} message object that contains all information about the message
@@ -384,20 +471,93 @@ function isUndefined(val) {
  */
 function help(message, fieldsArray, stuff) {
   if (stuff.command === "help" &amp;&amp; botCommandsCheck(stuff.id, message)) {
-    const a = toNumber(stuff.args[0]);
-    if (Number.isNaN(a) || isUndefined(a) || a === null) {
-      message.channel.send({ embed: constructEmbedObject(1, fieldsArray) });
+    let page = toNumber(stuff.args[0]);
+    const filter = i => i.customId.startsWith("primary");
+
+    // Works for 60 seconds.
+    const collector = message.channel.createMessageComponentCollector({ filter, time: 60000 });
+    const row = getRow(false);
+
+    if (Number.isNaN(page) || isUndefined(page) || page === null) {
+      page = 1;
+      message.reply({ embeds: [constructEmbedObject(1, fieldsArray)], components: [row], ephemeral: true }).then(() => {
+
+        collector.on("collect", async i => {
+          if (i.user.id !== message.user.id) return;
+          try {
+            if (i.customId === "primary-next-page") {
+              page = pageChange(page, true);
+              await i.update({ embeds: [constructEmbedObject(page, fieldsArray)], components: [row] });
+            } else if (i.customId === "primary-previous-page") {
+              page = pageChange(page, false);
+              await i.update({ embeds: [constructEmbedObject(page, fieldsArray)], components: [row] });
+            } else if (i.customId === "primary-first-page") {
+              page = 1;
+              await i.update({ embeds: [constructEmbedObject(page, fieldsArray)], components: [row] });
+            } else if (i.customId === "primary-last-page") {
+              page = 69;
+              await i.update({ embeds: [constructEmbedObject(page, fieldsArray)], components: [row] });
+            }
+          } catch (error) {
+            message.reply({ content: `Bot ran into an error idk how to fix itm error happens when two instances of help are active at once so basicall y just uhhhhhhh wait and it'll work later idk how to fix its wacky`, ephemeral: true });
+            const moreInfo = `From: ${message.author.username}#${message.author.discriminator}
+                              Content: ${message.content}
+                              Attempted command: help
+                              Channel type: ${message.channel.type}
+                              Time: ${Date()}
+                              URL: ${message.channel.type === "dm" ? "N/A" : `${message.url}`}`;
+            console.log(moreInfo);
+            stuff.client.channels.cache.get("722912387287744572").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
+            stuff.client.users.cache.get("213071245896450068").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
+            message.channel.send(`ADAnswersBot has ran into an error, ${error}.`);
+            console.log(error);
+          }
+        });
+      });
       return;
     }
     try {
-      message.channel.send({ embed: constructEmbedObject(a, fieldsArray) });
+      message.reply({ embeds: [constructEmbedObject(page, fieldsArray)], components: [row], ephemeral: true }).then(() => {
+
+        collector.on("collect", async i => {
+          if (i.user.id !== message.user.id) return;
+          try {
+            if (i.customId === "primary-next-page") {
+              page = pageChange(page, true);
+              await i.update({ embeds: [constructEmbedObject(page, fieldsArray)], components: [row] });
+            } else if (i.customId === "primary-previous-page") {
+              page = pageChange(page, false);
+              await i.update({ embeds: [constructEmbedObject(page, fieldsArray)], components: [row] });
+            } else if (i.customId === "primary-first-page") {
+              page = 1;
+              await i.update({ embeds: [constructEmbedObject(page, fieldsArray)], components: [row] });
+            } else if (i.customId === "primary-last-page") {
+              page = 69;
+              await i.update({ embeds: [constructEmbedObject(page, fieldsArray)], components: [row] });
+            }
+          } catch (error) {
+            message.reply(`Bot ran into an error idk how to fix itm`);
+            const moreInfo = `From: ${message.author.username}#${message.author.discriminator}
+                              Content: ${message.content}
+                              Attempted command: help
+                              Channel type: ${message.channel.type}
+                              Time: ${Date()}
+                              URL: ${message.channel.type === "dm" ? "N/A" : `${message.url}`}`;
+            console.log(moreInfo);
+            stuff.client.channels.cache.get("722912387287744572").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
+            stuff.client.users.cache.get("213071245896450068").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
+            message.channel.send(`ADAnswersBot has ran into an error, ${error}.`);
+            console.log(error);
+          }
+        });
+      });
     } catch (err) {
       message.channel.send("Unknown input");
       // eslint-disable-next-line no-console
       console.log(err);
     }
   } else if (stuff.command === "help" &amp;&amp; !botCommandsCheck(stuff.id, message)) {
-    message.channel.send("Please use &lt;#351479640755404820> for `++help`.");
+    message.reply("Please use &lt;#351479640755404820> for `++help`.");
   }
 }
 
@@ -448,47 +608,43 @@ function generateChannelMessage() {
  */
 function getMessage(command, stuff = {}) {
   switch (command) {
-  case "ts":
-    return generateTree(stuff.theorem, stuff.path);
-  case "channel":
-    return generateChannelMessage();
-  case "error":
-    return `Unknown arg ${stuff.args[0]} in command ${stuff.name}. The args for this command are ${stuff.acceptableArgs.join(", ")}.`;
-  case "noWorky":
-    return noWorkyMessage(stuff.worky);
-  case "missingArg":
-    return `Command \`${stuff.name}\` requires an arg. The args for this command are ${stuff.acceptableArgs.join(", ")}.`;
-  case "shouldNeverAppear":
-    return `This message should never appear. If it does, let earth know with a screenshot of the message that caused it.`;
-  default:
-    console.error("Unknown command for getMessage!");
-    return "Something went wrong";
+    case "ts":
+      return generateTree(stuff.theorem, stuff.path);
+    case "channel":
+      return generateChannelMessage();
+    case "error":
+      return `Unknown arg ${stuff.args[0]} in command ${stuff.name}. The args for this command are ${stuff.acceptableArgs.join(", ")}.`;
+    case "noWorky":
+      return noWorkyMessageObject[stuff.worky];
+    case "missingArg":
+      return `Command \`${stuff.name}\` requires an arg. The args for this command are ${stuff.acceptableArgs.join(", ")}.`;
+    case "shouldNeverAppear":
+      return `This message should never appear. If it does, let earth know with a screenshot of the message that caused it.`;
+    default:
+      console.error("Unknown command for getMessage!");
+      return "Something went wrong";
   }
 }
 
-/**
- * Gets the message for case "noWorky" in getMessage
- * @param {String} worky String that is used in the switch statment to get a message.
- * @returns {String} String with the message
- */
-function noWorkyMessage(worky) {
-  switch (worky) {
-  case "earlyGame": return `This command only works in the early game channels or the common channels. Use \`++channels\` to see which channels that is!`;
-  case "earlyInfinity": return `This command only works in the early infinity channels or the common channels.`;
-  case "setCrunchAutoCheck": return `This command only works in the channels it applies in.`;
-  case "breakCheck": return `This command only works in the break infinity channels or the common channels. Use \`++channels\` to seee which channels that is!`;
-  case "earlyEternity": return `This command only works in the early Eternity channels, bot commands, or the common channels! Use \`++channels\` to see which channels that is!`;
-  case "studyTreeCheck": return `This command only works in the Eternity channels, bot commands, or the common channels! Use \`++channels\` to see which ochannels that is!`;
-  case "eternityGrinding": return `This command only works in the Eternity channels, bot commands, or the common channels. Use \`++channels\` to see which channels that is!`;
-  case "ecs": return `This command only works in the Eternity Challenge channels, bot commands, or the common channels. Use \`++channels\` to see which channels that is!`;
-  case "botCommands": return `This is a miscellaneous command and is only allowed in &lt;#351479640755404820>`;
-  case "bankedInfs": return `This command only works in the post-TS181 channel and on. You can also use &lt;#351479640755404820>!`;
-  case "dilationGrind": return `This command only works in the channel directly before Dilation, bot commands, or the common channels. Use \`++channels\` to see which channels that is!`;
-  case "endgame": return `This command only works in the endgame channels, bot commands, or the common channels. Use \`++channels\` to see which channels that is!`;
-  case true: return `This check should never appear and is only here to say hi. How are you guys doing?`;
-  default: return `What kind of error message are you trying to get?`;
-  }
-}
+const use = `Use \`++channels\` to see which channels that is!`;
+const noWorkyMessage = (channels, secondaryChannels) => `This command only works in the ${channels} channel(s),${secondaryChannels ? ` ${secondaryChannels} channels,` : ``} bot commands, or the common channels. ${use}`;
+const noWorkyMessageObject = {
+  "earlyGame": noWorkyMessage("early game"),
+  "earlyInfinity": noWorkyMessage("early Infinity"),
+  "breakCheck": noWorkyMessage("Break Infinity"),
+  "setCrunchAutoCheck": noWorkyMessage("early Break Infinity"),
+  "earlyEternity": noWorkyMessage("early Eternity"),
+  "studyTreeCheck": noWorkyMessage("Eternity"),
+  get "eternityGrinding"() { return this.studyTreeCheck; },
+  "ecsCheck": noWorkyMessage("Eternity Challenge"),
+  "ecsPlus": noWorkyMessage("Eternity Challenge", "endgame"),
+  "botCommands": `This is a miscellaneous command and is only allowed in &lt;#351479640755404820>`,
+  "bankedInfs": `This command only works in the post-TS181 channel and on. You can also use &lt;#351479640755404820>!`,
+  "dilationGrind": `This command only works in the channel directly before Dilation, bot commands, or the common channels. Use \`++channels\` to see which channels that is!`,
+  "endgame": noWorkyMessage("endgame"),
+  "e4000": noWorkyMessage("e4000 EP"),
+  "ic4/5": noWorkyMessage("Break Infinity", "early Eternity"),
+};
 
 /**
  * Starts intervals for the bot. Currently, the only interval being started is the switching bot status.
@@ -532,10 +688,10 @@ module.exports = {
   endgameCheck,
   botCommandsCheck,
   commonCheck,
+  e4000Check,
   constructEmbedObject,
   help,
   getMessage,
-  noWorkyMessage,
   misc: {
     sumAllCommands,
     getHelpDescription,
@@ -559,11 +715,37 @@ module.exports = {
     earlyInfinityCheck,
     eternityGrindingCheck,
     setCrunchAutoCheck,
-    studytreeCheck
+    studytreeCheck,
+    ecsPlusCheck,
+    weirdICsCheck
   },
   internal: {
     startIntervals,
     setBotStatus,
+  },
+  checkObject: {
+    "earlyGame": earlyGameCheck,
+    "earlyInfinity": earlyInfinityCheck,
+    // We're doing this because the way we access it in Command.js means that we access this object by using the 
+    // array entry thing (i.e. return functions.checkObject[this.check]), so we keep it here. In any other case
+    // this is an important rule to hold on to.
+    // eslint-disable-next-line object-shorthand
+    "breakCheck": breakCheck,
+    "earlyEternity": earlyEternityCheck,
+    // eslint-disable-next-line object-shorthand
+    "ecsCheck": ecsCheck,
+    "ecsPlus": ecsPlusCheck,
+    "endgame": endgameCheck,
+    "botCommands": botCommandsCheck,
+    "e4000": e4000Check,
+    "dilationGrind": dilationGrindCheck,
+    "bankedInfs": bankedInfsCheck,
+    "studyTreeCheck": studytreeCheck,
+    "eternityGrinding": eternityGrindingCheck,
+    "ic4/5": weirdICsCheck,
+    // eslint-disable-next-line object-shorthand
+    "setCrunchAutoCheck": setCrunchAutoCheck,
+    "true": true
   }
 };
 </code></pre>
@@ -576,13 +758,13 @@ module.exports = {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#bankedInfsCheck">bankedInfsCheck</a></li><li><a href="global.html#botCommandsCheck">botCommandsCheck</a></li><li><a href="global.html#breakCheck">breakCheck</a></li><li><a href="global.html#commonCheck">commonCheck</a></li><li><a href="global.html#constructEmbedObject">constructEmbedObject</a></li><li><a href="global.html#convertMillisecondsToDigitalClock">convertMillisecondsToDigitalClock</a></li><li><a href="global.html#dilationGrindCheck">dilationGrindCheck</a></li><li><a href="global.html#earlyEternity">earlyEternity</a></li><li><a href="global.html#earlyEternityCheck">earlyEternityCheck</a></li><li><a href="global.html#earlyGameCheck">earlyGameCheck</a></li><li><a href="global.html#earlyInfinityCheck">earlyInfinityCheck</a></li><li><a href="global.html#ecsCheck">ecsCheck</a></li><li><a href="global.html#endgameCheck">endgameCheck</a></li><li><a href="global.html#eternityGrindingCheck">eternityGrindingCheck</a></li><li><a href="global.html#generateChannelMessage">generateChannelMessage</a></li><li><a href="global.html#generateTree">generateTree</a></li><li><a href="global.html#getBaseLog">getBaseLog</a></li><li><a href="global.html#getFooter">getFooter</a></li><li><a href="global.html#getHelpDescription">getHelpDescription</a></li><li><a href="global.html#getMessage">getMessage</a></li><li><a href="global.html#help">help</a></li><li><a href="global.html#isUndefined">isUndefined</a></li><li><a href="global.html#lightDark">lightDark</a></li><li><a href="global.html#noWorkyMessage">noWorkyMessage</a></li><li><a href="global.html#secondSplit">secondSplit</a></li><li><a href="global.html#setBotStatus">setBotStatus</a></li><li><a href="global.html#setCrunchAutoCheck">setCrunchAutoCheck</a></li><li><a href="global.html#startIntervals">startIntervals</a></li><li><a href="global.html#studytreeCheck">studytreeCheck</a></li><li><a href="global.html#sumAllCommands">sumAllCommands</a></li><li><a href="global.html#toNumber">toNumber</a></li><li><a href="global.html#toPath">toPath</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#bankedInfsCheck">bankedInfsCheck</a></li><li><a href="global.html#botCommandsCheck">botCommandsCheck</a></li><li><a href="global.html#breakCheck">breakCheck</a></li><li><a href="global.html#commonCheck">commonCheck</a></li><li><a href="global.html#constructEmbedObject">constructEmbedObject</a></li><li><a href="global.html#convertMillisecondsToDigitalClock">convertMillisecondsToDigitalClock</a></li><li><a href="global.html#dilationGrindCheck">dilationGrindCheck</a></li><li><a href="global.html#e4000Check">e4000Check</a></li><li><a href="global.html#earlyEternity">earlyEternity</a></li><li><a href="global.html#earlyEternityCheck">earlyEternityCheck</a></li><li><a href="global.html#earlyGameCheck">earlyGameCheck</a></li><li><a href="global.html#earlyInfinityCheck">earlyInfinityCheck</a></li><li><a href="global.html#ecsCheck">ecsCheck</a></li><li><a href="global.html#ecsPlusCheck">ecsPlusCheck</a></li><li><a href="global.html#endgameCheck">endgameCheck</a></li><li><a href="global.html#eternityGrindingCheck">eternityGrindingCheck</a></li><li><a href="global.html#generateChannelMessage">generateChannelMessage</a></li><li><a href="global.html#generateTree">generateTree</a></li><li><a href="global.html#getBaseLog">getBaseLog</a></li><li><a href="global.html#getFooter">getFooter</a></li><li><a href="global.html#getHelpDescription">getHelpDescription</a></li><li><a href="global.html#getMessage">getMessage</a></li><li><a href="global.html#getRow">getRow</a></li><li><a href="global.html#help">help</a></li><li><a href="global.html#isUndefined">isUndefined</a></li><li><a href="global.html#lightDark">lightDark</a></li><li><a href="global.html#pageChange">pageChange</a></li><li><a href="global.html#secondSplit">secondSplit</a></li><li><a href="global.html#setBotStatus">setBotStatus</a></li><li><a href="global.html#setCrunchAutoCheck">setCrunchAutoCheck</a></li><li><a href="global.html#startIntervals">startIntervals</a></li><li><a href="global.html#studytreeCheck">studytreeCheck</a></li><li><a href="global.html#sumAllCommands">sumAllCommands</a></li><li><a href="global.html#toNumber">toNumber</a></li><li><a href="global.html#toPath">toPath</a></li><li><a href="global.html#weirdICsCheck">weirdICsCheck</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sat Jul 10 2021 10:52:49 GMT-0500 (Central Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sat Aug 07 2021 22:22:17 GMT-0500 (Central Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

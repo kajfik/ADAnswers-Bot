@@ -1,10 +1,10 @@
 "use strict";
 
-const { TimeStudyCommand } = require("../classes/TimeStudyCommand");
+const { ApplicationCommand } = require("../classes/ApplicationCommand/ApplicationCommand");
 const ChallengeCommand = require("./challenge");
 
 module.exports = {
-  command: new TimeStudyCommand({
+  command: new ApplicationCommand({
     number: 7,
     name: "c9",
     description: "shorthand for `++challenge c9`",

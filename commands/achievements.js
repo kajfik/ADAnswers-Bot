@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 "use strict";
 
-const { AchievementsCommand } = require("../classes/AchievementsCommand");
+const { AchievementApplicationCommand } = require("../classes/ApplicationCommand/AchievementApplicationCommand");
 
 /* eslint-disable no-negated-condition */
 
@@ -77,7 +77,7 @@ const achievementsMessageObject = {
 
 
 module.exports = {
-  command: new AchievementsCommand({
+  command: new AchievementApplicationCommand({
     number: 2,
     name: "achievements",
     description: "sends link to achievements guide",
@@ -86,6 +86,11 @@ module.exports = {
     acceptableArgs: Object.keys(achievementsMessageObject),
     getArgMessage(arg) {
       return achievementsMessageObject[arg];
+    },
+    messageObject: achievementsMessageObject,
+    argInfo: {
+      key: "achievement",
+      type: "string"
     }
   })
 };

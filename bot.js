@@ -13,10 +13,12 @@
 const Discord = require("discord.js");
 const Sequelize = require("sequelize");
 const fs = require("fs"); 
-const config = require("./config.json");
-const functions = require("./functions");
+const config = require("./utils/config.json");
+const functions = require("./utils/functions/functions");
+const commands = require("./utils/commands");
 
-const client = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.DIRECT_MESSAGES], partials: ["MESSAGE", "CHANNEL", "USER"] });
+// eslint-disable-next-line max-len
+const client = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.DIRECT_MESSAGES, Discord.Intents.FLAGS.GUILD_INTEGRATIONS], partials: ["MESSAGE", "CHANNEL", "USER", "REACTION", "GUILD_MEMBER"] });
 const commandFiles = fs.readdirSync("./commands").filter(file => file.endsWith(".js"));
 client.commands = new Discord.Collection();
 
@@ -33,6 +35,7 @@ const fieldsArray = [fieldsVar, fieldsVar2, fieldsVar3, fieldsVar4, fieldsVar5, 
 let Tags = undefined;
 
 const commandNames = [];
+const allCommands = [];
 
 client.login(config.token);
 
@@ -41,6 +44,10 @@ const sequelize = new Sequelize({
   storage: "./database.sqlite"
 });
 
+/**
+ * Handles the bot being ready.
+ * @async
+ */
 async function ready() {
   const NOW = Date.now();
   setup();
@@ -60,6 +67,7 @@ async function ready() {
 
   console.log(`\n\nGood morning. The current date and time is ${Date()}.\n\n`);
 
+  // Console.log(allCommands);
   // Uncomment for /docs
   // const allFields = [];
   // for (const field of fieldsArray) {
@@ -70,6 +78,9 @@ async function ready() {
 
 client.once("ready", ready);
 
+/**
+ * Sets up the bot to be able to use the database, prepares the commands, and sorts them into help pages.
+ */
 function setup() {
   Tags = sequelize.define("tags", {
     name: {
@@ -96,6 +107,7 @@ function setup() {
     // If you're adding a shorthand, please make sure to put that in.
     const e = element;
     commandNames.push(e.name);
+    allCommands.push({ name: e.name, value: e.description });
     if (e.type === undefined) {
       jiteration++;
       console.log(`Sorting command ${e.name}, command ${jiteration}...`);
@@ -108,6 +120,10 @@ function setup() {
   });
 }
 
+/**
+ * Creates sequelize tags.
+ * @param {Number} startingValue - the value at which to start the for loop.
+ */
 async function createTags(startingValue) {
   if (startingValue > commandNames.length) return;
   try {
@@ -137,6 +153,10 @@ async function createTags(startingValue) {
   }
 }
 
+/**
+ * Increments a sequelize tag.
+ * @param {String} name - name of the tag to increment
+ */
 async function incrementTag(name) {
   const tag = await Tags.findOne({ where: { name } });
   if (tag) {
@@ -151,87 +171,54 @@ client.on("error", error => {
   client.users.cache.get("213071245896450068").send(`ADAnswersBot has ran into an error, ${error}.`);
 });
 
-client.on("messageCreate", message => {
+client.on("interactionCreate", async interaction => {
+  if (!interaction.isCommand()) return;
+  if (!client.application?.owner) await client.application?.fetch();
+
+  if (!client.commands.has(interaction.commandName) && interaction.commandName !== "help") return;
+
+  incrementTag("totalRequests");
+
+  if (interaction.commandName === "help") { 
+    const args = interaction.options.getInteger("page") ? interaction.options.getInteger("page") : 1; 
+    if (args > fieldsArray.length && args !== 69) {
+      interaction.reply({ content: `I'm sorry, I don't know what page you're looking for.`, ephemeral: true });
+      return; 
+    }
+    functions.help(interaction, fieldsArray, { command: "help", args: [args], id: interaction.channelId, client });
+    return;
+  }
+
   try {
-    if (!message.content.startsWith(config.prefix)) return;
-    incrementTag("totalRequests");
-    if (message.content.length > 1000) {
-      message.channel.send(`You cannot try to trigger a command over this length!`);
-      return;
-    }
-    // eslint-disable-next-line require-unicode-regexp
-    const args = message.content.slice(config.prefix.length).trim().split(/ +/);
-    const command = args.shift().toLowerCase();
-    const id = message.channel.id;
-
-    if (!client.commands.has(command) && command !== "help") {
-      if (command.startsWith("ec") && (command.includes("x") || command.includes("×"))) {
-        try {
-          // Gets the completion and number
-          const a = command.split("c");
-          // Tries to execute the EC command.
-          // Here we access the EC command directly instead of routing it through ec.js 
-          // to improve code slightly.
-          // The args has to be passed in as an array or else it's read as a string in eternitychallenge.js
-          // eslint-disable-next-line max-depth
-          if (message.content.length > 1000) {
-            message.channel.send(`You cannot try to trigger a command over this length!`);
-            return;
-          }
-          client.commands.get("eternitychallenge").execute(message, [a[1]], id);
-          incrementTag("ec");
-          incrementTag("totalSuccesses");
-          return;
-        } catch (error) {
-          console.log(error);
-        }
-      }
-      message.reply(`Command \`${command}\` is not a command!`);
-      return;
-    } 
-    if (!client.commands.has(command) && command === "help") {
-      incrementTag("help");
-      functions.help(message, fieldsArray, { command, args, id });
-      return;
-    }
-
-    try {
-      // This is a lot of parameters and eventually I think it would be cool
-      // to make it all one object.
-
-      if (message.content.length > 1000) {
-        message.channel.send(`You cannot try to trigger a command over this length!`);
-        return;
-      }
-
-      // I'm keeping this block of code here because I'm lazy.
-      if (command === "xkcd") {
-        client.commands.get(command).execute({ message, args, id, client, });
-        incrementTag(command);
-        incrementTag("totalSuccesses");
-        return;
-      }
-      client.commands.get(command).execute(message, args, id);
-      incrementTag(command);
-      incrementTag("totalSuccesses");
-    } catch (error) {
-      const moreInfo = `From: ${message.author.username}#${message.author.discriminator}
-      Content: ${message.content}
-      Attempted command: ${command}
-      Channel type: ${message.channel.type}
-      Time: ${Date()}
-      URL: ${message.channel.type === "dm" ? "N/A" : `${message.url}`}`;
-      console.log(moreInfo);
-      client.channels.cache.get("722912387287744572").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
-      client.users.cache.get("213071245896450068").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
-      console.error(error);
-      // eslint-disable-next-line max-len
-      message.reply(`Command \`${command}\` is, in fact, a command, but it appears there was an internal issue with the bot. Thank you for your patience.`);
-    }
+    client.commands.get(interaction.commandName).execute(interaction, interaction.channelId);
+    incrementTag(interaction.commandName);
+    incrementTag("totalSuccesses");
   } catch (error) {
-    // This catch has actually happened once! I don't remember what caused it, though.
-    console.log(`something went sicko mode ${error}`);
-    message.channel.send(`something went sicko mode ${error}`);
+    console.error(error);
+    await interaction.reply({ content: "There was an error while executing this command!", ephemeral: true });
+  }
+});
+
+// eslint-disable-next-line complexity
+client.on("messageCreate", async message => {
+  try {
+    if (message.author.id !== "213071245896450068" && message.author.id !== "830197123378053172" && message.content.startsWith(config.prefix)) {
+      message.reply("Using the ++ prefix is now deprecated. Please switch to using slash commands. You can start by typing /");
+      return;
+    }
+    if (!client.application?.owner) await client.application?.fetch();
+    if (message.content.toLowerCase() === "++deploy" && message.author.id === "213071245896450068") {
+      message.reply(`Beginning hostile takeover. Thank you for your patience and cooperation.`);
+      await client.application?.commands.set(commands.all).then(() => {
+        message.reply({ content: `Successfully deployed commands globally.`, ephemeral: true });
+      });
+      await client.guilds.cache.get("722268615973273722")?.commands.set(commands.all).then(() => {
+        message.reply({ content: `Successfully deployed commands to test server.`, ephemeral: true });
+      });
+      return;
+    }
+  } catch (e) {
+    console.log(`Deployment failed.`);
   }
 });
 

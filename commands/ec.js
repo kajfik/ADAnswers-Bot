@@ -1,10 +1,10 @@
 "use strict";
 
-const { TimeStudyCommand } = require("../classes/TimeStudyCommand");
+const { TimeStudyApplicationCommand } = require("../classes/ApplicationCommand/TimeStudyApplicationCommand");
 const EternityChallengeCommand = require("./eternitychallenge");
 
 module.exports = {
-  command: new TimeStudyCommand({
+  command: new TimeStudyApplicationCommand({
     name: "ec",
     number: 6,
     description: "shorthand for ++eternitychallenge",
@@ -14,6 +14,10 @@ module.exports = {
     acceptableArgs: EternityChallengeCommand.command.acceptableArgs,
     getArgMessage(arg, tree) {
       return EternityChallengeCommand.command.getArgMessage(arg, tree);
+    },
+    argInfo: {
+      ec: { key: "ec", type: "number" },
+      completion: { key: "completion", type: "number" },
     }
   })
 };

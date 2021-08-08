@@ -1,9 +1,9 @@
 "use strict";
 
-const { Command } = require("../classes/Command");
+const { ApplicationCommand } = require("../classes/ApplicationCommand/ApplicationCommand");
 
 module.exports = {
-  command: new Command({
+  command: new ApplicationCommand({
     name: "failec",
     number: 3,
     description: "Describes what ECs you can fail and how/when",
