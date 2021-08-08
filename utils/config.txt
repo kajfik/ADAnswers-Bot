@@ -1,7 +1,7 @@
 {
   "token": "",
   "prefix": "++",
-  "version": "v2.1 (Buttons!)\nv3 in progress (Slash commands!)",
+  "version": "v3 (Slash commands!)",
   "ids": {
     "botCommands": ["351479640755404820"],
     "common": [
