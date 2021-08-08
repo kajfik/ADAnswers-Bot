@@ -2,7 +2,7 @@
 "use strict";
 
 const { XKCDApplicationCommand } = require("../classes/ApplicationCommand/XKCDApplicationCommand");
-const functions = require("../utils/functions.js");
+const functions = require("../utils/functions/functions");
 
 module.exports = {
   command: new XKCDApplicationCommand({

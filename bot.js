@@ -14,7 +14,7 @@ const Discord = require("discord.js");
 const Sequelize = require("sequelize");
 const fs = require("fs"); 
 const config = require("./utils/config.json");
-const functions = require("./utils/functions");
+const functions = require("./utils/functions/functions");
 const commands = require("./utils/commands");
 
 // eslint-disable-next-line max-len

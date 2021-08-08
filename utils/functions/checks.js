@@ -1,6 +1,6 @@
 "use strict";
 
-const config = require("./config.json");
+const config = require("../config.json");
 
 /**
  * Checks if the ID specified is for early game channels.

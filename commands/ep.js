@@ -2,7 +2,7 @@
 "use strict";
 
 const { EternityPointApplicationCommand } = require("../classes/ApplicationCommand/EternityPointApplicationCommand");
-const functions = require("../utils/functions");
+const functions = require("../utils/functions/functions");
 
 module.exports = {
   command: new EternityPointApplicationCommand({

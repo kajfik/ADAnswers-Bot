@@ -2,7 +2,7 @@
 /* eslint-disable max-len */
 "use strict";
 
-const functions = require("../utils/functions");
+const functions = require("../utils/functions/functions");
 
 /**
  * Class representing a command. This handles all the backend of it and you only need to provide what is in the config.

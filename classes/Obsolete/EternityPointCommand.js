@@ -3,7 +3,7 @@
 "use strict";
 
 const { Command } = require("../Command");
-const functions = require("../functions");
+const functions = require("../../utils/functions/functions");
 
 class EternityPointCommand extends Command {
   execute(message, args, id) {

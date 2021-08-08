@@ -5,7 +5,7 @@
 "use strict";
 
 const { TimeStudyApplicationCommand } = require("../classes/ApplicationCommand/TimeStudyApplicationCommand");
-const functions = require("../utils/functions");
+const functions = require("../utils/functions/functions");
 
 module.exports = {
   command: new TimeStudyApplicationCommand({

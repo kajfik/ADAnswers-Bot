@@ -6,7 +6,7 @@
 // but I want to keep it for posterity, I guess.
 
 const { Command } = require("../Command");
-const functions = require("../../utils/functions");
+const functions = require("../../utils/functions/functions");
 
 // This also works for EC and all of the challenges
 

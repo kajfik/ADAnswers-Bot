@@ -3,7 +3,7 @@
 
 const { Command } = require("../Command");
 
-const functions = require("../../utils/functions");
+const functions = require("../../utils/functions/functions");
 
 /** 
  * @class ApplicationCommand

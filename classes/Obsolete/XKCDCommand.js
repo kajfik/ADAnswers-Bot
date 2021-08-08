@@ -4,7 +4,7 @@
 // I'm keeping this because I don't really want to get rid of it, to be completely honest. It isn't used anywhere,
 // but I want to keep it for posterity, I guess.
 
-const functions = require("../../utils/functions");
+const functions = require("../../utils/functions/functions");
 const { Command } = require("../Command");
 
 /** 

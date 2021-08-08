@@ -3,7 +3,7 @@
 const { ApplicationCommand } = require("./ApplicationCommand");
 const { MessageEmbed } = require("discord.js");
 const config = require("../../utils/config.json");
-const functions = require("../../utils/functions");
+const functions = require("../../utils/functions/functions");
 const commands = require("../../utils/commands");
 const footerMessages = require("../../utils/footerMessages");
 

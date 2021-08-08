@@ -2,7 +2,7 @@
 "use strict";
 
 const { ApplicationCommand } = require("./ApplicationCommand");
-const functions = require("../../utils/functions");
+const functions = require("../../utils/functions/functions");
 
 /**
  * @class EternityPointApplicationCommand
