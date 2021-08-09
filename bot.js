@@ -214,14 +214,14 @@ client.on("messageCreate", async message => {
     // eslint-disable-next-line require-unicode-regexp
     const args = message.content.slice(config.prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
-    let slashCommand = command;
+    let slashCommand;
     if (command.substring(0, 2) === "ec" && command.length <= 7 && !isNaN(parseInt(command.slice(-1), 10)) && (command[2] === " " || !isNaN(parseInt(command[2], 10))) && !isNaN(parseInt(command.slice(-3, -2), 10))) {
       if ((command[2] === " " && parseInt(command[3], 10) === 1 && !isNaN(parseInt(command[4], 10))) || (parseInt(command[2], 10) === 1 && !isNaN(parseInt(command[3], 10)))) {
         slashCommand = `ec ${command.slice(-4, -2)} ${command.slice(-1)}`;
       } else {
         slashCommand = `ec ${command.slice(-3, -2)} ${command.slice(-1)}`;
       }
-    }
+    } else slashCommand = command;
     if (message.author.id !== "213071245896450068" && message.author.id !== "830197123378053172" && message.content.startsWith(config.prefix)) {
       message.reply(`Using the ++ prefix is now deprecated. Please switch to using slash commands. You can start by typing /
       When typing slash commands, you should see a small preview on the message bar. If you don't, update your Discord. This will help you with the commands.
