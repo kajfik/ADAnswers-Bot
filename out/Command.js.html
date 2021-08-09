@@ -121,7 +121,7 @@ class Command {
    */
   send(message, sent) {
     if (message.channel.type === "DM") message.author.send(sent, { split: true });
-    else message.channel.send({ content: sent, ephemeral: true });
+    else message.channel.send({ content: sent, ephemeral: false });
   }
 
   /**

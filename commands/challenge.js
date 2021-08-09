@@ -34,9 +34,9 @@ const challengeMessageObject = {
 IC4 video guide: <https://youtu.be/kytefPmkqL4>
 IC4 written guide: <https://pastebin.com/aZktZs8m>
 Post-Eternity guide (has Eternity spoilers!): ||https://cdn.discordapp.com/attachments/536249899487068181/848926070622126100/SVID_20200120_130930_1.mp4||`,
-  "ic5": `The written guide is based on the web version while the video was made on the android one. The strategy for IC5 is the same. Just keep in mind that you need 21 galaxies on web and around 40 galaxies on mobile to complete the challenge. 
+  "ic5": `**On Android, all you have to do is set Antimatter Dimension autobuyers 1-7 to "Buy Singles". Then just wait.**
+  The written guide is based on the web version while the video was made on the android one. **The video can be found at the bottom of the written guide.** The strategy for IC5 is the same. Just keep in mind that you need 21 galaxies on web and around 40 galaxies on mobile to complete the challenge. 
 Check out the Post-Eternity guide once you are past Eternity. The old guides still apply, however the Post-Eternity one is just specifically made with the Eternity progression in mind.
-IC5 video guide: <https://www.youtube.com/watch?v=eNqPZ9kGurE>
 IC5 written guide: <https://pastebin.com/sj2nFFjH>
 Post-Eternity guide (has Eternity spoilers!): ||https://cdn.discordapp.com/attachments/536249899487068181/848926013869522994/SVID_20200120_131504_1.mp4||`,
   "ic6": icBase(6, 102),

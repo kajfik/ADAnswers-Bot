@@ -182,7 +182,7 @@ client.on("interactionCreate", async interaction => {
   if (interaction.commandName === "help") { 
     const args = interaction.options.getInteger("page") ? interaction.options.getInteger("page") : 1; 
     if (args > fieldsArray.length && args !== 69) {
-      interaction.reply({ content: `I'm sorry, I don't know what page you're looking for.`, ephemeral: true });
+      interaction.reply({ content: `I'm sorry, I don't know what page you're looking for.`, ephemeral: false });
       return; 
     }
     functions.help(interaction, fieldsArray, { command: "help", args: [args], id: interaction.channelId, client });
@@ -195,7 +195,7 @@ client.on("interactionCreate", async interaction => {
     incrementTag(interaction.commandName);
     incrementTag("totalSuccesses");
   } catch (error) {
-    interaction.reply({ content: `Bot ran into an error while executing command ${interaction.commandName}. ${error}`, ephemeral: true });
+    interaction.reply({ content: `Bot ran into an error while executing command ${interaction.commandName}. ${error}`, ephemeral: false });
     const moreInfo = `From: ${interaction.user.username}#${interaction.user.discriminator}
                              Attempted command: ${interaction.commandName}
                              Channel type: ${interaction.channel.type}
@@ -228,10 +228,10 @@ client.on("messageCreate", async message => {
     if (message.content.toLowerCase() === "++deploy" && message.author.id === "213071245896450068") {
       message.reply(`Beginning hostile takeover. Thank you for your patience and cooperation.`);
       await client.application?.commands.set(commands.all).then(() => {
-        message.reply({ content: `Successfully deployed commands globally.`, ephemeral: true });
+        message.reply({ content: `Successfully deployed commands globally.`, ephemeral: false });
       });
       await client.guilds.cache.get("722268615973273722")?.commands.set(commands.all).then(() => {
-        message.reply({ content: `Successfully deployed commands to test server.`, ephemeral: true });
+        message.reply({ content: `Successfully deployed commands to test server.`, ephemeral: false });
       });
       return;
     }

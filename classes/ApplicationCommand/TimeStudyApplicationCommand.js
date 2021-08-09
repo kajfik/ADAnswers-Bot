@@ -13,6 +13,7 @@ class TimeStudyApplicationCommand extends ApplicationCommand {
    */
   constructor(config) {
     super(config);
+    this.ephemeral = config.ephemeral;
     if (this.acceptableArgs !== undefined) {
       this.argKey = [];
       this.argType = [];
@@ -115,8 +116,8 @@ class TimeStudyApplicationCommand extends ApplicationCommand {
       argMessageWithDM = this.sent[0];
     } 
 
-    interaction.reply({ content: argMessage, ephemeral: true });
-    if (this.isEC()) interaction.followUp({ content: argMessageWithDM, ephemeral: true });
+    interaction.reply({ content: argMessage, ephemeral: this.ephemeral });
+    if (this.isEC()) interaction.followUp({ content: argMessageWithDM, ephemeral: this.ephemeral });
   }
 }
 

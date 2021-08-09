@@ -35,6 +35,7 @@ module.exports = {
     argInfo: {
       tt: { key: "theorems", type: "number" },
       path: { key: "path", type: "string" },
-    }
+    },
+    ephemeral: true
   }),
 };
