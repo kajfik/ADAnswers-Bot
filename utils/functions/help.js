@@ -3,7 +3,7 @@
 
 const { MessageActionRow, MessageButton } = require("discord.js");
 const config = require("../config.json");
-const footerMessages = require("../footerMessages");
+const { footerMessages } = require("../messages");
 const { botCommandsCheck } = require("./checks");
 const { toNumber, isUndefined } = require("./misc");
 

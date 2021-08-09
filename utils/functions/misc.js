@@ -1,6 +1,6 @@
 "use strict";
 
-const footerMessages = require("../footerMessages");
+const { activityMessages } = require("../messages");
 
 /**
  * Parses a number using parseInt(), just shorthand
@@ -49,24 +49,6 @@ function convertMillisecondsToDigitalClock(ms) {
 function startIntervals(client) {
   setInterval(setBotStatus, 30000, client);
 }
-
-const activityMessages = {
-  all: [
-    ` people here and in DMs since 1992 || ${footerMessages.random()}`,
-    ` the wizarding world of slash commands || ${footerMessages.random()}`,
-    ` you. || ${footerMessages.random()}`,
-    ` Christmas music. || ${footerMessages.random()}`,
-    ` 80s rock. || ${footerMessages.random()}`,
-    ` my creator. || ${footerMessages.random()}`,
-    ` the screams of horror while I take over the world. || ${footerMessages.random()}`,
-    ` a cassette tape. || ${footerMessages.random()}`,
-    ` vinyl. || ${footerMessages.random()}`,
-    ` Huey Lewis and the News. || ${footerMessages.random()}`
-  ],
-  random() {
-    return this.all[Math.floor(Math.random() * this.all.length)];
-  }
-};
 
 /**
  * Changes the bot status, currently every minute.

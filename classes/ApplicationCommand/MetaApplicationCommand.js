@@ -5,7 +5,7 @@ const { MessageEmbed } = require("discord.js");
 const config = require("../../utils/config.json");
 const functions = require("../../utils/functions/functions");
 const commands = require("../../utils/commands");
-const footerMessages = require("../../utils/footerMessages");
+const { footerMessages } = require("../../utils/messages");
 
 const NOW = new Date();
 const metaMessageObject = {
