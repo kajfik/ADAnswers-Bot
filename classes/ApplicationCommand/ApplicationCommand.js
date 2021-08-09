@@ -32,8 +32,8 @@ class ApplicationCommand extends Command {
    */
   execute(interaction, id) {
     if (this.acceptableArgs === undefined) {
-      if (this.getCheck(id, interaction)) interaction.reply({ content: this.sent[0], ephemeral: true });
-      else interaction.reply({ content: this.getFailMessage(), ephemeral: true });
+      if (this.getCheck(id, interaction)) interaction.reply({ content: this.sent[0], ephemeral: false });
+      else interaction.reply({ content: this.getFailMessage(), ephemeral: false });
     } else if (this.acceptableArgs !== undefined) {
       this.regularCommand(interaction, [this.getArgs(interaction)], id);
     }
@@ -54,7 +54,7 @@ class ApplicationCommand extends Command {
     console.log(moreInfo);
     interaction.client.channels.cache.get("722912387287744572").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
     interaction.client.users.cache.get("213071245896450068").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
-    interaction.reply({ content: `There was an error while executing command ${interaction.commandName}.`, ephemeral: true });
+    interaction.reply({ content: `There was an error while executing command ${interaction.commandName}.`, ephemeral: false });
     interaction.followUp(`ADAnswersBot has ran into an error, ${error}.`);
     console.log(error);
   }
@@ -89,7 +89,7 @@ class ApplicationCommand extends Command {
    * @param {String} sent - The message being sent to the user.
    */
   send(interaction, sent) {
-    interaction.reply({ content: sent, ephemeral: true });
+    interaction.reply({ content: sent, ephemeral: false });
   }
 
   /**

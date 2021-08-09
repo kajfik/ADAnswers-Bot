@@ -4,7 +4,7 @@
 const { ApplicationCommand } = require("../classes/ApplicationCommand/ApplicationCommand");
 
 const realityMessageObject = {
-  "link": "https://ivark.github.io/Reality/",
+  "link": "https://ivark.github.io/Reality/, see also <https://pastebin.com/AS53ZhCU>",
   "automator": `Check out this video! <https://youtu.be/687i6dUkBlk>. The Automator will also have two modes, a "block" Automator and a regular scripting Automator. The Blocktomato has been compared to something akin to Scratch; drag blocks and create a script. The regular scripting Automator is exactly what it says on the tin. You may have heard something in the past about limited lines, however, this has changed, and there is no line limiting.`,
   "perks": `On Reality, you gain one Perk Point, which you can spend in the Perk Tree. Start reading <#351477847090659341> at <https://canary.discord.com/channels/351476683016241162/351477847090659341/606221441704394774>.`,
   "celestials": `After Reality, there are 7 Celestials. Each with unique mechanics and upgrades, and you need to defeat them all. The first four Celestials are pretty much ready, however, the fifth, sixth, and seventh are still being balanced. I'm not revealing more though, as it can be regarded as a spoiler.`,

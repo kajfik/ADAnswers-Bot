@@ -1,7 +1,7 @@
 "use strict";
 
 const { ApplicationCommand } = require("./ApplicationCommand");
-const { MessageEmbed } = require("discord.js");
+const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
 const config = require("../../utils/config.json");
 const functions = require("../../utils/functions/functions");
 const commands = require("../../utils/commands");
@@ -13,7 +13,9 @@ const metaMessageObject = {
   "suggest": `Submit an issue on [GitHub](https://github.com/earthernsence/ADAnswers-Bot/issues) to suggest more commands, or to report a bug with the bot!`,
   "invite": `If, for whatever reason, you wish to invite me to your server, go to [this link](https://discord.com/oauth2/authorize?client_id=830197123378053172&permissions=2147560512&scope=applications.commands%20bot).`,
   // eslint-disable-next-line max-len
-  "contributing": `If you are interested in contributing to the bot, check out both information files at [this readme](https://github.com/earthernsence/ADAnswers-Bot#readme) and [this readme](https://github.com/earthernsence/ADAnswers-Bot/tree/main/commands#readme)`
+  "contributing": `If you are interested in contributing to the bot, check out both information files at [this readme](https://github.com/earthernsence/ADAnswers-Bot#readme) and [this readme](https://github.com/earthernsence/ADAnswers-Bot/tree/main/commands#readme)`,
+  // eslint-disable-next-line max-len
+  "alldata": `If you want to see all data for the bot, go to [SQLite Viewer](https://inloop.github.io/sqlite-viewer/) and put in [this file](https://github.com/earthernsence/ADAnswers-Bot/blob/main/database.sqlite) from the bot's repository.`
 };
 
 /**
@@ -79,11 +81,24 @@ class MetaApplicationCommand extends ApplicationCommand {
         { name: "Total requests/successses", value: `Requests: ${tagStuff.requests}\nSuccesses: ${tagStuff.successes}`, inline: true },
         { name: "Top 5 used commands", value: `${tagStuff.top5commands}`, inline: true },
         { name: "Bottom 5 used commands", value: `${tagStuff.bottom5commands}`, inline: true },
+        { name: "All data", value: `${metaMessageObject.alldata}`, inline: true }
       )
       .setTimestamp()
       .setFooter(footerMessages.random(), `${interaction.client.user.displayAvatarURL()}`);
 
-    interaction.reply({ embeds: [embed], ephemeral: true });
+    const buttonRow = new MessageActionRow()
+      .addComponents(
+        new MessageButton()
+          .setStyle("LINK")
+          .setLabel("See all commands")
+          .setURL("https://earthernsence.github.io/ADAnswers-Bot/docs/"),
+        new MessageButton()
+          .setStyle("LINK")
+          .setLabel("GitHub repository")
+          .setURL("https://github.com/earthernsence/ADAnswers-Bot"),
+      );
+
+    interaction.reply({ embeds: [embed], ephemeral: false, components: [buttonRow] });
   }
 }
 

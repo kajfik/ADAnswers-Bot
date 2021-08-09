@@ -561,7 +561,8 @@ module.exports = {
     argInfo: {
       ec: { key: "ec", type: "number" },
       completion: { key: "completion", type: "number" },
-    }
+    },
+    epehemral: true
   })
 };
 

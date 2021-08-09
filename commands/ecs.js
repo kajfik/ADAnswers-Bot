@@ -12,5 +12,6 @@ module.exports = {
     type: "shorthand",
     check: "ecsCheck",
     sent: [ChallengeCommand.command.messageObject.ecs],
+    ephemeral: false
   })
 };
