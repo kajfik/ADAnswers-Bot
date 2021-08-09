@@ -490,7 +490,7 @@ module.exports = {
     { name: "spectralflame", description: "spec!" },
     {
       name: "studytree",
-      description: "Generates a Time Study tree based on your total Time Theorems.",
+      description: "Generates a Time Study tree based on your total Time Theorems. See /tstreerange",
       options: [{
         name: "theorems",
         type: "NUMBER",
@@ -512,7 +512,7 @@ module.exports = {
     { name: "thanks", description: "say thanks" },
     { 
       name: "ts", 
-      description: "shorthand for `/studytree`", 
+      description: "shorthand for `/studytree`. See /tstreerange", 
       options: [{
         name: "theorems",
         type: "NUMBER",

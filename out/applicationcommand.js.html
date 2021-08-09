@@ -59,8 +59,8 @@ class ApplicationCommand extends Command {
    */
   execute(interaction, id) {
     if (this.acceptableArgs === undefined) {
-      if (this.getCheck(id, interaction)) interaction.reply({ content: this.sent[0], ephemeral: true });
-      else interaction.reply({ content: this.getFailMessage(), ephemeral: true });
+      if (this.getCheck(id, interaction)) interaction.reply({ content: this.sent[0], ephemeral: false });
+      else interaction.reply({ content: this.getFailMessage(), ephemeral: false });
     } else if (this.acceptableArgs !== undefined) {
       this.regularCommand(interaction, [this.getArgs(interaction)], id);
     }
@@ -96,7 +96,7 @@ class ApplicationCommand extends Command {
    * @param {String} sent - The message being sent to the user.
    */
   send(interaction, sent) {
-    interaction.reply({ content: sent, ephemeral: true });
+    interaction.reply({ content: sent, ephemeral: false });
   }
 
   /**

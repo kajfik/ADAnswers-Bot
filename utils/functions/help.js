@@ -156,7 +156,7 @@ function help(message, fieldsArray, stuff) {
               await i.update({ embeds: [constructEmbedObject(page, fieldsArray)], components: [row] });
             }
           } catch (error) {
-            message.reply({ content: `Bot ran into an error idk how to fix itm error happens when two instances of help are active at once so basicall y just uhhhhhhh wait and it'll work later idk how to fix its wacky`, ephemeral: true });
+            message.reply({ content: `Bot ran into an error idk how to fix itm error happens when two instances of help are active at once so basicall y just uhhhhhhh wait and it'll work later idk how to fix its wacky`, ephemeral: false });
             const moreInfo = `From: ${message.author.username}#${message.author.discriminator}
                              Content: ${message.content}
                              Attempted command: help
@@ -214,7 +214,7 @@ function help(message, fieldsArray, stuff) {
       console.log(err);
     }
   } else if (stuff.command === "help" && !botCommandsCheck(stuff.id, message)) {
-    message.reply({ content: "Please use <#351479640755404820> for `/help`.", ephemeral: true });
+    message.reply({ content: "Please use <#351479640755404820> for `/help`.", ephemeral: false });
   }
 }
 

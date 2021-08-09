@@ -73,7 +73,7 @@ class MetaApplicationCommand extends ApplicationCommand {
       .setTimestamp()
       .setFooter(footerMessages.random(), `${interaction.client.user.displayAvatarURL()}`);
 
-    interaction.reply({ embeds: [embed], ephemeral: true });
+    interaction.reply({ embeds: [embed], ephemeral: false });
   }
 }
 
