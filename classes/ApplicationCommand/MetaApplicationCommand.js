@@ -22,13 +22,48 @@ const metaMessageObject = {
  * @classdesc Class for executing meta.js.
  */
 class MetaApplicationCommand extends ApplicationCommand {
+  async manageBottomAndTopCommands(Tags) {
+    const tagsMatchedWithTimesUsed = {};
+    const tagList = await Tags.findAll({ attributes: ["timesUsed", "name"] });
+    tagList.map(t => Object.assign(tagsMatchedWithTimesUsed, { [t.name]: t.timesUsed }));
+    const sorted = Object.values(tagsMatchedWithTimesUsed).sort((a, b) => b - a);
+    const requests = sorted[0];
+    const successes = sorted[1];
+    sorted.shift();
+    sorted.shift();
+    let top5commands = [];
+    let bottom5commands = [];
+    for (let i = 0; i < 5; i++) {
+      const b = Object.entries(tagsMatchedWithTimesUsed).find(a => a[1] === sorted[0]);
+      top5commands.push(b);
+      delete tagsMatchedWithTimesUsed[b];
+      sorted.shift();
+    }
+    for (let i = 0; i < 5; i++) {
+      const b = Object.entries(tagsMatchedWithTimesUsed).find(a => a[1] === sorted[sorted.length - 1]);
+      bottom5commands.push(b);
+      delete tagsMatchedWithTimesUsed[b[0]];
+      sorted.pop();
+    }
+    bottom5commands = bottom5commands.map(a => `${a[0]}: ${a[1]}`).reverse().join("\n");
+    top5commands = top5commands.map(a => `${a[0]}: ${a[1]}`).join("\n");
+    return {
+      requests,
+      successes,
+      bottom5commands,
+      top5commands,
+    };
+  }
+
   /**
    * Executes the command.
    * @param {Object} interaction - The interaction object used for the command that contains all useful information
    */
-  execute(interaction) {
+  // eslint-disable-next-line no-unused-vars
+  async execute(interaction, _id, Tags) {
+    const tagStuff = await this.manageBottomAndTopCommands(Tags);
     const embed = new MessageEmbed()
-      .setColor("GREYPLE")
+      .setColor("BLURPLE")
       .setTitle("Bot Information")
       .setDescription(`Internal bot information`)
       .setThumbnail(`${interaction.client.user.displayAvatarURL()}`)
@@ -41,6 +76,9 @@ class MetaApplicationCommand extends ApplicationCommand {
         { name: "Invite", value: metaMessageObject.invite, inline: true },
         { name: "Contributing", value: metaMessageObject.contributing, inline: true },
         { name: "Total amount of commands", value: `${commands.all.length}`, inline: true },
+        { name: "Total requests/successses", value: `Requests: ${tagStuff.requests}\nSuccesses: ${tagStuff.successes}`, inline: true },
+        { name: "Top 5 used commands", value: `${tagStuff.top5commands}`, inline: true },
+        { name: "Bottom 5 used commands", value: `${tagStuff.bottom5commands}`, inline: true },
       )
       .setTimestamp()
       .setFooter(footerMessages.random(), `${interaction.client.user.displayAvatarURL()}`);

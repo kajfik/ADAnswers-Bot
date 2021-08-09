@@ -190,12 +190,21 @@ client.on("interactionCreate", async interaction => {
   }
 
   try {
-    client.commands.get(interaction.commandName).execute(interaction, interaction.channelId);
+    if (interaction.commandName === "meta") await client.commands.get(interaction.commandName).execute(interaction, interaction.channelId, Tags);
+    else client.commands.get(interaction.commandName).execute(interaction, interaction.channelId, Tags);
     incrementTag(interaction.commandName);
     incrementTag("totalSuccesses");
   } catch (error) {
-    console.error(error);
-    await interaction.reply({ content: `There was an error while executing command ${interaction.commandName}.`, ephemeral: true });
+    interaction.reply({ content: `Bot ran into an error while executing command ${interaction.commandName}. ${error}`, ephemeral: true });
+    const moreInfo = `From: ${interaction.user.username}#${interaction.user.discriminator}
+                             Attempted command: ${interaction.commandName}
+                             Channel type: ${interaction.channel.type}
+                             Time: ${Date()}
+                             Args: ${client.commands.get(interaction.commandName).getArgs(interaction)}`;
+    console.log(moreInfo);
+    client.channels.cache.get("722912387287744572").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
+    client.users.cache.get("213071245896450068").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
+    console.log(error);
   }
 });
 
