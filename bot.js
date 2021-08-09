@@ -214,7 +214,14 @@ client.on("messageCreate", async message => {
     // eslint-disable-next-line require-unicode-regexp
     const args = message.content.slice(config.prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
-    const slashCommand = (command.substring(0, 2) === "ec" && !isNaN(parseInt(command[2], 10)) && command.length < 4) ? command.slice(0, 2).concat(" ").concat(command.slice(2, 10)) : command;
+    let slashCommand = command;
+    if (command.substring(0, 2) === "ec" && command.length <= 7 && !isNaN(parseInt(command.slice(-1), 10)) && (command[2] === " " || !isNaN(parseInt(command[2], 10))) && !isNaN(parseInt(command.slice(-3, -2), 10))) {
+      if ((command[2] === " " && parseInt(command[3], 10) === 1 && !isNaN(parseInt(command[4], 10))) || (parseInt(command[2], 10) === 1 && !isNaN(parseInt(command[3], 10)))) {
+        slashCommand = `ec ${command.slice(-4, -2)} ${command.slice(-1)}`;
+      } else {
+        slashCommand = `ec ${command.slice(-3, -2)} ${command.slice(-1)}`;
+      }
+    }
     if (message.author.id !== "213071245896450068" && message.author.id !== "830197123378053172" && message.content.startsWith(config.prefix)) {
       message.reply(`Using the ++ prefix is now deprecated. Please switch to using slash commands. You can start by typing /
       When typing slash commands, you should see a small preview on the message bar. If you don't, update your Discord. This will help you with the commands.
@@ -240,4 +247,7 @@ client.on("messageCreate", async message => {
     console.log(`Deployment failed.`);
   }
 });
+
+
+fhfhhf = ((command[2] === " " && parseInt(command[3], 10) === 1 && !isNaN(parseInt(command[4], 10))) || (parseInt(command[2], 10) === 1 && !isNaN(parseInt(command[3], 10))));
 
