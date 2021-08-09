@@ -247,7 +247,3 @@ client.on("messageCreate", async message => {
     console.log(`Deployment failed.`);
   }
 });
-
-
-fhfhhf = ((command[2] === " " && parseInt(command[3], 10) === 1 && !isNaN(parseInt(command[4], 10))) || (parseInt(command[2], 10) === 1 && !isNaN(parseInt(command[3], 10))));
-
