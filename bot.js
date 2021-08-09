@@ -214,11 +214,12 @@ client.on("messageCreate", async message => {
     // eslint-disable-next-line require-unicode-regexp
     const args = message.content.slice(config.prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
+    const slashCommand = (command.substring(0, 2) === "ec" && !isNaN(parseInt(command[2], 10)) && command.length < 4) ? command.slice(0, 2).concat(" ").concat(command.slice(2, 10)) : command;
     if (message.author.id !== "213071245896450068" && message.author.id !== "830197123378053172" && message.content.startsWith(config.prefix)) {
       message.reply(`Using the ++ prefix is now deprecated. Please switch to using slash commands. You can start by typing /
-      When typing slash commands, you should see a small preview on the message bar. If you don't update your Discord. This will help you with the commands.
+      When typing slash commands, you should see a small preview on the message bar. If you don't, update your Discord. This will help you with the commands.
 
-      (for example, the command you just tried to use (++${command}) would now be /${command} (unless it's /ec, in which case a space between the ec and the number))
+      (for example, the command you just tried to use (++${command}) would now be "/${slashCommand}".)
       
       This change was made for the convenience of new users with the bot. I do understand that many of you are used to the ++, and if I
       could've kept it I would've. But when push comes to shove, I believe that the slash commands are generally better for the bot.`);
