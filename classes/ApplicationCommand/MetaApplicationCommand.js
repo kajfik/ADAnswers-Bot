@@ -72,8 +72,7 @@ class MetaApplicationCommand extends ApplicationCommand {
    * Executes the command.
    * @param {Object} interaction - The interaction object used for the command that contains all useful information
    */
-  // eslint-disable-next-line no-unused-vars
-  async execute(interaction, _id, Tags) {
+  async execute(interaction, Tags) {
     const tagStuff = await this.manageBottomAndTopCommands(Tags);
     const embed = new MessageEmbed()
       .setColor("BLURPLE")

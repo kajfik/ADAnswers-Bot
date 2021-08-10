@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 
+// eslint-disable-next-line strict
 "use strict";
 
 // DO NOT TOUCH LIKE HALF OF THIS STUFF IT JUST WORKS LMAOOOOOOOOOOOO
@@ -174,6 +175,7 @@ client.on("error", error => {
 client.on("interactionCreate", async interaction => {
   if (!interaction.isCommand()) return;
   if (!client.application?.owner) await client.application?.fetch();
+  if (interaction.channelId === "351478114620145665") return;
 
   if (!client.commands.has(interaction.commandName) && interaction.commandName !== "help") return;
 
@@ -190,7 +192,7 @@ client.on("interactionCreate", async interaction => {
   }
 
   try {
-    if (interaction.commandName === "meta") await client.commands.get(interaction.commandName).execute(interaction, interaction.channelId, Tags);
+    if (interaction.commandName === "meta") await client.commands.get(interaction.commandName).execute(interaction, Tags);
     else client.commands.get(interaction.commandName).execute(interaction, interaction.channelId, Tags);
     incrementTag(interaction.commandName);
     incrementTag("totalSuccesses");
@@ -212,8 +214,11 @@ client.on("interactionCreate", async interaction => {
 client.on("messageCreate", async message => {
   try {
     if (message.stickers.size > 0) message.delete().then(() => {
-      message.channel.send(`${message.author.username}#${message.author.discriminator} used a sticker.`);
-    }).catch(console.error);
+      client.channels.cache.get("628793214341742592").send(`${message.author.username}#${message.author.discriminator} sent a sticker in <#${message.channelId}>.`);
+    }).catch(error => {
+      console.log(error);
+    });
+    if (message.channelId === "351478114620145665") return;
     // eslint-disable-next-line require-unicode-regexp
     const args = message.content.slice(config.prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
