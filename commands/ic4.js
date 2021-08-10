@@ -10,7 +10,7 @@ module.exports = {
     name: "ic4",
     description: "shorthand for `/challenge ic4`",
     type: "shorthand",
-    check: "ic4/5",
+    check: "weirdICsCheck",
     sent: [ChallengeCommand.command.messageObject.ic4],
   })
 };

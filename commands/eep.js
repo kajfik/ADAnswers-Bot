@@ -8,7 +8,7 @@ module.exports = {
     name: "eep",
     number: 3,
     type: "shorthand",
-    check: "earlyEternity",
+    check: "earlyEternityCheck",
     description: "shorthand for /earlyeternityprogression",
     sent: [EarlyEternityProgression.command.sent[0]]
   }),

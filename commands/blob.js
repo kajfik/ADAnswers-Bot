@@ -8,7 +8,7 @@ module.exports = {
     name: "blob",
     number: 69,
     description: "blob",
-    check: "botCommands",
+    check: "botCommandsCheck",
     sent: ["blob"]
   })
 };

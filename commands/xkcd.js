@@ -9,7 +9,7 @@ module.exports = {
     name: "xkcd",
     number: 7,
     description: "has an arg: XKCD number. sends the link to that xkcd",
-    check: "botCommands",
+    check: "botCommandsCheck",
     acceptableArgs: ["Any number"],
     sent: undefined,
     getArgMessage(arg) {

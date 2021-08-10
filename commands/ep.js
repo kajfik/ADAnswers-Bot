@@ -9,7 +9,7 @@ module.exports = {
     number: 3,
     name: "ep",
     description: "calculates the amount of IP required to get the number of EP specified. Works up to 1000. Excludes any possible multipliers.",
-    check: "earlyEternity",
+    check: "earlyEternityCheck",
     acceptableArgs: ["any number within 2-1000"],
     sent: undefined,
     getArgMessage(arg) {

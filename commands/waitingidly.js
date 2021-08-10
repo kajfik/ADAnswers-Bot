@@ -8,7 +8,7 @@ module.exports = {
     number: 69,
     name: "waitingidly",
     description: "idly!",
-    check: "botCommands",
+    check: "botCommandsCheck",
     sent: [`got dang! this guy has done so much for AD in just the past year. he is a great guy who knows his stuff.`]
   })
 };

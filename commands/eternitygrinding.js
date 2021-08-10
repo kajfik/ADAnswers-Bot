@@ -35,7 +35,7 @@ module.exports = {
     name: "eternitygrinding",
     number: 3,
     description: "describes how to eternity grind",
-    check: "eternityGrinding",
+    check: "eternityGrindingCheck",
     acceptableArgs: Object.keys(eternityGrindingMessageObject),
     sent: undefined,
     getArgMessage(arg) {

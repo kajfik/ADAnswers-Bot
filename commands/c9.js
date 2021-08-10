@@ -9,7 +9,7 @@ module.exports = {
     name: "c9",
     description: "shorthand for `/challenge c9`",
     type: "shorthand",
-    check: "earlyInfinity",
+    check: "earlyInfinityCheck",
     sent: [ChallengeCommand.command.messageObject.c9],
   })
 };

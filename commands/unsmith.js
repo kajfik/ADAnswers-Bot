@@ -8,7 +8,7 @@ module.exports = {
     number: 69,
     name: "unsmith",
     description: ":unsmith:",
-    check: "botCommands",
+    check: "botCommandsCheck",
     sent: ["this command is dedicated to platonic. creator of synergism. love ya. go play synergism at https://pseudo-corp.github.io/SynergismOfficial/"]
   })
 };

@@ -6,6 +6,7 @@ const config = require("../config.json");
 const { footerMessages } = require("../messages");
 const { botCommandsCheck } = require("./checks");
 const { toNumber, isUndefined } = require("./misc");
+const { all } = require("../commands");
 
 /**
  * Sums all commands for the help command
@@ -25,9 +26,9 @@ function sumAllCommands(fields) {
  * @param {Number} sum of all commands
  * @returns {String} the help description string
  */
-function getHelpDescription(sum) {
+function getHelpDescription() {
   // eslint-disable-next-line max-len
-  return `A comprehensive list of all commands (and their arguments, when applicable).\nThere are currently ${sum} commands.\n It is encouraged (by me, at least), to use the bot in DMs! This helps reduce spam from the bot and will still function as normal!`;
+  return `A comprehensive list of all commands (and their arguments, when applicable).\nThere are currently ${all.length} commands.\n It is encouraged (by me, at least), to use the bot in DMs! This helps reduce spam from the bot and will still function as normal!`;
 }
 
 /**
@@ -50,7 +51,7 @@ function constructEmbedObject(number, fieldsArray) {
     return {
       color: `#${hex}`,
       title: `Help (p${number}/${fieldsArray.length - 1})`,
-      description: getHelpDescription(sumAllCommands(fieldsArray)),
+      description: getHelpDescription(),
       fields: number === 69
         ? fieldsArray[fieldsArray.length - 1]
         : fieldsArray[number - 1],

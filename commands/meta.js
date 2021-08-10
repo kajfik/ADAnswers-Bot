@@ -8,7 +8,7 @@ module.exports = {
     number: 4,
     name: "meta",
     description: "internal bot information",
-    check: "botCommands",
+    check: "botCommandsCheck",
     // We send undefined because it's *actually* going to be an embed we make in MetaApplicationCommand
     sent: undefined,
   })

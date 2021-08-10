@@ -8,7 +8,7 @@ module.exports = {
     name: "commands",
     number: 6,
     description: "sends a link to the website with all commands",
-    check: "botCommands",
+    check: "botCommandsCheck",
     sent: ["https://earthernsence.github.io/ADAnswers-Bot/docs/"]
   }),
 };

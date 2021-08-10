@@ -8,7 +8,7 @@ module.exports = {
     name: "archa",
     number: 69,
     description: "archa!",
-    check: "botCommands",
+    check: "botCommandsCheck",
     sent: [`archa! really cool tester and stuff, real nice guy. there's no way you can hate archa.`]
   })
 };

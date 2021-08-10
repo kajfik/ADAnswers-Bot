@@ -7,7 +7,7 @@ module.exports = {
     number: 7,
     name: "slightsmile",
     description: "kaj no",
-    check: "botCommands",
+    check: "botCommandsCheck",
     sent: ["\u{1F642}"]
   })
 };

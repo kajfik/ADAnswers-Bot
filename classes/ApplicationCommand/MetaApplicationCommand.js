@@ -57,6 +57,17 @@ class MetaApplicationCommand extends ApplicationCommand {
     };
   }
 
+  getStatus(ping) {
+    if (ping >= 200) return `Very high ping! ${ping}ms`;
+    if (ping >= 175) return `High ping! ${ping}ms`;
+    if (ping >= 150) return `Relatively high ping! ${ping}ms`;
+    if (ping >= 125) return `Slightly above average ping! ${ping}ms`;
+    if (ping >= 100) return `Average ping! ${ping}ms`;
+    if (ping >= 75) return `Below average ping! ${ping}ms`;
+    if (ping >= 50) return `Very good ping! ${ping}ms`;
+    return `Incredible ping! ${ping}ms`;
+  }
+
   /**
    * Executes the command.
    * @param {Object} interaction - The interaction object used for the command that contains all useful information
@@ -73,7 +84,7 @@ class MetaApplicationCommand extends ApplicationCommand {
         { name: "Bot version", value: config.version, inline: true },
         { name: "Last restart", value: metaMessageObject.lastrestart, inline: true },
         { name: "Uptime", value: `The bot has been up for ${functions.misc.convertMillisecondsToDigitalClock(interaction.client.uptime).clock}`, inline: true },
-        { name: "Ping", value: `Pong! ${interaction.client.ws.ping}ms`, inline: true },
+        { name: "Status", value: `Pong! ${this.getStatus(interaction.client.ws.ping)}`, inline: true },
         { name: "Suggest", value: metaMessageObject.suggest, inline: true },
         { name: "Invite", value: metaMessageObject.invite, inline: true },
         { name: "Contributing", value: metaMessageObject.contributing, inline: true },

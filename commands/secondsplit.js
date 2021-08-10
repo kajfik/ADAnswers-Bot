@@ -8,7 +8,7 @@ module.exports = {
     name: "secondsplit",
     number: 3,
     description: "describes second split paths",
-    check: "earlyEternity",
+    check: "earlyEternityCheck",
     sent: [`
 Passive : Straight up consecutive EP/min farming runs (afk and offline possible). Works out great for only EP/min farming, will beat out idle overnight with mobile offline setup. Drops off hard at the end of this channel but is usable into the next for a bit.
 Active : AM + IP + EP farming, focus required. Setup and always watching required but better than passive.

@@ -8,7 +8,7 @@ module.exports = {
     number: 69,
     name: "omsi",
     description: "omsi!",
-    check: "botCommands",
+    check: "botCommandsCheck",
     sent: [`omsi is a really cool person! she's done a ton of work for AD and is all around a real neat person.`]
   })
 };

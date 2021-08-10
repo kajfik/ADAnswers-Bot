@@ -7,7 +7,7 @@ module.exports = {
     number: 7,
     name: "helpnumbers",
     description: "sends what each of the help pages has on it",
-    check: "botCommands", 
+    check: "botCommandsCheck", 
     sent: [`Page 1 covers until break infinity
     Page 2 rest of infinity era + achievements and swipe trick
     Page 3 is eternity

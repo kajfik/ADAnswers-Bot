@@ -30,7 +30,7 @@ module.exports = {
     number: Number, // This is the number you came up with in step 2of the main readme 
     name: "nameOfCommand", // Name. Used to trigger the command
     description: "I eat ass", // Description that shows in the help page
-    check: "botCommands", // see the getCheck method on the Command class. Basically just references the check there.
+    check: "botCommandsCheck", // see the getCheck method on the Command class. Basically just references the check there.
     acceptableArgs: undefined, // Since we're doing a command without args, no args will be accepted.
     sent: ["Message that is sent by triggering this command."] // This is an array with one entry always. Is the message that is actually sent.
   })
@@ -54,7 +54,7 @@ module.exports = {
     number: Number, // This is the number you came up with in step 2of the main readme 
     name: "nameOfCommand", // Name. Used to trigger the command
     description: "I eat ass", // Description that shows in the help page
-    check: "botCommands", // see the getCheck method on the Command class. Basically just references the check there.
+    check: "botCommandsCheck", // see the getCheck method on the Command class. Basically just references the check there.
     acceptableArgs: Object.keys(assMessageObject), // This method returns an array with the names of each of the args grabbed.
     sent: undefined, // Since we won't be sending a default message (if you want to do that, use the NewsCommand class), we don't need the sent property.
     getArgMessage(arg) {

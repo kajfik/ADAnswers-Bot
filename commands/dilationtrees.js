@@ -15,7 +15,7 @@ module.exports = {
     number: 4,
     name: "dilationtrees",
     description: "Args: `first`, `after3paths`. First is for your first Dilation (and until you get the 3 paths upgrade), and will spit out two trees: one for if you have 1e6 eternities and one if you don't. after3paths is for the tree after the three paths upgrade. By that point, you should have 1e6 eternities.",
-    check: "endgame",
+    check: "endgameCheck",
     acceptableArgs: Object.keys(dilationTreesObject),
     sent: undefined,
     getArgMessage(arg) {

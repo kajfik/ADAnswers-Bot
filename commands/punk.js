@@ -8,7 +8,7 @@ module.exports = {
     number: 69,
     name: "punk",
     description: "punk?",
-    check: "botCommands",
+    check: "botCommandsCheck",
     sent: [`i have never spoken to punk but i really like their modding style`]
   })
 };

@@ -24,7 +24,7 @@ module.exports = {
     number: 3,
     description: "Args: `early`, `late`. Sends how to grind infinities for each of those time periods. Early is for EC4, late is for banking infinities.",
     acceptableArgs: Object.keys(infinityGrindingMessageObject),
-    check: "ecsPlus",
+    check: "ecsPlusCheck",
     getArgMessage(arg) {
       return infinityGrindingMessageObject[arg.toLowerCase()];
     },

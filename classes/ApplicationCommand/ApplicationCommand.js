@@ -4,7 +4,8 @@
 
 const { Command } = require("../Command");
 
-const functions = require("../../utils/functions/functions");
+const checks = require("../../utils/functions/checks");
+const misc = require("../../utils/functions/misc");
 
 /** 
  * @class ApplicationCommand
@@ -78,9 +79,12 @@ class ApplicationCommand extends Command {
    * @returns {Boolean} The check for the command.
    */
   getCheck(id, interaction) {
-    if (typeof functions.checkObject[this.check] === "function") return functions.checkObject[this.check](id, interaction);
-    if (typeof functions.checkObject[this.check] === "boolean") return functions.checkObject[this.check];
-    throw new Error("Invalid check type");
+    console.log(checks);
+    console.log(typeof this.check);
+    console.log(checks[this.check]);
+    console.log(checks[`${this.check}`]);
+    if (typeof checks[this.check] === "function") return checks[this.check](id, interaction);
+    return true;
   }
 
   /**
@@ -97,7 +101,7 @@ class ApplicationCommand extends Command {
    */
   doMissingArgCatch(interaction, args) {
     if (args[0] === undefined) {
-      this.send(interaction, functions.getMessage("missingArg", { name: this.name, acceptableArgs: this.acceptableArgs }));
+      this.send(interaction, misc.getMessage("missingArg", { name: this.name, acceptableArgs: this.acceptableArgs }));
     }
   }
 
@@ -114,8 +118,8 @@ class ApplicationCommand extends Command {
     }
     const sent = this.getArgMessage(args[0].toLowerCase());
     if (this.getCheck(id, interaction) && this.acceptableArgs.includes(args[0].toLowerCase())) this.send(interaction, sent);
-    else if (!(args[0] === undefined)) this.send(interaction, functions.getMessage("error", { args, name: this.name, acceptableArgs: this.acceptableArgs }));
-    else this.send(interaction, functions.getMessage("shouldNeverAppear"));
+    else if (!(args[0] === undefined)) this.send(interaction, misc.getMessage("error", { args, name: this.name, acceptableArgs: this.acceptableArgs }));
+    else this.send(interaction, misc.getMessage("shouldNeverAppear"));
   }
 }
 
