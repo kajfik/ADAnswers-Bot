@@ -87,6 +87,10 @@ const getRow = disabled => new MessageActionRow()
     // .setLabel("Next page")
       .setDisabled(disabled)
       .setStyle("PRIMARY"),
+    new MessageButton()
+      .setStyle("LINK")
+      .setLabel("See all commands")
+      .setURL("https://earthernsence.github.io/ADAnswers-Bot/docs/"),
   );
 
 /** 

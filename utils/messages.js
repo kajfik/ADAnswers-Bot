@@ -44,6 +44,10 @@ const footerMessages = {
     "blob3",
     "Omsi eats sandwiches, chips (crisps), and bagels with a fork.",
     "Collecting your personal data.",
+    "Deleting your favourite messages.",
+    "blobblobblobblobblobblob\nblobblobblobblobblobblob\nblobblobblobblobblobblob\nblobblobblobblobblobblob\n",
+    "What was, will be; what will be, was",
+    "This is an interesting world I find myself in\n – an interesting hole I find myself in –\n fits me rather neatly, doesn't it? \nIn fact it fits me staggeringly well, \nmust have been made to have me in it!"
   ],
   random() {
     return this.all[Math.floor(Math.random() * this.all.length)];

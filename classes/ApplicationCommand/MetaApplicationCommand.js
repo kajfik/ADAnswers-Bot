@@ -38,7 +38,7 @@ class MetaApplicationCommand extends ApplicationCommand {
     for (let i = 0; i < 5; i++) {
       const b = Object.entries(tagsMatchedWithTimesUsed).find(a => a[1] === sorted[0]);
       top5commands.push(b);
-      delete tagsMatchedWithTimesUsed[b];
+      delete tagsMatchedWithTimesUsed[b[0]];
       sorted.shift();
     }
     for (let i = 0; i < 5; i++) {

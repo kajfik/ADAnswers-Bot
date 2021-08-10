@@ -79,10 +79,6 @@ class ApplicationCommand extends Command {
    * @returns {Boolean} The check for the command.
    */
   getCheck(id, interaction) {
-    console.log(checks);
-    console.log(typeof this.check);
-    console.log(checks[this.check]);
-    console.log(checks[`${this.check}`]);
     if (typeof checks[this.check] === "function") return checks[this.check](id, interaction);
     return true;
   }

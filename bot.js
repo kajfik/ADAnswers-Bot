@@ -211,6 +211,9 @@ client.on("interactionCreate", async interaction => {
 // eslint-disable-next-line complexity
 client.on("messageCreate", async message => {
   try {
+    if (message.stickers.size > 0) message.delete().then(() => {
+      message.channel.send(`${message.author.username}#${message.author.discriminator} used a sticker.`);
+    }).catch(console.error);
     // eslint-disable-next-line require-unicode-regexp
     const args = message.content.slice(config.prefix.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
