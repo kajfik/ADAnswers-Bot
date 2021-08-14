@@ -7,7 +7,7 @@ const functions = require("../../utils/functions/functions");
 const commands = require("../../utils/commands");
 const { footerMessages } = require("../../utils/messages");
 const wait = require("util").promisify(setTimeout);
-const { getDecimalTimeFromNormalPeopleTimeLikeTheOneThatNormalPeopleUseFuckingTwentyFourHourTime, newDate, decimalClock } = require("../../utils/functions/time");
+const { getDecimalTimeFromNormalPeopleTimeLikeTheOneThatNormalPeopleUseFuckingTwentyFourHourTime, newDate, msToDecimal } = require("../../utils/functions/time");
 
 const NOW = new Date();
 const metaMessageObject = {
@@ -85,7 +85,7 @@ class MetaApplicationCommand extends ApplicationCommand {
         { name: "Bot version", value: config.version, inline: true },
         { name: "Last restart", value: metaMessageObject.lastrestart, inline: true },
         // eslint-disable-next-line max-len
-        { name: "Uptime", value: `The bot has been up for ${functions.misc.convertMillisecondsToDigitalClock(interaction.client.uptime).clock}, (${decimalClock()} 10h time)`, inline: true },
+        { name: "Uptime", value: `The bot has been up for ${functions.misc.convertMillisecondsToDigitalClock(interaction.client.uptime).clock}, (${msToDecimal(interaction.client.uptime)} 10h time)`, inline: true },
         { name: "Status", value: `Pong! ${this.getStatus(interaction.client.ws.ping)}`, inline: true },
         { name: "Suggest", value: metaMessageObject.suggest, inline: true },
         { name: "Invite", value: metaMessageObject.invite, inline: true },

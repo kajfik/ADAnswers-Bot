@@ -25,21 +25,32 @@ function convertMillisecondsToDigitalClock(ms) {
  * @param {Date} date Date object. Has to be new Date() invoked.
  * @returns {String} A string of the time in the format of "Days:Hours:Minutes:Seconds"
  */
-function getDecimalTimeFromNormalPeopleTimeLikeTheOneThatNormalPeopleUseFuckingTwentyFourHourTime(time) {
-  const hours = time.getHours(),
-    minutes = time.getMinutes(),
+function getDecimalTimeFromNormalPeopleTimeLikeTheOneThatNormalPeopleUseFuckingTwentyFourHourTime(time, isMS = false, ms) {
+  let hours = 0,
+    minutes = 0,
+    seconds = 0;
+  if (isMS) {
+    const dc = convertMillisecondsToDigitalClock(ms);
+    hours = dc.hours;
+    minutes = dc.minutes;
+    seconds = dc.seconds;
+  } else {
+    hours = time.getHours();
+    minutes = time.getMinutes();
     seconds = time.getSeconds();
+  }
   const ns = Math.floor(((hours * 60 * 60) + (minutes * 60) + (seconds)) / 0.864);
-  let aa = ns.toString();
-  if (aa.length === 1) aa = `0000${aa}`;
-  if (aa.length === 2) aa = `000${aa}`;
-  if (aa.length === 3) aa = `00${aa}`;
-  if (aa.length === 4) aa = `0${aa}`;
+  // Courtesy of spec.
+  const aa = `0000${ns.toString()}`.replace(/^.*(.{5})$/u, "$1");
   
 
   const arr = [aa.substr(0, 1), aa.substr(1, 2), aa.substr(3, 2)];
 
   return arr.join(":");
+}
+
+function msToDecimal(ms) {
+  return getDecimalTimeFromNormalPeopleTimeLikeTheOneThatNormalPeopleUseFuckingTwentyFourHourTime(0, true, ms);
 }
 
 const newDate = () => new Date();
@@ -94,5 +105,6 @@ module.exports = {
   increaseSeconds,
   clockify,
   getDecimalTimeFromNormalPeopleTimeLikeTheOneThatNormalPeopleUseFuckingTwentyFourHourTime,
-  newDate
+  newDate,
+  msToDecimal
 };
