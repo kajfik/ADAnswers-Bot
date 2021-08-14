@@ -9,7 +9,7 @@ const { combined } = require("../messages");
  * @param {Object} client This is the discord Client object that was declared in bot.js.
  */
 function startIntervals(client) {
-  setInterval(setBotStatus, 30000, client);
+  setInterval(setBotStatus, 15000, client);
   setInterval(increaseSeconds, 864);
 }
 

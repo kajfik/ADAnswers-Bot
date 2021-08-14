@@ -692,7 +692,7 @@ const newCommands = [
       "  Args: your total Time Theorems. Beginning at 54 TT, the command will take a second argument: `active`, `passive`, or `idle`. The argument is optional, and the default value is `active`.",
     type: undefined,
     check: "studyTreeCheck",
-    acceptableArgs: [["Any number"], ["active", "passive", "idle"]],
+    acceptableArgs: ["Any number", "\n\n", "active", "passive", "idle"],
     page: 3
   },
   {
@@ -716,7 +716,7 @@ const newCommands = [
     value: "shorthand for `/studytree`",
     type: "shorthand",
     check: "studyTreeCheck",
-    acceptableArgs: [["Any number"], ["active", "passive", "idle"]],
+    acceptableArgs: ["Any number", "\n\n", "active", "passive", "idle"],
     page: 6
   },
   {
@@ -834,7 +834,7 @@ const StuffComponent = {
         weirdICsCheck: "This command only works in the Break Infinity channel(s), early Eternity channels, bot commands, or the common channels."
       };
       return checkMessages[command.check];
-    },
+    }
   },
   computed: {
     getCurrentTime() {

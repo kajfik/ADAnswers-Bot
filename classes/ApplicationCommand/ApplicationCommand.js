@@ -34,7 +34,7 @@ class ApplicationCommand extends Command {
   execute(interaction, id) {
     if (this.acceptableArgs === undefined) {
       if (this.getCheck(id, interaction)) interaction.reply({ content: this.sent[0], ephemeral: false });
-      else interaction.reply({ content: this.getFailMessage(), ephemeral: false });
+      else interaction.reply(this.getFailMessage());
     } else if (this.acceptableArgs !== undefined) {
       this.regularCommand(interaction, [this.getArgs(interaction)], id);
     }
