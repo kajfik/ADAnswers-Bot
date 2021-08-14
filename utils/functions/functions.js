@@ -15,6 +15,8 @@ const tree = require("./tree");
 const help = require("./help");
 const message = require("./message");
 const misc = require("./misc");
+const time = require("./time");
+const internal = require("./internal");
 
 module.exports = {
   constructEmbedObject: help.constructEmbedObject,
@@ -25,7 +27,7 @@ module.exports = {
     getHelpDescription: help.getHelpDescription,
     getFooter: help.getFooter,
     toNumber: misc.toNumber,
-    convertMillisecondsToDigitalClock: misc.convertMillisecondsToDigitalClock,
+    convertMillisecondsToDigitalClock: time.convertMillisecondsToDigitalClock,
     isUndefined: misc.isUndefined,
     generateChannelMessage: message.generateChannelMessage,
     getBaseLog: misc.getBaseLog,
@@ -39,8 +41,14 @@ module.exports = {
     generateTree: tree.generateTree,
   },
   internal: {
-    startIntervals: misc.startIntervals,
-    setBotStatus: misc.setBotStatus,
+    startIntervals: internal.startIntervals,
+    setBotStatus: internal.setBotStatus,
+  },
+  time: {
+    convertMillisecondsToDigitalClock: time.convertMillisecondsToDigitalClock,
+    decimalClock: time.decimalClock,
+    increaseSeconds: time.increaseSeconds,
+    clockify: time.clockify,
   },
   checkObject: {
     "earlyGame": checks.earlyGameCheck,

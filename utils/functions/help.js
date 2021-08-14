@@ -37,7 +37,7 @@ function getHelpDescription() {
  * @returns {String} the footer string for help
  */
 function getFooter(ver) {
-  return `This superfluous bot was created by @earth#1337. Bug him for more commands, or use "/meta suggest".\nUse /help [number] to go to more pages of commands.\nBot version: ${ver}\n${footerMessages.random()}`;
+  return `This superfluous bot was created by @earth#1337. Bug him for more commands, or use "/meta suggest".\nUse /help [number] to go to more pages of commands.\nBot version: ${ver}\n${footerMessages.next()}`;
 }
 /**
  * Constructs an embed object for each help page

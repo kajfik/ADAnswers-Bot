@@ -108,7 +108,7 @@ function setup() {
     // If you're adding a shorthand, please make sure to put that in.
     const e = element;
     commandNames.push(e.name);
-    allCommands.push({ name: e.name, value: e.description });
+    allCommands.push({ name: e.name, value: e.description, type: e.type, check: e.check, acceptableArgs: e.acceptableArgs, page: e.number });
     if (e.type === undefined) {
       jiteration++;
       console.log(`Sorting command ${e.name}, command ${jiteration}...`);
@@ -213,11 +213,19 @@ client.on("interactionCreate", async interaction => {
 // eslint-disable-next-line complexity
 client.on("messageCreate", async message => {
   try {
-    if (message.stickers.size > 0) message.delete().then(() => {
-      client.channels.cache.get("628793214341742592").send(`${message.author.username}#${message.author.discriminator} sent a sticker in <#${message.channelId}>.`);
-    }).catch(error => {
-      console.log(error);
-    });
+    // AD
+    if (message.guildId === "351476683016241162") {
+      if (message.stickers.size > 0) message.delete()
+        .then(() => {
+          // Mod logs in antimatter dimensions
+          const person = `${message.author.username}#${message.author.discriminator}`;
+          client.channels.cache.get("769210858035085383").send(`${person} sent a sticker in <#${message.channelId}>.`);
+          console.log(`Sticker deleted. Sent by ${person}. ${Date()}`);
+        }).catch(error => {
+          console.log(error);
+        });
+    }
+    // General in AD
     if (message.channelId === "351478114620145665") return;
     // eslint-disable-next-line require-unicode-regexp
     const args = message.content.slice(config.prefix.length).trim().split(/ +/);

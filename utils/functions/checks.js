@@ -121,7 +121,7 @@ function eternityGrindingCheck(id, message) {
  * @returns {Boolean}
  */
 function setCrunchAutoCheck(id, message) {
-  return earlyGameCheck(id, message) || config.ids.break.includes(id);
+  return botCommandsCheck(id, message) || config.ids.break[0] === id;
 }
 
 /**

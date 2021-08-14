@@ -6,6 +6,8 @@ const config = require("../../utils/config.json");
 const functions = require("../../utils/functions/functions");
 const commands = require("../../utils/commands");
 const { footerMessages } = require("../../utils/messages");
+const wait = require("util").promisify(setTimeout);
+const { getDecimalTimeFromNormalPeopleTimeLikeTheOneThatNormalPeopleUseFuckingTwentyFourHourTime, newDate, decimalClock } = require("../../utils/functions/time");
 
 const NOW = new Date();
 const metaMessageObject = {
@@ -82,7 +84,8 @@ class MetaApplicationCommand extends ApplicationCommand {
       .addFields(
         { name: "Bot version", value: config.version, inline: true },
         { name: "Last restart", value: metaMessageObject.lastrestart, inline: true },
-        { name: "Uptime", value: `The bot has been up for ${functions.misc.convertMillisecondsToDigitalClock(interaction.client.uptime).clock}`, inline: true },
+        // eslint-disable-next-line max-len
+        { name: "Uptime", value: `The bot has been up for ${functions.misc.convertMillisecondsToDigitalClock(interaction.client.uptime).clock}, (${decimalClock()} 10h time)`, inline: true },
         { name: "Status", value: `Pong! ${this.getStatus(interaction.client.ws.ping)}`, inline: true },
         { name: "Suggest", value: metaMessageObject.suggest, inline: true },
         { name: "Invite", value: metaMessageObject.invite, inline: true },
@@ -91,10 +94,11 @@ class MetaApplicationCommand extends ApplicationCommand {
         { name: "Total requests/successses", value: `Requests: ${tagStuff.requests}\nSuccesses: ${tagStuff.successes}`, inline: true },
         { name: "Top 5 used commands", value: `${tagStuff.top5commands}`, inline: true },
         { name: "Bottom 5 used commands", value: `${tagStuff.bottom5commands}`, inline: true },
-        { name: "All data", value: `${metaMessageObject.alldata}`, inline: true }
+        { name: "All data", value: `${metaMessageObject.alldata}`, inline: true },
+        { name: "Time", value: getDecimalTimeFromNormalPeopleTimeLikeTheOneThatNormalPeopleUseFuckingTwentyFourHourTime(newDate()), inline: true },
       )
       .setTimestamp()
-      .setFooter(footerMessages.random(), `${interaction.client.user.displayAvatarURL()}`);
+      .setFooter(footerMessages.next(), `${interaction.client.user.displayAvatarURL()}`);
 
     const buttonRow = new MessageActionRow()
       .addComponents(
@@ -107,8 +111,9 @@ class MetaApplicationCommand extends ApplicationCommand {
           .setLabel("GitHub repository")
           .setURL("https://github.com/earthernsence/ADAnswers-Bot"),
       );
-
-    interaction.reply({ embeds: [embed], ephemeral: false, components: [buttonRow] });
+    await interaction.deferReply();
+    await wait(2000);
+    await interaction.editReply({ embeds: [embed], ephemeral: false, components: [buttonRow] });
   }
 }
 

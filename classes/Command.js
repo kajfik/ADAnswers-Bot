@@ -3,6 +3,7 @@
 "use strict";
 
 const functions = require("../utils/functions/functions");
+const { getMessage } = require("./../utils/functions/message");
 
 /**
  * Class representing a command. This handles all the backend of it and you only need to provide what is in the config.
@@ -56,7 +57,7 @@ class Command {
    * @returns String with the failure message.
    */
   getFailMessage() {
-    return functions.getMessage("noWorky", { worky: this.check });
+    return getMessage("noWorky", { worky: this.check });
   }
 
   /**
