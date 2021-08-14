@@ -753,8 +753,67 @@ const newCommands = [
   }
 ];
 
+let uiUpdateHooks = [];
+
+function updateUI() {
+  for (const hook of uiUpdateHooks) {
+    hook.update();
+  }
+}
+
+Vue.mixin({
+  created() {
+    if (this.update) {
+      uiUpdateHooks.push(this);
+      this.update();
+    }
+  },
+  destroyed() {
+    uiUpdateHooks = uiUpdateHooks.filter(h => h !== this);
+  }
+});
+
+
+// This has to be made here because it's a website, so require() is not something you can do.
+/**
+ * Turns Date into decimal time
+ * @param {Date} date Date object. Has to be new Date() invoked.
+ * @returns {String} A string of the time in the format of "Days:Hours:Minutes:Seconds"
+ */
+function getDecimalTimeFromNormalPeopleTimeLikeTheOneThatNormalPeopleUseFuckingTwentyFourHourTime(time, isMS = false, ms) {
+  let hours = 0,
+    minutes = 0,
+    seconds = 0;
+  if (isMS) {
+    const dc = convertMillisecondsToDigitalClock(ms);
+    hours = dc.hours;
+    minutes = dc.minutes;
+    seconds = dc.seconds;
+  } else {
+    hours = time.getHours();
+    minutes = time.getMinutes();
+    seconds = time.getSeconds();
+  }
+  const ns = Math.floor(((hours * 60 * 60) + (minutes * 60) + (seconds)) / 0.864);
+  // Courtesy of spec.
+  const aa = `0000${ns.toString()}`.replace(/^.*(.{5})$/u, "$1");
+  
+
+  const arr = [aa.substr(0, 1), aa.substr(1, 2), aa.substr(3, 2)];
+
+  return arr.join(":");
+}
+
 const StuffComponent = {
+  data() {
+    return {
+      time: Date,
+    };
+  },
   methods: {
+    update() {
+      this.time = new Date();
+    },
     commandCheck(command) {
       if (command.check === true) return `Works in all channels.`;
       const checkMessages = {
@@ -777,13 +836,19 @@ const StuffComponent = {
       return checkMessages[command.check];
     },
   },
+  computed: {
+    getCurrentTime() {
+      return `Time is ${getDecimalTimeFromNormalPeopleTimeLikeTheOneThatNormalPeopleUseFuckingTwentyFourHourTime(this.time)}`;
+    },
+  },
   template: `
     <div style="text-align: center;">
     <h1>ADAnswersBot Command List</h1>
     <h2>Only updated on new releases of the bot. Currently v3</h2>
     <h2>Created by earth#1337 on Discord. Prefix is /</h2>
     <h3>For more information concerning contributing to the bot, check out<br><a href="https://github.com/earthernsence/ADAnswers-Bot#readme">the general readme</a> and <a href="https://github.com/earthernsence/ADAnswers-Bot/tree/main/commands#readme">the command readme.</a> Also check out the functions.js documentation site <a href="https://earthernsence.github.io/ADAnswers-Bot/out/global.html">here!</a></h3>
-    <h3>Bot Commands: All commands work here. #bot-commands<br>
+    <h3>{{ getCurrentTime }}</h3>
+    <div>Bot Commands: All commands work here. #bot-commands<br>
     Common: All commands besides miscellaneous commands work here. #game-related #android #android-bugs #web-bugs #questions #modifications #rad-puns-xd.<br>
     Early game: Early game commands work here. #under-e308-antimatter #infinity-to-break-infinity<br>
     Early Infinity: #infinity-to-break-infinity.<br>
@@ -797,8 +862,8 @@ const StuffComponent = {
     Break: Break Infinity commands work here. #break-to-5e11-ip-upgrade #5e11-ip-upgrade-to-eternity<br>
     Early Eternity: Early Eternity commands work here. #eternity-to-ec1<br>
     ECs: EC commands work here. #ec1-to-timestudy-181 #timestudy-181-to-dilation<br>
-    Endgame: Endgame/Dilation commands work here. #dilation-to-1e4000-ep #over-1e4000-ep<br></h3>
-    <h1>New commands</h1>
+    Endgame: Endgame/Dilation commands work here. #dilation-to-1e4000-ep #over-1e4000-ep<br></div>
+    <h1>Commands</h1>
     <div v-for="command in newCommands">
       <h2>{{ command.name }}</h2>
       <p>{{ command.value }}</p><br>
@@ -820,6 +885,7 @@ const StuffComponent = {
 let vue;
 
 window.onload = () => {
+  setInterval(updateUI, 10);
   vue = new Vue({
     el: "#vue",
     components: {

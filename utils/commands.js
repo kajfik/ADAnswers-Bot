@@ -7,6 +7,7 @@ const ChallengeCommand = require("../commands/challenge");
 const DilationtreesCommand = require("../commands/dilationtrees");
 const infinitygrindingCommand = require("../commands/infinitygrinding");
 const RealityCommand = require("../commands/reality");
+const PeopleCommand = require("../commands/people");
 
 /**
  * @param {string} command - The command to get the message object for.
@@ -20,6 +21,7 @@ function getMessageObject(command) {
     case "dilationtrees": return DilationtreesCommand.command.messageObject;
     case "infinitygrinding": return infinitygrindingCommand.command.messageObject;
     case "reality": return RealityCommand.command.messageObject;
+    case "people": return PeopleCommand.command.messageObject;
     default: return `Unknown message object.`;
   }
 }
@@ -67,6 +69,25 @@ function getChoices(command, which) {
       value: "idle",
       type: "STRING",
     });
+  } else if (command === "people") {
+    const mo = getMessageObject(command);
+    if (which === "moderators") {
+      for (const mod in mo.moderators) {
+        choices.push({
+          name: mod,
+          description: mod,
+          type: "SUB_COMMAND"
+        });
+      }
+    } else if (which === "nonmods") {
+      for (const nonmod in mo.nonmods) {
+        choices.push({
+          name: nonmod,
+          description: nonmod,
+          type: "SUB_COMMAND"
+        });
+      }
+    }
   } else {
     for (const ach in getMessageObject(command)) {
       choices.push({
@@ -125,12 +146,10 @@ module.exports = {
         choices: getChoices("antitables")
       }]
     },
-    { name: "archa", description: "archa!" },
     {
       name: "bankedinfinities",
       description: "describes banked infinities, what they do, and how to get them."
     },
-    { name: "blob", description: "blob" },
     {
       name: "bottombuttons",
       description: "shows what the bottom buttons are"
@@ -224,7 +243,6 @@ module.exports = {
       name: "earlyinfinity",
       description: "Describes how to progress pre-2x better Galaxies"
     },
-    { name: "earth", description: "who i am n shit" },
     { name: "ec", description: "shorthand for /eternitychallenge", options: [{
       name: "ec",
       type: "NUMBER",
@@ -289,10 +307,6 @@ module.exports = {
         required: true,
         choices: getChoices("eternitychallenge", "completions")
       }]
-    },
-    {
-      name: `ttforecs`,
-      description: "Describes why sometimes the same tree gets a different cost on /ec."
     },
     {
       name: "eternitychallengeorder",
@@ -408,8 +422,6 @@ module.exports = {
       description: "Explains the colouring of the IP/EP numbers on their reset buttons"
     },
     { name: "justask", description: "sends a passive aggressive thing" },
-    { name: "kajfik", description: "kaj!" },
-    { name: "mage", description: "mage!" },
     { name: "matterportal", description: "Matter Portal news tickers" },
     {
       name: "meta",
@@ -452,7 +464,6 @@ module.exports = {
       description: "a guide of how to fix out-of-focus tabs on chrome not giving full progress"
     },
     { name: "offlineticks", description: "offline ticks stuff" },
-    { name: "omsi", description: "omsi!" },
     {
       name: "oom",
       description: "describes what an OoM (Order of Magnitude) is"
@@ -462,7 +473,6 @@ module.exports = {
       description: "Explanation of the origin of paperclips."
     },
     { name: "pins", description: "pins" },
-    { name: "punk", description: "punk?" },
     {
       name: "reality",
       description: "Information surrounding the upcoming reality update.",
@@ -487,7 +497,6 @@ module.exports = {
     },
     { name: "site", description: "Says the game site" },
     { name: "slightsmile", description: "kaj no" },
-    { name: "spectralflame", description: "spec!" },
     {
       name: "studytree",
       description: "Generates a Time Study tree based on your total Time Theorems. See /tstreerange",
@@ -531,8 +540,6 @@ module.exports = {
       name: "tstreerange",
       description: "Says why sometimes the bot will recommend a tree for more TT than you have"
     },
-    { name: "unsmith", description: ":unsmith:" },
-    { name: "waitingidly", description: "idly!" },
     {
       name: "xkcd",
       description: "has an arg: XKCD number. sends the link to that xkcd",
@@ -553,6 +560,28 @@ module.exports = {
           type: "INTEGER"
         }
       ]
+    },
+    {
+      name: "people",
+      description: `people I know that are cool`,
+      options: [
+        {
+          name: "moderators",
+          description: "opinions on moderators",
+          type: "SUB_COMMAND_GROUP",
+          options: getChoices("people", "moderators")
+        },
+        {
+          name: "nonmods",
+          description: "non mods",
+          type: "SUB_COMMAND_GROUP",
+          options: getChoices("people", "nonmods")
+        }
+      ]
+    },
+    {
+      name: "time",
+      description: "Displays the current time, in Decimal time. https://en.wikipedia.org/wiki/Decimal_time"
     },
   ],
   find(name) {

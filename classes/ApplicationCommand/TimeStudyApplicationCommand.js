@@ -27,6 +27,12 @@ class TimeStudyApplicationCommand extends ApplicationCommand {
         this.argType[0] = config.argInfo.tt.type;
         this.argKey[1] = config.argInfo.path.key;
         this.argType[1] = config.argInfo.path.type;
+      } else if (this.isPeople()) {
+        this.argKey[0] = config.argInfo.type.key;
+        this.argType[0] = config.argInfo.type.type;
+        this.argKey[1] = config.argInfo.name.key;
+        this.argType[1] = config.argInfo.name.type;
+        this.messageObject = config.messageObject;
       } else {
         this.argKey = config.argInfo.key;
         this.argType = config.argInfo.type;
@@ -52,6 +58,10 @@ class TimeStudyApplicationCommand extends ApplicationCommand {
   isTS() {
     return this.name === "ts" ||
     this.name === "studytree";
+  }
+
+  isPeople() {
+    return this.name === "people";
   }
 
   /** 
@@ -90,6 +100,11 @@ class TimeStudyApplicationCommand extends ApplicationCommand {
       args.push(interaction.options.getString("path"));
       return args;
     }
+    if (this.isPeople()) {
+      args.push(interaction.options._group);
+      args.push(interaction.options._subcommand);
+      return args;
+    }
     if (this.argType === "string") args.push(interaction.options.getString(this.argKey));
     if (this.argType === "number") args.push(interaction.options.getNumber(this.argKey));
     return args;
@@ -106,6 +121,8 @@ class TimeStudyApplicationCommand extends ApplicationCommand {
     else if (this.isTS()) {
       args = this.getArgs(interaction);
       if (!args[1]) args[1] = "active";
+    } else if (this.isPeople()) {
+      args = this.getArgs(interaction);
     }
 
     if (this.type !== "shorthand" || this.name === "ts" || this.name === "ec" || this.name === "eco") {

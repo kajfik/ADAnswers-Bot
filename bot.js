@@ -261,5 +261,6 @@ client.on("messageCreate", async message => {
     }
   } catch (e) {
     console.log(`Deployment failed.`);
+    console.log(e);
   }
 });
