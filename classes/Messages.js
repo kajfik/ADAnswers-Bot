@@ -34,7 +34,9 @@ class Messages {
     if (this.currentIndex > this.messages.length - 1) { 
       this.currentIndex = 0;
     }
-    return this.getByIndex(this.currentIndex);
+    let next = this.getByIndex(this.currentIndex);
+    if (next.length > 100) next = this.next();
+    return next;
   }
 }
 

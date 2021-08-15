@@ -23,9 +23,13 @@ function convertMillisecondsToDigitalClock(ms) {
 /**
  * Turns Date into decimal time
  * @param {Date} date Date object. Has to be new Date() invoked.
+ * @param {Boolean} isMS Says whether or not the time is in milliseconds.
+ * @param {Number} ms Number of milliseconds.
+ * @param {Boolean} needsTimeZone Whether or not the timezone is needed.
  * @returns {String} A string of the time in the format of "Days:Hours:Minutes:Seconds"
  */
-function getDecimalTimeFromNormalPeopleTimeLikeTheOneThatNormalPeopleUseFuckingTwentyFourHourTime(time, isMS = false, ms) {
+// eslint-disable-next-line max-params
+function getDecimalTimeFromNormalPeopleTimeLikeTheOneThatNormalPeopleUseFuckingTwentyFourHourTime(time, isMS = false, ms, needsDays = false, needsTimeZone = false) {
   let days = 0,
     hours = 0,
     minutes = 0,
@@ -44,12 +48,12 @@ function getDecimalTimeFromNormalPeopleTimeLikeTheOneThatNormalPeopleUseFuckingT
   const ns = Math.floor(((hours * 60 * 60) + (minutes * 60) + (seconds)) / 0.864);
   // Courtesy of spec.
   const aa = `0000${ns.toString()}`.replace(/^.*(.{5})$/u, "$1");
-
-  return clockify([days, aa.substr(0, 1), aa.substr(1, 2), aa.substr(3, 2)]);
+  if (needsDays) return clockify([days, aa.substr(0, 1), aa.substr(1, 2), aa.substr(3, 2)]);
+  return clockify([aa.substr(0, 1), aa.substr(1, 2), aa.substr(3, 2)], needsTimeZone);
 }
 
 function msToDecimal(ms) {
-  return getDecimalTimeFromNormalPeopleTimeLikeTheOneThatNormalPeopleUseFuckingTwentyFourHourTime(0, true, ms);
+  return getDecimalTimeFromNormalPeopleTimeLikeTheOneThatNormalPeopleUseFuckingTwentyFourHourTime(0, true, ms, true);
 }
 
 const newDate = () => new Date();
@@ -83,9 +87,9 @@ function increaseSeconds() {
  * @param {Array<Number>} array Array of numbers
  * @returns {String} clockified array
  */
-function clockify(array) {
+function clockify(array, needsTimeZone = false) {
   const time = array.map(t => String(t).padStart(2, "0"));
-  return time.join(":");
+  return `${time.join(":")}${needsTimeZone ? ` (UTC-${new Date().getTimezoneOffset() / 60})` : ""}`;
 }
 
 /**

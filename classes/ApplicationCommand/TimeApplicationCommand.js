@@ -5,7 +5,7 @@ const { getDecimalTimeFromNormalPeopleTimeLikeTheOneThatNormalPeopleUseFuckingTw
 
 class TimeApplicationCommand extends ApplicationCommand {
   execute(interaction) {
-    interaction.reply(`Currently ${getDecimalTimeFromNormalPeopleTimeLikeTheOneThatNormalPeopleUseFuckingTwentyFourHourTime(newDate())}`);
+    interaction.reply(`Currently ${getDecimalTimeFromNormalPeopleTimeLikeTheOneThatNormalPeopleUseFuckingTwentyFourHourTime(newDate(), false, 0, false, true)}`);
   }
 }
 

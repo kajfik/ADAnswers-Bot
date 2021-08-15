@@ -95,7 +95,7 @@ class MetaApplicationCommand extends ApplicationCommand {
         { name: "Top 5 used commands", value: `${tagStuff.top5commands}`, inline: true },
         { name: "Bottom 5 used commands", value: `${tagStuff.bottom5commands}`, inline: true },
         { name: "All data", value: `${metaMessageObject.alldata}`, inline: true },
-        { name: "Time", value: getDecimalTimeFromNormalPeopleTimeLikeTheOneThatNormalPeopleUseFuckingTwentyFourHourTime(newDate()), inline: true },
+        { name: "Time", value: getDecimalTimeFromNormalPeopleTimeLikeTheOneThatNormalPeopleUseFuckingTwentyFourHourTime(newDate(), false, 0, false, true), inline: true },
       )
       .setTimestamp()
       .setFooter(footerMessages.next(), `${interaction.client.user.displayAvatarURL()}`);
