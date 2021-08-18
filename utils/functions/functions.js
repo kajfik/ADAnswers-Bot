@@ -66,6 +66,7 @@ module.exports = {
     "eternityGrinding": checks.eternityGrindingCheck,
     "ic4/5": checks.weirdICsCheck,
     "setCrunchAutoCheck": checks.setCrunchAutoCheck,
+    "lateBreakCheck": checks.lateBreakCheck,
     "true": true
   }
 };

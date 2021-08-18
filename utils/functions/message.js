@@ -65,6 +65,7 @@ const noWorkyMessageObject = {
   "endgame": noWorkyMessage("endgame"),
   "e4000": noWorkyMessage("e4000 EP"),
   "ic4/5": noWorkyMessage("Break Infinity", "early Eternity"),
+  "lateBreakCheck": noWorkyMessage("last Break Infinity")
 };
 
 module.exports = {

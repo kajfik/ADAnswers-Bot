@@ -583,6 +583,10 @@ module.exports = {
       name: "time",
       description: "Displays the current time, in Decimal time. https://en.wikipedia.org/wiki/Decimal_time"
     },
+    {
+      name: "replicanti",
+      description: "Describes Replicanti in all of their glory"
+    }
   ],
   find(name) {
     return this.all.find(ob => ob.name === name) ?? "Unknown command";

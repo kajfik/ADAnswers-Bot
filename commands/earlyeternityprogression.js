@@ -15,6 +15,6 @@ module.exports = {
     (Buy TS51) Eternity at e614IP for 8EP
     4.  Buy TS61, then get 100 eternities.
     
-    Afterwards, check out this flowchart (also pinned in eternity to ec1): https://media.discordapp.net/attachments/387799188848640013/860726060647841852/unknown.png`]
+    Afterwards, check out this flowchart (also pinned in eternity to ec1): https://i.imgur.com/pdmy3bN.png`]
   })
 };

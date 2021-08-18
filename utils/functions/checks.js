@@ -164,6 +164,10 @@ function weirdICsCheck(id, message) {
   return config.ids.earlyEternity.includes(id) || config.ids.break.includes(id) || config.ids.common.includes(id) || botCommandsCheck(id, message);
 }
 
+function lateBreakCheck(id, message) {
+  return config.ids.break[1] === id || config.ids.common.includes(id) || botCommandsCheck(id, message);
+}
+
 module.exports = {
   earlyGameCheck,
   ecsCheck,
@@ -180,5 +184,6 @@ module.exports = {
   botCommandsCheck,
   breakCheck,
   earlyInfinityCheck,
-  eternityGrindingCheck
+  eternityGrindingCheck,
+  lateBreakCheck,
 };

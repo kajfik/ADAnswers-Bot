@@ -4,7 +4,7 @@
 const { ApplicationCommand } = require("../classes/ApplicationCommand/ApplicationCommand");
 
 const infinityGrindingMessageObject = {
-  "early": "Crunch autobuyer on 5.1 seconds (because of the reward from 2mi (and for help with attaining this achievement, use `/achievements 2mi`)), and make sure you have TS32 for the extra multiplier based on DimBoosts",
+  "early": "Crunch autobuyer on 5.1 seconds (because of the reward from r87 (and for help with attaining this achievement, use `/achievements r87`)), and make sure you have TS32 for the extra multiplier based on DimBoosts",
   "late": `INFINITY FARMING: (Do this on long AFKs) ---- EC10 diminishing returns, reach at least 5 billion eventually (achievement)
 
   Method:

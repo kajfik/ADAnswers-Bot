@@ -19,7 +19,7 @@ function startIntervals(client) {
  */
 function setBotStatus(client) {
   const next = combined.next();
-  console.log(`Changed status to ${next}.`);
+  console.log(`Changed status to: Listening to${next}`);
   client.user.setActivity(next, { type: "LISTENING" });
 }
 

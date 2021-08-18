@@ -1,13 +1,13 @@
 "use strict";
 
-const time = require("./functions/time");
-
 const messages = {
   footerMessages: [
+    // Time is replaced in the next() function. Replaced by decimal time. Has to be computed on the spot there.
     // Standard messages
     "Made with ❤️ by earth",
-    `Currently ${time.getDecimalTimeFromNormalPeopleTimeLikeTheOneThatNormalPeopleUseFuckingTwentyFourHourTime(time.newDate())}.`,
-    "ADAnswersBot is a bot made for the Discord server \nAntimatter Dimensions. https://discord.gg/AntimatterDimensions",
+    "time",
+    "ADAnswersBot is a bot made for the Antimatter Dimensions Discord.",
+    "Antimatter Dimensions. https://discord.gg/AntimatterDimensions",
     "I eat ass",
     "My code is so bad lol",
     "agagagagagagagagagagagagagagagagagagagag",
@@ -18,12 +18,13 @@ const messages = {
     "Also try Mee6!",
     "Written in Discord.js. https://github.com/discordjs/discord.js.",
     "This is just like Minecraft splash screen messages, isn't it?",
-    "something somethiung minceraft",
+    "something something minceraft",
+    "she/her, please",
     "the future's so bright I gotta wear shades",
     "use /help!",
     "You can use the bot in DMs, too!",
     "I read every message you send me. You're very kind :)",
-    `Currently ${time.getDecimalTimeFromNormalPeopleTimeLikeTheOneThatNormalPeopleUseFuckingTwentyFourHourTime(time.newDate())}.`,
+    `time`,
     "Are these news tickers?",
     "I'm not sure if I like them.",
     "I'm not sure if I like you.",
@@ -40,12 +41,13 @@ const messages = {
     "Deleting your favourite messages.",
     "blobblobblobblobblobblob\nblobblobblobblobblobblob",
     "What was, will be; what will be, was",
+    // Quote from Douglas Adams.
     "This is an interesting world I find myself in", 
     "– an interesting hole I find myself in –", 
     "fits me rather neatly, doesn't it?", 
     "In fact it fits me staggeringly well,", 
     "it must have been made to have me in it!",
-    `Currently ${time.getDecimalTimeFromNormalPeopleTimeLikeTheOneThatNormalPeopleUseFuckingTwentyFourHourTime(time.newDate())}.`,
+    `time`,
     // Huey Lewis and the News
     "You like Huey Lewis and the News?",
     "Their early work was a little too new wave for my tastes.",
@@ -60,7 +62,8 @@ const messages = {
     "A song so catchy, most people probably don't listen to the lyrics.",
     "But they should, because it's not just about the pleasures of conformity and the importance of trends",
     "It's also a personal statement about the band itself.",
-    "Try getting a reservation at Dorsia now!",
+    "Try getting a reservation at Dorsia now, you fuckin' stupid bastard!",
+    "time",
   ],
   activityMessages: [
     // General
@@ -145,7 +148,7 @@ const messages = {
     ` Wild Cherry.`,
     ` Kansas.`,
     ` The Romantics.`,
-    ` Whitsnake.`,
+    ` Whitesnake.`,
     ` Phil Collins.`,
     ` Bruce Springsteen.`,
     ` Marc Cohn.`,
@@ -229,6 +232,7 @@ const messages = {
     ` Heart.`,
     ` Guns N' Roses.`,
     ` Phil Collins.`,
+    ` Supertramp.`
   ],
 };
 

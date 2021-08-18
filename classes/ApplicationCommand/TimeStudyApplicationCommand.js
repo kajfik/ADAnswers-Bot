@@ -117,6 +117,7 @@ class TimeStudyApplicationCommand extends ApplicationCommand {
     let argMessage;
     let argMessageWithDM;
     let args;
+    if (this.isECOorEC() || this.isTS() && this.getCheck(interaction.channelId, interaction)) this.ephemeral = true;
     if (this.isECOorEC()) args = [this.getArgs(interaction).join("x")];
     else if (this.isTS()) {
       args = this.getArgs(interaction);

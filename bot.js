@@ -42,7 +42,8 @@ client.login(config.token);
 
 const sequelize = new Sequelize({
   dialect: "sqlite",
-  storage: "./database.sqlite"
+  storage: "./database.sqlite",
+  logging: false,
 });
 
 /**
@@ -201,8 +202,7 @@ client.on("interactionCreate", async interaction => {
     const moreInfo = `From: ${interaction.user.username}#${interaction.user.discriminator}
                              Attempted command: ${interaction.commandName}
                              Channel type: ${interaction.channel.type}
-                             Time: ${Date()}
-                             Args: ${client.commands.get(interaction.commandName).getArgs(interaction)}`;
+                             Time: ${Date()}`;
     console.log(moreInfo);
     client.channels.cache.get("722912387287744572").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
     client.users.cache.get("213071245896450068").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
@@ -257,6 +257,9 @@ client.on("messageCreate", async message => {
       await client.guilds.cache.get("722268615973273722")?.commands.set(commands.all).then(() => {
         message.reply({ content: `Successfully deployed commands to test server.`, ephemeral: false });
       });
+
+      message.reply(`Deployment success. Expect results within the hour.`);
+      console.log(`Deployment success at ${new Date()}.`);
       return;
     }
   } catch (e) {
