@@ -1,7 +1,7 @@
 "use strict";
 
 const { ApplicationCommand } = require("./ApplicationCommand");
-const { Time } = require("../Time");
+const { Time } = require("../FunctionClasses/Time");
 
 class TimeApplicationCommand extends ApplicationCommand {
   execute(interaction) {

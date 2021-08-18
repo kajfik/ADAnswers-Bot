@@ -6,7 +6,7 @@ const config = require("../../utils/config.json");
 const commands = require("../../utils/commands");
 const { footerMessages } = require("../../utils/messages");
 const wait = require("util").promisify(setTimeout);
-const { Time } = require("../Time");
+const { Time } = require("../FunctionClasses/Time");
 
 const NOW = new Date();
 const metaMessageObject = {

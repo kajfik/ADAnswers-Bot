@@ -15,8 +15,9 @@ const Discord = require("discord.js");
 const Sequelize = require("sequelize");
 const fs = require("fs"); 
 const config = require("./utils/config.json");
-const functions = require("./utils/functions/functions");
 const commands = require("./utils/commands");
+const { Internal } = require("./classes/FunctionClasses/Internal");
+const { Help } = require("./classes/FunctionClasses/Help");
 
 // eslint-disable-next-line max-len
 const client = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.DIRECT_MESSAGES, Discord.Intents.FLAGS.GUILD_INTEGRATIONS], partials: ["MESSAGE", "CHANNEL", "USER", "REACTION", "GUILD_MEMBER"] });
@@ -53,7 +54,7 @@ const sequelize = new Sequelize({
 async function ready() {
   const NOW = Date.now();
   setup();
-  functions.internal.startIntervals(client);
+  Internal.startIntervals(client);
   console.log(`Setting and sorting commands took ${Date.now() - NOW}ms.`);
 
   await createTags(0);
@@ -188,7 +189,15 @@ client.on("interactionCreate", async interaction => {
       interaction.reply({ content: `I'm sorry, I don't know what page you're looking for.`, ephemeral: false });
       return; 
     }
-    functions.help(interaction, fieldsArray, { command: "help", args: [args], id: interaction.channelId, client });
+    const helpClass = new Help({ 
+      client, 
+      page: args,
+      message: interaction,
+      fieldsArray,
+      id: interaction.channelId,
+    });
+    incrementTag("help");
+    helpClass.send();
     return;
   }
 

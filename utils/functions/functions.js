@@ -11,36 +11,17 @@
 // This file is mostly just to be a bumdle of the other files in this folder. Made solely for convenience.
 
 const checks = require("./checks");
-const tree = require("./tree");
-const help = require("./help");
 const message = require("./message");
 const misc = require("./misc");
-const internal = require("./internal");
 
 module.exports = {
-  constructEmbedObject: help.constructEmbedObject,
-  help: help.help,
   getMessage: message.getMessage,
   misc: {
-    sumAllCommands: help.sumAllCommands,
-    getHelpDescription: help.getHelpDescription,
-    getFooter: help.getFooter,
     toNumber: misc.toNumber,
     isUndefined: misc.isUndefined,
     generateChannelMessage: message.generateChannelMessage,
     getBaseLog: misc.getBaseLog,
     noWorkyMessage: message.noWorkyMessage,
-  },
-  studytree: {
-    toPath: tree.toPath,
-    earlyEternity: tree.earlyEternity,
-    secondSplit: tree.secondSplit,
-    lightDark: tree.lightDark,
-    generateTree: tree.generateTree,
-  },
-  internal: {
-    startIntervals: internal.startIntervals,
-    setBotStatus: internal.setBotStatus,
   },
   checkObject: {
     "earlyGame": checks.earlyGameCheck,

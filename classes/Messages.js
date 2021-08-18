@@ -1,7 +1,7 @@
 "use strict";
 
 const messages = require("../utils/actualMessages");
-const { Time } = require("../classes/Time");
+const { Time } = require("./FunctionClasses/Time");
 
 class Messages {
   constructor(type) {

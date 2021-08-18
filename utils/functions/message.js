@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 "use strict";
 
-const { generateTree } = require("./tree");
+const { Tree } = require("../../classes/FunctionClasses/Tree");
 const config = require("../config.json");
 
 /**
@@ -30,7 +30,7 @@ function generateChannelMessage() {
 function getMessage(command, stuff = {}) {
   switch (command) {
     case "ts":
-      return generateTree(stuff.theorem, stuff.path);
+      return new Tree(stuff.theorem, stuff.path).generateTree();
     case "channel":
       return generateChannelMessage();
     case "error":
