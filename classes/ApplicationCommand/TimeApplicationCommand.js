@@ -1,11 +1,11 @@
 "use strict";
 
 const { ApplicationCommand } = require("./ApplicationCommand");
-const { getDecimalTimeFromNormalPeopleTimeLikeTheOneThatNormalPeopleUseFuckingTwentyFourHourTime, newDate } = require("../../utils/functions/time");
+const { Time } = require("../Time");
 
 class TimeApplicationCommand extends ApplicationCommand {
   execute(interaction) {
-    interaction.reply(`Currently ${getDecimalTimeFromNormalPeopleTimeLikeTheOneThatNormalPeopleUseFuckingTwentyFourHourTime(newDate(), false, 0, false, true)}`);
+    interaction.reply(`Currently ${Time.decimalTime(false, Time.newDate(), 0)}`);
   }
 }
 

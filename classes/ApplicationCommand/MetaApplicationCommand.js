@@ -3,11 +3,10 @@
 const { ApplicationCommand } = require("./ApplicationCommand");
 const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
 const config = require("../../utils/config.json");
-const functions = require("../../utils/functions/functions");
 const commands = require("../../utils/commands");
 const { footerMessages } = require("../../utils/messages");
 const wait = require("util").promisify(setTimeout);
-const { getDecimalTimeFromNormalPeopleTimeLikeTheOneThatNormalPeopleUseFuckingTwentyFourHourTime, newDate, msToDecimal } = require("../../utils/functions/time");
+const { Time } = require("../Time");
 
 const NOW = new Date();
 const metaMessageObject = {
@@ -85,7 +84,7 @@ class MetaApplicationCommand extends ApplicationCommand {
         { name: "Bot version", value: config.version, inline: true },
         { name: "Last restart", value: metaMessageObject.lastrestart, inline: true },
         // eslint-disable-next-line max-len
-        { name: "Uptime", value: `The bot has been up for ${functions.misc.convertMillisecondsToDigitalClock(interaction.client.uptime).clock}, (${msToDecimal(interaction.client.uptime)} 10h time)`, inline: true },
+        { name: "Uptime", value: `The bot has been up for ${Time.dhmsFromMS(interaction.client.uptime).clock}, (${Time.decimalTime(true, Time.newDate(), interaction.client.uptime)} 10h time)`, inline: true },
         { name: "Status", value: `Pong! ${this.getStatus(interaction.client.ws.ping)}`, inline: true },
         { name: "Suggest", value: metaMessageObject.suggest, inline: true },
         { name: "Invite", value: metaMessageObject.invite, inline: true },
@@ -94,8 +93,8 @@ class MetaApplicationCommand extends ApplicationCommand {
         { name: "Total requests/successses", value: `Requests: ${tagStuff.requests}\nSuccesses: ${tagStuff.successes}`, inline: true },
         { name: "Top 5 used commands", value: `${tagStuff.top5commands}`, inline: true },
         { name: "Bottom 5 used commands", value: `${tagStuff.bottom5commands}`, inline: true },
-        { name: "All data", value: `${metaMessageObject.alldata}`, inline: true },
-        { name: "Time", value: getDecimalTimeFromNormalPeopleTimeLikeTheOneThatNormalPeopleUseFuckingTwentyFourHourTime(newDate(), false, 0, false, true), inline: true },
+        { name: "All data", value: metaMessageObject.alldata, inline: true },
+        { name: "Time", value: Time.getTime(), inline: true },
       )
       .setTimestamp()
       .setFooter(footerMessages.next(), `${interaction.client.user.displayAvatarURL()}`);

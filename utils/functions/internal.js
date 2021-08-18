@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 "use strict";
 
-const { increaseSeconds } = require("./time");
 const { combined } = require("../messages");
 
 /**
@@ -10,7 +9,6 @@ const { combined } = require("../messages");
  */
 function startIntervals(client) {
   setInterval(setBotStatus, 15000, client);
-  setInterval(increaseSeconds, 864);
 }
 
 /**

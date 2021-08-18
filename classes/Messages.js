@@ -1,7 +1,7 @@
 "use strict";
 
 const messages = require("../utils/actualMessages");
-const time = require("../utils/functions/time");
+const { Time } = require("../classes/Time");
 
 class Messages {
   constructor(type) {
@@ -37,7 +37,7 @@ class Messages {
     }
     let next = this.getByIndex(this.currentIndex);
     if (next.length > 128) next = this.next();
-    if (next === "time") next = `Currently ${time.getDecimalTimeFromNormalPeopleTimeLikeTheOneThatNormalPeopleUseFuckingTwentyFourHourTime(time.newDate())}`;
+    if (next === "time") next = `Currently ${Time.getTime()}`;
     return next;
   }
 }

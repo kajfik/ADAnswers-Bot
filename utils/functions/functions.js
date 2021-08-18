@@ -15,7 +15,6 @@ const tree = require("./tree");
 const help = require("./help");
 const message = require("./message");
 const misc = require("./misc");
-const time = require("./time");
 const internal = require("./internal");
 
 module.exports = {
@@ -27,7 +26,6 @@ module.exports = {
     getHelpDescription: help.getHelpDescription,
     getFooter: help.getFooter,
     toNumber: misc.toNumber,
-    convertMillisecondsToDigitalClock: time.convertMillisecondsToDigitalClock,
     isUndefined: misc.isUndefined,
     generateChannelMessage: message.generateChannelMessage,
     getBaseLog: misc.getBaseLog,
@@ -43,12 +41,6 @@ module.exports = {
   internal: {
     startIntervals: internal.startIntervals,
     setBotStatus: internal.setBotStatus,
-  },
-  time: {
-    convertMillisecondsToDigitalClock: time.convertMillisecondsToDigitalClock,
-    decimalClock: time.decimalClock,
-    increaseSeconds: time.increaseSeconds,
-    clockify: time.clockify,
   },
   checkObject: {
     "earlyGame": checks.earlyGameCheck,
