@@ -2,7 +2,6 @@
 /* eslint-disable max-len */
 "use strict";
 
-const functions = require("../utils/functions/functions");
 const { Message } = require("../classes/FunctionClasses/Message");
 
 /**
@@ -71,9 +70,7 @@ class Command {
    * @returns True/false
    */
   getCheck(id, message) {
-    if (typeof functions.checkObject[this.check] === "function") return functions.checkObject[this.check](id, message);
-    if (typeof functions.checkObject[this.check] === "boolean") return functions.checkObject[this.check];
-    throw `Unknown check.`;
+    return Checks.getCheck(this.check, id, message);
   }
 
   /**
@@ -87,7 +84,7 @@ class Command {
       return;
     }
     if (args[0] === undefined) {
-      this.send(message, functions.getMessage("missingArg", { name: this.name, acceptableArgs: this.acceptableArgs }));
+      this.send(message, new Message("missingArg", { name: this.name, acceptableArgs }).getMessage());
     }
   }
 
@@ -118,8 +115,8 @@ class Command {
     }
     const sent = this.getArgMessage(args[0].toLowerCase());
     if (this.getCheck(id, message) && this.acceptableArgs.includes(args[0].toLowerCase())) this.send(message, sent);
-    else if (!(args[0] === undefined)) this.send(message, functions.getMessage("error", { args, name: this.name, acceptableArgs: this.acceptableArgs }));
-    else message.channel.send(functions.getMessage("shouldNeverAppear"), { split: true });
+    else if (!(args[0] === undefined)) this.send(message, new Message("error", { args, name: this.name, acceptableArgs: this.acceptableArgs }).getMessage());
+    else message.channel.send(new Message("shouldNeverAppear").getMessage());
   }
 }
 

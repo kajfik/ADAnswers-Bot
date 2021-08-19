@@ -3,9 +3,8 @@
 "use strict";
 
 const { Command } = require("../Command");
-
-const checks = require("../../utils/functions/checks");
-const misc = require("../../utils/functions/misc");
+const { Message } = require("../FunctionClasses/Message");
+const { Checks } = require("../FunctionClasses/Checks");
 
 /** 
  * @class ApplicationCommand
@@ -87,8 +86,7 @@ class ApplicationCommand extends Command {
    * @returns {Boolean} The check for the command.
    */
   getCheck(id, interaction) {
-    if (typeof checks[this.check] === "function") return checks[this.check](id, interaction);
-    return true;
+    return Checks.getCheck(this.check, id, interaction);
   }
 
   /**
@@ -105,7 +103,8 @@ class ApplicationCommand extends Command {
    */
   doMissingArgCatch(interaction, args) {
     if (args[0] === undefined) {
-      this.send(interaction, misc.getMessage("missingArg", { name: this.name, acceptableArgs: this.acceptableArgs }));
+      const sent = new Message("missingArg", { name: this.name, acceptableArgs }).getMessage();
+      this.send(interaction, sent);
     }
   }
 
@@ -122,8 +121,8 @@ class ApplicationCommand extends Command {
     }
     const sent = this.getArgMessage(args[0].toLowerCase());
     if (this.getCheck(id, interaction) && this.acceptableArgs.includes(args[0].toLowerCase())) this.send(interaction, sent);
-    else if (!(args[0] === undefined)) this.send(interaction, misc.getMessage("error", { args, name: this.name, acceptableArgs: this.acceptableArgs }));
-    else this.send(interaction, misc.getMessage("shouldNeverAppear"));
+    else if (!(args[0] === undefined)) this.send(interaction, new Message("error", { args, name: this.name, acceptableArgs: this.acceptableArgs }).getMessage());
+    else this.send(interaction, new Message("shouldNeverAppear").getMessage());
   }
 }
 

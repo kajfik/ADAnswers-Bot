@@ -55,7 +55,7 @@ class Tree {
     } else if (this.theorems <= 122) {
       tree.ts = [CONSTS.PRE_SPLIT, CONSTS.TIME, 111, path, 151, 161, 171, 162, CONSTS.EXTRA];
     } else {
-      tree.ts = [CONSTS.PRE_SPLIT, TIME, 111, ACTIVE, POST_SPLIT, EXTRA];
+      tree.ts = [CONSTS.PRE_SPLIT, CONSTS.TIME, 111, CONSTS.ACTIVE, CONSTS.POST_SPLIT, CONSTS.EXTRA];
       tree.desc = "At 900 Total TT, this flips over into EC10 territory.";
     }
     return tree;
@@ -109,7 +109,7 @@ class Tree {
     if (this.theorems <= 53) {
       tree = this.earlyEternity(this.theorem);
     } else if (this.theorems <= 317) {
-      tree = this.secondSplit(this.theorem, this.realPath());
+      tree = this.secondSplit(this.theorem, this.realPath);
     } else {
       tree = this.lightDark(this.theorem);
     }

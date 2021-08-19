@@ -2,7 +2,6 @@
 "use strict";
 
 const { ApplicationCommand } = require("./ApplicationCommand");
-const functions = require("../../utils/functions/functions");
 const { Misc } = require("../FunctionClasses/Misc");
 
 /**
@@ -26,9 +25,9 @@ class EternityPointApplicationCommand extends ApplicationCommand {
     if (!aIsNaN && check && !(a > 1000)) this.send(interaction, argMessage);
     else if (args[0] === undefined) this.doMissingArgCatch(interaction, args);
     else if (!aIsNaN && check && a > 1000) this.send(interaction, `In command \`/ep\`, you cannot use a number higher than 1000.`);
-    else if (aIsNaN && check) this.send(interaction, functions.getMessage("error", { args, name: this.name, acceptableArgs: this.acceptableArgs }));
+    else if (aIsNaN && check) this.send(interaction, new Message("error", { args, name: this.name, acceptableArgs: this.acceptableArgs }).getMessage());
     else if (!check) this.send(interaction, this.getFailMessage());
-    else this.send(interaction, functions.getMessage("shouldNeverAppear"));
+    else this.send(interaction, new Message("shouldNeverAppear").getMessage());
   }
 }
 

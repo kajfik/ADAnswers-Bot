@@ -1,6 +1,6 @@
 "use strict";
 
-const config = require("../../utils/config.json");
+const config = require("../../utils/config");
 
 class Message {
   constructor(command, stuff) {
