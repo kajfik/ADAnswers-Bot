@@ -2,7 +2,7 @@
 "use strict";
 
 const { XKCDApplicationCommand } = require("../classes/ApplicationCommand/XKCDApplicationCommand");
-const functions = require("../utils/functions/functions");
+const { Misc } = require("../classes/FunctionClasses/Misc");
 
 module.exports = {
   command: new XKCDApplicationCommand({
@@ -13,7 +13,7 @@ module.exports = {
     acceptableArgs: ["Any number"],
     sent: undefined,
     getArgMessage(arg) {
-      const a = functions.misc.toNumber(arg);
+      const a = Misc.toNumber(arg);
       return `https://xkcd.com/${a}/`;
     },
     argInfo: {

@@ -3,6 +3,7 @@
 
 const { ApplicationCommand } = require("./ApplicationCommand");
 const functions = require("../../utils/functions/functions");
+const { Misc } = require("../FunctionClasses/Misc");
 
 /**
  * @class EternityPointApplicationCommand
@@ -17,7 +18,7 @@ class EternityPointApplicationCommand extends ApplicationCommand {
   execute(interaction) {
     const args = [this.getArgs(interaction)];
     const id = interaction.channelId;
-    const a = functions.misc.toNumber(args[0]);
+    const a = Misc.toNumber(args[0]);
     const argMessage = this.getArgMessage(a);
     const check = this.getCheck(id, interaction);
     const aIsNaN = isNaN(a);

@@ -5,7 +5,8 @@
 "use strict";
 
 const { TimeStudyApplicationCommand } = require("../classes/ApplicationCommand/TimeStudyApplicationCommand");
-const functions = require("../utils/functions/functions");
+const { Tree } = require("../classes/FunctionClasses/Tree");
+const { Misc } = require("../classes/FunctionClasses/Misc");
 
 module.exports = {
   command: new TimeStudyApplicationCommand({
@@ -21,16 +22,15 @@ module.exports = {
       let theorem = 0;
       let path = "active";
       // First arg
-      if (!isNaN(functions.misc.toNumber(args[0]))) theorem = args[0];
+      if (!isNaN(Misc.toNumber(args[0]))) theorem = args[0];
       else return "Theorem amount provided is not a number";
       // Second arg
       if (args[1] === undefined) args[1] = path;
       if (this.acceptableArgs[1].includes(args[1].toLowerCase())) path = args[1].toLowerCase();
       else return "Path provided is not a path.";
 
-      path = functions.studytree.toPath(path);
       // Putting it together
-      return functions.getMessage("ts", { theorem, path });
+      return new Tree(theorem, path).generateTree();
     },
     argInfo: {
       tt: { key: "theorems", type: "number" },

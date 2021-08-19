@@ -11,18 +11,8 @@
 // This file is mostly just to be a bumdle of the other files in this folder. Made solely for convenience.
 
 const checks = require("./checks");
-const message = require("./message");
-const misc = require("./misc");
 
 module.exports = {
-  getMessage: message.getMessage,
-  misc: {
-    toNumber: misc.toNumber,
-    isUndefined: misc.isUndefined,
-    generateChannelMessage: message.generateChannelMessage,
-    getBaseLog: misc.getBaseLog,
-    noWorkyMessage: message.noWorkyMessage,
-  },
   checkObject: {
     "earlyGame": checks.earlyGameCheck,
     "earlyInfinity": checks.earlyInfinityCheck,

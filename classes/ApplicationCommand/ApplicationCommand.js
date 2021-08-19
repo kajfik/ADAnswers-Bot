@@ -32,6 +32,14 @@ class ApplicationCommand extends Command {
    * @param {String} id - ID of the channel the message was sent in.
    */
   execute(interaction, id) {
+    if (!this.getCheck(id, interaction) && this.acceptableArgs !== undefined) {
+      interaction.reply(this.getFailMessage([this.getArgs(interaction)]));
+      return;
+    } 
+    if (!this.getCheck(id, interaction) && this.acceptableArgs === undefined) {
+      interaction.reply(this.getArglessFailMessage());
+      return;
+    }
     if (this.acceptableArgs === undefined) {
       if (this.getCheck(id, interaction)) interaction.reply({ content: this.sent[0], ephemeral: false });
       else interaction.reply(this.getFailMessage());

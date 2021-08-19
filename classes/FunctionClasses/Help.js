@@ -114,12 +114,12 @@ class Help {
           }
         } catch (error) {
           this.message.reply(`Bot ran into an error idk how to fix itm`);
-          const moreInfo = `From: ${message.author.username}#${message.author.discriminator}
-                             Content: ${message.content}
+          const moreInfo = `From: ${this.message.author.username}#${this.message.author.discriminator}
+                             Content: ${this.message.content}
                              Attempted command: help
-                             Channel type: ${message.channel.type}
+                             Channel type: ${this.message.channel.type}
                              Time: ${Date()}
-                             URL: ${message.channel.type === "dm" ? "N/A" : `${message.url}`}`;
+                             URL: ${this.message.channel.type === "DM" ? "N/A" : `${this.message.url}`}`;
           console.log(moreInfo);
           this.client.channels.cache.get("722912387287744572").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
           this.client.users.cache.get("213071245896450068").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);

@@ -3,7 +3,7 @@
 "use strict";
 
 const functions = require("../utils/functions/functions");
-const { getMessage } = require("./../utils/functions/message");
+const { Message } = require("../classes/FunctionClasses/Message");
 
 /**
  * Class representing a command. This handles all the backend of it and you only need to provide what is in the config.
@@ -46,18 +46,22 @@ class Command {
     }
     if (this.acceptableArgs === undefined) {
       if (this.getCheck(id, message)) message.channel.send(this.sent[0], { split: true });
-      else message.channel.send(this.getFailMessage());
+      else message.channel.send(this.getFailMessage(args));
     } else if (this.acceptableArgs !== undefined) {
       this.regularCommand(message, args, id);
     }
+  }
+
+  getArglessFailMessage() {
+    return new Message("noWorky", { name: this.name, worky: this.check, acceptableArgs: [], args: [] }).getMessage();
   }
 
   /**
    * Shorthand way to get the fail message using the check provided in the config.
    * @returns String with the failure message.
    */
-  getFailMessage() {
-    return getMessage("noWorky", { worky: this.check });
+  getFailMessage(args) {
+    return new Message("noWorky", { name: this.name, worky: this.check, acceptableArgs: this.acceptableArgs, args }).getMessage();
   }
 
   /**
