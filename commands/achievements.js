@@ -55,7 +55,7 @@ const achievementsMessageObject = {
   "r114": `Can only be done in EC4 and EC12, as those are the only Eternity Challenges that can be failed.`,
   get "yam"() { return this.r114; },
 
-  "r125": `Only possible after you buy TS 181. Using idle, disable AD/ID autobuyers, enter normal challenge 12, and buy a 4th dim. Depending on how many EP you have, it can be achieved instantly or it takes up to 60 minutes.`,
+  "r125": `Only possible after you buy TS 181. Using idle, disable AD/ID autobuyers and eternity, enter normal challenge 12, and buy a 4th dim. Depending on how many EP you have, it can be achieved instantly or it takes up to 60 minutes.`,
   get "lfoab"() { return this.r125; },
 
   "r126": `Reach at least 180 max RGs (can buy antimatter galaxies). Use active path because of 50% more RGs. Disable galaxy autobuyer, crunch, then buy 180 RGs.`,
