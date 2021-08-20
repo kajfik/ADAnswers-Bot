@@ -33,6 +33,12 @@ class TimeStudyApplicationCommand extends ApplicationCommand {
         this.argKey[1] = config.argInfo.name.key;
         this.argType[1] = config.argInfo.name.type;
         this.messageObject = config.messageObject;
+      } else if (this.isHTP()) {
+        this.argKey[0] = config.argInfo.type.key;
+        this.argType[0] = config.argInfo.type.type;
+        this.argKey[1] = config.argInfo.page.key;
+        this.argType[1] = config.argInfo.page.type;
+        this.messageObject = config.messageObject;
       } else {
         this.argKey = config.argInfo.key;
         this.argType = config.argInfo.type;
@@ -62,6 +68,10 @@ class TimeStudyApplicationCommand extends ApplicationCommand {
 
   isPeople() {
     return this.name === "people";
+  }
+
+  isHTP() {
+    return this.name === "howtoplay";
   }
 
   /** 
@@ -100,7 +110,7 @@ class TimeStudyApplicationCommand extends ApplicationCommand {
       args.push(interaction.options.getString("path"));
       return args;
     }
-    if (this.isPeople()) {
+    if (this.isPeople() || this.isHTP()) {
       args.push(interaction.options._group);
       args.push(interaction.options._subcommand);
       return args;
@@ -122,7 +132,7 @@ class TimeStudyApplicationCommand extends ApplicationCommand {
     else if (this.isTS()) {
       args = this.getArgs(interaction);
       if (!args[1]) args[1] = "active";
-    } else if (this.isPeople()) {
+    } else if (this.isPeople() || this.isHTP()) {
       args = this.getArgs(interaction);
     }
 

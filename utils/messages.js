@@ -20,7 +20,9 @@ module.exports = {
       return `${activityMessages.last()} || ${footerMessages.last()}`;
     },
     next() {
-      return `${activityMessages.next()} || ${footerMessages.next()}`;
+      let next = `${activityMessages.next()} || ${footerMessages.next()}`;
+      if (next.length > 128) next = this.next();
+      return next;
     },
     current() {
       return this.first();

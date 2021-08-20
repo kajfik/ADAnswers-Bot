@@ -8,6 +8,7 @@ const DilationtreesCommand = require("../commands/dilationtrees");
 const infinitygrindingCommand = require("../commands/infinitygrinding");
 const RealityCommand = require("../commands/reality");
 const PeopleCommand = require("../commands/people");
+const HowtoplayCommand = require("../commands/howtoplay");
 
 /**
  * @param {string} command - The command to get the message object for.
@@ -22,8 +23,22 @@ function getMessageObject(command) {
     case "infinitygrinding": return infinitygrindingCommand.command.messageObject;
     case "reality": return RealityCommand.command.messageObject;
     case "people": return PeopleCommand.command.messageObject;
+    case "howtoplay": return HowtoplayCommand.command.messageObject;
     default: return `Unknown message object.`;
   }
+}
+
+function htpChoices(which) {
+  const choices = [];
+  const htp = getMessageObject("howtoplay");
+  for (const thing in htp[which]) {
+    choices.push({
+      name: thing,
+      description: thing,
+      type: "SUB_COMMAND"
+    });
+  }
+  return choices;
 }
 
 /**
@@ -88,6 +103,8 @@ function getChoices(command, which) {
         });
       }
     }
+  } else if (command === "howtoplay") {
+    return htpChoices(which);
   } else {
     for (const ach in getMessageObject(command)) {
       choices.push({
@@ -428,6 +445,10 @@ module.exports = {
       description: "internal bot information"
     },
     {
+      name: "helper",
+      description: "sends a consent form to become a designated helper"
+    },
+    {
       name: "modifications",
       description: "Explains the modifications of AD"
     },
@@ -586,7 +607,37 @@ module.exports = {
     {
       name: "replicanti",
       description: "Describes Replicanti in all of their glory"
-    }
+    },
+    {
+      name: "howtoplay",
+      description: `Pages from the how to play on Mobile.`,
+      options: [
+        {
+          name: "faq",
+          description: "pages from the faq",
+          type: "SUB_COMMAND_GROUP",
+          options: getChoices("howtoplay", "faq")
+        },
+        {
+          name: "tickspeed",
+          description: "Tickspeed howtoplay",
+          type: "SUB_COMMAND_GROUP",
+          options: getChoices("howtoplay", "tickspeed")
+        },
+        {
+          name: "dimensions",
+          description: "Dimensions howtoplay",
+          type: "SUB_COMMAND_GROUP",
+          options: getChoices("howtoplay", "dimensions")
+        },
+        {
+          name: "softresets",
+          description: "soft reset how to play pages, f.e. dimboost/galaxy pages",
+          type: "SUB_COMMAND_GROUP",
+          options: getChoices("howtoplay", "softresets")
+        },
+      ]
+    },
   ],
   find(name) {
     return this.all.find(ob => ob.name === name) ?? "Unknown command";

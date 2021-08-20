@@ -168,18 +168,17 @@ async function incrementTag(name) {
   }
 }
 
-client.on("error", error => {
-  console.error(error);
-  client.channels.cache.get("722912387287744572").send(`ADAnswersBot has ran into an error, ${error}`);
-  client.users.cache.get("213071245896450068").send(`ADAnswersBot has ran into an error, ${error}.`);
-});
-
 client.on("interactionCreate", async interaction => {
   if (!interaction.isCommand()) return;
   if (!client.application?.owner) await client.application?.fetch();
   if (interaction.channelId === "351478114620145665") return;
 
   if (!client.commands.has(interaction.commandName) && interaction.commandName !== "help") return;
+
+  if (!interaction.channel.type === "DM" && !interaction.member._roles.includes(config.ids.helperRole) && config.ids.allMinusBotCommands.includes(interaction.channelId)) {
+    interaction.reply({ content: `You cannot use commands in progression chats/common channels if you do not have the "Helper" role! To get this role, use /helper in <#351479640755404820>`, ephemeral: true });
+    return;
+  }
 
   incrementTag("totalRequests");
 
@@ -198,6 +197,7 @@ client.on("interactionCreate", async interaction => {
     });
     incrementTag("help");
     helpClass.send();
+    incrementTag("totalSuccesses");
     return;
   }
 
