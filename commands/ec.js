@@ -1,10 +1,10 @@
 "use strict";
 
-const { TimeStudyApplicationCommand } = require("../classes/ApplicationCommand/TimeStudyApplicationCommand");
+const { ECApplicationCommand } = require("../classes/ApplicationCommand/ECApplicationCommand");
 const EternityChallengeCommand = require("./eternitychallenge");
 
 module.exports = {
-  command: new TimeStudyApplicationCommand({
+  command: new ECApplicationCommand({
     name: "ec",
     number: 6,
     description: "shorthand for /eternitychallenge",

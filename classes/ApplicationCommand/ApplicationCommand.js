@@ -28,6 +28,7 @@ class ApplicationCommand extends Command {
   }
 
   hasHelperRole(interaction) {
+    if (interaction.channel.type === "DM") return false;
     return interaction.member._roles.includes(hr);
   }
 

@@ -17,6 +17,10 @@ class Time {
     return `${time.join(":")} (UTC-5)`;
   }
 
+  static clockifyNoTensInHours(array) {
+    return `${array.join(":")} (UTC-5)`;
+  }
+
   static secondify(hours, minutes, seconds) {
     return Math.floor(((hours * 60 * 60) + (minutes * 60) + (seconds)) / 0.864);
   }
@@ -59,7 +63,7 @@ class Time {
     const timeString = `0000${seconds.toString()}`.replace(/^.*(.{5})$/u, "$1");
 
     if (isMS) return Time.clockify([dhms.days, timeString.substr(0, 1), timeString.substr(1, 2), timeString.substr(3, 2)]);
-    return Time.clockify([timeString.substr(0, 1), timeString.substr(1, 2), timeString.substr(3, 2)]);
+    return Time.clockifyNoTensInHours([timeString.substr(0, 1), timeString.substr(1, 2), timeString.substr(3, 2)]);
   }
 }
 
