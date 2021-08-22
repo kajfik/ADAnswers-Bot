@@ -56,7 +56,7 @@ const howtoplayMesssageObject = {
     \t\t\tThough it will have very little impact for the first few Tickspeed purchases, the increase is multiplicative and won’t take long to be visible.
     \t\t\t**Cost:** Your first Antimatter Galaxy requires 80 8th Antimatter Dimensions, and each additional Galaxy will cost another 60 more.
     \t\t\t**Distant Galaxy cost scaling:** Above 100 Antimatter Galaxies the cost increase between Galaxies will increase by 2 per Galaxy, making the next Galaxy cost 62 more, then 64 more, etc.
-    \t\t\t**Remote Galaxy cost scaling:** Above 800 Antimatter Galaxies, the <i>total</i> cost increases by another 0.2% per Galaxy, on top of Distant scaling.
+    \t\t\t**Remote Galaxy cost scaling:** Above 800 Antimatter Galaxies, the *total* cost increases by another 0.2% per Galaxy, on top of Distant scaling.
     \t\t\t**Tip:** On mobile, after changing the Bottom buttons option to "ALL" you can use the G bottom button to purchase an Antimatter Galaxy. On web, this same thing can be accomplished by pressing "G".`
   },
   "achievements": {
@@ -69,6 +69,68 @@ const howtoplayMesssageObject = {
     "when": `See /howtoplay faq whentosacrifice`,
     "confirmation": `The sacrifice confirmation can be disabled in Options. On web, click the checkbox next to the Sacrifice button.`,
   },
+  "infinity": {
+    "info": `\t\t\tOnce you have too much Antimatter for the world to handle (2^1024, or 1.79769e308) you'll reach Infinity and be able to perform a "Big Crunch".`,
+    "infinitypoints": `\t\t\tEach Infinity completed will give an Infinity point. These can be spent on upgrades in the new Infinity Upgrades tab. You must purchase these upgrades from top to bottom.`,
+    "when": `\t\t\t**When should I try to reach Infinity?** It's recommend to get 2 Galaxies before attempting to reach it. On the way there, you should do Dimension Boost as many times as you can.`,
+    "hotkey": "\t\t\t**Tip:** On mobile, after changing the Bottom buttons option to \"ALL\" you can use the C bottom button to perform a Big Crunch. On web, this same thing can be accomplished by pressing \"C\"."
+  },
+  "challenges": {
+    "normal": `\t\t\tChallenges are unlocked after first Infinity. They change in-game mechanics in different ways to create more difficult Infinity circumstances.
+    \t\t\tOn mobile, each completed challenge will award an autobuyer or an ability to upgrade an autobuyer. On web, each challenge unlocks an autobuyer. You can run all the challenges (except the first one) multiple times by clicking the "Completed" button or enabling the "Automatically retry challenges" option. Only the first challenge completion grants a reward. Challenges can be exited at any time via the "Exit Challenge" button in the challenge tab.
+    \t\t\tThe bottommost (mobile) or the rightmost column (web) 4 Infinity upgrades don't work in challenges.
+    \t\t\t**Tip:** Challenge confirmation dialog can be turned off in the Options.`,
+    "infinity": `\t\t\tInfinity Challenges are like regular challenges, but they have higher end goals and are generally harder than regular challenges (but have a different kind of reward).
+    \t\t\tThey unlock at set amounts of antimatter - the ones unlocking later are (generally) more difficult.`,
+    "eternity": `Head to this link: https://discord.com/channels/351476683016241162/408764187960147982/597787951925035021`,
+  },
+  "autobuyers": {
+    "info": `\t\t\t**Autobuyers** allow the automatic purchase of Antimatter Dimensions, Dimension Boosts, Galaxies, Tickspeed, Big Crunches, and Dimensional Sacrifice (later). On mobile, you can purchase Dimension and Tickspeed Autobuyers with Antimatter; the rest of the Autobuyers are given as a reward for completing a challenge. On web, all of those autobuyers are unlocked by beating a challenge.`,
+    "interval": `\t\t\t**Autobuyer Interval:** The cooloff period before the autobuyer makes another puchase.`,
+    "bulkbuy": `See /bulkbuy.`,
+    "buyquantity": `\t\t\t**Dimension Autobuyer Buy Quantity:** Autobuyers for Antimatter Dimensions can be set to buy a single, or until 10, on each cooldown. Bulk buy does not work when the autobuyer is set to singles.
+    \t\t\t**Tickspeed Autobuyer Buy Quantity:** The Tickspeed autobuyer can be set to buy a single or the max available on each cooldown.`,
+    "autodimboost": `\t\t\t**Automatic Dimboost Customization:** The Dimboost autobuyer works only when the amount of Dimboosts is less than the "Limit Dimboosts to" or when the amount of galaxies is greater or equal to the "Galaxies required to always Dimboost". For example if you set the "Galaxies required to always Dimboost" to 1, it will always buy Dimboosts when you have 1 or more galaxies. Later in the game you will unlock the ability to purchase Dimboosts in bulk. The autobuyer will then wait until it can purchase the Dimboosts in bulk at once.`,
+    "limitgalaxiesto": `\t\t\t**Limit Galaxies to:** The highest amount of galaxies the Galaxy autobuyer will buy. This limit can be disabled.`,
+    "iponcrunch": `\t\t\t**IP on crunch:** Once you break Infinity, you can set how many IP you would like to wait for before crunching. It accepts e notation (12.34e5 is 1234000).`,
+    "sacrifice": `\t\t\t**Sacrifice Autobuyer:** This autobuyer has a maxed timer from the start. You can set how much multiplier it waits for before sacrificing. It accepts e notation.` 
+  },
+  "breakinfinity": {
+    "info": "\t\t\tOriginally Antimatter Dimensions was restricted by \"Infinity\". Since a significant update, you can now \"Break Infinity\" once your Big Crunch autobuyer has been maxed. This opens up a selection of new upgrades as well as the ability to gain more than 1 Infinity point per run."
+  },
+  "replicanti": {
+    "info": `\t\t\tReplicanti are another resource that unlocks at 1e140 IP and gives a multiplier to all Infinity Dimensions. Rather than producing something else, Replicanti actually produces *itself* up to a maximum of 1.80e308. Replicanti are produced at their own pace, unaffected by Tickspeed upgrades. Each individual Replicanti has a certain chance (initially 1%) of producing another Replicanti every Replicanti interval (initially every second), and both of these can be upgraded by spending IP.
+    \t\t\tWhen Replicanti reach 1.80e308 you can exchange them for a Replicanti Galaxy. This Galaxy acts in the same way as an Antimatter Galaxy - it increases the effectiveness of your Tickspeed upgrades, but it will not make your next Antimatter Galaxy more expensive. The amount of Replicanti Galaxies you can have is capped (upgradable).`,
+    "tips": `\t\t\t**Tip:** On mobile, you can hold the "Reset replicanti amount" button to buy Replicanti Galaxies faster. On web, press the "Reset replicanti amount" button and hold enter to buy Replicanti Galaxies faster.
+    \t\t\t**Tip:** On mobile, after changing the Bottom buttons option to "ALL" you can use the R bottom button to purchase a Replicanti Galaxy. On web, this same thing can be accomplished by pressing "R".`,
+    "upgrades": `\t\t\t**Chance upgrade cost:** Base 1e150 IP, cost increment 1e15x per upgrade
+    \t\t\t**Interval upgrade cost:** Base 1e140 IP, cost increment 1e10x per upgrade
+    \t\t\t**Galaxy upgrade cost:** Base 1e170 IP, cost increment 1e25x and an additional 1e5x per upgrade, scaling similarly to Distant Antimatter Galaxies. Above 100 Replicanti Galaxies, this 1e5x per upgrade changes to 1e55x. Above 1000, the scaling switches from quadratic to cubic, with the 1e55x multiplier itself increasing by 1e5x per upgrade.`
+  },
+  "eternity": {
+    "info": `\t\t\tUpon reaching 1.79e308 Infinity Points, you can Eternity. Eternities will reset everything before this point except challenge times, achievements, and total antimatter. You also unlock a new tab.
+    \t\t\tYou will receive more Eternity Points the more Infinity Points you have when you Eternity.
+    \t\t\t**Tip:** Eternity confirmation dialog can be turned off in the Options.
+    \t\t\t**Tip:** After changing the Bottom buttons option to "ALL" you can use the E bottom button to Eternity. On web, this same thing can be accomplished by pressing "E".`,
+    "milestones": `\t\t\tTo make Eternities faster and more convenient, you will unlock various buffs as you get more Eternities. These buffs will generally let you start with certain upgrades you would otherwise lose after Eternity, give you new autobuyers for better automation, or give you a way to passively gain resources offline at a reduced rate.
+    \t\t\tMilestones which give you upgrades will automatically purchase and upgrade them to their maximum when starting the Eternity, effectively letting you have them permanently.
+    \t\t\tAll of the new autobuyers will have toggles next to their respective manual buttons (for example, Infinity Dimension autobuyer can be found on the Infinity Dimension tab). The exceptions are the improvements to the Dimboost, Galaxy, and Crunch autobuyers, as well as the new Eternity autobuyer, which will be on the autobuyers page.
+    \t\t\tFor mobile, the passive generation Milestones only work offline by design and may need certain autobuyer settings to work properly, as noted on the milestone tab itself.`
+  },
+  "timestudies": {
+    "info": `\t\t\t**Time Studies** are a powerful post-eternity upgrades, which cost Time Theorems. Time Studies are laid out in a tree-like fashion, where you must buy prerequisites before continuing.
+    \t\t\t**Time Theorems** are a limited resource which costs more for each one you buy ((1e20000^(times bought + 1)) for antimatter, (1e100^times bought) for IP, (2^times bought) for EP). They can be bought with antimatter, Infinity points, and Eternity points.`,
+    "respec": `See /respec.`,
+    "tips": `\t\t\t**Tip:** On mobile, you can show Time Study numbers in the Options. On web, this same thing can be accomplished by holding shift.
+    \t\t\t**Tip:** On mobile, you can hold a Time Study button to purchase all Time Studies up to that point. This doesn't work when you can choose only one out of more paths. For example if you want to buy all Studies up to 133, you need to buy all Studies up to 101, 102 or 103 first. On web, this same thing can be accomplished by shift clicking on a study.`
+  },
+  "dilation": {
+    "info": `\t\t\t**Time Dilation** is unlocked when you purchase the 5,000 TT Time Study after beating both EC11 and EC12 five times, and after acquiring a total of 13,000 TT. Dilating time will start a modified Eternity, called Time Dilation, in which all of your Antimatter/Infinity/Time Dimension and Tickspeed multipliers will be raised to the power of ^0.75, significantly reducing them.
+    \t\t\tIf you can reach 1.80e308 IP and then complete the Eternity while Dilated, you will be rewarded with Tachyon Particles. You can dilate as many times as you want, but Tachyon Particles cannot be "farmed" like other resources. Instead, you can only gain more Tachyon Particles by passing your previous highest antimatter within Time Dilation, and you will only gain more based on your *new* highest antimatter from this new run.
+    \t\t\t**Tip:** Dilation confirmation dialog can be turned off in the Options.`,
+    "particles": `t\t\t**Tachyon Particles** generate another currency called Dilated Time. This generation is 1:1. Dilated Time is translated into Tachyon (Dilated, on web) Galaxies by reaching thresholds similarly to free tickspeed upgrades from Time Dimensions. These Tachyon Galaxies are like Replicanti Galaxies in that they increase the effectiveness of your Tickspeed upgrades as if they were Antimatter Galaxies but they don't increase the cost of your next Antimatter Galaxy.`,
+    "upgrades": `\t\t\tUnlocking Time Dilation also unlocks **Dilation Upgrades** you can purchase using Dilated Time. The first three Dilation Upgrades can be repeatedly purchased as many times as you can afford them.`
+  }
 };
 
 module.exports = {

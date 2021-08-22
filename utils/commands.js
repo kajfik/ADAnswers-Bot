@@ -652,6 +652,54 @@ module.exports = {
           type: "SUB_COMMAND_GROUP",
           options: getChoices("howtoplay", "sacrifice")
         },
+        {
+          name: "infinity",
+          description: "explains infinity",
+          type: "SUB_COMMAND_GROUP",
+          options: getChoices("howtoplay", "infinity")
+        },
+        {
+          name: "challenges",
+          description: "explains the three challenge types",
+          type: "SUB_COMMAND_GROUP",
+          options: getChoices("howtoplay", "challenges")
+        },
+        {
+          name: "autobuyers",
+          description: "explains autobuyers",
+          type: "SUB_COMMAND_GROUP",
+          options: getChoices("howtoplay", "autobuyers")
+        },
+        {
+          name: "breakinfinity",
+          description: "explains replicanti",
+          type: "SUB_COMMAND_GROUP",
+          options: getChoices("howtoplay", "breakinfinity")
+        },
+        {
+          name: "replicanti",
+          description: "explains replicanti",
+          type: "SUB_COMMAND_GROUP",
+          options: getChoices("howtoplay", "replicanti")
+        },
+        {
+          name: "eternity",
+          description: "explains eternity",
+          type: "SUB_COMMAND_GROUP",
+          options: getChoices("howtoplay", "eternity")
+        },
+        {
+          name: "timestudies",
+          description: "explains time studies",
+          type: "SUB_COMMAND_GROUP",
+          options: getChoices("howtoplay", "timestudies")
+        },
+        {
+          name: "dilation",
+          description: "explains time dilation",
+          type: "SUB_COMMAND_GROUP",
+          options: getChoices("howtoplay", "dilation")
+        },
       ]
     },
   ],
