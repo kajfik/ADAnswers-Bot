@@ -74,6 +74,10 @@ class MetaApplicationCommand extends ApplicationCommand {
    * @param {Object} interaction - The interaction object used for the command that contains all useful information
    */
   async execute(interaction, Tags) {
+    if (!this.getCheck(interaction.channelId, interaction)) {
+      interaction.reply({ content: `hey bitchass you can't use that command here`, ephemeral: true });
+      return;
+    }
     const tagStuff = await this.manageBottomAndTopCommands(Tags);
     const embed = new MessageEmbed()
       .setColor("BLURPLE")
@@ -112,7 +116,7 @@ class MetaApplicationCommand extends ApplicationCommand {
       );
     await interaction.deferReply();
     await wait(2000);
-    await interaction.editReply({ embeds: [embed], ephemeral: false, components: [buttonRow] });
+    await interaction.editReply({ embeds: [embed], ephemeral: true, components: [buttonRow] });
   }
 }
 

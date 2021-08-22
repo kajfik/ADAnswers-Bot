@@ -609,6 +609,10 @@ module.exports = {
       description: "Describes Replicanti in all of their glory"
     },
     {
+      name: "slashcommand",
+      description: "explains how TS and EC slash commands work with their args and how to type them"
+    },
+    {
       name: "howtoplay",
       description: `Pages from the how to play on Mobile.`,
       options: [
@@ -635,6 +639,18 @@ module.exports = {
           description: "soft reset how to play pages, f.e. dimboost/galaxy pages",
           type: "SUB_COMMAND_GROUP",
           options: getChoices("howtoplay", "softresets")
+        },
+        {
+          name: "achievements",
+          description: "describes achievements",
+          type: "SUB_COMMAND_GROUP",
+          options: getChoices("howtoplay", "achievements")
+        },
+        {
+          name: "sacrifice",
+          description: "explains sacrifice",
+          type: "SUB_COMMAND_GROUP",
+          options: getChoices("howtoplay", "sacrifice")
         },
       ]
     },

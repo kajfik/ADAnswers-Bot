@@ -15,7 +15,7 @@ class AchievementApplicationCommand extends ApplicationCommand {
   execute(interaction) {
     const args = [this.getArgs(interaction)];
     if (args[0] === null) {
-      interaction.reply({ content: this.sent[0], ephemeral: false });
+      interaction.reply({ content: this.sent[0], ephemeral: !this.hasHelperRole(interaction) });
       return;
     } 
     if (args.length !== 0 && !this.acceptableArgs.includes(args[0].toLowerCase())) {

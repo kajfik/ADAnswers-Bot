@@ -5,6 +5,8 @@
 const { Command } = require("../Command");
 const { Message } = require("../FunctionClasses/Message");
 const { Checks } = require("../FunctionClasses/Checks");
+const { ids } = require("../../utils/config.json");
+const hr = ids.helperRole;
 
 /** 
  * @class ApplicationCommand
@@ -25,6 +27,10 @@ class ApplicationCommand extends Command {
     }
   }
 
+  hasHelperRole(interaction) {
+    return interaction.member._roles.includes(hr);
+  }
+
   /**
    * Executes the command. Handles commands with and without args.
    * @param {Object} interaction - Contains the information useful for executing the command.
@@ -32,16 +38,16 @@ class ApplicationCommand extends Command {
    */
   execute(interaction, id) {
     if (!this.getCheck(id, interaction) && this.acceptableArgs !== undefined) {
-      interaction.reply(this.getFailMessage([this.getArgs(interaction)]));
+      interaction.reply({ content: this.getFailMessage([this.getArgs(interaction)]), ephemeral: !this.hasHelperRole(interaction) });
       return;
     } 
     if (!this.getCheck(id, interaction) && this.acceptableArgs === undefined) {
-      interaction.reply(this.getArglessFailMessage());
+      interaction.reply({ content: this.getArglessFailMessage(), ephemeral: !this.hasHelperRole(interaction) });
       return;
     }
     if (this.acceptableArgs === undefined) {
-      if (this.getCheck(id, interaction)) interaction.reply({ content: this.sent[0], ephemeral: false });
-      else interaction.reply(this.getFailMessage());
+      if (this.getCheck(id, interaction)) this.send(interaction, this.sent[0]);
+      else interaction.reply({ content: this.getFailMessage(), ephemeral: true });
     } else if (this.acceptableArgs !== undefined) {
       this.regularCommand(interaction, [this.getArgs(interaction)], id);
     }
@@ -95,7 +101,8 @@ class ApplicationCommand extends Command {
    * @param {String} sent - The message being sent to the user.
    */
   send(interaction, sent) {
-    interaction.reply({ content: sent, ephemeral: false });
+    interaction.reply({ content: sent, ephemeral: !this.hasHelperRole(interaction) });
+    if (!this.hasHelperRole(interaction)) interaction.followUp({ content: "If you wish to be able to help other players using the bot, you will need the `Helper` role. To get it, go to bot commands and type `/helper`.", ephemeral: true });
   }
 
   /**

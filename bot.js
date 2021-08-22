@@ -164,21 +164,18 @@ async function incrementTag(name) {
   const tag = await Tags.findOne({ where: { name } });
   if (tag) {
     tag.increment("timesUsed");
-    console.log(`Tag ${name} incremented successfully. New value: ${tag.timesUsed}`);
+    console.log(`[${Date()}] Tag ${name} incremented successfully. New value: ${tag.timesUsed}`);
   }
 }
 
 client.on("interactionCreate", async interaction => {
   if (!interaction.isCommand()) return;
   if (!client.application?.owner) await client.application?.fetch();
-  if (interaction.channelId === "351478114620145665") return;
+  if (interaction.channelId === "351478114620145665" && !interaction.commandName === "deadchat") {
+    interaction.reply({ content: `hey buddy! can't use commands in general. nice try though. proud of u`, ephemeral: true });
+  }
 
   if (!client.commands.has(interaction.commandName) && interaction.commandName !== "help") return;
-
-  if (!interaction.channel.type === "DM" && !interaction.member._roles.includes(config.ids.helperRole) && config.ids.allMinusBotCommands.includes(interaction.channelId)) {
-    interaction.reply({ content: `You cannot use commands in progression chats/common channels if you do not have the "Helper" role! To get this role, use /helper in <#351479640755404820>`, ephemeral: true });
-    return;
-  }
 
   incrementTag("totalRequests");
 
@@ -195,8 +192,8 @@ client.on("interactionCreate", async interaction => {
       fieldsArray,
       id: interaction.channelId,
     });
-    incrementTag("help");
     helpClass.send();
+    incrementTag("help");
     incrementTag("totalSuccesses");
     return;
   }
@@ -204,8 +201,8 @@ client.on("interactionCreate", async interaction => {
   try {
     if (interaction.commandName === "meta") await client.commands.get(interaction.commandName).execute(interaction, Tags);
     else client.commands.get(interaction.commandName).execute(interaction, interaction.channelId, Tags);
+    incrementTag("totalSuccesses"); 
     incrementTag(interaction.commandName);
-    incrementTag("totalSuccesses");
   } catch (error) {
     interaction.reply({ content: `Bot ran into an error while executing command ${interaction.commandName}. ${error}`, ephemeral: false });
     const moreInfo = `From: ${interaction.user.username}#${interaction.user.discriminator}
@@ -270,6 +267,10 @@ client.on("messageCreate", async message => {
       message.reply(`Deployment success. Expect results within the hour.`);
       console.log(`Deployment success at ${new Date()}.`);
       return;
+    }
+    if (message.content.toLowerCase() === "++helpers" && message.author.id === "213071245896450068" && message.guildId === "351476683016241162") {
+      console.log(message.guild.roles.resolve("878418120719626320").members.map(member => `${member.user.username}#${member.user.discriminator} (${member.user.id})`));
+      message.reply(`Currently, ${message.guild.roles.resolve("878418120719626320").members.size} person(s) have the Helper role.`);
     }
   } catch (e) {
     console.log(`Deployment failed.`);

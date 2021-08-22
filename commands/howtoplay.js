@@ -58,7 +58,17 @@ const howtoplayMesssageObject = {
     \t\t\t**Distant Galaxy cost scaling:** Above 100 Antimatter Galaxies the cost increase between Galaxies will increase by 2 per Galaxy, making the next Galaxy cost 62 more, then 64 more, etc.
     \t\t\t**Remote Galaxy cost scaling:** Above 800 Antimatter Galaxies, the <i>total</i> cost increases by another 0.2% per Galaxy, on top of Distant scaling.
     \t\t\t**Tip:** On mobile, after changing the Bottom buttons option to "ALL" you can use the G bottom button to purchase an Antimatter Galaxy. On web, this same thing can be accomplished by pressing "G".`
-  }
+  },
+  "achievements": {
+    "info": `\t\t\tEach achievement has conditions that must be met before they are earned. Some are very simple, and some are significantly trickier.`,
+    "multiplier": `\t\t\tOn mobile, you will receive a 1.03x multiplier to all Antimatter Dimensions for each completed achievement. You will also gain an additional 1.25x multiplier for each fully completed row (for both platforms). In addition, many achievements have their own rewards`
+  },
+  "sacrifice": {
+    "info": `\t\t\tYou unlock Dimensional Sacrifice after your 5th Dimension Boost.
+    \t\t\tSacrificing will immediately reduce the owned quantity of Antimatter Dimensions 1 through 7 to zero. This does not reduce the multiplier or the current cost. In return, it will multiply the 8th Dimension multiplier by the shown value. It will take time to get back to the production you previously had, but you will end up with a net increase.`,
+    "when": `See /howtoplay faq whentosacrifice`,
+    "confirmation": `The sacrifice confirmation can be disabled in Options. On web, click the checkbox next to the Sacrifice button.`,
+  },
 };
 
 module.exports = {

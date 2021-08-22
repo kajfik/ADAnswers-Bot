@@ -1,6 +1,7 @@
 "use strict";
 
 const { ApplicationCommand } = require("./ApplicationCommand");
+const { Message } = require("../FunctionClasses/Message");
 
 /**
  * @class XKCDApplicationCommand
@@ -13,8 +14,12 @@ class XKCDApplicationCommand extends ApplicationCommand {
    * @param {Object} interaction - The interaction object used for the command that contains all useful information
    */
   execute(interaction) {
+    if (!this.getCheck(interaction.channelId, interaction)) {
+      interaction.reply({ content: new Message("noWorky", { worky: this.check }).getMessage(), ephemeral: true });
+      return;
+    }
     const args = this.getArgs(interaction);
-    interaction.reply(this.getArgMessage(args));
+    this.send(interaction, this.getArgMessage(args));
 
   }
 }

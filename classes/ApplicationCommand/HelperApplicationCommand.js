@@ -1,21 +1,23 @@
+/* eslint-disable no-console */
 "use strict";
 
 const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
 const { ApplicationCommand } = require("./ApplicationCommand");
 const { ids } = require("../../utils/config.json");
+const { Message } = require("../FunctionClasses/Message");
 const hr = ids.helperRole;
 
 class HelperApplicationCommand extends ApplicationCommand {
-  hasHelperRole(interaction) {
-    return interaction.member._roles.includes(hr);
-  }
-
   execute(interaction) {
+    if (!this.getCheck(interaction.channelId, interaction) || interaction.channel.type === "DM") {
+      interaction.reply({ content: new Message("noWorky", { worky: this.check }).getMessage(), ephemeral: true });
+      return;
+    }
     const a = this.hasHelperRole(interaction);
     const field = a
       ? { name: "Removing the helper role will...", value: `prevent you from using the bot in Progression Discussion. You can ${a ? `add` : `remove`} this role at any time by doing /helper again.` }
       // eslint-disable-next-line max-len
-      : { name: "Adding the helper role will...", value: `allow you to use the bot in Progression Discussion. To become a Helper, understand that you agree to keep all *personal* use of the bot to <#351479640755404820>, and only use the bot outside of there to assist others on their journey through Antimatter Dimensions. **You are not free of consequences.**\nYou can ${a ? `add` : `remove`} this role at any time by doing /helper again.` };
+      : { name: "Adding the helper role will...", value: `allow you to use the bot in Progression Discussion. To become a Helper, understand that you agree to keep all *personal* use of the bot to <#351479640755404820>, and only use the bot outside of there to assist others on their journey through Antimatter Dimensions. **You are not free of consequences.** This is effectively a contract. Breaking it can result in some form of punishment. Moderators and admins are aware at all times of who is and who isn't a helper.\nYou can ${a ? `add` : `remove`} this role at any time by doing /helper again.` };
     const embed = new MessageEmbed() 
       .setColor("DARK_AQUA")
       .setTitle("ADAnswersBot Helper")
@@ -29,16 +31,16 @@ class HelperApplicationCommand extends ApplicationCommand {
         new MessageButton()
           .setStyle(a ? "DANGER" : "SUCCESS")
           .setLabel(a ? "Remove" : "Add")
-          .setCustomId("agree"),
+          .setCustomId(`button_${a ? "stop" : "agree"}`),
       );
 
-    const filter = i => i.customId.startsWith("agree");
+    const filter = i => i.customId.startsWith("button");
     const collector = interaction.channel.createMessageComponentCollector({ filter, time: 60000 });
 
     interaction.reply({ embeds: [embed], components: [buttonRow], ephemeral: true })
       .then(() => {
         collector.on("collect", async i => {
-          if (i.customId === "agree") {
+          if (i.customId.startsWith("button")) {
             await interaction.guild.members.fetch(interaction.user.id).then(async member => {
               if (a) member.roles.remove(hr);
               else member.roles.add(hr);
@@ -48,6 +50,13 @@ class HelperApplicationCommand extends ApplicationCommand {
           }
         });
       });
+    collector.on("end", collected => {
+      if (collected.size === 1) console.log(`${collected.first().user.username} ${collected.first().customId === "button_agree" ? `added` : `took away`} the helper role to/from themselves at ${Date()}`);
+      console.log(`[${Date()}]
+      \n/helper was just executed. 
+      \n${interaction.guild.roles.resolve(hr).members.size} person(s) have the helper role.
+      \n${interaction.guild.roles.resolve(hr).members.map(member => `${member.user.username}#${member.user.discriminator} (${member.user.id}), \n`)}`);
+    });
   }
 }
 
