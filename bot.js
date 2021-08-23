@@ -168,6 +168,8 @@ async function incrementTag(name) {
   }
 }
 
+let lastErrorUserID = "635628027258339328";
+
 client.on("interactionCreate", async interaction => {
   if (!interaction.isCommand()) return;
   if (!client.application?.owner) await client.application?.fetch();
@@ -208,11 +210,13 @@ client.on("interactionCreate", async interaction => {
     const moreInfo = `From: ${interaction.user.username}#${interaction.user.discriminator}
                              Attempted command: ${interaction.commandName}
                              Channel type: ${interaction.channel.type}
-                             Time: ${Date()}`;
+                             Time: ${Date()}
+                             User ID: ${interaction.user.id}`;
     console.log(moreInfo);
     client.channels.cache.get("722912387287744572").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
     client.users.cache.get("213071245896450068").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
     console.log(error);
+    lastErrorUserID = interaction.user.id;
   }
 });
 
@@ -271,6 +275,20 @@ client.on("messageCreate", async message => {
     if (message.content.toLowerCase() === "++helpers" && message.author.id === "213071245896450068" && message.guildId === "351476683016241162") {
       console.log(message.guild.roles.resolve("878418120719626320").members.map(member => `${member.user.username}#${member.user.discriminator} (${member.user.id})`));
       message.reply(`Currently, ${message.guild.roles.resolve("878418120719626320").members.size} person(s) have the Helper role.`);
+    }
+    if (message.content.toLowerCase().startsWith(`++intercom`) && message.author.id === "213071245896450068") { 
+      let id;
+      if (args[0].length === "213071245896450068".length) id = args[0];
+      else id = lastErrorUserID;
+      const user = await client.users.fetch(id);
+      const person = `${user.username}#${user.discriminator}`;
+      const sent = id === args[0] ? message.content.slice(`++intercom`.length + id.length + 2) : message.content.slice(`++intercom`.length);
+      user.send(`${sent}\n**/-------------------------------------------------------------/**\n the above message was sent by earth#1337, the owner of the bot. this is a one way intercom.`).catch(error => { 
+        console.log(error); 
+        message.reply(`Cannot send messages to ${person}.`);
+      });
+      console.log(`Intercom message successfully sent to ${person}. Message: \n
+      ${sent}`);
     }
   } catch (e) {
     console.log(`Deployment failed.`);
