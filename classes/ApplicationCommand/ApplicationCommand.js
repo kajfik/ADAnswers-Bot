@@ -39,11 +39,11 @@ class ApplicationCommand extends Command {
    */
   execute(interaction, id) {
     if (!this.getCheck(id, interaction) && this.acceptableArgs !== undefined) {
-      interaction.reply({ content: this.getFailMessage([this.getArgs(interaction)]), ephemeral: !this.hasHelperRole(interaction) });
+      interaction.reply({ content: this.getFailMessage([this.getArgs(interaction)]), ephemeral: true });
       return;
     } 
     if (!this.getCheck(id, interaction) && this.acceptableArgs === undefined) {
-      interaction.reply({ content: this.getArglessFailMessage(), ephemeral: !this.hasHelperRole(interaction) });
+      interaction.reply({ content: this.getArglessFailMessage(), ephemeral: true });
       return;
     }
     if (this.acceptableArgs === undefined) {
@@ -103,7 +103,8 @@ class ApplicationCommand extends Command {
    */
   send(interaction, sent) {
     interaction.reply({ content: sent, ephemeral: !this.hasHelperRole(interaction) });
-    if (!this.hasHelperRole(interaction)) interaction.followUp({ content: "If you wish to be able to help other players using the bot, you will need the `Helper` role. To get it, go to bot commands and type `/helper`.", ephemeral: true });
+    // eslint-disable-next-line max-len
+    if (!this.hasHelperRole(interaction) && interaction.channel.type !== "DM") interaction.followUp({ content: "If you wish to be able to help other players using the bot, you will need the `Helper` role. To get it, go to bot commands and type `/helper`.", ephemeral: true });
   }
 
   /**

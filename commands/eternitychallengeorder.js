@@ -58,7 +58,7 @@ module.exports = {
       sentArr[sentArr.indexOf(arg[0])] = `__***${arg[0]}***__`;
       return `Order: ${sentArr.join(", ")}
       Other completions you need: \`${ecothers}\`
-      For more information on beating this challenge, use the command \`++ec ${ec[0]}x${ec[1]}\``;
+      For more information on beating this challenge, use the command \`/ec ${ec[0]} ${ec[1]}\``;
     },
     argInfo: {
       ec: { key: "ec", type: "number" },
