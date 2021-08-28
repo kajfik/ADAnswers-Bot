@@ -1,6 +1,8 @@
 "use strict";
 
-const { ECApplicationCommand } = require("../classes/ApplicationCommand/ECApplicationCommand");
+// This is for if/when I can make the buttons not cause the stupid "unknown interaction" error.
+// Like yeah right, unknown interaction my ass, it's just discord.js being an idiot.
+// const { ECApplicationCommand } = require("../classes/ApplicationCommand/ECApplicationCommand");
 const { TimeStudyApplicationCommand } = require("../classes/ApplicationCommand/TimeStudyApplicationCommand");
 const EternityChallengeCommand = require("./eternitychallenge");
 
