@@ -11,6 +11,8 @@
 // to do with Tags or Sequelize. With that, there are plenty of functions in this file too that eventually
 // I would like to remove and place into functions.js. For now, though, I'm just going to leave them here.
 
+// There's a lot of database code here. 
+
 const Discord = require("discord.js");
 const Sequelize = require("sequelize");
 const fs = require("fs"); 
@@ -18,6 +20,7 @@ const config = require("./utils/config.json");
 const commands = require("./utils/commands");
 const { Internal } = require("./classes/FunctionClasses/Internal");
 const { Help } = require("./classes/FunctionClasses/Help");
+const { Time } = require("./classes/FunctionClasses/Time");
 
 // eslint-disable-next-line max-len
 const client = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.DIRECT_MESSAGES, Discord.Intents.FLAGS.GUILD_INTEGRATIONS], partials: ["MESSAGE", "CHANNEL", "USER", "REACTION", "GUILD_MEMBER"] });
@@ -35,6 +38,7 @@ const fieldsVar69 = [];
 const fieldsArray = [fieldsVar, fieldsVar2, fieldsVar3, fieldsVar4, fieldsVar5, fieldsVar6, fieldsVar7, fieldsVar69];
 
 let Tags = undefined;
+let TimeTags = undefined;
 
 const commandNames = [];
 const allCommands = [];
@@ -44,6 +48,12 @@ client.login(config.token);
 const sequelize = new Sequelize({
   dialect: "sqlite",
   storage: "./database.sqlite",
+  logging: false,
+});
+
+const timeSequelize = new Sequelize({
+  dialect: "sqlite",
+  storage: "./timeTags.sqlite",
   logging: false,
 });
 
@@ -61,12 +71,14 @@ async function ready() {
 
   try {
     await sequelize.authenticate();
+    await timeSequelize.authenticate();
     console.log("Connection has been established successfully.");
   } catch (error) {
     console.error("Unable to connect to the database:", error);
   }
 
   Tags.sync();
+  TimeTags.sync();
 
   console.log(`\n\nGood morning. The current date and time is ${Date()}.\n\n`);
 
@@ -89,6 +101,19 @@ function setup() {
     name: {
       type: Sequelize.STRING,
       unique: true,
+    },
+    timesUsed: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0,
+      allowNull: false
+    }
+  });
+  TimeTags = timeSequelize.define("TimeTags", {
+    hour: {
+      type: Sequelize.NUMBER,
+      defaultValue: 0,
+      allowNull: false,
+      unique: true
     },
     timesUsed: {
       type: Sequelize.INTEGER,
@@ -160,8 +185,8 @@ async function createTags(startingValue) {
  * Increments a sequelize tag.
  * @param {String} name - name of the tag to increment
  */
-async function incrementTag(name) {
-  const tag = await Tags.findOne({ where: { name } });
+async function incrementTag(name, database, databaseName) {
+  const tag = databaseName === "Tags" ? await database.findOne({ where: { name } }) : await database.findOne({ where: { hour: name } });
   if (tag) {
     tag.increment("timesUsed");
     console.log(`[${Date()}] Tag ${name} incremented successfully. New value: ${tag.timesUsed}`);
@@ -175,11 +200,12 @@ client.on("interactionCreate", async interaction => {
   if (!client.application?.owner) await client.application?.fetch();
   if (interaction.channelId === "351478114620145665" && !interaction.commandName === "deadchat") {
     interaction.reply({ content: `hey buddy! can't use commands in general. nice try though. proud of u`, ephemeral: true });
+    return;
   }
 
   if (!client.commands.has(interaction.commandName) && interaction.commandName !== "help") return;
 
-  incrementTag("totalRequests");
+  incrementTag("totalRequests", Tags, "Tags");
 
   if (interaction.commandName === "help") { 
     const args = interaction.options.getInteger("page") ? interaction.options.getInteger("page") : 1; 
@@ -195,16 +221,20 @@ client.on("interactionCreate", async interaction => {
       id: interaction.channelId,
     });
     helpClass.send();
-    incrementTag("help");
-    incrementTag("totalSuccesses");
+    incrementTag("help", Tags, "Tags");
+    incrementTag("totalSuccesses", Tags, "Tags");
+    incrementTag(Time.newDate().getHours(), TimeTags, "TimeTags");
+    console.log(`/--------------------------------------------------------------------/`);
     return;
   }
 
   try {
     if (interaction.commandName === "meta") await client.commands.get(interaction.commandName).execute(interaction, Tags);
     else client.commands.get(interaction.commandName).execute(interaction, interaction.channelId, Tags);
-    incrementTag("totalSuccesses"); 
-    incrementTag(interaction.commandName);
+    incrementTag("totalSuccesses", Tags, "Tags"); 
+    incrementTag(interaction.commandName, Tags, "Tags");
+    incrementTag(Time.newDate().getHours(), TimeTags, "TimeTags");
+    console.log(`/--------------------------------------------------------------------/`);
   } catch (error) {
     interaction.reply({ content: `Bot ran into an error while executing command ${interaction.commandName}. ${error}`, ephemeral: false });
     const moreInfo = `From: ${interaction.user.username}#${interaction.user.discriminator}
@@ -281,6 +311,7 @@ client.on("messageCreate", async message => {
       if (args[0].length === "213071245896450068".length) id = args[0];
       else id = lastErrorUserID;
       const user = await client.users.fetch(id);
+      lastErrorUserID = id;
       const person = `${user.username}#${user.discriminator}`;
       const sent = id === args[0] ? message.content.slice(`++intercom`.length + id.length + 2) : message.content.slice(`++intercom`.length);
       user.send(`${sent}\n**/-------------------------------------------------------------/**\n the above message was sent by earth#1337, the owner of the bot. this is a one way intercom.`).catch(error => { 
@@ -289,6 +320,7 @@ client.on("messageCreate", async message => {
       });
       console.log(`Intercom message successfully sent to ${person}. Message: \n
       ${sent}`);
+      message.reply(`Successfully sent message to ${person}.`);
     }
   } catch (e) {
     console.log(`Deployment failed.`);
