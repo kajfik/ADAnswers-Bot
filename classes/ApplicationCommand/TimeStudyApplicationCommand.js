@@ -103,6 +103,7 @@ class TimeStudyApplicationCommand extends ApplicationCommand {
     if (this.isECOorEC()) {
       args.push(interaction.options.getNumber("ec"));
       args.push(interaction.options.getNumber("completion"));
+      if (this.isEC()) args.push(interaction.options.getBoolean("hide"));
       return args;
     } 
     if (this.isTS()) {
@@ -127,8 +128,9 @@ class TimeStudyApplicationCommand extends ApplicationCommand {
     let argMessage;
     let argMessageWithDM;
     let args;
-    if (this.isECOorEC() || this.isTS() && this.getCheck(interaction.channelId, interaction)) this.ephemeral = true;
-    if (this.isECOorEC()) args = [this.getArgs(interaction).join("x")];
+    if (this.hasHelperRole(interaction)) this.ephemeral = false;
+    else if (!this.hasHelperRole(interaction)) this.ephemeral = true;
+    if (this.isECOorEC()) args = [`${this.getArgs(interaction)[0]}x${this.getArgs(interaction)[1]}`];
     else if (this.isTS()) {
       args = this.getArgs(interaction);
       if (!args[1]) args[1] = "active";
@@ -144,8 +146,14 @@ class TimeStudyApplicationCommand extends ApplicationCommand {
       argMessageWithDM = this.sent[0];
     } 
 
-    interaction.reply({ content: argMessage, ephemeral: this.ephemeral });
-    if (this.isEC()) interaction.followUp({ content: argMessageWithDM, ephemeral: this.ephemeral });
+    if (this.isEC() && this.hasHelperRole(interaction)) {
+      interaction.reply({ content: argMessage, ephemeral: this.getArgs(interaction)[2] });
+      interaction.followUp({ content: argMessageWithDM, ephemeral: this.getArgs(interaction)[2] });
+      return;
+    }
+
+    interaction.reply({ content: argMessage, ephemeral: !this.hasHelperRole(interaction) });
+    if (this.isEC()) interaction.followUp({ content: argMessageWithDM, ephemeral: !this.hasHelperRole(interaction) });
   }
 }
 

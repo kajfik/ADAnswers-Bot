@@ -23,7 +23,7 @@ const { Help } = require("./classes/FunctionClasses/Help");
 const { Time } = require("./classes/FunctionClasses/Time");
 
 // eslint-disable-next-line max-len
-const client = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.DIRECT_MESSAGES, Discord.Intents.FLAGS.GUILD_INTEGRATIONS], partials: ["MESSAGE", "CHANNEL", "USER", "REACTION", "GUILD_MEMBER"] });
+const client = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.DIRECT_MESSAGES, Discord.Intents.FLAGS.GUILD_INTEGRATIONS, Discord.Intents.FLAGS.GUILD_MEMBERS], partials: ["MESSAGE", "CHANNEL", "USER", "REACTION", "GUILD_MEMBER"] });
 const commandFiles = fs.readdirSync("./commands").filter(file => file.endsWith(".js"));
 client.commands = new Discord.Collection();
 
@@ -229,7 +229,7 @@ client.on("interactionCreate", async interaction => {
   }
 
   try {
-    if (interaction.commandName === "meta") await client.commands.get(interaction.commandName).execute(interaction, Tags);
+    if (interaction.commandName === "meta") await client.commands.get(interaction.commandName).execute(interaction, Tags, TimeTags);
     else client.commands.get(interaction.commandName).execute(interaction, interaction.channelId, Tags);
     incrementTag("totalSuccesses", Tags, "Tags"); 
     incrementTag(interaction.commandName, Tags, "Tags");
@@ -253,6 +253,7 @@ client.on("interactionCreate", async interaction => {
 // eslint-disable-next-line complexity
 client.on("messageCreate", async message => {
   try {
+    let mods;
     // AD
     if (message.guildId === "351476683016241162") {
       if (message.stickers.size > 0) message.delete()
@@ -264,6 +265,8 @@ client.on("messageCreate", async message => {
         }).catch(error => {
           console.log(error);
         });
+      await message.guild.members.fetch();
+      mods = message.guild.roles.resolve("351477471725617172").members.map(member => member.id);
     }
     // General in AD
     if (message.channelId === "351478114620145665") return;
@@ -278,7 +281,8 @@ client.on("messageCreate", async message => {
         slashCommand = `ec ${command.slice(-3, -2)} ${command.slice(-1)}`;
       }
     } else slashCommand = command;
-    if (message.author.id !== "213071245896450068" && message.author.id !== "830197123378053172" && message.content.startsWith(config.prefix)) {
+    const isMod = message.guildId === "351476683016241162" ? mods.includes(message.author.id) : false;
+    if (message.author.id !== "213071245896450068" && message.author.id !== "830197123378053172" && message.content.startsWith(config.prefix) && !isMod) {
       message.reply(`Using the ++ prefix is now deprecated. Please switch to using slash commands. You can start by typing /
       When typing slash commands, you should see a small preview on the message bar. If you don't, update your Discord. This will help you with the commands.
 
@@ -302,9 +306,11 @@ client.on("messageCreate", async message => {
       console.log(`Deployment success at ${new Date()}.`);
       return;
     }
-    if (message.content.toLowerCase() === "++helpers" && message.author.id === "213071245896450068" && message.guildId === "351476683016241162") {
-      console.log(message.guild.roles.resolve("878418120719626320").members.map(member => `${member.user.username}#${member.user.discriminator} (${member.user.id})`));
+    if (message.content.toLowerCase() === "++helpers" && ((message.author.id === "213071245896450068" && message.guildId === "351476683016241162") || isMod)) {
+      const namesAndIDs = message.guild.roles.resolve("878418120719626320").members.map(member => `${member.user.username}#${member.user.discriminator} (${member.user.id})`);
+      console.log(namesAndIDs);
       message.reply(`Currently, ${message.guild.roles.resolve("878418120719626320").members.size} person(s) have the Helper role.`);
+      message.author.send(namesAndIDs.join("\n"));
     }
     if (message.content.toLowerCase().startsWith(`++intercom`) && message.author.id === "213071245896450068") { 
       let id;

@@ -16,7 +16,7 @@ const metaMessageObject = {
   // eslint-disable-next-line max-len
   "contributing": `If you are interested in contributing to the bot, check out both information files at [this readme](https://github.com/earthernsence/ADAnswers-Bot#readme) and [this readme](https://github.com/earthernsence/ADAnswers-Bot/tree/main/commands#readme)`,
   // eslint-disable-next-line max-len
-  "alldata": `If you want to see all data for the bot, go to [SQLite Viewer](https://inloop.github.io/sqlite-viewer/) and put in [this file](https://github.com/earthernsence/ADAnswers-Bot/blob/main/database.sqlite) from the bot's repository.`
+  "alldata": `If you want to see all data for the bot, go to [SQLite Viewer](https://inloop.github.io/sqlite-viewer/) and put in [this file](https://github.com/earthernsence/ADAnswers-Bot/blob/main/database.sqlite) for command usage data or [this file](https://github.com/earthernsence/ADAnswers-Bot/blob/main/timeTags.sqlite) for data on when commands are used (UTC-5) from the bot's repository.`
 };
 
 /**
@@ -25,10 +25,10 @@ const metaMessageObject = {
  * @classdesc Class for executing meta.js.
  */
 class MetaApplicationCommand extends ApplicationCommand {
-  async manageBottomAndTopCommands(Tags) {
+  async manageBottomAndTopCommands(Tags, secondAttribute) {
     const tagsMatchedWithTimesUsed = {};
-    const tagList = await Tags.findAll({ attributes: ["timesUsed", "name"] });
-    tagList.map(t => Object.assign(tagsMatchedWithTimesUsed, { [t.name]: t.timesUsed }));
+    const tagList = await Tags.findAll({ attributes: ["timesUsed", secondAttribute] });
+    tagList.map(t => Object.assign(tagsMatchedWithTimesUsed, { [t[secondAttribute]]: t.timesUsed }));
     const sorted = Object.values(tagsMatchedWithTimesUsed).sort((a, b) => b - a);
     const requests = sorted[0];
     const successes = sorted[1];
@@ -73,12 +73,13 @@ class MetaApplicationCommand extends ApplicationCommand {
    * Executes the command.
    * @param {Object} interaction - The interaction object used for the command that contains all useful information
    */
-  async execute(interaction, Tags) {
+  async execute(interaction, Tags, TimeTags) {
     if (!this.getCheck(interaction.channelId, interaction)) {
       interaction.reply({ content: `hey bitchass you can't use that command here`, ephemeral: true });
       return;
     }
-    const tagStuff = await this.manageBottomAndTopCommands(Tags);
+    const tagStuff = await this.manageBottomAndTopCommands(Tags, "name");
+    const timeTagStuff = await this.manageBottomAndTopCommands(TimeTags, "hour");
     const embed = new MessageEmbed()
       .setColor("BLURPLE")
       .setTitle("Bot Information")
@@ -99,6 +100,8 @@ class MetaApplicationCommand extends ApplicationCommand {
         { name: "Bottom 5 used commands", value: `${tagStuff.bottom5commands}`, inline: true },
         { name: "All data", value: metaMessageObject.alldata, inline: true },
         { name: "Time", value: Time.getTime(), inline: true },
+        { name: "Top 5 active hours (UTC-5)", value: `${timeTagStuff.top5commands}`, inline: true },
+        { name: "Bottom 5 active hours (UTC-5)", value: `${timeTagStuff.bottom5commands}`, inline: true },
       )
       .setTimestamp()
       .setFooter(footerMessages.next(), `${interaction.client.user.displayAvatarURL()}`);

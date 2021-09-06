@@ -260,20 +260,29 @@ module.exports = {
       name: "earlyinfinity",
       description: "Describes how to progress pre-2x better Galaxies"
     },
-    { name: "ec", description: "shorthand for /eternitychallenge", options: [{
-      name: "ec",
-      type: "NUMBER",
-      description: "What Eternity Challenge are you doing?",
-      required: true,
-      choices: getChoices("eternitychallenge", "challenges")
+    { name: "ec", 
+      description: "shorthand for /eternitychallenge", 
+      options: [{
+        name: "ec",
+        type: "NUMBER",
+        description: "What Eternity Challenge are you doing?",
+        required: true,
+        choices: getChoices("eternitychallenge", "challenges")
+      },
+      {
+        name: "completion",
+        type: "NUMBER",
+        description: "What is the completion number?",
+        required: true,
+        choices: getChoices("eternitychallenge", "completions")
+      },
+      {
+        name: "hide",
+        type: "BOOLEAN",
+        description: "ONLY AFFECTS ANYTHING IF YOU'RE A HELPER! Defaults to false.",
+        required: false
+      }] 
     },
-    {
-      name: "completion",
-      type: "NUMBER",
-      description: "What is the completion number?",
-      required: true,
-      choices: getChoices("eternitychallenge", "completions")
-    }] },
     {
       name: "eco",
       description: "Shorthand of /eternitychallengeorder.",
@@ -323,6 +332,12 @@ module.exports = {
         description: "What is the completion number?",
         required: true,
         choices: getChoices("eternitychallenge", "completions")
+      },
+      {
+        name: "hide",
+        type: "BOOLEAN",
+        description: "ONLY AFFECTS ANYTHING IF YOU'RE A HELPER! Defaults to false.",
+        required: false
       }]
     },
     {
@@ -702,6 +717,10 @@ module.exports = {
         },
       ]
     },
+    {
+      name: "iugo",
+      description: "pre break infinity upgrade order routes"
+    }
   ],
   find(name) {
     return this.all.find(ob => ob.name === name) ?? "Unknown command";
