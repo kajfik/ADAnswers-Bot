@@ -15,6 +15,7 @@
 
 const Discord = require("discord.js");
 const Sequelize = require("sequelize");
+const Chalk = require("chalk");
 const fs = require("fs"); 
 const config = require("./utils/config.json");
 const commands = require("./utils/commands");
@@ -126,10 +127,10 @@ function setup() {
   for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
     iteration++;
-    console.log(`Setting command ${command.command.name}, command ${iteration}...`);
+    console.log(Chalk.grey(`Setting command ${command.command.name}, command ${iteration}...`));
     client.commands.set(command.command.name, command.command);
   }
-  console.log(`\n\n\nSetting commands complete. Beginning sorting...\n\n\n`);
+  console.log(Chalk.greenBright(`\n\n\nSetting commands complete. Beginning sorting...\n\n\n`));
   client.commands.forEach(element => {
     // Some commands have type: "shorthand" to make it not appear in the help embeds. This just works lol 
     // If you're adding a shorthand, please make sure to put that in.
@@ -138,7 +139,7 @@ function setup() {
     allCommands.push({ name: e.name, value: e.description, type: e.type, check: e.check, acceptableArgs: e.acceptableArgs, page: e.number });
     if (e.type === undefined) {
       jiteration++;
-      console.log(`Sorting command ${e.name}, command ${jiteration}...`);
+      console.log(Chalk.grey(`Sorting command ${e.name}, command ${jiteration}...`));
       // eslint-disable-next-line max-len
       if (e.number > 0 && e.number < fieldsArray.length) fieldsArray[e.number - 1].push({ name: e.name, value: e.description });
       // eslint-disable-next-line max-len
@@ -189,7 +190,7 @@ async function incrementTag(name, database, databaseName) {
   const tag = databaseName === "Tags" ? await database.findOne({ where: { name } }) : await database.findOne({ where: { hour: name } });
   if (tag) {
     tag.increment("timesUsed");
-    console.log(`[${Date()}] Tag ${name} incremented successfully. New value: ${tag.timesUsed}`);
+    console.log(Chalk.blue(`[${Date()}] Tag ${name} incremented successfully. New value: ${tag.timesUsed}`));
   }
 }
 
@@ -224,7 +225,7 @@ client.on("interactionCreate", async interaction => {
     incrementTag("help", Tags, "Tags");
     incrementTag("totalSuccesses", Tags, "Tags");
     incrementTag(Time.newDate().getHours(), TimeTags, "TimeTags");
-    console.log(`/--------------------------------------------------------------------/`);
+    console.log(Chalk.blueBright(`/--------------------------------------------------------------------/`));
     return;
   }
 
@@ -234,7 +235,7 @@ client.on("interactionCreate", async interaction => {
     incrementTag("totalSuccesses", Tags, "Tags"); 
     incrementTag(interaction.commandName, Tags, "Tags");
     incrementTag(Time.newDate().getHours(), TimeTags, "TimeTags");
-    console.log(`/--------------------------------------------------------------------/`);
+    console.log(Chalk.blueBright(`/--------------------------------------------------------------------/`));
   } catch (error) {
     interaction.reply({ content: `Bot ran into an error while executing command ${interaction.commandName}. ${error}`, ephemeral: false });
     const moreInfo = `From: ${interaction.user.username}#${interaction.user.discriminator}
