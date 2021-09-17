@@ -13,6 +13,11 @@ class HelperApplicationCommand extends ApplicationCommand {
       interaction.reply({ content: new Message("noWorky", { worky: this.check }).getMessage(), ephemeral: true });
       return;
     }
+    if (!ApplicationCommand.isEligibleForHelperRole(interaction)) {
+      // eslint-disable-next-line max-len
+      interaction.reply({ content: `Hey! I'm glad you want to get the Helper role, but in order to do so, you need to have the "Infinity Dimension" role or greater. Those people without that role or higher are grandfathered in and retain their helper role.`, ephemeral: true });
+      return;
+    }
     const a = this.hasHelperRole(interaction);
     const field = a
       ? { name: "Removing the helper role will...", value: `prevent you from using the bot in Progression Discussion. You can ${a ? `add` : `remove`} this role at any time by doing /helper again.` }

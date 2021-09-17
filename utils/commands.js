@@ -51,7 +51,7 @@ function getChoices(command, which) {
   const choices = [];
   if (command === "achievements") {
     for (const ach in getMessageObject(command)) {
-      if (ach.startsWith("r")) {
+      if (!ach.startsWith("r")) {
         choices.push({
           name: ach,
           value: ach,
@@ -720,6 +720,10 @@ module.exports = {
     {
       name: "iugo",
       description: "pre break infinity upgrade order routes"
+    }, 
+    {
+      name: "secretachievements",
+      description: "sends link to secret achievement guide."
     }
   ],
   find(name) {

@@ -27,6 +27,15 @@ class ApplicationCommand extends Command {
     }
   }
 
+  static isEligibleForHelperRole(interaction) {
+    const r = interaction.member._roles;
+    const eligibleRoles = ids.rolesGreaterThanOrEqualToInfinityDimension;
+    for (const role in eligibleRoles) {
+      if (r.includes(eligibleRoles[role])) return true;
+    }
+    return false;
+  }
+
   hasHelperRole(interaction) {
     if (interaction.channel.type === "DM") return false;
     return interaction.member._roles.includes(hr);

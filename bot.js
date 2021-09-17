@@ -22,6 +22,7 @@ const commands = require("./utils/commands");
 const { Internal } = require("./classes/FunctionClasses/Internal");
 const { Help } = require("./classes/FunctionClasses/Help");
 const { Time } = require("./classes/FunctionClasses/Time");
+const { Meta } = require("./classes/ApplicationCommand/MetaApplicationCommand");
 
 // eslint-disable-next-line max-len
 const client = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.DIRECT_MESSAGES, Discord.Intents.FLAGS.GUILD_INTEGRATIONS, Discord.Intents.FLAGS.GUILD_MEMBERS], partials: ["MESSAGE", "CHANNEL", "USER", "REACTION", "GUILD_MEMBER"] });
@@ -230,8 +231,17 @@ client.on("interactionCreate", async interaction => {
   }
 
   try {
-    if (interaction.commandName === "meta") await client.commands.get(interaction.commandName).execute(interaction, Tags, TimeTags);
-    else client.commands.get(interaction.commandName).execute(interaction, interaction.channelId, Tags);
+    if (interaction.commandName === "meta") {
+      const m = new Meta({
+        client,
+        page: 1,
+        message: interaction,
+        id: interaction.channelId,
+        Tags,
+        TimeTags
+      });
+      m.send();
+    } else client.commands.get(interaction.commandName).execute(interaction, interaction.channelId, Tags);
     incrementTag("totalSuccesses", Tags, "Tags"); 
     incrementTag(interaction.commandName, Tags, "Tags");
     incrementTag(Time.newDate().getHours(), TimeTags, "TimeTags");
