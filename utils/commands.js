@@ -724,6 +724,10 @@ module.exports = {
     {
       name: "secretachievements",
       description: "sends link to secret achievement guide."
+    },
+    {
+      name: "xd",
+      description: "explains the XD channel"
     }
   ],
   find(name) {

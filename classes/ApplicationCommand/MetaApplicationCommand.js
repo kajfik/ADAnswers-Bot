@@ -30,33 +30,38 @@ class Meta {
     this.timeTags = info.TimeTags;
   }
 
-  row(disabled, person) {
-    return new MessageActionRow()
-      .addComponents(
-        new MessageButton()
-          .setCustomId("primary-previous-page")
-          .setEmoji("◀️")
-          .setDisabled(disabled)
-          .setStyle("PRIMARY"),
-        new MessageButton()
-          .setCustomId("primary-next-page")
-          .setEmoji("▶️")
-          .setDisabled(disabled)
-          .setStyle("PRIMARY"),
-        new MessageButton()
-          .setStyle("LINK")
-          .setLabel("See all commands")
-          .setURL("https://earthernsence.github.io/ADAnswers-Bot/docs/"),
-        new MessageButton()
-          .setStyle("LINK")
-          .setLabel("GitHub repository")
-          .setURL("https://github.com/earthernsence/ADAnswers-Bot"),
-        new MessageButton()
-          .setStyle("SECONDARY")
-          .setDisabled(true)
-          .setLabel(disabled ? `Expired after 60 seconds` : `Requested by ${person}.`)
-          .setCustomId("secondary-info-button")
-      );
+  rows(disabled, person) {
+    return [
+      new MessageActionRow()
+        .addComponents(
+          new MessageButton()
+            .setCustomId("primary-previous-page")
+            .setEmoji("◀️")
+            .setDisabled(disabled)
+            .setStyle("PRIMARY"),
+          new MessageButton()
+            .setCustomId("primary-next-page")
+            .setEmoji("▶️")
+            .setDisabled(disabled)
+            .setStyle("PRIMARY")
+        ),
+      new MessageActionRow() 
+        .addComponents(
+          new MessageButton()
+            .setStyle("LINK")
+            .setLabel("See all commands")
+            .setURL("https://earthernsence.github.io/ADAnswers-Bot/docs/"),
+          new MessageButton()
+            .setStyle("LINK")
+            .setLabel("GitHub repository")
+            .setURL("https://github.com/earthernsence/ADAnswers-Bot"),
+          new MessageButton()
+            .setStyle("SECONDARY")
+            .setDisabled(true)
+            .setLabel(disabled ? `Expired after 60 seconds` : `Requested by ${person}.`)
+            .setCustomId("secondary-info-button")
+        )
+    ];
   }
 
   getStatus(ping) {
@@ -180,7 +185,7 @@ class Meta {
   }
 
   async actualMessage(disabled, person) {
-    return { embeds: [await this.embedObject()], components: [this.row(disabled, person)], ephemeral: false };
+    return { embeds: [await this.embedObject()], components: this.rows(disabled, person), ephemeral: false };
   }
 
   async send() {

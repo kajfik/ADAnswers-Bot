@@ -13,21 +13,26 @@ class Help {
     this.message = info.message;
     this.id = info.id;
     this.client = info.client;
-    this.row = new MessageActionRow()
-      .addComponents(
-        new MessageButton()
-          .setCustomId("primary-previous-page")
-          .setEmoji("◀️")
-          .setStyle("PRIMARY"),
-        new MessageButton()
-          .setCustomId("primary-next-page")
-          .setEmoji("▶️")
-          .setStyle("PRIMARY"),
-        new MessageButton()
-          .setStyle("LINK")
-          .setLabel("See all commands")
-          .setURL("https://earthernsence.github.io/ADAnswers-Bot/docs/"),
-      );
+    this.rows = [
+      new MessageActionRow()
+        .addComponents(
+          new MessageButton()
+            .setCustomId("primary-previous-page")
+            .setEmoji("◀️")
+            .setStyle("PRIMARY"),
+          new MessageButton()
+            .setCustomId("primary-next-page")
+            .setEmoji("▶️")
+            .setStyle("PRIMARY"),
+        ),
+      new MessageActionRow()
+        .addComponents(
+          new MessageButton()
+            .setStyle("LINK")
+            .setLabel("See all commands")
+            .setURL("https://earthernsence.github.io/ADAnswers-Bot/docs/"),
+        )
+    ];
   }
 
   getHelpDescription() {
@@ -87,7 +92,7 @@ class Help {
   }
 
   actualMessage() {
-    return { embeds: [this.embedObject(this.page, this.fieldsArray)], components: [this.row], ephemeral: true };
+    return { embeds: [this.embedObject(this.page, this.fieldsArray)], components: this.rows, ephemeral: true };
   }
 
   send() {

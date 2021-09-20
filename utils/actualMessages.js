@@ -278,7 +278,8 @@ const messages = {
     ` Supertramp.`,
     ` Whitney Houston.`,
     ` The Archies.`,
-    ` Joe South.`
+    ` Joe South.`,
+    ` Poison.`
   ],
 };
 

@@ -1,6 +1,4 @@
 /* eslint-disable no-console */
-
-// eslint-disable-next-line strict
 "use strict";
 
 // DO NOT TOUCH LIKE HALF OF THIS STUFF IT JUST WORKS LMAOOOOOOOOOOOO
