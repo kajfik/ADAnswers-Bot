@@ -40,7 +40,7 @@ class Help {
   }
 
   getFooter() {
-    return `This superfluous bot was created by @earth#1337. Use "/meta suggest"!\nUse /help [number] to go to more pages of commands.\nBot version: ${config.version}\n${footerMessages.next()}`;
+    return `This superfluous bot was created by @earth#1337. Use "/meta"!\nUse /help [number] to go to more pages of commands.\nBot version: ${config.version}\n${footerMessages.next(false)}`;
   }
 
   embedObject() {
@@ -71,7 +71,7 @@ class Help {
     if (up) {
       if (p >= 69) {
         p = 1;
-      } else if (p < 1 || p === 7) {
+      } else if (p < 1 || p === 8) {
         p = 69;
       } else {
         if (p + 1 === 70) {
@@ -81,7 +81,7 @@ class Help {
       }
     } else if (!up) {
       if (p >= 69) {
-        p = 7;
+        p = 8;
       } else if (p < 1) {
         p = 69;
       } else if (p - 1 === 0) {

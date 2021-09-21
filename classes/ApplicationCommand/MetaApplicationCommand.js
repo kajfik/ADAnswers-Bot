@@ -152,7 +152,7 @@ class Meta {
   }
 
   getFooter() {
-    return `This superfluous bot was created by @earth#1337.\n${footerMessages.next()}`;
+    return `This superfluous bot was created by @earth#1337.\n${footerMessages.next(false)}`;
   }
 
   async embedObject() {
@@ -311,7 +311,7 @@ class MetaApplicationCommand extends ApplicationCommand {
         { name: "Bottom 5 active hours (UTC-5)", value: `${timeTagStuff.bottom5commands}`, inline: true },
       )
       .setTimestamp()
-      .setFooter(footerMessages.next(), `${interaction.client.user.displayAvatarURL()}`);
+      .setFooter(footerMessages.next(false), `${interaction.client.user.displayAvatarURL()}`);
 
     const buttonRow = new MessageActionRow()
       .addComponents(

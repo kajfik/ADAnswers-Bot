@@ -8,6 +8,7 @@ class Messages {
     this.type = type;
     this.messages = messages[type];
     this.currentIndex = 0;
+    this.current = this.messages[0];
   }
 
   random() {
@@ -26,18 +27,15 @@ class Messages {
     return this.messages[0];
   }
 
-  current() {
-    return this.first();
-  }
-
-  next() {
-    this.currentIndex++;
+  next(modifyIndex = false) {
+    if (modifyIndex) this.currentIndex++;
     if (this.currentIndex > this.messages.length - 1) { 
       this.currentIndex = 0;
     }
     let next = this.getByIndex(this.currentIndex);
-    if (next.length > 128) next = this.next();
+    if (next.length > 128) next = this.next(true);
     if (next === "time") next = `Currently ${Time.getTime()}`;
+    this.current = next;
     return next;
   }
 }

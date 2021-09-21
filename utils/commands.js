@@ -728,6 +728,10 @@ module.exports = {
     {
       name: "xd",
       description: "explains the XD channel"
+    },
+    {
+      name: "roles",
+      description: "explains that you can get an Android or Web player role"
     }
   ],
   find(name) {

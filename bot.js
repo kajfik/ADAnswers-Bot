@@ -34,8 +34,9 @@ const fieldsVar4 = [];
 const fieldsVar5 = [];
 const fieldsVar6 = [];
 const fieldsVar7 = [];
+const fieldsVar8 = [];
 const fieldsVar69 = [];
-const fieldsArray = [fieldsVar, fieldsVar2, fieldsVar3, fieldsVar4, fieldsVar5, fieldsVar6, fieldsVar7, fieldsVar69];
+const fieldsArray = [fieldsVar, fieldsVar2, fieldsVar3, fieldsVar4, fieldsVar5, fieldsVar6, fieldsVar7, fieldsVar8, fieldsVar69];
 
 let Tags = undefined;
 let TimeTags = undefined;

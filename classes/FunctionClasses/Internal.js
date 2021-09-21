@@ -3,10 +3,6 @@
 const { combined } = require("../../utils/messages");
 
 class Internal {
-  constructor(client) {
-    this.client = client;
-  }
-
   static startIntervals(client) {
     setInterval(Internal.setBotStatus, 15000, client);
   }

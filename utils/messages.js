@@ -9,7 +9,6 @@ module.exports = {
   footerMessages,
   activityMessages,
   combined: {
-    currentIndex: 0,
     random() {
       return `${activityMessages.random()} || ${footerMessages.random()}`;
     },
@@ -20,15 +19,14 @@ module.exports = {
       return `${activityMessages.last()} || ${footerMessages.last()}`;
     },
     next() {
-      let next = `${activityMessages.next()} || ${footerMessages.next()}`;
+      let next = `${activityMessages.next(true)} || ${footerMessages.next(true)}`;
       if (next.length > 128) next = this.next();
+      this.current = next;
       return next;
-    },
-    current() {
-      return this.first();
     },
     first() {
       return `${activityMessages.first()} || ${footerMessages.first()}`;
-    }
+    },
+    current: `${activityMessages.first()} || ${footerMessages.first()}`,
   }
 };
