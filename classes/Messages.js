@@ -2,6 +2,7 @@
 
 const messages = require("../utils/actualMessages");
 const { Time } = require("./FunctionClasses/Time");
+const { Misc } = require("./FunctionClasses/Misc");
 
 class Messages {
   constructor(type) {
@@ -12,7 +13,7 @@ class Messages {
   }
 
   random() {
-    return this.messages[Math.floor(Math.random() * this.messages.length)];
+    return Misc.randomInArray(this.messages);
   }
 
   getByIndex(index) {

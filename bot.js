@@ -199,7 +199,7 @@ let lastErrorUserID = "635628027258339328";
 client.on("interactionCreate", async interaction => {
   if (!interaction.isCommand()) return;
   if (!client.application?.owner) await client.application?.fetch();
-  if (interaction.channelId === "351478114620145665" && !interaction.commandName === "deadchat") {
+  if (interaction.channelId === config.ids.AD.general && !interaction.commandName === "deadchat") {
     interaction.reply({ content: `hey buddy! can't use commands in general. nice try though. proud of u`, ephemeral: true });
     return;
   }
@@ -253,8 +253,8 @@ client.on("interactionCreate", async interaction => {
                              Time: ${Date()}
                              User ID: ${interaction.user.id}`;
     console.log(moreInfo);
-    client.channels.cache.get("722912387287744572").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
-    client.users.cache.get("213071245896450068").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
+    client.channels.cache.get(config.ids.testServerErrorLoggingChannel).send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
+    client.users.cache.get(config.ids.earth).send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
     console.log(error);
     lastErrorUserID = interaction.user.id;
   }
@@ -262,53 +262,35 @@ client.on("interactionCreate", async interaction => {
 
 // eslint-disable-next-line complexity
 client.on("messageCreate", async message => {
+  const adIDs = config.ids.AD;
+  let mods;
+  if (message.channelId === adIDs.general) return;
   try {
-    let mods;
-    // AD
-    if (message.guildId === "351476683016241162") {
+    if (message.guildId === adIDs.serverID) {
       if (message.stickers.size > 0) message.delete()
         .then(() => {
           // Mod logs in antimatter dimensions
           const person = `${message.author.username}#${message.author.discriminator}`;
-          client.channels.cache.get("769210858035085383").send(`${person} sent a sticker in <#${message.channelId}>.`);
+          client.channels.cache.get(adIDs.modLogs).send(`${person} sent a sticker in <#${message.channelId}>.`);
           console.log(`Sticker deleted. Sent by ${person}. ${Date()}`);
         }).catch(error => {
           console.log(error);
         });
       await message.guild.members.fetch();
-      mods = message.guild.roles.resolve("351477471725617172").members.map(member => member.id);
+      mods = message.guild.roles.resolve(adIDs.modRole).members.map(member => member.id);
     }
-    // General in AD
-    if (message.channelId === "351478114620145665") return;
     // eslint-disable-next-line require-unicode-regexp
     const args = message.content.slice(config.prefix.length).trim().split(/ +/);
-    const command = args.shift().toLowerCase();
-    let slashCommand;
-    if (command.substring(0, 2) === "ec" && command.length <= 7 && !isNaN(parseInt(command.slice(-1), 10)) && (command[2] === " " || !isNaN(parseInt(command[2], 10))) && !isNaN(parseInt(command.slice(-3, -2), 10))) {
-      if ((command[2] === " " && parseInt(command[3], 10) === 1 && !isNaN(parseInt(command[4], 10))) || (parseInt(command[2], 10) === 1 && !isNaN(parseInt(command[3], 10)))) {
-        slashCommand = `ec ${command.slice(-4, -2)} ${command.slice(-1)}`;
-      } else {
-        slashCommand = `ec ${command.slice(-3, -2)} ${command.slice(-1)}`;
-      }
-    } else slashCommand = command;
-    const isMod = message.guildId === "351476683016241162" ? mods.includes(message.author.id) : false;
-    if (message.author.id !== "213071245896450068" && message.author.id !== "830197123378053172" && message.content.startsWith(config.prefix) && !isMod) {
-      message.reply(`Using the ++ prefix is now deprecated. Please switch to using slash commands. You can start by typing /
-      When typing slash commands, you should see a small preview on the message bar. If you don't, update your Discord. This will help you with the commands.
-
-      (for example, the command you just tried to use (++${command}) would now be "/${slashCommand}".)
-      
-      This change was made for the convenience of new users with the bot. I do understand that many of you are used to the ++, and if I
-      could've kept it I would've. But when push comes to shove, I believe that the slash commands are generally better for the bot.`);
-      return;
-    }
+    const isMod = message.guildId === adIDs.serverID ? mods.includes(message.author.id) : false;
     if (!client.application?.owner) await client.application?.fetch();
-    if (message.content.toLowerCase() === "++deploy" && message.author.id === "213071245896450068") {
+    
+    // Deploys the commands for use throughout discord.
+    if (message.content.toLowerCase() === "++deploy" && message.author.id === config.ids.earth) {
       message.reply(`Beginning hostile takeover. Thank you for your patience and cooperation.`);
       await client.application?.commands.set(commands.all).then(() => {
         message.reply({ content: `Successfully deployed commands globally.`, ephemeral: false });
       });
-      await client.guilds.cache.get("722268615973273722")?.commands.set(commands.all).then(() => {
+      await client.guilds.cache.get(config.ids.testServer)?.commands.set(commands.all).then(() => {
         message.reply({ content: `Successfully deployed commands to test server.`, ephemeral: false });
       });
 
@@ -316,13 +298,18 @@ client.on("messageCreate", async message => {
       console.log(`Deployment success at ${new Date()}.`);
       return;
     }
-    if (message.content.toLowerCase() === "++helpers" && ((message.author.id === "213071245896450068" && message.guildId === "351476683016241162") || isMod)) {
-      const namesAndIDs = message.guild.roles.resolve("878418120719626320").members.map(member => `${member.user.username}#${member.user.discriminator} (${member.user.id})`);
+
+    // Sends a message with the amount of helpers, and then DMs you the list.
+    if (message.content.toLowerCase() === "++helpers" && ((message.author.id === config.ids.earth && message.guildId === adIDs.serverID) || isMod)) {
+      const roleInfo = message.guild.roles.resolve(config.ids.helperRole);
+      const namesAndIDs = roleInfo.members.map(member => `${member.user.username}#${member.user.discriminator} (${member.user.id})`);
       console.log(namesAndIDs);
-      message.reply(`Currently, ${message.guild.roles.resolve("878418120719626320").members.size} person(s) have the Helper role.`);
+      message.reply(`Currently, ${roleInfo.members.size} person(s) have the Helper role.`);
       message.author.send(namesAndIDs.join("\n"));
     }
-    if (message.content.toLowerCase().startsWith(`++intercom`) && message.author.id === "213071245896450068") { 
+
+    // Allows me (earth) to message the most recent person to cause an error
+    if (message.content.toLowerCase().startsWith(`++intercom`) && message.author.id === config.ids.earth) { 
       let id;
       if (args[0].length === "213071245896450068".length) id = args[0];
       else id = lastErrorUserID;
@@ -338,6 +325,7 @@ client.on("messageCreate", async message => {
       ${sent}`);
       message.reply(`Successfully sent message to ${person}.`);
     }
+
   } catch (e) {
     console.log(`Deployment failed.`);
     console.log(e);

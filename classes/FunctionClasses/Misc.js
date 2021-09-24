@@ -12,6 +12,10 @@ class Misc {
   static getBaseLog(x, y) {
     return Math.log(y) / Math.log(x);
   }
+
+  static randomInArray(array) {
+    return array[Math.floor(Math.random() * array.length)];
+  }
 }
 
 module.exports = { Misc };
