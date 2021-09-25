@@ -199,7 +199,7 @@ let lastErrorUserID = "635628027258339328";
 client.on("interactionCreate", async interaction => {
   if (!interaction.isCommand()) return;
   if (!client.application?.owner) await client.application?.fetch();
-  if (interaction.channelId === config.ids.AD.general && !interaction.commandName === "deadchat") {
+  if (interaction.channelId === config.ids.AD.general && interaction.commandName !== "deadchat") {
     interaction.reply({ content: `hey buddy! can't use commands in general. nice try though. proud of u`, ephemeral: true });
     return;
   }

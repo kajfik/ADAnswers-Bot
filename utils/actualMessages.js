@@ -279,7 +279,9 @@ const messages = {
     ` Whitney Houston.`,
     ` The Archies.`,
     ` Joe South.`,
-    ` Poison.`
+    ` Poison.`,
+    ` Lil Nas X.`,
+    ` Jack Harlow.`
   ],
 };
 
