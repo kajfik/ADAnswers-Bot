@@ -290,14 +290,14 @@ module.exports = {
         name: "ec",
         type: "NUMBER",
         description: "What Eternity Challenge are you doing?",
-        required: true,
+        required: false,
         choices: getChoices("eternitychallenge", "challenges")
       },
       {
         name: "completion",
         type: "NUMBER",
         description: "What is the completion number?",
-        required: true,
+        required: false,
         choices: getChoices("eternitychallenge", "completions")
       }]
     },

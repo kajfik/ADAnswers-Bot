@@ -49,6 +49,7 @@ module.exports = {
     acceptableArgs: orderInArray,
     sent: [`${order}`],
     getArgMessage(arg) {
+      if (arg[0].includes("null")) return order;
       const sentArr = [];
       const ec = arg[0].split("x");
       const ecothers = otherCompletions(ec[0], ec[1]);
