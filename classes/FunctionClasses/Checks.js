@@ -22,6 +22,7 @@ class Checks {
       "ecsPlusCheck": this.ecsPlusCheck,
       "weirdICsCheck": this.weirdICsCheck,
       "lateBreakCheck": this.lateBreakCheck,
+      "challengeCheck": this.challengeCheck,
       true: true
     };
   }
@@ -32,23 +33,23 @@ class Checks {
   }
 
   static earlyGameCheck(id, message) {
-    return config.ids.earlyGame.includes(id) || config.ids.common.includes(id) || Checks.botCommandsCheck(id, message);
+    return config.ids.earlyGame.includes(id) || Checks.commonCheck(id) || Checks.botCommandsCheck(id, message);
   }
 
   static breakCheck(id, message) {
-    return config.ids.break.includes(id) || config.ids.common.includes(id) || Checks.botCommandsCheck(id, message);
+    return config.ids.break.includes(id) || Checks.commonCheck(id) || Checks.botCommandsCheck(id, message);
   }
 
   static earlyEternityCheck(id, message) {
-    return config.ids.earlyEternity.includes(id) || config.ids.common.includes(id) || Checks.botCommandsCheck(id, message);
+    return config.ids.earlyEternity.includes(id) || Checks.commonCheck(id) || Checks.botCommandsCheck(id, message);
   }  
 
   static ecsCheck(id, message) {
-    return config.ids.ecs.includes(id) || config.ids.common.includes(id) || Checks.botCommandsCheck(id, message);
+    return config.ids.ecs.includes(id) || Checks.commonCheck(id) || Checks.botCommandsCheck(id, message);
   }
 
   static endgameCheck(id, message) {
-    return config.ids.endgame.includes(id) || config.ids.common.includes(id) || Checks.botCommandsCheck(id, message);
+    return config.ids.endgame.includes(id) || Checks.commonCheck(id) || Checks.botCommandsCheck(id, message);
   }
 
   static botCommandsCheck(id, message) {
@@ -62,15 +63,15 @@ class Checks {
   }
 
   static bankedInfsCheck(id, message) {
-    return config.ids.common.includes(id) || config.ids.ecs[1] === id || config.ids.endgame.includes(id) || Checks.botCommandsCheck(id, message);
+    return Checks.commonCheck(id) || config.ids.ecs[1] === id || config.ids.endgame.includes(id) || Checks.botCommandsCheck(id, message);
   }
 
   static dilationGrindCheck(id, message) {
-    return config.ids.endgame.includes(id) || config.ids.common.includes(id) || Checks.botCommandsCheck(id, message) || config.ids.ecs[1] === id;
+    return config.ids.endgame.includes(id) || Checks.commonCheck(id) || Checks.botCommandsCheck(id, message) || config.ids.ecs[1] === id;
   }
 
   static earlyInfinityCheck(id, message) {
-    return config.ids.earlyGame[1] === id || config.ids.common.includes(id) || Checks.botCommandsCheck(id, message);
+    return config.ids.earlyGame[1] === id || Checks.commonCheck(id) || Checks.botCommandsCheck(id, message);
   }
 
   static eternityGrindingCheck(id, message) {
@@ -86,19 +87,23 @@ class Checks {
   }
 
   static e4000Check(id, message) {
-    return config.ids.endgame[1] === id || config.ids.common.includes(id) || Checks.botCommandsCheck(id, message);
+    return config.ids.endgame[1] === id || Checks.commonCheck(id) || Checks.botCommandsCheck(id, message);
   }
 
   static ecsPlusCheck(id, message) {
-    return config.ids.ecs.includes(id) || config.ids.endgame.includes(id) || config.ids.common.includes(id) || Checks.botCommandsCheck(id, message);
+    return config.ids.ecs.includes(id) || config.ids.endgame.includes(id) || Checks.commonCheck(id) || Checks.botCommandsCheck(id, message);
   }
 
   static weirdICsCheck(id, message) {
-    return config.ids.earlyEternity.includes(id) || config.ids.break.includes(id) || config.ids.common.includes(id) || Checks.botCommandsCheck(id, message);
+    return config.ids.earlyEternity.includes(id) || config.ids.break.includes(id) || Checks.commonCheck(id) || Checks.botCommandsCheck(id, message);
   }
 
   static lateBreakCheck(id, message) {
-    return config.ids.break[1] === id || config.ids.common.includes(id) || Checks.botCommandsCheck(id, message);
+    return config.ids.break[1] === id || Checks.commonCheck(id) || Checks.botCommandsCheck(id, message);
+  }
+
+  static challengeCheck(id, message) {
+    return Checks.earlyInfinityCheck(id, message) || Checks.breakCheck(id, message) || Checks.earlyEternityCheck(id, message) || Checks.ecsCheck(id, message);
   }
 }
 

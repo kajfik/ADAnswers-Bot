@@ -20,7 +20,7 @@ const commands = require("./utils/commands");
 const { Internal } = require("./classes/FunctionClasses/Internal");
 const { Help } = require("./classes/FunctionClasses/Help");
 const { Time } = require("./classes/FunctionClasses/Time");
-const { Meta } = require("./classes/ApplicationCommand/MetaApplicationCommand");
+const { Meta } = require("./classes/Meta");
 
 // eslint-disable-next-line max-len
 const client = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.DIRECT_MESSAGES, Discord.Intents.FLAGS.GUILD_INTEGRATIONS, Discord.Intents.FLAGS.GUILD_MEMBERS], partials: ["MESSAGE", "CHANNEL", "USER", "REACTION", "GUILD_MEMBER"] });
@@ -204,7 +204,7 @@ client.on("interactionCreate", async interaction => {
     return;
   }
 
-  if (!client.commands.has(interaction.commandName) && interaction.commandName !== "help") return;
+  if (!client.commands.has(interaction.commandName) && interaction.commandName !== "help" && interaction.commandName !== "meta") return;
 
   incrementTag("totalRequests", Tags, "Tags");
 
@@ -240,7 +240,7 @@ client.on("interactionCreate", async interaction => {
         TimeTags
       });
       m.send();
-    } else client.commands.get(interaction.commandName).execute(interaction, interaction.channelId, Tags);
+    } else client.commands.get(interaction.commandName).execute(interaction, interaction.channelId);
     incrementTag("totalSuccesses", Tags, "Tags"); 
     incrementTag(interaction.commandName, Tags, "Tags");
     incrementTag(Time.newDate().getHours(), TimeTags, "TimeTags");
@@ -302,8 +302,9 @@ client.on("messageCreate", async message => {
     // Sends a message with the amount of helpers, and then DMs you the list.
     if (message.content.toLowerCase() === "++helpers" && ((message.author.id === config.ids.earth && message.guildId === adIDs.serverID) || isMod)) {
       const roleInfo = message.guild.roles.resolve(config.ids.helperRole);
-      const namesAndIDs = roleInfo.members.map(member => `${member.user.username}#${member.user.discriminator} (${member.user.id})`);
-      console.log(namesAndIDs);
+      const namesAndIDs = roleInfo.members.map(member => `${member.user.username}#${member.user.discriminator} (${member.user.id}) [${member.roles.highest.name}]`);
+      
+      console.log(namesAndIDs.join("\n"));
       message.reply(`Currently, ${roleInfo.members.size} person(s) have the Helper role.`);
       message.author.send(namesAndIDs.join("\n"));
     }

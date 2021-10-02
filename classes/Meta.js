@@ -1,13 +1,11 @@
 /* eslint-disable no-console */
 "use strict";
 
-const { ApplicationCommand } = require("./ApplicationCommand");
-const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
-const config = require("../../utils/config.json");
-const commands = require("../../utils/commands");
-const { footerMessages } = require("../../utils/messages");
-const wait = require("util").promisify(setTimeout);
-const { Time } = require("../FunctionClasses/Time");
+const { MessageActionRow, MessageButton } = require("discord.js");
+const config = require("../utils/config.json");
+const commands = require("../utils/commands");
+const { footerMessages } = require("../utils/messages");
+const { Time } = require("./FunctionClasses/Time");
 
 const NOW = new Date();
 const metaMessageObject = {
@@ -226,108 +224,4 @@ class Meta {
   }
 }
 
-/**
- * @class MetaApplicationCommand
- * @extends {ApplicationCommand}
- * @classdesc Class for executing meta.js.
- */
-class MetaApplicationCommand extends ApplicationCommand {
-  async manageBottomAndTopCommands(Tags, secondAttribute) {
-    const tagsMatchedWithTimesUsed = {};
-    const tagList = await Tags.findAll({ attributes: ["timesUsed", secondAttribute] });
-    tagList.map(t => Object.assign(tagsMatchedWithTimesUsed, { [t[secondAttribute]]: t.timesUsed }));
-    const sorted = Object.values(tagsMatchedWithTimesUsed).sort((a, b) => b - a);
-    const requests = sorted[0];
-    const successes = sorted[1];
-    sorted.shift();
-    sorted.shift();
-    let top5commands = [];
-    let bottom5commands = [];
-    for (let i = 0; i < 5; i++) {
-      const b = Object.entries(tagsMatchedWithTimesUsed).find(a => a[1] === sorted[0]);
-      top5commands.push(b);
-      delete tagsMatchedWithTimesUsed[b[0]];
-      sorted.shift();
-    }
-    for (let i = 0; i < 5; i++) {
-      const b = Object.entries(tagsMatchedWithTimesUsed).find(a => a[1] === sorted[sorted.length - 1]);
-      bottom5commands.push(b);
-      delete tagsMatchedWithTimesUsed[b[0]];
-      sorted.pop();
-    }
-    bottom5commands = bottom5commands.map(a => `${a[0]}: ${a[1]}`).reverse().join("\n");
-    top5commands = top5commands.map(a => `${a[0]}: ${a[1]}`).join("\n");
-    return {
-      requests,
-      successes,
-      bottom5commands,
-      top5commands,
-    };
-  }
-
-  getStatus(ping) {
-    if (ping >= 200) return `Very high ping! ${ping}ms`;
-    if (ping >= 175) return `High ping! ${ping}ms`;
-    if (ping >= 150) return `Relatively high ping! ${ping}ms`;
-    if (ping >= 125) return `Slightly above average ping! ${ping}ms`;
-    if (ping >= 100) return `Average ping! ${ping}ms`;
-    if (ping >= 75) return `Below average ping! ${ping}ms`;
-    if (ping >= 50) return `Very good ping! ${ping}ms`;
-    return `Incredible ping! ${ping}ms`;
-  }
-
-  /**
-   * Executes the command.
-   * @param {Object} interaction - The interaction object used for the command that contains all useful information
-   */
-  async execute(interaction, Tags, TimeTags) {
-    if (!this.getCheck(interaction.channelId, interaction)) {
-      interaction.reply({ content: `hey bitchass you can't use that command here`, ephemeral: true });
-      return;
-    }
-    const tagStuff = await this.manageBottomAndTopCommands(Tags, "name");
-    const timeTagStuff = await this.manageBottomAndTopCommands(TimeTags, "hour");
-    const embed = new MessageEmbed()
-      .setColor("BLURPLE")
-      .setTitle("Bot Information")
-      .setDescription(`Internal bot information`)
-      .setThumbnail(`${interaction.client.user.displayAvatarURL()}`)
-      .addFields(
-        { name: "Bot version", value: config.version, inline: true },
-        { name: "Last restart", value: metaMessageObject.lastrestart, inline: true },
-        // eslint-disable-next-line max-len
-        { name: "Uptime", value: `The bot has been up for ${Time.dhmsFromMS(interaction.client.uptime).clock}, (${Time.decimalTime(true, Time.newDate(), interaction.client.uptime)} 10h time)`, inline: true },
-        { name: "Status", value: `Pong! ${this.getStatus(interaction.client.ws.ping)}`, inline: true },
-        { name: "Suggest", value: metaMessageObject.suggest, inline: true },
-        { name: "Invite", value: metaMessageObject.invite, inline: true },
-        { name: "Contributing", value: metaMessageObject.contributing, inline: true },
-        { name: "Total amount of commands", value: `${commands.all.length}`, inline: true },
-        { name: "Total requests/successses", value: `Requests: ${tagStuff.requests}\nSuccesses: ${tagStuff.successes}`, inline: true },
-        { name: "Top 5 used commands", value: `${tagStuff.top5commands}`, inline: true },
-        { name: "Bottom 5 used commands", value: `${tagStuff.bottom5commands}`, inline: true },
-        { name: "All data", value: metaMessageObject.alldata, inline: true },
-        { name: "Time", value: Time.getTime(), inline: true },
-        { name: "Top 5 active hours (UTC-5)", value: `${timeTagStuff.top5commands}`, inline: true },
-        { name: "Bottom 5 active hours (UTC-5)", value: `${timeTagStuff.bottom5commands}`, inline: true },
-      )
-      .setTimestamp()
-      .setFooter(footerMessages.next(false), `${interaction.client.user.displayAvatarURL()}`);
-
-    const buttonRow = new MessageActionRow()
-      .addComponents(
-        new MessageButton()
-          .setStyle("LINK")
-          .setLabel("See all commands")
-          .setURL("https://earthernsence.github.io/ADAnswers-Bot/docs/"),
-        new MessageButton()
-          .setStyle("LINK")
-          .setLabel("GitHub repository")
-          .setURL("https://github.com/earthernsence/ADAnswers-Bot"),
-      );
-    await interaction.deferReply();
-    await wait(2000);
-    await interaction.editReply({ embeds: [embed], ephemeral: true, components: [buttonRow] });
-  }
-}
-
-module.exports = { MetaApplicationCommand, Meta };
+module.exports = { Meta };

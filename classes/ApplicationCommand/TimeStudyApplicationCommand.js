@@ -94,6 +94,12 @@ class TimeStudyApplicationCommand extends ApplicationCommand {
     this.name === "eternitychallengeorder";
   }
 
+  isTSorECorECO() {
+    return this.name === "ec" || 
+    this.name === "ts" ||
+    this.name === "eco";
+  }
+
   /**
    * @inheritdoc
    * @return {Array}
@@ -128,17 +134,18 @@ class TimeStudyApplicationCommand extends ApplicationCommand {
     let argMessage;
     let argMessageWithDM;
     let args;
-    if (this.hasHelperRole(interaction)) this.ephemeral = false;
-    else if (!this.hasHelperRole(interaction)) this.ephemeral = true;
-    if (this.isECOorEC()) args = [`${this.getArgs(interaction)[0]}x${this.getArgs(interaction)[1]}`];
+    const allArgs = this.getArgs(interaction);
+    const isHelper = this.hasHelperRole(interaction);
+
+    if (this.isECOorEC()) args = [`${allArgs[0]}x${allArgs[1]}`];
     else if (this.isTS()) {
-      args = this.getArgs(interaction);
+      args = allArgs;
       if (!args[1]) args[1] = "active";
     } else if (this.isPeople() || this.isHTP()) {
-      args = this.getArgs(interaction);
+      args = allArgs;
     }
 
-    if (this.type !== "shorthand" || this.name === "ts" || this.name === "ec" || this.name === "eco") {
+    if (this.type !== "shorthand" || this.isTSorECorECO()) {
       argMessage = this.getArgMessage(args);
       argMessageWithDM = this.getArgMessage(args, true);
     } else if (this.type === "shorthand") {
@@ -146,14 +153,14 @@ class TimeStudyApplicationCommand extends ApplicationCommand {
       argMessageWithDM = this.sent[0];
     } 
 
-    if (this.isEC() && this.hasHelperRole(interaction)) {
-      interaction.reply({ content: argMessage, ephemeral: this.getArgs(interaction)[2] });
-      interaction.followUp({ content: argMessageWithDM, ephemeral: this.getArgs(interaction)[2] });
+    if (this.isEC() && isHelper) {
+      interaction.reply({ content: argMessage, ephemeral: allArgs[2] });
+      interaction.followUp({ content: argMessageWithDM, ephemeral: allArgs[2] });
       return;
     }
 
-    interaction.reply({ content: argMessage, ephemeral: !this.hasHelperRole(interaction) });
-    if (this.isEC()) interaction.followUp({ content: argMessageWithDM, ephemeral: !this.hasHelperRole(interaction) });
+    interaction.reply({ content: argMessage, ephemeral: !isHelper });
+    if (this.isEC()) interaction.followUp({ content: argMessageWithDM, ephemeral: !isHelper });
   }
 }
 

@@ -52,7 +52,7 @@ module.exports = {
     number: 1,
     name: "challenge",
     description: "Args: all challenges, including `ecs`. Returns a guide for each argument. All of these commands have shorthands as well, f.e `/challenge c9` will return the same result as `/c9`",
-    check: true,
+    check: "challengeCheck",
     acceptableArgs: Object.keys(challengeMessageObject),
     sent: undefined,
     getArgMessage(arg) {

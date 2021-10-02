@@ -36,7 +36,8 @@ class Message {
         "endgameCheck": this.noWorkyMessage("endgame"),
         "e4000Check": this.noWorkyMessage("e4000 EP"),
         "weirdICsCheck": this.noWorkyMessage("Break Infinity", "early Eternity"),
-        "lateBreakCheck": this.noWorkyMessage("last Break Infinity")
+        "lateBreakCheck": this.noWorkyMessage("last Break Infinity"),
+        "challengeCheck": `This command only works in Early Infinity channels, Break Infinity channels, Eternity channels, and EC channels.`
       }
     };
   }
