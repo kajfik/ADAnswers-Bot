@@ -21,9 +21,25 @@ const { Help } = require("./classes/FunctionClasses/Help");
 const { Time } = require("./classes/FunctionClasses/Time");
 const { Meta } = require("./classes/Meta");
 const { Log } = require("./classes/FunctionClasses/Log");
+const Global = require("./utils/constants");
 
-// eslint-disable-next-line max-len
-const client = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.DIRECT_MESSAGES, Discord.Intents.FLAGS.GUILD_INTEGRATIONS, Discord.Intents.FLAGS.GUILD_MEMBERS], partials: ["MESSAGE", "CHANNEL", "USER", "REACTION", "GUILD_MEMBER"] });
+const client = new Discord.Client({ 
+  intents: [
+    Discord.Intents.FLAGS.GUILDS, 
+    Discord.Intents.FLAGS.GUILD_MESSAGES, 
+    Discord.Intents.FLAGS.DIRECT_MESSAGES, 
+    Discord.Intents.FLAGS.GUILD_INTEGRATIONS, 
+    Discord.Intents.FLAGS.GUILD_MEMBERS
+  ], 
+  partials: [
+    "MESSAGE", 
+    "CHANNEL", 
+    "USER", 
+    "REACTION", 
+    "GUILD_MEMBER"
+  ] 
+});
+
 const commandFiles = fs.readdirSync("./commands").filter(file => file.endsWith(".js"));
 client.commands = new Discord.Collection();
 
@@ -43,6 +59,8 @@ let TimeTags = undefined;
 
 const commandNames = [];
 const allCommands = [];
+
+console.log(Global);
 
 client.login(config.token);
 
@@ -65,21 +83,25 @@ const timeSequelize = new Sequelize({
 async function ready() {
   const NOW = Date.now();
   setup();
+  Global.Tags = Tags;
+  Global.TimeTags = TimeTags;
   Internal.startIntervals(client);
   Log.success(`Setting and sorting commands took ${Date.now() - NOW}ms.`);
 
   await createTags(0);
 
-  try {
-    await sequelize.authenticate();
-    await timeSequelize.authenticate();
-    Log.success("Database connection has been established successfully.");
-  } catch (error) {
-    Log.error(`Unable to connect to the database: ${error}`);
-  }
+  await Global.authAndSyncDatabases();
 
-  Tags.sync();
-  TimeTags.sync();
+  // try {
+  //   await sequelize.authenticate();
+  //   await timeSequelize.authenticate();
+  //   Log.success("Database connection has been established successfully.");
+  // } catch (error) {
+  //   Log.error(`Unable to connect to the database: ${error}`);
+  // }
+
+  // Tags.sync();
+  // TimeTags.sync();
 
   Log.important(`\n\nGood morning. The current date and time is ${Date()}.\n\n`);
 
@@ -128,22 +150,22 @@ function setup() {
     const command = require(`./commands/${file}`);
     iteration++;
     Log.loading(`Loading command ${iteration}/${commandFiles.length}`);
-    client.commands.set(command.command.name, command.command);
+    Global.client.commands.set(command.command.name, command.command);
   }
   Log.success(`\n\n\nSetting commands complete. Beginning sorting...\n\n\n`);
-  client.commands.forEach(element => {
+  Global.client.commands.forEach(element => {
     // Some commands have type: "shorthand" to make it not appear in the help embeds. This just works lol 
     // If you're adding a shorthand, please make sure to put that in.
     const e = element;
-    commandNames.push(e.name);
-    allCommands.push({ name: e.name, value: e.description, type: e.type, check: e.check, acceptableArgs: e.acceptableArgs, page: e.number });
+    Global.commandNames.push(e.name);
+    Global.allCommands.push({ name: e.name, value: e.description, type: e.type, check: e.check, acceptableArgs: e.acceptableArgs, page: e.number });
     if (e.type === undefined) {
       jiteration++;
       Log.loading(`Sorting command ${jiteration}/${client.commands.size}`);
       // eslint-disable-next-line max-len
-      if (e.number > 0 && e.number < fieldsArray.length) fieldsArray[e.number - 1].push({ name: e.name, value: e.description });
+      if (e.number > 0 && e.number < Global.fieldsArray.length) Global.fieldsArray[e.number - 1].push({ name: e.name, value: e.description });
       // eslint-disable-next-line max-len
-      else if (e.number === 69) fieldsArray[fieldsArray.length - 1].push({ name: e.name, value: e.description });
+      else if (e.number === 69) Global.fieldsArray[Global.fieldsArray.length - 1].push({ name: e.name, value: e.description });
       else Log.error(e);
     }
   });
@@ -154,22 +176,23 @@ function setup() {
  * @param {Number} startingValue - the value at which to start the for loop.
  */
 async function createTags(startingValue) {
-  if (startingValue > commandNames.length) return;
+  if (startingValue > Global.commandNames.length) return;
+  return;
   try {
-    for (let i = startingValue; i < commandNames.length; i++) {
-      const tag = await Tags.create({
-        name: commandNames[i],
+    for (let i = startingValue; i < Global.commandNames.length; i++) {
+      const tag = await Global.Tags.create({
+        name: Global.commandNames[i],
         timesUsed: 0
       });
-      Tags.create({
+      Global.Tags.create({
         name: "totalRequests",
         timesUsed: 0
       });
-      Tags.create({
+      Global.Tags.create({
         name: "totalSuccesses",
         timesUsed: 0
       });
-      Tags.create({
+      Global.Tags.create({
         name: "help",
         timesUsed: 0
       });
@@ -187,7 +210,7 @@ async function createTags(startingValue) {
  * @param {String} name - name of the tag to increment
  */
 async function incrementTag(name, database, databaseName) {
-  const tag = databaseName === "Tags" ? await database.findOne({ where: { name } }) : await database.findOne({ where: { hour: name } });
+  const tag = databaseName === "Tags" ? await Global[databaseName].findOne({ where: { name } }) : await Global[databaseName].findOne({ where: { hour: name } });
   if (tag) {
     tag.increment("timesUsed");
     Log.basic(`[${Date()}] Tag ${name} incremented successfully. New value: ${tag.timesUsed}`);
@@ -236,8 +259,6 @@ client.on("interactionCreate", async interaction => {
         page: 1,
         message: interaction,
         id: interaction.channelId,
-        Tags,
-        TimeTags
       });
       m.send();
     } else client.commands.get(interaction.commandName).execute(interaction, interaction.channelId);

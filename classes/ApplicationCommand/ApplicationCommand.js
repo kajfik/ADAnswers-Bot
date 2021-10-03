@@ -114,7 +114,7 @@ class ApplicationCommand extends Command {
   send(interaction, sent) {
     interaction.reply({ content: sent, ephemeral: !this.hasHelperRole(interaction) });
     // eslint-disable-next-line max-len
-    if (!this.hasHelperRole(interaction) && interaction.channel.type !== "DM") interaction.followUp({ content: "If you wish to be able to help other players using the bot, you will need the `Helper` role. To get it, go to bot commands and type `/helper`.", ephemeral: true });
+    if (!this.hasHelperRole(interaction) && interaction.channel.type !== "DM" && interaction.serverId === ids.AD.serverID) interaction.followUp({ content: "If you wish to be able to help other players using the bot, you will need the `Helper` role. To get it, go to bot commands and type `/helper`.", ephemeral: true });
   }
 
   /**

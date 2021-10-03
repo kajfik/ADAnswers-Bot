@@ -7,6 +7,7 @@ const commands = require("../utils/commands");
 const { footerMessages } = require("../utils/messages");
 const { Time } = require("./FunctionClasses/Time");
 const { Log } = require("./FunctionClasses/Log");
+const Global = require("../utils/constants");
 
 const NOW = new Date();
 const metaMessageObject = {
@@ -25,8 +26,6 @@ class Meta {
     this.message = info.message;
     this.id = info.id;
     this.client = info.client;
-    this.tags = info.Tags;
-    this.timeTags = info.TimeTags;
   }
 
   rows(disabled, person) {
@@ -75,8 +74,8 @@ class Meta {
   }
 
   async tagStuff() {
-    const timeData = await this.manageBottomAndTopCommands(this.timeTags, "hour");
-    const usageData = await this.manageBottomAndTopCommands(this.tags, "name");
+    const timeData = await this.manageBottomAndTopCommands("TimeTags", "hour");
+    const usageData = await this.manageBottomAndTopCommands("Tags", "name");
     return {
       top5commands: usageData.top5commands,
       bottom5commands: usageData.bottom5commands,
@@ -113,9 +112,9 @@ class Meta {
     ];
   }
 
-  async manageBottomAndTopCommands(Tags, secondAttribute) {
+  async manageBottomAndTopCommands(database, secondAttribute) {
     const tagsMatchedWithTimesUsed = {};
-    const tagList = await Tags.findAll({ attributes: ["timesUsed", secondAttribute] });
+    const tagList = await Global[database].findAll({ attributes: ["timesUsed", secondAttribute] });
     tagList.map(t => Object.assign(tagsMatchedWithTimesUsed, { [t[secondAttribute]]: t.timesUsed }));
     const sorted = Object.values(tagsMatchedWithTimesUsed).sort((a, b) => b - a);
     const requests = sorted[0];
