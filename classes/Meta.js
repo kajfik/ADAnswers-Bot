@@ -6,6 +6,7 @@ const config = require("../utils/config.json");
 const commands = require("../utils/commands");
 const { footerMessages } = require("../utils/messages");
 const { Time } = require("./FunctionClasses/Time");
+const { Log } = require("./FunctionClasses/Log");
 
 const NOW = new Date();
 const metaMessageObject = {
@@ -210,11 +211,11 @@ class Meta {
                              Channel type: ${this.message.channel.type}
                              Time: ${Date()}
                              URL: ${this.message.channel.type === "DM" ? "N/A" : `${this.message.url}`}`;
-          console.log(moreInfo);
+          Log.info(moreInfo);
           this.client.channels.cache.get("722912387287744572").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
           this.client.users.cache.get("213071245896450068").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
           message.channel.send(`ADAnswersBot has ran into an error, ${error}.`);
-          console.log(error);
+          Log.error(error);
         }
       });
       collector.on("end", async() => {

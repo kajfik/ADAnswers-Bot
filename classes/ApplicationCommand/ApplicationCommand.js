@@ -6,6 +6,7 @@ const { Command } = require("../Command");
 const { Message } = require("../FunctionClasses/Message");
 const { Checks } = require("../FunctionClasses/Checks");
 const { ids } = require("../../utils/config.json");
+const { Log } = require("../FunctionClasses/Log");
 const hr = ids.helperRole;
 
 /** 
@@ -75,12 +76,12 @@ class ApplicationCommand extends Command {
                              Time: ${Date()}
                              URL: ${interaction.channel.type === "DM" ? "N/A" : `${message.url}`}
                              Args: ${this.argKey ? this.getArgs(interaction) : `N/A`}`;
-    console.log(moreInfo);
+    Log.info(moreInfo);
     interaction.client.channels.cache.get("722912387287744572").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
     interaction.client.users.cache.get("213071245896450068").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
     interaction.reply({ content: `There was an error while executing command ${interaction.commandName}.`, ephemeral: false });
     interaction.followUp(`ADAnswersBot has ran into an error, ${error}.`);
-    console.log(error);
+    Log.error(error);
   }
 
   /**

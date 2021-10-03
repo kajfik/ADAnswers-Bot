@@ -9,8 +9,6 @@ class Internal {
 
   static setBotStatus(client) {
     const next = combined.next();
-    // eslint-disable-next-line no-console
-    // console.log(`Changed status to: Listening to${next}`);
     client.user.setActivity(next, { type: "LISTENING" });
   }
 }

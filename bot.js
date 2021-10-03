@@ -13,7 +13,6 @@
 
 const Discord = require("discord.js");
 const Sequelize = require("sequelize");
-const Chalk = require("chalk");
 const fs = require("fs"); 
 const config = require("./utils/config.json");
 const commands = require("./utils/commands");
@@ -21,6 +20,7 @@ const { Internal } = require("./classes/FunctionClasses/Internal");
 const { Help } = require("./classes/FunctionClasses/Help");
 const { Time } = require("./classes/FunctionClasses/Time");
 const { Meta } = require("./classes/Meta");
+const { Log } = require("./classes/FunctionClasses/Log");
 
 // eslint-disable-next-line max-len
 const client = new Discord.Client({ intents: [Discord.Intents.FLAGS.GUILDS, Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.DIRECT_MESSAGES, Discord.Intents.FLAGS.GUILD_INTEGRATIONS, Discord.Intents.FLAGS.GUILD_MEMBERS], partials: ["MESSAGE", "CHANNEL", "USER", "REACTION", "GUILD_MEMBER"] });
@@ -66,22 +66,22 @@ async function ready() {
   const NOW = Date.now();
   setup();
   Internal.startIntervals(client);
-  console.log(`Setting and sorting commands took ${Date.now() - NOW}ms.`);
+  Log.success(`Setting and sorting commands took ${Date.now() - NOW}ms.`);
 
   await createTags(0);
 
   try {
     await sequelize.authenticate();
     await timeSequelize.authenticate();
-    console.log("Connection has been established successfully.");
+    Log.success("Database connection has been established successfully.");
   } catch (error) {
-    console.error("Unable to connect to the database:", error);
+    Log.error(`Unable to connect to the database: ${error}`);
   }
 
   Tags.sync();
   TimeTags.sync();
 
-  console.log(`\n\nGood morning. The current date and time is ${Date()}.\n\n`);
+  Log.important(`\n\nGood morning. The current date and time is ${Date()}.\n\n`);
 
   // Console.log(allCommands);
   // Uncomment for /docs
@@ -127,10 +127,10 @@ function setup() {
   for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
     iteration++;
-    console.log(Chalk.grey(`Setting command ${command.command.name}, command ${iteration}...`));
+    Log.loading(`Loading command ${iteration}/${commandFiles.length}`);
     client.commands.set(command.command.name, command.command);
   }
-  console.log(Chalk.greenBright(`\n\n\nSetting commands complete. Beginning sorting...\n\n\n`));
+  Log.success(`\n\n\nSetting commands complete. Beginning sorting...\n\n\n`);
   client.commands.forEach(element => {
     // Some commands have type: "shorthand" to make it not appear in the help embeds. This just works lol 
     // If you're adding a shorthand, please make sure to put that in.
@@ -139,12 +139,12 @@ function setup() {
     allCommands.push({ name: e.name, value: e.description, type: e.type, check: e.check, acceptableArgs: e.acceptableArgs, page: e.number });
     if (e.type === undefined) {
       jiteration++;
-      console.log(Chalk.grey(`Sorting command ${e.name}, command ${jiteration}...`));
+      Log.loading(`Sorting command ${jiteration}/${client.commands.size}`);
       // eslint-disable-next-line max-len
       if (e.number > 0 && e.number < fieldsArray.length) fieldsArray[e.number - 1].push({ name: e.name, value: e.description });
       // eslint-disable-next-line max-len
       else if (e.number === 69) fieldsArray[fieldsArray.length - 1].push({ name: e.name, value: e.description });
-      else console.log(e);
+      else Log.error(e);
     }
   });
 }
@@ -173,12 +173,12 @@ async function createTags(startingValue) {
         name: "help",
         timesUsed: 0
       });
-      console.log(`Tag ${tag.name} added.`);
+      Log.success(`Created tag ${tag.name}`);
     }
   } catch (e) {
     if (e.name === "SequelizeUniqueConstraintError") {
       createTags(startingValue + 1);
-    } else console.log(`Something went wrong while adding tag, ${e}`);
+    } else Log.error(`Something went wrong while adding tag, ${e}`);
   }
 }
 
@@ -190,7 +190,7 @@ async function incrementTag(name, database, databaseName) {
   const tag = databaseName === "Tags" ? await database.findOne({ where: { name } }) : await database.findOne({ where: { hour: name } });
   if (tag) {
     tag.increment("timesUsed");
-    console.log(Chalk.blue(`[${Date()}] Tag ${name} incremented successfully. New value: ${tag.timesUsed}`));
+    Log.basic(`[${Date()}] Tag ${name} incremented successfully. New value: ${tag.timesUsed}`);
   }
 }
 
@@ -225,7 +225,7 @@ client.on("interactionCreate", async interaction => {
     incrementTag("help", Tags, "Tags");
     incrementTag("totalSuccesses", Tags, "Tags");
     incrementTag(Time.newDate().getHours(), TimeTags, "TimeTags");
-    console.log(Chalk.blueBright(`/--------------------------------------------------------------------/`));
+    Log.divider();
     return;
   }
 
@@ -244,7 +244,7 @@ client.on("interactionCreate", async interaction => {
     incrementTag("totalSuccesses", Tags, "Tags"); 
     incrementTag(interaction.commandName, Tags, "Tags");
     incrementTag(Time.newDate().getHours(), TimeTags, "TimeTags");
-    console.log(Chalk.blueBright(`/--------------------------------------------------------------------/`));
+    Log.divider();
   } catch (error) {
     interaction.reply({ content: `Bot ran into an error while executing command ${interaction.commandName}. ${error}`, ephemeral: false });
     const moreInfo = `From: ${interaction.user.username}#${interaction.user.discriminator}
@@ -252,10 +252,10 @@ client.on("interactionCreate", async interaction => {
                              Channel type: ${interaction.channel.type}
                              Time: ${Date()}
                              User ID: ${interaction.user.id}`;
-    console.log(moreInfo);
+    Log.info(moreInfo);
     client.channels.cache.get(config.ids.testServerErrorLoggingChannel).send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
     client.users.cache.get(config.ids.earth).send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
-    console.log(error);
+    Log.error(`[${Date()}] ${error}`);
     lastErrorUserID = interaction.user.id;
   }
 });
@@ -272,9 +272,9 @@ client.on("messageCreate", async message => {
           // Mod logs in antimatter dimensions
           const person = `${message.author.username}#${message.author.discriminator}`;
           client.channels.cache.get(adIDs.modLogs).send(`${person} sent a sticker in <#${message.channelId}>.`);
-          console.log(`Sticker deleted. Sent by ${person}. ${Date()}`);
+          Log.info(`[${Date()}] ${person} sent a sticker in <#${message.channelId}>.`);
         }).catch(error => {
-          console.log(error);
+          Log.error(`[${Date()}] ${error}`);
         });
       await message.guild.members.fetch();
       mods = message.guild.roles.resolve(adIDs.modRole).members.map(member => member.id);
@@ -295,7 +295,7 @@ client.on("messageCreate", async message => {
       });
 
       message.reply(`Deployment success. Expect results within the hour.`);
-      console.log(`Deployment success at ${new Date()}.`);
+      Log.success(`[${Date()}] Deployment success. Expect results within the hour.`);
       return;
     }
 
@@ -304,7 +304,7 @@ client.on("messageCreate", async message => {
       const roleInfo = message.guild.roles.resolve(config.ids.helperRole);
       const namesAndIDs = roleInfo.members.map(member => `${member.user.username}#${member.user.discriminator} (${member.user.id}) [${member.roles.highest.name}]`);
       
-      console.log(namesAndIDs.join("\n"));
+      Log.info(namesAndIDs.join("\n"));
       message.reply(`Currently, ${roleInfo.members.size} person(s) have the Helper role.`);
       message.author.send(namesAndIDs.join("\n"));
     }
@@ -319,16 +319,15 @@ client.on("messageCreate", async message => {
       const person = `${user.username}#${user.discriminator}`;
       const sent = id === args[0] ? message.content.slice(`++intercom`.length + id.length + 2) : message.content.slice(`++intercom`.length);
       user.send(`${sent}\n**/-------------------------------------------------------------/**\n the above message was sent by earth#1337, the owner of the bot. this is a one way intercom.`).catch(error => { 
-        console.log(error); 
+        Log.error(`[${Date()}] ${error}`);
         message.reply(`Cannot send messages to ${person}.`);
       });
-      console.log(`Intercom message successfully sent to ${person}. Message: \n
+      Log.info(`Intercom message successfully sent to ${person}. Message: \n
       ${sent}`);
       message.reply(`Successfully sent message to ${person}.`);
     }
 
   } catch (e) {
-    console.log(`Deployment failed.`);
-    console.log(e);
+    Log.error(`[${Date()}] ${e}`);
   }
 });

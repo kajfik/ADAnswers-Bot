@@ -6,6 +6,7 @@
 
 const functions = require("../../utils/functions/functions");
 const { Command } = require("../Command");
+const { Log } = require("../FunctionClasses/Log");
 
 /** 
  * @class XKCDCommand
@@ -41,7 +42,7 @@ class XKCDCommand extends Command {
       Time: ${Date()}
       URL: ${p.message.channel.type === "dm" ? "N/A" : `${p.message.url}`}`;
       // eslint-disable-next-line no-console
-      console.log(moreInfo);
+      Log.info(moreInfo);
       p.client.channels.cache.get("722912387287744572").send(`ADAnswersBot has ran into an error, ${err}. ${moreInfo}`);
       p.client.users.cache.get("213071245896450068").send(`ADAnswersBot has ran into an error, ${err}. ${moreInfo}`);
     }

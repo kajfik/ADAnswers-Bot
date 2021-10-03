@@ -5,6 +5,7 @@ const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
 const { ApplicationCommand } = require("./ApplicationCommand");
 const { ids } = require("../../utils/config.json");
 const { Message } = require("../FunctionClasses/Message");
+const { Log } = require("../FunctionClasses/Log");
 const hr = ids.helperRole;
 
 class HelperApplicationCommand extends ApplicationCommand {
@@ -56,11 +57,7 @@ class HelperApplicationCommand extends ApplicationCommand {
         });
       });
     collector.on("end", collected => {
-      if (collected.size === 1) console.log(`${collected.first().user.username} ${collected.first().customId === "button_agree" ? `added` : `took away`} the helper role to/from themselves at ${Date()}`);
-      console.log(`[${Date()}]
-      \n/helper was just executed. 
-      \n${interaction.guild.roles.resolve(hr).members.size} person(s) have the helper role.
-      \n${interaction.guild.roles.resolve(hr).members.map(member => `${member.user.username}#${member.user.discriminator} (${member.user.id}), \n`)}`);
+      if (collected.size === 1) Log.important(`${collected.first().user.username} ${collected.first().customId === "button_agree" ? `added` : `took away`} the helper role to/from themselves at ${Date()}`);
     });
   }
 }
