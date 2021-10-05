@@ -264,6 +264,7 @@ client.on("interactionCreate", async interaction => {
 client.on("messageCreate", async message => {
   const adIDs = config.ids.AD;
   let mods;
+  if (message.content.includes("<@!830197123378053172>")) message.reply("fuck off");
   if (message.channelId === adIDs.general) return;
   try {
     if (message.guildId === adIDs.serverID) {
