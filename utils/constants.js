@@ -74,4 +74,13 @@ module.exports = {
   },
   commandNames: [],
   allCommands: [],
+  async incrementTag(name, databaseName) {
+    const tag = databaseName === "Tags" 
+      ? await this.Tags.findOne({ where: { name } }) 
+      : await this.TimeTags.findOne({ where: { hour: name } });
+    if (tag) {
+      tag.increment("timesUsed");
+      Log.basic(`[${Date()}] Tag ${name} incremented successfully. New value: ${tag.timesUsed}`);
+    }
+  }
 };

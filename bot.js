@@ -13,7 +13,6 @@
 
 const Discord = require("discord.js");
 const Sequelize = require("sequelize");
-const fs = require("fs"); 
 const config = require("./utils/config.json");
 const commands = require("./utils/commands");
 const { Internal } = require("./classes/FunctionClasses/Internal");
@@ -40,27 +39,9 @@ const client = new Discord.Client({
   ] 
 });
 
-const commandFiles = fs.readdirSync("./commands").filter(file => file.endsWith(".js"));
-client.commands = new Discord.Collection();
-
-const fieldsVar = [];
-const fieldsVar2 = [];
-const fieldsVar3 = [];
-const fieldsVar4 = [];
-const fieldsVar5 = [];
-const fieldsVar6 = [];
-const fieldsVar7 = [];
-const fieldsVar8 = [];
-const fieldsVar69 = [];
-const fieldsArray = [fieldsVar, fieldsVar2, fieldsVar3, fieldsVar4, fieldsVar5, fieldsVar6, fieldsVar7, fieldsVar8, fieldsVar69];
 
 let Tags = undefined;
 let TimeTags = undefined;
-
-const commandNames = [];
-const allCommands = [];
-
-console.log(Global);
 
 client.login(config.token);
 
@@ -81,6 +62,7 @@ const timeSequelize = new Sequelize({
  * @async
  */
 async function ready() {
+  Global.client.commands = new Discord.Collection();
   const NOW = Date.now();
   setup();
   Global.Tags = Tags;
@@ -91,17 +73,6 @@ async function ready() {
   await createTags(0);
 
   await Global.authAndSyncDatabases();
-
-  // try {
-  //   await sequelize.authenticate();
-  //   await timeSequelize.authenticate();
-  //   Log.success("Database connection has been established successfully.");
-  // } catch (error) {
-  //   Log.error(`Unable to connect to the database: ${error}`);
-  // }
-
-  // Tags.sync();
-  // TimeTags.sync();
 
   Log.important(`\n\nGood morning. The current date and time is ${Date()}.\n\n`);
 
@@ -146,10 +117,10 @@ function setup() {
   });
   let iteration = 0;
   let jiteration = 0;
-  for (const file of commandFiles) {
+  for (const file of Global.commandFiles) {
     const command = require(`./commands/${file}`);
     iteration++;
-    Log.loading(`Loading command ${iteration}/${commandFiles.length}`);
+    Log.loading(`Loading command ${iteration}/${Global.commandFiles.length}`);
     Global.client.commands.set(command.command.name, command.command);
   }
   Log.success(`\n\n\nSetting commands complete. Beginning sorting...\n\n\n`);
@@ -161,7 +132,7 @@ function setup() {
     Global.allCommands.push({ name: e.name, value: e.description, type: e.type, check: e.check, acceptableArgs: e.acceptableArgs, page: e.number });
     if (e.type === undefined) {
       jiteration++;
-      Log.loading(`Sorting command ${jiteration}/${client.commands.size}`);
+      Log.loading(`Sorting command ${jiteration}/${Global.client.commands.size}`);
       // eslint-disable-next-line max-len
       if (e.number > 0 && e.number < Global.fieldsArray.length) Global.fieldsArray[e.number - 1].push({ name: e.name, value: e.description });
       // eslint-disable-next-line max-len
@@ -177,23 +148,10 @@ function setup() {
  */
 async function createTags(startingValue) {
   if (startingValue > Global.commandNames.length) return;
-  return;
   try {
     for (let i = startingValue; i < Global.commandNames.length; i++) {
-      const tag = await Global.Tags.create({
+      const tag = await Tags.create({
         name: Global.commandNames[i],
-        timesUsed: 0
-      });
-      Global.Tags.create({
-        name: "totalRequests",
-        timesUsed: 0
-      });
-      Global.Tags.create({
-        name: "totalSuccesses",
-        timesUsed: 0
-      });
-      Global.Tags.create({
-        name: "help",
         timesUsed: 0
       });
       Log.success(`Created tag ${tag.name}`);
@@ -209,7 +167,7 @@ async function createTags(startingValue) {
  * Increments a sequelize tag.
  * @param {String} name - name of the tag to increment
  */
-async function incrementTag(name, database, databaseName) {
+async function incrementTag(name, databaseName) {
   const tag = databaseName === "Tags" ? await Global[databaseName].findOne({ where: { name } }) : await Global[databaseName].findOne({ where: { hour: name } });
   if (tag) {
     tag.increment("timesUsed");
@@ -221,33 +179,32 @@ let lastErrorUserID = "635628027258339328";
 
 client.on("interactionCreate", async interaction => {
   if (!interaction.isCommand()) return;
-  if (!client.application?.owner) await client.application?.fetch();
+  if (!Global.client.application?.owner) await Global.client.application?.fetch();
   if (interaction.channelId === config.ids.AD.general && interaction.commandName !== "deadchat") {
     interaction.reply({ content: `hey buddy! can't use commands in general. nice try though. proud of u`, ephemeral: true });
     return;
   }
 
-  if (!client.commands.has(interaction.commandName) && interaction.commandName !== "help" && interaction.commandName !== "meta") return;
+  if (!Global.client.commands.has(interaction.commandName) && interaction.commandName !== "help" && interaction.commandName !== "meta") return;
 
-  incrementTag("totalRequests", Tags, "Tags");
+  incrementTag("totalRequests", "Tags");
 
   if (interaction.commandName === "help") { 
     const args = interaction.options.getInteger("page") ? interaction.options.getInteger("page") : 1; 
-    if (args > fieldsArray.length && args !== 69) {
+    if (args > Global.fieldsArray.length && args !== 69) {
       interaction.reply({ content: `I'm sorry, I don't know what page you're looking for.`, ephemeral: false });
       return; 
     }
+    console.log(Global.fieldsArray)
     const helpClass = new Help({ 
-      client, 
       page: args,
       message: interaction,
-      fieldsArray,
       id: interaction.channelId,
     });
     helpClass.send();
-    incrementTag("help", Tags, "Tags");
-    incrementTag("totalSuccesses", Tags, "Tags");
-    incrementTag(Time.newDate().getHours(), TimeTags, "TimeTags");
+    incrementTag("help", "Tags");
+    incrementTag("totalSuccesses", "Tags");
+    incrementTag(Time.newDate().getHours(), "TimeTags");
     Log.divider();
     return;
   }
@@ -255,16 +212,15 @@ client.on("interactionCreate", async interaction => {
   try {
     if (interaction.commandName === "meta") {
       const m = new Meta({
-        client,
         page: 1,
         message: interaction,
         id: interaction.channelId,
       });
       m.send();
-    } else client.commands.get(interaction.commandName).execute(interaction, interaction.channelId);
-    incrementTag("totalSuccesses", Tags, "Tags"); 
-    incrementTag(interaction.commandName, Tags, "Tags");
-    incrementTag(Time.newDate().getHours(), TimeTags, "TimeTags");
+    } else Global.client.commands.get(interaction.commandName).execute(interaction, interaction.channelId);
+    incrementTag("totalSuccesses", "Tags"); 
+    incrementTag(interaction.commandName, "Tags");
+    incrementTag(Time.newDate().getHours(), "TimeTags");
     Log.divider();
   } catch (error) {
     interaction.reply({ content: `Bot ran into an error while executing command ${interaction.commandName}. ${error}`, ephemeral: false });
@@ -274,8 +230,8 @@ client.on("interactionCreate", async interaction => {
                              Time: ${Date()}
                              User ID: ${interaction.user.id}`;
     Log.info(moreInfo);
-    client.channels.cache.get(config.ids.testServerErrorLoggingChannel).send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
-    client.users.cache.get(config.ids.earth).send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
+    Global.client.channels.cache.get(config.ids.testServerErrorLoggingChannel).send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
+    Global.client.users.cache.get(config.ids.earth).send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
     Log.error(`[${Date()}] ${error}`);
     lastErrorUserID = interaction.user.id;
   }
@@ -303,7 +259,7 @@ client.on("messageCreate", async message => {
     // eslint-disable-next-line require-unicode-regexp
     const args = message.content.slice(config.prefix.length).trim().split(/ +/);
     const isMod = message.guildId === adIDs.serverID ? mods.includes(message.author.id) : false;
-    if (!client.application?.owner) await client.application?.fetch();
+    if (!Global.client.application?.owner) await Global.client.application?.fetch();
     
     // Deploys the commands for use throughout discord.
     if (message.content.toLowerCase() === "++deploy" && message.author.id === config.ids.earth) {

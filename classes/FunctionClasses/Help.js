@@ -5,15 +5,15 @@ const { MessageActionRow, MessageButton } = require("discord.js");
 const config = require("../../utils/config.json");
 const { footerMessages } = require("../../utils/messages");
 const { Log } = require("./Log");
-
+const Global = require("../../utils/constants");
 
 class Help {
   constructor(info) {
     this.page = info.page;
-    this.fieldsArray = info.fieldsArray;
+    this.fieldsArray = Global.fieldsArray;
     this.message = info.message;
     this.id = info.id;
-    this.client = info.client;
+    this.client = Global.client;
     this.rows = [
       new MessageActionRow()
         .addComponents(
