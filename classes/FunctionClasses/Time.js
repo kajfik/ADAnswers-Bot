@@ -1,12 +1,6 @@
 "use strict";
 
 class Time {
-  constructor(isMS, date, ms) {
-    this.isMS = isMS;
-    this.date = date;
-    this.ms = ms;
-  }
-
   static newDate() {
     return new Date();
   }

@@ -732,6 +732,10 @@ module.exports = {
     {
       name: "roles",
       description: "explains that you can get an Android or Web player role"
+    },
+    {
+      name: "tamtf",
+      description: "explains that you can get an Android or Web player role"
     }
   ],
   find(name) {
