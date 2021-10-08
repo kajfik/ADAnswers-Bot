@@ -249,10 +249,6 @@ module.exports = {
       description: "returns a link to a list of discord formatting stuff"
     },
     {
-      name: "dm",
-      description: "Yes, you can use the bot in your DM's with it."
-    },
-    {
       name: "earlyeternityprogression",
       description: "describes getting through the first few eternities"
     },
