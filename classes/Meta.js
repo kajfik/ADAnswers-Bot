@@ -73,15 +73,18 @@ class Meta {
   }
 
   async tagStuff() {
-    const timeData = await this.manageBottomAndTopCommands("TimeTags", "hour");
-    const usageData = await this.manageBottomAndTopCommands("Tags", "name");
+    const timeData = await this.manageBottomAndTopCommands("TimeTags", "hour", true);
+    const usageData = await this.manageBottomAndTopCommands("Tags", "name", true);
+    const userData = await this.manageBottomAndTopCommands("UserTags", "name", false);
     return {
       top5commands: usageData.top5commands,
       bottom5commands: usageData.bottom5commands,
       top5hours: timeData.top5commands,
       bottom5hours: timeData.bottom5commands,
       requests: usageData.requests,
-      successes: usageData.successes
+      successes: usageData.successes,
+      top5users: userData.top5commands,
+      bottom5users: userData.bottom5commands
     };
   }
 
@@ -106,20 +109,22 @@ class Meta {
         { name: "Bottom 5 used commands", value: `${tagStuff.bottom5commands}`, inline: true },
         { name: "All data", value: metaMessageObject.alldata, inline: true },
         { name: "Top 5 active hours (UTC-5)", value: `${tagStuff.top5hours}`, inline: true },
-        { name: "Bottom 5 active hours (UTC-5)", value: `${tagStuff.bottom5hours}`, inline: true }
+        { name: "Bottom 5 active hours (UTC-5)", value: `${tagStuff.bottom5hours}`, inline: true },
+        { name: "Top 5 users", value: `${tagStuff.top5users}`, inline: true },
+        { name: "Bottom 5 users", value: `${tagStuff.bottom5users}`, inline: true },
       ]
     ];
   }
 
-  async manageBottomAndTopCommands(database, secondAttribute) {
+  async manageBottomAndTopCommands(database, secondAttribute, shift) {
     const tagsMatchedWithTimesUsed = {};
     const tagList = await Global[database].findAll({ attributes: ["timesUsed", secondAttribute] });
     tagList.map(t => Object.assign(tagsMatchedWithTimesUsed, { [t[secondAttribute]]: t.timesUsed }));
     const sorted = Object.values(tagsMatchedWithTimesUsed).sort((a, b) => b - a);
     const requests = sorted[0];
     const successes = sorted[1];
-    sorted.shift();
-    sorted.shift();
+    if (shift) sorted.shift();
+    if (shift) sorted.shift();
     let top5commands = [];
     let bottom5commands = [];
     for (let i = 0; i < 5; i++) {
