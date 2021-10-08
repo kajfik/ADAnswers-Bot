@@ -1,28 +1,11 @@
 "use strict";
 
-const Sequelize = require("sequelize");
 const { Log } = require("../classes/FunctionClasses/Log");
-const Discord = require("discord.js");
 const fs = require("fs");
 
 module.exports = {
   NOW: Date.now(),
-  client: new Discord.Client({ 
-    intents: [
-      Discord.Intents.FLAGS.GUILDS, 
-      Discord.Intents.FLAGS.GUILD_MESSAGES, 
-      Discord.Intents.FLAGS.DIRECT_MESSAGES, 
-      Discord.Intents.FLAGS.GUILD_INTEGRATIONS, 
-      Discord.Intents.FLAGS.GUILD_MEMBERS
-    ], 
-    partials: [
-      "MESSAGE", 
-      "CHANNEL", 
-      "USER", 
-      "REACTION", 
-      "GUILD_MEMBER"
-    ] 
-  }),
+  client: null,
   commandFiles: fs.readdirSync("C:/Users/User/Documents/GitHub/ADAnswers-Bot/commands").filter(file => file.endsWith(".js")),
   fields: {
     fieldsVar: [],
@@ -49,21 +32,16 @@ module.exports = {
     ];
   },
   Tags: undefined,
-  sequelize: new Sequelize({
-    dialect: "sqlite",
-    storage: "../database.sqlite",
-    logging: false,
-  }),
+  sequelize: undefined,
   TimeTags: undefined,
-  timeSequelize: new Sequelize({
-    dialect: "sqlite",
-    storage: "../timeTags.sqlite",
-    logging: false,
-  }),
+  timeSequelize: undefined,
+  UserTags: undefined,
+  userSequelize: undefined,
   async authAndSyncDatabases() {
     try {
       await this.sequelize.authenticate();
       await this.timeSequelize.authenticate();
+      await this.userSequelize.authenticate();
       Log.success("Database connection has been established successfully.");
     } catch (error) {
       Log.error(`Unable to connect to the database: ${error}`);
@@ -71,16 +49,35 @@ module.exports = {
 
     this.Tags.sync();
     this.TimeTags.sync();
+    this.UserTags.sync();
+    Log.success("Database synced successfully.");
   },
   commandNames: [],
   allCommands: [],
   async incrementTag(name, databaseName) {
-    const tag = databaseName === "Tags" 
-      ? await this.Tags.findOne({ where: { name } }) 
-      : await this.TimeTags.findOne({ where: { hour: name } });
+    let tag;
+    if (databaseName === "Tags") tag = await this.Tags.findOne({ where: { name } });
+    else if (databaseName === "TimeTags") tag = await this.TimeTags.findOne({ where: { hour: name } });
+    else if (databaseName === "UserTags") tag = await this.UserTags.findOne({ where: { name } });
     if (tag) {
       tag.increment("timesUsed");
       Log.basic(`[${Date()}] Tag ${name} incremented successfully. New value: ${tag.timesUsed}`);
+    }
+  },
+  async createTags(startingValue) {
+    if (startingValue > this.commandNames.length) return;
+    try {
+      for (let i = startingValue; i < this.commandNames.length; i++) {
+        const tag = await this.Tags.create({
+          name: this.commandNames[i],
+          timesUsed: 0
+        });
+        Log.success(`Created tag ${tag.name}`);
+      }
+    } catch (e) {
+      if (e.name === "SequelizeUniqueConstraintError") {
+        this.createTags(startingValue + 1);
+      } else Log.error(`Something went wrong while adding tag, ${e}`);
     }
   }
 };

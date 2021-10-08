@@ -39,38 +39,75 @@ const client = new Discord.Client({
   ] 
 });
 
-
-let Tags = undefined;
-let TimeTags = undefined;
-
 client.login(config.token);
 
-const sequelize = new Sequelize({
-  dialect: "sqlite",
-  storage: "./database.sqlite",
-  logging: false,
-});
-
-const timeSequelize = new Sequelize({
-  dialect: "sqlite",
-  storage: "./timeTags.sqlite",
-  logging: false,
-});
+function setGlobal() {
+  Global.client = client;
+  Global.client.commands = new Discord.Collection();
+  Global.sequelize = new Sequelize({
+    dialect: "sqlite",
+    storage: "./database.sqlite",
+    logging: false,
+  });
+  Global.timeSequelize = new Sequelize({
+    dialect: "sqlite",
+    storage: "./timeTags.sqlite",
+    logging: false,
+  });
+  Global.userSequelize = new Sequelize({
+    dialect: "sqlite",
+    storage: "./userTags.sqlite",
+    logging: false,
+  });
+  Global.Tags = Global.sequelize.define("tags", {
+    name: {
+      type: Sequelize.STRING,
+      unique: true,
+    },
+    timesUsed: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0,
+      allowNull: false
+    }
+  });
+  Global.TimeTags = Global.timeSequelize.define("TimeTags", {
+    hour: {
+      type: Sequelize.NUMBER,
+      defaultValue: 0,
+      allowNull: false,
+      unique: true
+    },
+    timesUsed: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0,
+      allowNull: false
+    }
+  });
+  Global.UserTags = Global.userSequelize.define("UserTags", {
+    name: {
+      type: Sequelize.STRING,
+      unique: true
+    },
+    timesUsed: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0,
+      allowNull: false
+    }
+  });
+}
 
 /**
  * Handles the bot being ready.
  * @async
  */
 async function ready() {
-  Global.client.commands = new Discord.Collection();
   const NOW = Date.now();
+  setGlobal();
   setup();
-  Global.Tags = Tags;
-  Global.TimeTags = TimeTags;
-  Internal.startIntervals(client);
+  Internal.startIntervals();
   Log.success(`Setting and sorting commands took ${Date.now() - NOW}ms.`);
 
-  await createTags(0);
+  await Global.createTags(0);
 
   await Global.authAndSyncDatabases();
 
@@ -91,30 +128,6 @@ client.once("ready", ready);
  * Sets up the bot to be able to use the database, prepares the commands, and sorts them into help pages.
  */
 function setup() {
-  Tags = sequelize.define("tags", {
-    name: {
-      type: Sequelize.STRING,
-      unique: true,
-    },
-    timesUsed: {
-      type: Sequelize.INTEGER,
-      defaultValue: 0,
-      allowNull: false
-    }
-  });
-  TimeTags = timeSequelize.define("TimeTags", {
-    hour: {
-      type: Sequelize.NUMBER,
-      defaultValue: 0,
-      allowNull: false,
-      unique: true
-    },
-    timesUsed: {
-      type: Sequelize.INTEGER,
-      defaultValue: 0,
-      allowNull: false
-    }
-  });
   let iteration = 0;
   let jiteration = 0;
   for (const file of Global.commandFiles) {
@@ -132,7 +145,7 @@ function setup() {
     Global.allCommands.push({ name: e.name, value: e.description, type: e.type, check: e.check, acceptableArgs: e.acceptableArgs, page: e.number });
     if (e.type === undefined) {
       jiteration++;
-      Log.loading(`Sorting command ${jiteration}/${Global.client.commands.size}`);
+      Log.loading(`Sorting command ${jiteration}/${Global.client.commands.size - 8}`);
       // eslint-disable-next-line max-len
       if (e.number > 0 && e.number < Global.fieldsArray.length) Global.fieldsArray[e.number - 1].push({ name: e.name, value: e.description });
       // eslint-disable-next-line max-len
@@ -140,39 +153,6 @@ function setup() {
       else Log.error(e);
     }
   });
-}
-
-/**
- * Creates sequelize tags.
- * @param {Number} startingValue - the value at which to start the for loop.
- */
-async function createTags(startingValue) {
-  if (startingValue > Global.commandNames.length) return;
-  try {
-    for (let i = startingValue; i < Global.commandNames.length; i++) {
-      const tag = await Tags.create({
-        name: Global.commandNames[i],
-        timesUsed: 0
-      });
-      Log.success(`Created tag ${tag.name}`);
-    }
-  } catch (e) {
-    if (e.name === "SequelizeUniqueConstraintError") {
-      createTags(startingValue + 1);
-    } else Log.error(`Something went wrong while adding tag, ${e}`);
-  }
-}
-
-/**
- * Increments a sequelize tag.
- * @param {String} name - name of the tag to increment
- */
-async function incrementTag(name, databaseName) {
-  const tag = databaseName === "Tags" ? await Global[databaseName].findOne({ where: { name } }) : await Global[databaseName].findOne({ where: { hour: name } });
-  if (tag) {
-    tag.increment("timesUsed");
-    Log.basic(`[${Date()}] Tag ${name} incremented successfully. New value: ${tag.timesUsed}`);
-  }
 }
 
 let lastErrorUserID = "635628027258339328";
@@ -187,7 +167,10 @@ client.on("interactionCreate", async interaction => {
 
   if (!Global.client.commands.has(interaction.commandName) && interaction.commandName !== "help" && interaction.commandName !== "meta") return;
 
-  incrementTag("totalRequests", "Tags");
+  Log.divider();
+  Global.incrementTag("totalRequests", "Tags");
+  const person = `${interaction.user.username}#${interaction.user.discriminator}`;
+  const tag = await Global.UserTags.findOne({ where: { name: person } });
 
   if (interaction.commandName === "help") { 
     const args = interaction.options.getInteger("page") ? interaction.options.getInteger("page") : 1; 
@@ -195,17 +178,25 @@ client.on("interactionCreate", async interaction => {
       interaction.reply({ content: `I'm sorry, I don't know what page you're looking for.`, ephemeral: false });
       return; 
     }
-    console.log(Global.fieldsArray)
     const helpClass = new Help({ 
       page: args,
       message: interaction,
       id: interaction.channelId,
     });
     helpClass.send();
-    incrementTag("help", "Tags");
-    incrementTag("totalSuccesses", "Tags");
-    incrementTag(Time.newDate().getHours(), "TimeTags");
+    Global.incrementTag("help", "Tags");
+    Global.incrementTag("totalSuccesses", "Tags");
+    Global.incrementTag(Time.newDate().getHours(), "TimeTags");
     Log.divider();
+    if (tag) Global.incrementTag(person, "UserTags");
+    else {
+      Global.UserTags.create({
+        name: person,
+        timesUsed: 1
+      });
+      Log.success(`Created tag ${person}`);
+      Log.divider();
+    }
     return;
   }
 
@@ -218,13 +209,21 @@ client.on("interactionCreate", async interaction => {
       });
       m.send();
     } else Global.client.commands.get(interaction.commandName).execute(interaction, interaction.channelId);
-    incrementTag("totalSuccesses", "Tags"); 
-    incrementTag(interaction.commandName, "Tags");
-    incrementTag(Time.newDate().getHours(), "TimeTags");
-    Log.divider();
+    Global.incrementTag("totalSuccesses", "Tags"); 
+    Global.incrementTag(interaction.commandName, "Tags");
+    Global.incrementTag(Time.newDate().getHours(), "TimeTags");
+    if (tag) Global.incrementTag(person, "UserTags");
+    else {
+      Global.UserTags.create({
+        name: person,
+        timesUsed: 1
+      });
+      Log.success(`Created tag ${person}`);
+      Log.divider();
+    }
   } catch (error) {
     interaction.reply({ content: `Bot ran into an error while executing command ${interaction.commandName}. ${error}`, ephemeral: false });
-    const moreInfo = `From: ${interaction.user.username}#${interaction.user.discriminator}
+    const moreInfo = `From: ${person}
                              Attempted command: ${interaction.commandName}
                              Channel type: ${interaction.channel.type}
                              Time: ${Date()}
@@ -237,10 +236,10 @@ client.on("interactionCreate", async interaction => {
   }
 });
 
-// eslint-disable-next-line complexity
 client.on("messageCreate", async message => {
   const adIDs = config.ids.AD;
   let mods;
+  if (message.content.includes("<@!830197123378053172>")) message.reply("fuck off");
   if (message.channelId === adIDs.general) return;
   try {
     if (message.guildId === adIDs.serverID) {
@@ -264,10 +263,10 @@ client.on("messageCreate", async message => {
     // Deploys the commands for use throughout discord.
     if (message.content.toLowerCase() === "++deploy" && message.author.id === config.ids.earth) {
       message.reply(`Beginning hostile takeover. Thank you for your patience and cooperation.`);
-      await client.application?.commands.set(commands.all).then(() => {
+      await Global.client.application?.commands.set(commands.all).then(() => {
         message.reply({ content: `Successfully deployed commands globally.`, ephemeral: false });
       });
-      await client.guilds.cache.get(config.ids.testServer)?.commands.set(commands.all).then(() => {
+      await Global.client.guilds.cache.get(config.ids.testServer)?.commands.set(commands.all).then(() => {
         message.reply({ content: `Successfully deployed commands to test server.`, ephemeral: false });
       });
 
@@ -291,7 +290,7 @@ client.on("messageCreate", async message => {
       let id;
       if (args[0].length === "213071245896450068".length) id = args[0];
       else id = lastErrorUserID;
-      const user = await client.users.fetch(id);
+      const user = await Global.client.users.fetch(id);
       lastErrorUserID = id;
       const person = `${user.username}#${user.discriminator}`;
       const sent = id === args[0] ? message.content.slice(`++intercom`.length + id.length + 2) : message.content.slice(`++intercom`.length);

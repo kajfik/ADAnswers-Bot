@@ -1,15 +1,16 @@
 "use strict";
 
 const { combined } = require("../../utils/messages");
+const Global = require("../../utils/constants");
 
 class Internal {
-  static startIntervals(client) {
-    setInterval(Internal.setBotStatus, 15000, client);
+  static startIntervals() {
+    setInterval(Internal.setBotStatus, 15000);
   }
 
-  static setBotStatus(client) {
+  static setBotStatus() {
     const next = combined.next();
-    client.user.setActivity(next, { type: "LISTENING" });
+    Global.client.user.setActivity(next, { type: "LISTENING" });
   }
 }
 
