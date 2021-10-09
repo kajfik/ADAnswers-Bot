@@ -32,7 +32,7 @@ The exact number of infinities could be arugued, but 200 was relatively reasonab
   "ic3": `Attempt IC3 after getting the ID1 for e56 IP. This might take an hour to do. No special strat for this challenge.`,
   "ic4": `Attempt IC4 at around e68 IP.
 Check out the Post-Eternity guide once you are past Eternity. The old guides still apply, however the Post-Eternity one is just specifically made with the Eternity progression in mind.
-IC4 video guide: <https://youtu.be/kytefPmkqL4>
+IC4 video guide: <https://youtu.be/lI70hBlpaqc>
 IC4 written guide: <https://pastebin.com/aZktZs8m>
 Post-Eternity guide (has Eternity spoilers!): ||https://cdn.discordapp.com/attachments/536249899487068181/848926070622126100/SVID_20200120_130930_1.mp4||`,
   "ic5": `**On Android, all you have to do is set Antimatter Dimension autobuyers 1-7 to "Buy Singles". Then just wait.**

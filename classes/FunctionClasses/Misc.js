@@ -16,6 +16,13 @@ class Misc {
   static randomInArray(array) {
     return array[Math.floor(Math.random() * array.length)];
   }
+
+  static pluralise(word, count) {
+    if (count === 1) {
+      return word;
+    }
+    return `${word}s`;
+  }
 }
 
 module.exports = { Misc };

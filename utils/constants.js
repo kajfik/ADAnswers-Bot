@@ -64,11 +64,15 @@ module.exports = {
     let tag;
     if (databaseName === "Tags") tag = await this.Tags.findOne({ where: { name } });
     else if (databaseName === "TimeTags") tag = await this.TimeTags.findOne({ where: { hour: name } });
-    else if (databaseName === "UserTags") tag = await this.UserTags.findOne({ where: { name } });
+    else if (databaseName === "UserTags") tag = await this.getPersonTag(name);
     if (tag) {
       tag.increment("timesUsed");
       Log.basic(`[${Date()}] Tag ${name} incremented successfully. New value: ${tag.timesUsed}`);
     }
+  },
+  async getPersonTag(name) {
+    const t = await this.UserTags.findOne({ where: { name } });
+    return t;
   },
   async createTags(startingValue) {
     if (startingValue > this.commandNames.length) return;
@@ -87,7 +91,7 @@ module.exports = {
     }
   },
   async incrementPersonTag(name) {
-    const tag = await this.UserTags.findOne({ where: { name } });
+    const tag = await this.getPersonTag(name);
     if (tag) await this.incrementTag(name, "UserTags");
     else {
       this.UserTags.create({

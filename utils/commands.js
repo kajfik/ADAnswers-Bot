@@ -731,7 +731,17 @@ module.exports = {
     },
     {
       name: "tamtf",
-      description: "explains that you can get an Android or Web player role"
+      description: "teach a man to fish"
+    },
+    {
+      name: "user",
+      description: "get information about a user",
+      options: [{
+        name: "user",
+        description: "a user",
+        type: "USER",
+        required: true
+      }]
     }
   ],
   find(name) {
