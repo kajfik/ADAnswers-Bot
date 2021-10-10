@@ -5,7 +5,7 @@ const { ApplicationCommand } = require("../../classes/ApplicationCommand/Applica
 
 module.exports = {
   command: new ApplicationCommand({
-    number: 5,
+    
     name: "savebank",
     description: "Provides a link to Buck's save bank.",
     check: true,

@@ -6,7 +6,7 @@ const StudyTreeCommand = require("./studytree");
 
 module.exports = {
   command: new TimeStudyApplicationCommand({
-    number: 6,
+    
     name: "ts",
     description: "shorthand for `/studytree`",
     type: "shorthand",

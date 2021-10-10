@@ -8,7 +8,7 @@ const { Message } = require("../../classes/FunctionClasses/Message");
 
 module.exports = {
   command: new ApplicationCommand({
-    number: 6,
+    
     name: "channels",
     description: "Sends a list of channels and their ids/part of game progress",
     check: "botCommandsCheck",

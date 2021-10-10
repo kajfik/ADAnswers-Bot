@@ -137,7 +137,7 @@ module.exports = {
   command: new TimeStudyApplicationCommand({
     name: "howtoplay",
     description: "sends the bowtoplay from the mobile version of the game",
-    number: 1,
+    
     check: true,
     acceptableArgs: [Object.keys(howtoplayMesssageObject), [Object.keys(howtoplayMesssageObject.faq)]],
     getArgMessage(args) {

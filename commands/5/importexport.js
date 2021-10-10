@@ -5,7 +5,7 @@ const { ApplicationCommand } = require("../../classes/ApplicationCommand/Applica
 
 module.exports = {
   command: new ApplicationCommand({
-    number: 6,
+    
     name: "importexport",
     description: "How to import/export saves",
     check: true,

@@ -5,7 +5,7 @@ const { ApplicationCommand } = require("../../classes/ApplicationCommand/Applica
 
 module.exports = {
   command: new ApplicationCommand({
-    number: 2,
+    
     name: "bulkbuy",
     description: "describes bulk buy",
     check: true,

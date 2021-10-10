@@ -5,7 +5,7 @@ const { ApplicationCommand } = require("../../classes/ApplicationCommand/Applica
 
 module.exports = {
   command: new ApplicationCommand({
-    number: 6,
+    
     name: "bottombuttons",
     description: "shows what the bottom buttons are",
     check: true,

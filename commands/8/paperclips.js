@@ -5,7 +5,7 @@ const { ApplicationCommand } = require("../../classes/ApplicationCommand/Applica
 
 module.exports = {
   command: new ApplicationCommand({
-    number: 7,
+    
     name: "paperclips",
     description: "Explanation of the origin of paperclips.",
     check: true,

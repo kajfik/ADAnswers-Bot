@@ -6,7 +6,7 @@ const ChallengeCommand = require("../5/challenge");
 
 module.exports = {
   command: new ApplicationCommand({
-    number: 7,
+    
     name: "ic4",
     description: "shorthand for `/challenge ic4`",
     type: "shorthand",

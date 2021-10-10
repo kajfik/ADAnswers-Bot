@@ -5,7 +5,7 @@ const { ApplicationCommand } = require("../../classes/ApplicationCommand/Applica
 
 module.exports = {
   command: new ApplicationCommand({
-    number: 3,
+    
     name: "respec",
     description: "Describes what respec studies does",
     check: true,

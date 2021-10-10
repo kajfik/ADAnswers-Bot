@@ -21,7 +21,7 @@ const infinityGrindingMessageObject = {
 module.exports = {
   command: new ApplicationCommand({
     name: "infinitygrinding",
-    number: 3,
+    
     description: "Args: `early`, `late`. Sends how to grind infinities for each of those time periods. Early is for EC4, late is for banking infinities.",
     acceptableArgs: Object.keys(infinityGrindingMessageObject),
     check: "ecsPlusCheck",

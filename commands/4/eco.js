@@ -7,7 +7,7 @@ const EternityChallengeOrder = require("./eternitychallengeorder");
 module.exports = {
   command: new TimeStudyApplicationCommand({
     name: "eco",
-    number: 3,
+    
     description: EternityChallengeOrder.command.description,
     type: "shorthand",
     check: EternityChallengeOrder.command.check,

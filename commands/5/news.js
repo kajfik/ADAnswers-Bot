@@ -10,7 +10,7 @@ const newsMessageObject = {
 
 module.exports = {
   command: new AchievementApplicationCommand({
-    number: 6,
+    
     name: "news",
     description: "Args: `listmobile` and `listweb`. Explains what the news ticker is and where it came from",
     check: true,

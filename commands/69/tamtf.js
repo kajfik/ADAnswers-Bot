@@ -5,7 +5,7 @@ const { ApplicationCommand } = require("../../classes/ApplicationCommand/Applica
 
 module.exports = {
   command: new ApplicationCommand({
-    number: 69,
+    
     name: "tamtf",
     description: "teach a man to fish... (basically me saying that the bot is the greatest thing ever)",
     check: true,

@@ -10,7 +10,7 @@ const { TimeStudyApplicationCommand } = require("../../classes/ApplicationComman
 
 module.exports = {
   command: new TimeStudyApplicationCommand({
-    number: 4,
+    
     name: "eternitychallenge",
     description: "Has a shorthand: `/ec`. Requires one argument: `/eternitychallenge [ECNumber]x[CompletionNumber]`. You may notice that some trees increase the number of TT you need, even though it's the same tree as the previous. This follows the Eternity Challenge guide followed by Ninjatsu, and TT can be used as something of a progress marker. For that reason, some trees have more TT than others for the same tree. Returns Total TT for a tree and then the tree.",
     check: "ecsCheck",

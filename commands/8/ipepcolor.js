@@ -5,7 +5,7 @@ const { ApplicationCommand } = require("../../classes/ApplicationCommand/Applica
 
 module.exports = {
   command: new ApplicationCommand({
-    number: 2,
+    
     name: "ipepcolor",
     description: "Explains the coloring of the IP/EP numbers on their respective reset buttons",
     check: true,

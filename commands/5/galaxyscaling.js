@@ -5,7 +5,7 @@ const { ApplicationCommand } = require("../../classes/ApplicationCommand/Applica
 
 module.exports = {
   command: new ApplicationCommand({
-    number: 1,
+    
     name: "galaxyscaling",
     description: "Explains the change in scaling at 100 (and 800) Antimatter Galaxies",
     check: true,

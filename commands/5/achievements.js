@@ -76,7 +76,7 @@ const achievementsMessageObject = {
 
 module.exports = {
   command: new AchievementApplicationCommand({
-    number: 2,
+    
     name: "achievements",
     description: "sends link to achievements guide",
     check: true,

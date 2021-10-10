@@ -4,7 +4,7 @@ const { ApplicationCommand } = require("../../classes/ApplicationCommand/Applica
 
 module.exports = {
   command: new ApplicationCommand({
-    number: 1,
+    
     name: "dimboostorgalaxy",
     description: "tells you if you should do a dimboost or galaxy",
     check: true,

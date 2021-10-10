@@ -7,7 +7,7 @@ const { Misc } = require("../../classes/FunctionClasses/Misc");
 module.exports = {
   command: new XKCDApplicationCommand({
     name: "xkcd",
-    number: 7,
+    
     description: "has an arg: XKCD number. sends the link to that xkcd",
     check: "botCommandsCheck",
     acceptableArgs: ["Any number"],

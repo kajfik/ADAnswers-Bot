@@ -5,7 +5,7 @@ const { ApplicationCommand } = require("../../classes/ApplicationCommand/Applica
 
 module.exports = {
   command: new ApplicationCommand({
-    number: 2,
+    
     name: "breakinfinity",
     description: "describes break infinity and gives an order to get break infinity upgrades",
     check: true,

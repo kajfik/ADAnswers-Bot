@@ -42,7 +42,7 @@ function otherCompletions(id, completion) {
 
 module.exports = {
   command: new TimeStudyApplicationCommand({
-    number: 3,
+    
     name: "eternitychallengeorder",
     description: "Has a shorthand: `/eco`. Args: highest eternity challenge you've down in the order (optional). Returns the EC order. Will show the previous EC as well when provided a specified challenge.",
     check: "ecsCheck",

@@ -6,7 +6,7 @@ const { ApplicationCommand } = require("../../classes/ApplicationCommand/Applica
 module.exports = {
   command: new ApplicationCommand({
     name: "decimal",
-    number: 6,
+    
     description: "Explains how break_infinity.js works",
     check: true,
     sent: [`Computers use the "64-bit Double-precision floating-point format" (or "double") for storing decimal values and as per the IEEE 754 standard its maximum value is 2^1024 which is about 1.79e308. In JavaScript, the programming language used for the web version, this value is named "Infinity". In the beginning, this was the largest number. 

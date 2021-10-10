@@ -5,7 +5,7 @@ const { ApplicationCommand } = require("../../classes/ApplicationCommand/Applica
 
 module.exports = {
   command: new ApplicationCommand({
-    number: 7,
+    
     name: "matterportal",
     description: "Matter Portal news tickers",
     check: true,

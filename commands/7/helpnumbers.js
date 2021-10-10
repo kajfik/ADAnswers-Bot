@@ -4,7 +4,6 @@ const { ApplicationCommand } = require("../../classes/ApplicationCommand/Applica
 
 module.exports = {
   command: new ApplicationCommand({
-    number: 7,
     name: "helpnumbers",
     description: "sends what each of the help pages has on it",
     check: "botCommandsCheck", 

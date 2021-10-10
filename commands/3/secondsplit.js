@@ -6,7 +6,7 @@ const { ApplicationCommand } = require("../../classes/ApplicationCommand/Applica
 module.exports = {
   command: new ApplicationCommand({
     name: "secondsplit",
-    number: 3,
+    
     description: "describes second split paths",
     check: "earlyEternityCheck",
     sent: [`

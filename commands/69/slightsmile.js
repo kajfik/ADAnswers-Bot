@@ -4,7 +4,7 @@ const { ApplicationCommand } = require("../../classes/ApplicationCommand/Applica
 
 module.exports = {
   command: new ApplicationCommand({
-    number: 7,
+    
     name: "slightsmile",
     description: "kaj no",
     check: "botCommandsCheck",

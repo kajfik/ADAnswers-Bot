@@ -13,7 +13,7 @@ const antitablesMessageObject = {
 module.exports = {
   // Sent is unneeded for commands with args because it'll be handled in getArgMessage
   command: new ApplicationCommand({
-    number: 1,
+    
     name: "antitables",
     description: "Args: `prebreak`, `postbreak`, `posteternity`. Sends a guide to Antitables.",
     check: true,

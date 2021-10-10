@@ -6,7 +6,7 @@ const { ApplicationCommand } = require("../../classes/ApplicationCommand/Applica
 module.exports = {
   command: new ApplicationCommand({
     name: "occlusion",
-    number: 6,
+    
     description: "shows a guide of how to fix out-of-focus tabs on chrome not giving full progress",
     check: true,
     sent: [`This guide is for performance issues when you minimize any game in chrome, and EACH option could fix the problem (it's mostly about making stuff working while minimized). High chance that just Steps 1-4 are enough (then don't try more). ALL these options can increase your cpu usage.

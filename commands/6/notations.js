@@ -4,7 +4,7 @@ const { ApplicationCommand } = require("../../classes/ApplicationCommand/Applica
 
 module.exports = {
   command: new ApplicationCommand({
-    number: 5,
+    
     name: "notations",
     description: `Sends a link to the Notations GitHub repo.`,
     check: true,

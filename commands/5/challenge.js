@@ -49,7 +49,7 @@ Post-Eternity guide (has Eternity spoilers!): ||https://cdn.discordapp.com/attac
 
 module.exports = {
   command: new ApplicationCommand({
-    number: 1,
+    
     name: "challenge",
     description: "Args: all challenges, including `ecs`. Returns a guide for each argument. All of these commands have shorthands as well, f.e `/challenge c9` will return the same result as `/c9`",
     check: "challengeCheck",

@@ -5,7 +5,7 @@ const { ApplicationCommand } = require("../../classes/ApplicationCommand/Applica
 
 module.exports = {
   command: new ApplicationCommand({
-    number: 1,
+    
     name: "sacrifice",
     description: "describes sacrifice and when to",
     check: "earlyGameCheck",
