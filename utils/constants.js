@@ -7,11 +7,13 @@ const Sequelize = require("sequelize");
 const { Time } = require("../classes/FunctionClasses/Time");
 const commands = require("../utils/commands");
 const config = require("../utils/config.json");
+const { Misc } = require("../classes/FunctionClasses/Misc");
 
 module.exports = {
   lastErrorUserID: "",
   NOW: Date.now(),
   client: null,
+  allCommandFiles: fs.readdirSync("C:/Users/User/Documents/GitHub/ADAnswers-Bot/commands").filter(file => !file.endsWith(".md")),
   commandFiles: fs.readdirSync("C:/Users/User/Documents/GitHub/ADAnswers-Bot/commands").filter(file => file.endsWith(".js")),
   fields: {
     fieldsVar: [],
@@ -103,30 +105,22 @@ module.exports = {
   },
   setup() {
     let iteration = 0;
-    let jiteration = 0;
-    for (const file of this.commandFiles) {
-      const command = require(`../commands/${file}`);
-      iteration++;
-      Log.loading(`Loading command ${iteration}/${this.commandFiles.length}`);
-      this.client.commands.set(command.command.name, command.command);
-    }
-    Log.success(`\n\n\nSetting commands complete. Beginning sorting...\n\n\n`);
-    this.client.commands.forEach(element => {
-      // Some commands have type: "shorthand" to make it not appear in the help embeds. This just works lol 
-      // If you're adding a shorthand, please make sure to put that in.
-      const e = element;
-      this.commandNames.push(e.name);
-      this.allCommands.push({ name: e.name, value: e.description, type: e.type, check: e.check, acceptableArgs: e.acceptableArgs, page: e.number });
-      if (e.type === undefined) {
-        jiteration++;
-        Log.loading(`Sorting command ${jiteration}/${this.client.commands.size - 8}`);
-        // eslint-disable-next-line max-len
-        if (e.number > 0 && e.number < this.fieldsArray.length) this.fieldsArray[e.number - 1].push({ name: e.name, value: e.description });
-        // eslint-disable-next-line max-len
-        else if (e.number === 69) this.fieldsArray[this.fieldsArray.length - 1].push({ name: e.name, value: e.description });
-        else Log.error(e);
+    for (const folder of this.allCommandFiles) {
+      iteration = 0;
+      const folderNumber = Misc.toNumber(folder);
+      const commandFiles = fs.readdirSync(`C:/Users/User/Documents/GitHub/ADAnswers-Bot/commands/${folder}`).filter(file => file.endsWith(".js"));
+      for (const file of commandFiles) {
+        const command = require(`../commands/${folder}/${file}`);
+        this.commandNames.push(command.command.name);
+        this.allCommands.push(command.command);
+        this.client.commands.set(command.command.name, command.command);
+        if (folderNumber > 0 && folderNumber < this.fieldsArray.length) this.fieldsArray[folderNumber - 1].push({ name: command.command.name, value: command.command.description });
+        else if (folderNumber === 69) this.fieldsArray[this.fieldsArray.length - 1].push({ name: command.command.name, value: command.command.description });
+        iteration++;
+        Log.loading(`Loaded command ${iteration}/${commandFiles.length} in folder ${folder} (${command.command.name})`);
       }
-    });
+    }
+    Log.success(`\n\n\nSetup complete.\n\n\n`);
   },
   async ready(docs) {
     const NOW = Date.now();

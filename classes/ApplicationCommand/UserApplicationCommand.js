@@ -12,7 +12,8 @@ class UserApplicationCommand extends ApplicationCommand {
     const embed = new MessageEmbed()
       .setTitle(`${info.fullPerson}`)
       .setThumbnail(info.avatar)
-      .addField("Bot information", typeof info.tag === "object" ? `${info.fullPerson} has used the bot **${info.tag.dataValues.timesUsed}** ${Misc.pluralise("time", info.tag.dataValues.timesUsed)}` : "This user has not used the bot")
+      // eslint-disable-next-line max-len
+      .addField("Bot information", typeof info.tag === "object" ? `${info.fullPerson} has used the bot **${info.tag.dataValues.timesUsed}** ${Misc.pluralise("time", info.tag.dataValues.timesUsed)}*\n\n*: Data collection started on October 7, 2021` : "This user has not used the bot")
       .addField("Nickname", info.nick)
       .addField(`Roles [${info.rolesUnjoined.length === 0 ? "None" : info.rolesUnjoined.length}]`, `${info.rolesUnjoined.length === 0 ? "This user has no roles" : info.roles}`)
       .addField("Joined", info.joined)

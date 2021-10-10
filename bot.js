@@ -79,7 +79,7 @@ client.on("interactionCreate", async interaction => {
     interaction.reply({ content: `hey buddy! can't use commands in general. nice try though. proud of u`, ephemeral: true });
     return;
   }
-  const hasCommand = Global.client.commands.has(interaction.commandName);
+  const hasCommand = Global.client.commands.has(interaction.commandName) || interaction.commandName === "help" || interaction.commandName === "meta";
 
   if (hasCommand) await Global.incrementTag("totalRequests", "Tags");
   const person = `${interaction.user.username}#${interaction.user.discriminator}`;

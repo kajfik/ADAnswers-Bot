@@ -1,14 +1,14 @@
 /* eslint-disable max-len */
 "use strict";
 
-const AchievementsCommand = require("../commands/achievements");
-const AntitablesCommand = require("../commands/antitables");
-const ChallengeCommand = require("../commands/challenge");
-const DilationtreesCommand = require("../commands/dilationtrees");
-const infinitygrindingCommand = require("../commands/infinitygrinding");
-const RealityCommand = require("../commands/reality");
-const PeopleCommand = require("../commands/people");
-const HowtoplayCommand = require("../commands/howtoplay");
+const AchievementsCommand = require("../commands/5/achievements");
+const AntitablesCommand = require("../commands/6/antitables");
+const ChallengeCommand = require("../commands/5/challenge");
+const DilationtreesCommand = require("../commands/4/dilationtrees");
+const infinitygrindingCommand = require("../commands/3/infinitygrinding");
+const RealityCommand = require("../commands/8/reality");
+const PeopleCommand = require("../commands/69/people");
+const HowtoplayCommand = require("../commands/6/howtoplay");
 
 /**
  * @param {string} command - The command to get the message object for.
