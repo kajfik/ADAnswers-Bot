@@ -24,7 +24,7 @@ const peopleMessageObject = {
 module.exports = {
   command: new TimeStudyApplicationCommand({
     name: "people",
-    
+
     description: "see my opinions on people!",
     check: "botCommandsCheck",
     acceptableArgs: [Object.keys(peopleMessageObject), [Object.keys(peopleMessageObject.moderators), Object.keys(peopleMessageObject.nonmods)]],

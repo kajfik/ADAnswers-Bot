@@ -5,7 +5,7 @@ const { ApplicationCommand } = require("../../classes/ApplicationCommand/Applica
 
 module.exports = {
   command: new ApplicationCommand({
-    
+
     name: "setcrunchauto",
     description: "Describes how to set your crunch autobuyer.",
     check: "setCrunchAutoCheck",

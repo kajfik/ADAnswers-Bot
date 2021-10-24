@@ -797,7 +797,7 @@ function getDecimalTimeFromNormalPeopleTimeLikeTheOneThatNormalPeopleUseFuckingT
   const ns = Math.floor(((hours * 60 * 60) + (minutes * 60) + (seconds)) / 0.864);
   // Courtesy of spec.
   const aa = `0000${ns.toString()}`.replace(/^.*(.{5})$/u, "$1");
-  
+
 
   const arr = [aa.substr(0, 1), aa.substr(1, 2), aa.substr(3, 2)];
 

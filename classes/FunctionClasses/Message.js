@@ -14,7 +14,7 @@ class Message {
   noWorkyMessage(channels, secondaryChannels) {
     const use = `Use \`/channels\` to see which channels that is!`;
     return `This command only works in the ${channels} channel(s),${secondaryChannels ? ` ${secondaryChannels} channels,` : ``} bot commands, or the common channels. ${use}`;
-  
+
   }
 
   get constants() {

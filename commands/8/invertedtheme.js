@@ -8,7 +8,7 @@ const { ApplicationCommand } = require("../../classes/ApplicationCommand/Applica
 
 module.exports = {
   command: new ApplicationCommand({
-    
+
     name: "invertedtheme",
     description: "response to the frequent web bug report that the inverted theme is bugged.",
     check: true,

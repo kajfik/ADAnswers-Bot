@@ -24,7 +24,7 @@ const howtoplayMesssageObject = {
     \t\t\t**Dimension base costs:** 10, 100, 1e4, 1e6, 1e9, 1e13, 1e18, 1e24
     \t\t\t**Dimension base cost multipliers:** 1e3, 1e4, 1e5, 1e6, 1e8, 1e10, 1e12, 1e15
     \t\t\t**Dimension cost scaling:** Every time you purchase 10 of a dimension, its cost is multiplied by its cost multiplier. Additionally every time you purchase 10 of a dimension while its cost is greater than Infinity, its cost multiplier is multiplied by the post-infinity Dimension cost multiplier increase (starts at 10, can be lowered).`,
-    
+
     "infinitydimensions": `\t\t\t**Unlocking Infinity Dimensions:** Infinity Dimensions are unlocked by reaching a certain amount of antimatter.
     \t\t\t**Infinity Dimension Cost:** Infinity Dimensions are only purchasable in sets of 10 and cost Infinity points.
     \t\t\t**Infinity Dimension Production:** Similar to the Antimatter Dimensions, each Infinity Dimension produces the dimension above it. 3rd Dimension produces 2nd, 2nd produces 1st. Instead of antimatter, 1st Infinity Dimension produces Infinity Power, which translates to an overall multiplier on all Antimatter Dimensions.
@@ -93,7 +93,7 @@ const howtoplayMesssageObject = {
     "autodimboost": `\t\t\t**Automatic Dimboost Customization:** The Dimboost autobuyer works only when the amount of Dimboosts is less than the "Limit Dimboosts to" or when the amount of galaxies is greater or equal to the "Galaxies required to always Dimboost". For example if you set the "Galaxies required to always Dimboost" to 1, it will always buy Dimboosts when you have 1 or more galaxies. Later in the game you will unlock the ability to purchase Dimboosts in bulk. The autobuyer will then wait until it can purchase the Dimboosts in bulk at once.`,
     "limitgalaxiesto": `\t\t\t**Limit Galaxies to:** The highest amount of galaxies the Galaxy autobuyer will buy. This limit can be disabled.`,
     "iponcrunch": `\t\t\t**IP on crunch:** Once you break Infinity, you can set how many IP you would like to wait for before crunching. It accepts e notation (12.34e5 is 1234000).`,
-    "sacrifice": `\t\t\t**Sacrifice Autobuyer:** This autobuyer has a maxed timer from the start. You can set how much multiplier it waits for before sacrificing. It accepts e notation.` 
+    "sacrifice": `\t\t\t**Sacrifice Autobuyer:** This autobuyer has a maxed timer from the start. You can set how much multiplier it waits for before sacrificing. It accepts e notation.`
   },
   "breakinfinity": {
     "info": "\t\t\tOriginally Antimatter Dimensions was restricted by \"Infinity\". Since a significant update, you can now \"Break Infinity\" once your Big Crunch autobuyer has been maxed. This opens up a selection of new upgrades as well as the ability to gain more than 1 Infinity point per run."
@@ -137,7 +137,7 @@ module.exports = {
   command: new TimeStudyApplicationCommand({
     name: "howtoplay",
     description: "sends the bowtoplay from the mobile version of the game",
-    
+
     check: true,
     acceptableArgs: [Object.keys(howtoplayMesssageObject), [Object.keys(howtoplayMesssageObject.faq)]],
     getArgMessage(args) {

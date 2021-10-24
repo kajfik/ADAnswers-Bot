@@ -4,7 +4,7 @@ const { UserApplicationCommand } = require("../../classes/ApplicationCommand/Use
 
 module.exports = {
   command: new UserApplicationCommand({
-    
+
     name: "user",
     description: "Get information about a user",
     check: "botCommandsCheck",

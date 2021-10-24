@@ -6,7 +6,7 @@ module.exports = {
   command: new ApplicationCommand({
     name: "thanks",
     description: "say thanks",
-    
+
     check: true,
     sent: ["fuck you afyinee"]
   })

@@ -11,7 +11,7 @@ function otherCompletions(id, completion) {
   if (id < 1 || id > 12) {
     return `Invalid challenge id: ${id}`;
   }
-    
+
   if (completion < 1 || completion > 5) {
     return `Invalid challenge completion: ${completion}`;
   }
@@ -42,7 +42,7 @@ function otherCompletions(id, completion) {
 
 module.exports = {
   command: new TimeStudyApplicationCommand({
-    
+
     name: "eternitychallengeorder",
     description: "Has a shorthand: `/eco`. Args: highest eternity challenge you've down in the order (optional). Returns the EC order. Will show the previous EC as well when provided a specified challenge.",
     check: "ecsCheck",

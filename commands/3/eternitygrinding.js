@@ -33,7 +33,7 @@ const eternityGrindingMessageObject = {
 module.exports = {
   command: new ApplicationCommand({
     name: "eternitygrinding",
-    
+
     description: "describes how to eternity grind",
     check: "eternityGrindingCheck",
     acceptableArgs: Object.keys(eternityGrindingMessageObject),

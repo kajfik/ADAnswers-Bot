@@ -6,7 +6,7 @@ module.exports = {
   command: new ApplicationCommand({
     name: "replicanti",
     description: "Tells what replicanti do (as well as the upgrades)",
-    
+
     check: "lateBreakCheck",
     sent: [`Replicanti are a mechanic unlocked at 1e140 IP. Excerpted from the pins of <#387799099472216095>:
     

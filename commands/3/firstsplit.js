@@ -5,7 +5,7 @@ const { ApplicationCommand } = require("../../classes/ApplicationCommand/Applica
 
 module.exports = {
   command: new ApplicationCommand({
-    
+
     name: "firstsplit",
     description: "Describes how to progress on the time study tree pre-TS171",
     check: "earlyEternityCheck",

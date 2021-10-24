@@ -24,7 +24,7 @@ class ECApplicationCommand extends TimeStudyApplicationCommand {
           .setLabel("Send tree for EC")
           .setCustomId(`button_dm`),
       );
-    
+
     const filter = i => i.customId.startsWith("button");
     const collector = interaction.channel.createMessageComponentCollector({ filter, time: 60000 });
     const args = [this.getArgs(interaction).join("x")];
@@ -47,7 +47,7 @@ class ECApplicationCommand extends TimeStudyApplicationCommand {
             interaction.followUp({ content: argMessageWithDM, ephemeral: true });
           }
         });
-      }).catch(error => { 
+      }).catch(error => {
         // eslint-disable-next-line no-console
         Log.error(error);
         interaction.followUp({ content: "Something went wrong. Please try again." });

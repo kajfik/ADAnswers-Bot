@@ -5,7 +5,7 @@ const { ApplicationCommand } = require("../../classes/ApplicationCommand/Applica
 
 module.exports = {
   command: new ApplicationCommand({
-    
+
     name: "grindingforbreak",
     description: "Describes how to reach Break Infinity.",
     check: true,

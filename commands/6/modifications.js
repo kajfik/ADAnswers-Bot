@@ -5,7 +5,7 @@ const { ApplicationCommand } = require("../../classes/ApplicationCommand/Applica
 
 module.exports = {
   command: new ApplicationCommand({
-    
+
     name: "modifications",
     description: "Explains the modifications of AD",
     check: true,

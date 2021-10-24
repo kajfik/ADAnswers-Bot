@@ -30,7 +30,7 @@ class Messages {
 
   next(modifyIndex = false) {
     if (modifyIndex) this.currentIndex++;
-    if (this.currentIndex > this.messages.length - 1) { 
+    if (this.currentIndex > this.messages.length - 1) {
       this.currentIndex = 0;
     }
     let next = this.getByIndex(this.currentIndex);

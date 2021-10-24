@@ -9,7 +9,7 @@ const { ids } = require("../../utils/config.json");
 const { Log } = require("../FunctionClasses/Log");
 const hr = ids.helperRole;
 
-/** 
+/**
  * @class ApplicationCommand
  * @extends {Command}
  * @classdesc Class that does slash command execution. Extends {@link Command} class.
@@ -52,7 +52,7 @@ class ApplicationCommand extends Command {
     if (!this.getCheck(id, interaction) && this.acceptableArgs !== undefined) {
       interaction.reply({ content: this.getFailMessage([this.getArgs(interaction)]), ephemeral: true });
       return;
-    } 
+    }
     if (!this.getCheck(id, interaction) && this.acceptableArgs === undefined) {
       interaction.reply({ content: this.getArglessFailMessage(), ephemeral: true });
       return;

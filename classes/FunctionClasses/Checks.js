@@ -42,7 +42,7 @@ class Checks {
 
   static earlyEternityCheck(id, message) {
     return config.ids.earlyEternity.includes(id) || Checks.commonCheck(id) || Checks.botCommandsCheck(id, message);
-  }  
+  }
 
   static ecsCheck(id, message) {
     return config.ids.ecs.includes(id) || Checks.commonCheck(id) || Checks.botCommandsCheck(id, message);

@@ -4,7 +4,7 @@ const { ApplicationCommand } = require("../../classes/ApplicationCommand/Applica
 
 module.exports = {
   command: new ApplicationCommand({
-    
+
     name: "galaxyboost",
     description: "compares the boost from 100 tickspeed upgrades with 0 galaxies and 1 galaxy",
     check: "earlyGameCheck",
