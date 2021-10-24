@@ -182,7 +182,7 @@ module.exports = {
     });
   },
   async incrementBigFourTags(commandName, person) {
-    await this.incrementTag("totalSuccesses", "Tags"); 
+    await this.incrementTag("totalSuccesses", "Tags");
     await this.incrementTag(commandName, "Tags");
     await this.incrementTag(Time.newDate().getHours(), "TimeTags");
     await this.incrementPersonTag(person);
@@ -192,7 +192,7 @@ module.exports = {
     await this.client.guilds.cache.get(config.ids.testServer)?.commands.set(commands.all);
   },
   stickerDelete(message) {
-    if (message.stickers.size > 0) message.delete()
+    message.delete()
       .then(() => {
         // Mod logs in antimatter dimensions
         const person = `${message.author.username}#${message.author.discriminator}`;

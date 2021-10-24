@@ -213,7 +213,7 @@ const EternityChallenges = [
     completion: 1,
     tt: 161,
     ip: "`1e850`",
-    note: "`1e15 times last crunch, wait for RGs (+TS33 at 163 TT)`",
+    note: "`1e15 times last crunch, wait for RGs (+TS33 at 163 TT)`. Remember to buy DimBoosts!",
     tree: "`11,21,22,32,42,51,61,62,72,82,92,102,111,121,131,141,33|6`"
   },
   {
@@ -221,7 +221,7 @@ const EternityChallenges = [
     completion: 2,
     tt: 176,
     ip: "`1e1100`",
-    note: null,
+    note: "Remember to buy DimBoosts!",
     tree: "`11,21,22,32,42,51,61,62,72,82,92,102,111,121,131,141,151,162|6`"
   },
   {
@@ -229,7 +229,7 @@ const EternityChallenges = [
     completion: 3,
     tt: 208,
     ip: "`1e1350`",
-    note: null,
+    note: "Remember to buy DimBoosts!",
     tree: "`11,21,22,31,32,33,41,42,51,61,62,72,82,92,102,111,121,131,141,151,161,162,171|6`"
   },
   {
@@ -237,7 +237,7 @@ const EternityChallenges = [
     completion: 4,
     tt: 252,
     ip: "`1e1600`",
-    note: null,
+    note: "Remember to buy DimBoosts!",
     tree: "`11,21,22,31,32,33,41,42,51,61,62,72,82,92,102,111,121,131,141,151,161,162,171|6`"
   },
   {
@@ -245,7 +245,7 @@ const EternityChallenges = [
     completion: 5,
     tt: 320,
     ip: "`1e1850`",
-    note: "`Get eternity upgrade 5 (1e40 EP)`",
+    note: "`Get eternity upgrade 5 (1e40 EP)`. Remember to buy DimBoosts!",
     tree: "`11,21,22,31,32,33,41,42,51,61,62,72,82,92,102,111,121,131,141,151,161,162,171|6`"
   },
   // EC7
@@ -509,7 +509,7 @@ function otherCompletions(id, completion) {
   if (id < 1 || id > 12) {
     return `Invalid challenge id: ${id}`;
   }
-    
+
   if (completion < 1 || completion > 5) {
     return `Invalid challenge completion: ${completion}`;
   }

@@ -62,6 +62,7 @@
     "no-useless-catch": "error",
     "no-useless-concat": "error",
     "no-useless-return": "error",
+    "no-trailing-spaces":"error",
     "no-void": "error",
     "no-with": "error",
     "radix": "warn",

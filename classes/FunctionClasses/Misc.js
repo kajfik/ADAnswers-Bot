@@ -23,6 +23,21 @@ class Misc {
     }
     return `${word}s`;
   }
+
+  static getIdFromMention(mention) {
+    let id = mention;
+    if (!id) return null;
+    if (id.startsWith("<@") && id.endsWith(">")) {
+      id = id.slice(2, -1);
+    }
+    if (id.startsWith("!")) {
+      id = id.slice(1);
+    }
+    if (id.startsWith("&")) {
+      id = id.slice(1);
+    }
+    return id;
+  }
 }
 
 module.exports = { Misc };

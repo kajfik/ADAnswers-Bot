@@ -398,10 +398,6 @@ module.exports = {
       name: "grindingforbreak",
       description: "Describes how to reach Break Infinity."
     },
-    {
-      name: "helpnumbers",
-      description: "sends what each of the help pages has on it"
-    },
     { name: "ic4", description: "shorthand for `/challenge ic4`" },
     { name: "ic5", description: "shorthand for `/challenge ic5`" },
     { name: "importexport", description: "How to import/export saves" },

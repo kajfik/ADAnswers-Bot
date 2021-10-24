@@ -12,8 +12,7 @@ class UserApplicationCommand extends ApplicationCommand {
     const embed = new MessageEmbed()
       .setTitle(`${info.fullPerson}`)
       .setThumbnail(info.avatar)
-      // eslint-disable-next-line max-len
-      .addField("Bot information", typeof info.tag === "object" ? `${info.fullPerson} has used the bot **${info.tag.dataValues.timesUsed}** ${Misc.pluralise("time", info.tag.dataValues.timesUsed)}*\n\n*: Data collection started on October 7, 2021` : "This user has not used the bot")
+      .addField("Bot information", info.tagInfo)
       .addField("Nickname", info.nick)
       .addField(`Roles [${info.rolesUnjoined.length === 0 ? "None" : info.rolesUnjoined.length}]`, `${info.rolesUnjoined.length === 0 ? "This user has no roles" : info.roles}`)
       .addField("Joined", info.joined)
@@ -32,7 +31,11 @@ class UserApplicationCommand extends ApplicationCommand {
       nick: u.nickname ?? "This user has not set a nickname",
       joined: `<t:${Math.floor(u.joinedTimestamp / 1000)}:F>`,
       avatar: user.avatarURL(),
-      tag: await Global.getPersonTag(`${user.username}#${user.discriminator}`) ?? "This user has not used the bot"
+      tag: await Global.getPersonTag(`${user.username}#${user.discriminator}`),
+      get tagInfo() {
+        if (this.tag === null) return `This user has not used the bot.`;
+        return `${this.fullPerson} has used the bot **${this.tag.dataValues.timesUsed}** ${Misc.pluralise("time", this.tag.dataValues.timesUsed)}*\n\n*: Data collection started on October 7, 2021`;
+      },
     };
   }
   

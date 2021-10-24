@@ -136,11 +136,11 @@ client.on("interactionCreate", async interaction => {
 client.on("messageCreate", async message => {
   const adIDs = config.ids.AD;
   let mods;
-  if (message.content.includes("<@!830197123378053172>")) message.reply("fuck off");
-  if (message.channelId === adIDs.general) return;
+  if (message.mentions.has("830197123378053172")) message.author.send("hey, you mentioned me! I'm here to help you! For more information about commands, check out `/help`!");
+  if (message.channelId === adIDs.general && !message.stickers.size > 0) return;
   try {
     if (message.guildId === adIDs.serverID) {
-      Global.stickerDelete(message);
+      if (message.stickers.size > 0) Global.stickerDelete(message);
       await message.guild.members.fetch();
       mods = message.guild.roles.resolve(adIDs.modRole).members.map(member => member.id);
     }
@@ -163,7 +163,7 @@ client.on("messageCreate", async message => {
     if (message.content.toLowerCase().startsWith(`++intercom`) && message.author.id === config.ids.earth) { 
       let id;
       if (args[0].length === "213071245896450068".length) id = args[0];
-      else id = lastErrorUserID;
+      else id = Global.lastErrorUserID;
       const user = await Global.client.users.fetch(id);
       Global.lastErrorUserID = id;
       const person = `${user.username}#${user.discriminator}`;

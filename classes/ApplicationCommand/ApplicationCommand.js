@@ -38,8 +38,9 @@ class ApplicationCommand extends Command {
   }
 
   hasHelperRole(interaction) {
-    if (interaction.channel.type === "DM") return false;
-    return interaction.member._roles.includes(hr);
+    if (interaction.channel.type === "DM" || interaction.guildId !== ids.AD.serverID) return false;
+    // Hellbach wanted special treatment for some reason. That's what this additional ID is for.
+    return interaction.member._roles.includes(hr) || interaction.member._roles.includes("893900249964359761");
   }
 
   /**
