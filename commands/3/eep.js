@@ -6,7 +6,7 @@ const EarlyEternityProgression = require("./earlyeternityprogression");
 module.exports = {
   command: new ApplicationCommand({
     name: "eep",
-    
+
     type: "shorthand",
     check: "earlyEternityCheck",
     description: "shorthand for /earlyeternityprogression",

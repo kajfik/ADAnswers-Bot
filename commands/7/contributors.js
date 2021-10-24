@@ -6,7 +6,7 @@ const { ApplicationCommand } = require("../../classes/ApplicationCommand/Applica
 module.exports = {
   command: new ApplicationCommand({
     name: "contributors",
-    
+
     description: "sends a list of contributors and what they helped with! this bot would not be possible without them.",
     check: "botCommandsCheck",
     sent: [`Hellbach: basis for most of the commands, provided much of the information used in this bot,

@@ -5,7 +5,7 @@ const { ApplicationCommand } = require("../../classes/ApplicationCommand/Applica
 
 module.exports = {
   command: new ApplicationCommand({
-    
+
     name: "infinitydimensions",
     description: "Describes what infinity dimensions (and infinity power) does. Includes when they unlock.",
     check: "breakCheck",

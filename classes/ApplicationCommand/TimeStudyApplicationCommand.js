@@ -51,9 +51,9 @@ class TimeStudyApplicationCommand extends ApplicationCommand {
    * @return {boolean}
    */
   isTSorEC() {
-    return this.name === "ec" || 
-    this.name === "eternitychallenge" || 
-    this.name === "ts" || 
+    return this.name === "ec" ||
+    this.name === "eternitychallenge" ||
+    this.name === "ts" ||
     this.name === "studytree";
   }
 
@@ -74,7 +74,7 @@ class TimeStudyApplicationCommand extends ApplicationCommand {
     return this.name === "howtoplay";
   }
 
-  /** 
+  /**
    * Checks if the command is EC.
    * @return {boolean}
    */
@@ -88,14 +88,14 @@ class TimeStudyApplicationCommand extends ApplicationCommand {
    * @return {boolean}
    */
   isECOorEC() {
-    return this.name === "ec" || 
-    this.name === "eternitychallenge" || 
-    this.name === "eco" || 
+    return this.name === "ec" ||
+    this.name === "eternitychallenge" ||
+    this.name === "eco" ||
     this.name === "eternitychallengeorder";
   }
 
   isTSorECorECO() {
-    return this.name === "ec" || 
+    return this.name === "ec" ||
     this.name === "ts" ||
     this.name === "eco";
   }
@@ -111,7 +111,7 @@ class TimeStudyApplicationCommand extends ApplicationCommand {
       args.push(interaction.options.getNumber("completion"));
       if (this.isEC()) args.push(interaction.options.getBoolean("hide"));
       return args;
-    } 
+    }
     if (this.isTS()) {
       args.push(interaction.options.getNumber("theorems"));
       args.push(interaction.options.getString("path"));
@@ -151,7 +151,7 @@ class TimeStudyApplicationCommand extends ApplicationCommand {
     } else if (this.type === "shorthand") {
       argMessage = this.sent[0];
       argMessageWithDM = this.sent[0];
-    } 
+    }
 
     if (this.isEC() && isHelper) {
       interaction.reply({ content: argMessage, ephemeral: allArgs[2] });

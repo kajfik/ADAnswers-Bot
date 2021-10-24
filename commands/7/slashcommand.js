@@ -6,7 +6,7 @@ module.exports = {
   command: new ApplicationCommand({
     name: "slashcommand",
     description: "explains how TS and EC slash commands work with their args and how to type them",
-     
+
     check: true,
     sent: [`\`/ec [TAB] A [TAB] B [TAB] [ENTER]\` for Eternity Challenge guide of EC AxB
     \`/eco [TAB] A [TAB] B [TAB] [ENTER]\` for Eternity Challenge Order from EC AxB

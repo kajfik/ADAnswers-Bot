@@ -42,7 +42,7 @@ class Meta {
             .setDisabled(disabled)
             .setStyle("PRIMARY")
         ),
-      new MessageActionRow() 
+      new MessageActionRow()
         .addComponents(
           new MessageButton()
             .setStyle("LINK")

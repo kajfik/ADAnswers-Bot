@@ -24,14 +24,14 @@ class HelperApplicationCommand extends ApplicationCommand {
       ? { name: "Removing the helper role will...", value: `prevent you from using the bot in Progression Discussion. You can ${a ? `add` : `remove`} this role at any time by doing /helper again.` }
       // eslint-disable-next-line max-len
       : { name: "Adding the helper role will...", value: `allow you to use the bot in Progression Discussion. To become a Helper, understand that you agree to keep all *personal* use of the bot to <#351479640755404820>, and only use the bot outside of there to assist others on their journey through Antimatter Dimensions. **You are not free of consequences.** This is effectively a contract. Breaking it can result in some form of punishment. Moderators and admins are aware at all times of who is and who isn't a helper.\nYou can ${a ? `add` : `remove`} this role at any time by doing /helper again.` };
-    const embed = new MessageEmbed() 
+    const embed = new MessageEmbed()
       .setColor("DARK_AQUA")
       .setTitle("ADAnswersBot Helper")
       .setDescription(a ? `Are you sure you want to remove the helper role?` : `Are you sure you want to add the helper role?`)
       .setThumbnail(interaction.client.user.displayAvatarURL())
       .addFields(field)
       .setTimestamp();
-    
+
     const buttonRow = new MessageActionRow()
       .addComponents(
         new MessageButton()

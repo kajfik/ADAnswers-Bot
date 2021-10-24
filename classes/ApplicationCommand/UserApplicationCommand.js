@@ -38,7 +38,7 @@ class UserApplicationCommand extends ApplicationCommand {
       },
     };
   }
-  
+
   getArgs(interaction) {
     return interaction.options.getUser("user");
   }

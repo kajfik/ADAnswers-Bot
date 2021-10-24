@@ -9,7 +9,7 @@
 // to do with Tags or Sequelize. With that, there are plenty of functions in this file too that eventually
 // I would like to remove and place into functions.js. For now, though, I'm just going to leave them here.
 
-// There's a lot of database code here. 
+// There's a lot of database code here.
 
 const Discord = require("discord.js");
 const Sequelize = require("sequelize");
@@ -20,21 +20,21 @@ const { Meta } = require("./classes/Meta");
 const { Log } = require("./classes/FunctionClasses/Log");
 const Global = require("./utils/constants");
 
-const client = new Discord.Client({ 
+const client = new Discord.Client({
   intents: [
-    Discord.Intents.FLAGS.GUILDS, 
-    Discord.Intents.FLAGS.GUILD_MESSAGES, 
-    Discord.Intents.FLAGS.DIRECT_MESSAGES, 
-    Discord.Intents.FLAGS.GUILD_INTEGRATIONS, 
+    Discord.Intents.FLAGS.GUILDS,
+    Discord.Intents.FLAGS.GUILD_MESSAGES,
+    Discord.Intents.FLAGS.DIRECT_MESSAGES,
+    Discord.Intents.FLAGS.GUILD_INTEGRATIONS,
     Discord.Intents.FLAGS.GUILD_MEMBERS
-  ], 
+  ],
   partials: [
-    "MESSAGE", 
-    "CHANNEL", 
-    "USER", 
-    "REACTION", 
+    "MESSAGE",
+    "CHANNEL",
+    "USER",
+    "REACTION",
     "GUILD_MEMBER"
-  ] 
+  ]
 });
 
 client.login(config.token);
@@ -84,13 +84,13 @@ client.on("interactionCreate", async interaction => {
   if (hasCommand) await Global.incrementTag("totalRequests", "Tags");
   const person = `${interaction.user.username}#${interaction.user.discriminator}`;
 
-  if (interaction.commandName === "help") { 
-    const args = interaction.options.getInteger("page") ? interaction.options.getInteger("page") : 1; 
+  if (interaction.commandName === "help") {
+    const args = interaction.options.getInteger("page") ? interaction.options.getInteger("page") : 1;
     if (args > Global.fieldsArray.length && args !== 69) {
       interaction.reply({ content: `I'm sorry, I don't know what page you're looking for.`, ephemeral: false });
-      return; 
+      return;
     }
-    const helpClass = new Help({ 
+    const helpClass = new Help({
       page: args,
       message: interaction,
       id: interaction.channelId,
@@ -99,7 +99,7 @@ client.on("interactionCreate", async interaction => {
     await Global.incrementBigFourTags("help", person);
     Log.divider();
     return;
-  } 
+  }
   if (interaction.commandName === "meta") {
     const metaClass = new Meta({
       page: 1,
@@ -153,14 +153,14 @@ client.on("messageCreate", async message => {
     if (message.content.toLowerCase() === "++helpers" && ((message.author.id === config.ids.earth && message.guildId === adIDs.serverID) || isMod)) {
       const roleInfo = message.guild.roles.resolve(config.ids.helperRole);
       const namesAndIDs = roleInfo.members.map(member => `${member.user.username}#${member.user.discriminator} (${member.user.id}) [${member.roles.highest.name}]`);
-      
+
       Log.info(namesAndIDs.join("\n"));
       message.reply(`Currently, ${roleInfo.members.size} person(s) have the Helper role.`);
       message.author.send(namesAndIDs.join("\n"));
     }
 
     // Allows me (earth) to message the most recent person to cause an error
-    if (message.content.toLowerCase().startsWith(`++intercom`) && message.author.id === config.ids.earth) { 
+    if (message.content.toLowerCase().startsWith(`++intercom`) && message.author.id === config.ids.earth) {
       let id;
       if (args[0].length === "213071245896450068".length) id = args[0];
       else id = Global.lastErrorUserID;
@@ -168,7 +168,7 @@ client.on("messageCreate", async message => {
       Global.lastErrorUserID = id;
       const person = `${user.username}#${user.discriminator}`;
       const sent = id === args[0] ? message.content.slice(`++intercom`.length + id.length + 2) : message.content.slice(`++intercom`.length);
-      user.send(`${sent}\n**/-------------------------------------------------------------/**\n the above message was sent by earth#1337, the owner of the bot. this is a one way intercom.`).catch(error => { 
+      user.send(`${sent}\n**/-------------------------------------------------------------/**\n the above message was sent by earth#1337, the owner of the bot. this is a one way intercom.`).catch(error => {
         Log.error(`[${Date()}] ${error}`);
         message.reply(`Cannot send messages to ${person}.`);
       });

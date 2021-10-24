@@ -6,7 +6,7 @@ const { ApplicationCommand } = require("../../classes/ApplicationCommand/Applica
 module.exports = {
   command: new ApplicationCommand({
     name: "adbonus",
-    
+
     description: "Sends ad bonus formulas/multipliers",
     check: true,
     sent: [`DT: 2

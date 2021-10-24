@@ -5,7 +5,7 @@ const { ApplicationCommand } = require("../../classes/ApplicationCommand/Applica
 
 module.exports = {
   command: new ApplicationCommand({
-    
+
     name: "earlyeternityprogression",
     description: "describes getting through the first few eternities",
     check: "earlyEternityCheck",

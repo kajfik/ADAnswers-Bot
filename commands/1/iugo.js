@@ -4,7 +4,7 @@ const { ApplicationCommand } = require("../../classes/ApplicationCommand/Applica
 
 module.exports = {
   command: new ApplicationCommand({
-    
+
     name: "iugo",
     description: "pre break infinity upgrade order routes",
     check: "earlyInfinityCheck",

@@ -6,7 +6,7 @@ const { Misc } = require("../../classes/FunctionClasses/Misc");
 
 module.exports = {
   command: new EternityPointApplicationCommand({
-    
+
     name: "ep",
     description: "calculates the amount of IP required to get the number of EP specified. Works up to 1000. Excludes any possible multipliers.",
     check: "earlyEternityCheck",

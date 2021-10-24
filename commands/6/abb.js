@@ -5,7 +5,7 @@ const { ApplicationCommand } = require("../../classes/ApplicationCommand/Applica
 module.exports = {
   command: new ApplicationCommand({
     name: "abb",
-    
+
     description: "sends an abbreviation guide",
     check: true,
     sent: [`

@@ -10,7 +10,7 @@ const { Misc } = require("../../classes/FunctionClasses/Misc");
 
 module.exports = {
   command: new TimeStudyApplicationCommand({
-    
+
     name: "studytree",
     description: `Has a shorthand: \`/ts\`. Generates a Time Study tree based on your total Time Theorems.
   Args: your total Time Theorems. Beginning at 54 TT, the command will take a second argument: \`active\`, \`passive\`, or \`idle\`. The argument is optional, and the default value is \`active\`.`,

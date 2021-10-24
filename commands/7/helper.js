@@ -5,7 +5,7 @@ const { HelperApplicationCommand } = require("../../classes/ApplicationCommand/H
 
 module.exports = {
   command: new HelperApplicationCommand({
-    
+
     name: "helper",
     description: "sends a consent form to become a designated helper",
     check: "botCommandsCheck",
