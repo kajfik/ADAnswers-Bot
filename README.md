@@ -1,6 +1,7 @@
 # ADAnswers-Bot
 
-
+[![CodeFactor](https://www.codefactor.io/repository/github/earthernsence/adanswers-bot/badge)](https://www.codefactor.io/repository/github/earthernsence/adanswers-bot)
+[![Release](https://img.shields.io/github/v/release/earthernsence/ADAnswers-Bot?label=Release&color=brightgreen&cacheSeconds=3600)](https://github.com/earthernsence/ADAnswers-Bot/releases/latest)
 
 ## Commands
 
