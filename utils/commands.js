@@ -256,8 +256,8 @@ module.exports = {
       name: "earlyinfinity",
       description: "Describes how to progress pre-2x better Galaxies"
     },
-    { name: "ec", 
-      description: "shorthand for /eternitychallenge", 
+    { name: "ec",
+      description: "shorthand for /eternitychallenge",
       options: [{
         name: "ec",
         type: "NUMBER",
@@ -277,7 +277,7 @@ module.exports = {
         type: "BOOLEAN",
         description: "ONLY AFFECTS ANYTHING IF YOU'RE A HELPER! Defaults to false.",
         required: false
-      }] 
+      }]
     },
     {
       name: "eco",
@@ -539,7 +539,7 @@ module.exports = {
         type: "STRING",
         description: "The path you want to use in your tree. Only takes effect after 54 TT",
         required: false,
-        choices: getChoices("studytree") 
+        choices: getChoices("studytree")
       }]
     },
     {
@@ -547,9 +547,9 @@ module.exports = {
       description: "Explains swipe trick for mobile"
     },
     { name: "thanks", description: "say thanks" },
-    { 
-      name: "ts", 
-      description: "shorthand for `/studytree`. See /tstreerange", 
+    {
+      name: "ts",
+      description: "shorthand for `/studytree`. See /tstreerange",
       options: [{
         name: "theorems",
         type: "NUMBER",
@@ -561,8 +561,8 @@ module.exports = {
         type: "STRING",
         description: "The path you want to use in your tree. Only takes effect after 54 TT",
         required: false,
-        choices: getChoices("studytree") 
-      }] 
+        choices: getChoices("studytree")
+      }]
     },
     {
       name: "tstreerange",
@@ -712,7 +712,7 @@ module.exports = {
     {
       name: "iugo",
       description: "pre break infinity upgrade order routes"
-    }, 
+    },
     {
       name: "secretachievements",
       description: "sends link to secret achievement guide."
@@ -738,6 +738,10 @@ module.exports = {
         type: "USER",
         required: true
       }]
+    },
+    {
+      name: "peakipmin",
+      description: "Tells why peak IP/min disappears at e100 IP"
     }
   ],
   find(name) {

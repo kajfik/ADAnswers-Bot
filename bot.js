@@ -135,28 +135,28 @@ client.on("interactionCreate", async interaction => {
 
 client.on("messageCreate", async message => {
   const adIDs = config.ids.AD;
+  const args = message.content.slice(config.prefix.length).trim().split(/ +/u);
   let mods;
+  if (message.stickers.size > 0) Global.stickerDelete(message);
   if (message.mentions.has("830197123378053172")) message.author.send("hey, you mentioned me! I'm here to help you! For more information about commands, check out `/help`!");
-  if (message.channelId === adIDs.general && !message.stickers.size > 0) return;
+  if (message.channelId === adIDs.general) return;
   try {
     if (message.guildId === adIDs.serverID) {
-      if (message.stickers.size > 0) Global.stickerDelete(message);
       await message.guild.members.fetch();
       mods = message.guild.roles.resolve(adIDs.modRole).members.map(member => member.id);
-    }
-    // eslint-disable-next-line require-unicode-regexp
-    const args = message.content.slice(config.prefix.length).trim().split(/ +/);
-    const isMod = message.guildId === adIDs.serverID ? mods.includes(message.author.id) : false;
-    if (!Global.client.application?.owner) await Global.client.application?.fetch();
 
-    // Sends a message with the amount of helpers, and then DMs you the list.
-    if (message.content.toLowerCase() === "++helpers" && ((message.author.id === config.ids.earth && message.guildId === adIDs.serverID) || isMod)) {
-      const roleInfo = message.guild.roles.resolve(config.ids.helperRole);
-      const namesAndIDs = roleInfo.members.map(member => `${member.user.username}#${member.user.discriminator} (${member.user.id}) [${member.roles.highest.name}]`);
+      const isMod = message.guildId === adIDs.serverID ? mods.includes(message.author.id) : false;
+      if (!Global.client.application?.owner) await Global.client.application?.fetch();
 
-      Log.info(namesAndIDs.join("\n"));
-      message.reply(`Currently, ${roleInfo.members.size} person(s) have the Helper role.`);
-      message.author.send(namesAndIDs.join("\n"));
+      // Sends a message with the amount of helpers, and then DMs you the list.
+      if (message.content.toLowerCase() === "++helpers" && ((message.author.id === config.ids.earth && message.guildId === adIDs.serverID) || isMod)) {
+        const roleInfo = message.guild.roles.resolve(config.ids.helperRole);
+        const namesAndIDs = roleInfo.members.map(member => `${member.user.username}#${member.user.discriminator} (${member.user.id}) [${member.roles.highest.name}]`);
+
+        Log.info(namesAndIDs.join("\n"));
+        message.reply(`Currently, ${roleInfo.members.size} person(s) have the Helper role.`);
+        message.author.send(namesAndIDs.join("\n"));
+      }
     }
 
     // Allows me (earth) to message the most recent person to cause an error

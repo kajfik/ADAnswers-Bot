@@ -8,6 +8,7 @@ const { Time } = require("../classes/FunctionClasses/Time");
 const commands = require("../utils/commands");
 const config = require("../utils/config.json");
 const { Misc } = require("../classes/FunctionClasses/Misc");
+const { OptOutList } = require("./dataOptOutList");
 
 module.exports = {
   lastErrorUserID: "",
@@ -182,6 +183,7 @@ module.exports = {
     });
   },
   async incrementBigFourTags(commandName, person) {
+    if (OptOutList.includes(person)) return;
     await this.incrementTag("totalSuccesses", "Tags");
     await this.incrementTag(commandName, "Tags");
     await this.incrementTag(Time.newDate().getHours(), "TimeTags");
