@@ -55,7 +55,7 @@ class HelperApplicationCommand extends ApplicationCommand {
             });
           }
         });
-      });
+      }).catch(e => Log.error(`Unexpected error in helper command. ${e}`));
     collector.on("end", collected => {
       if (collected.size === 1) Log.important(`${collected.first().user.username} ${collected.first().customId === "button_agree" ? `added` : `took away`} the helper role to/from themselves at ${Date()}`);
     });

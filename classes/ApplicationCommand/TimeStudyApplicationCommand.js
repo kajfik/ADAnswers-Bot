@@ -154,13 +154,13 @@ class TimeStudyApplicationCommand extends ApplicationCommand {
     }
 
     if (this.isEC() && isHelper) {
-      interaction.reply({ content: argMessage, ephemeral: allArgs[2] });
-      interaction.followUp({ content: argMessageWithDM, ephemeral: allArgs[2] });
+      interaction.reply({ content: argMessage, ephemeral: allArgs[2] }).catch(e => Log.error(`Unexpected error in EC command. ${e}`));
+      interaction.followUp({ content: argMessageWithDM, ephemeral: allArgs[2] }).catch(e => Log.error(`Unexpected error in EC command. ${e}`));
       return;
     }
 
-    interaction.reply({ content: argMessage, ephemeral: !isHelper });
-    if (this.isEC()) interaction.followUp({ content: argMessageWithDM, ephemeral: !isHelper });
+    interaction.reply({ content: argMessage, ephemeral: !isHelper }).catch(e => Log.error(`Unexpected error in ${this.name} command. ${e}`));
+    if (this.isEC()) interaction.followUp({ content: argMessageWithDM, ephemeral: !isHelper }).catch(e => Log.error(`Unexpected error in ${this.name} command. ${e}`));
   }
 }
 

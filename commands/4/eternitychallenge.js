@@ -18,18 +18,18 @@ module.exports = {
     sent: undefined,
     getArgMessage(args, tree) {
       if (!this.acceptableArgs.includes(args[0])) return `That is not an Eternity Challenge!`;
-      let splitArgs;
-      if (args[0].includes("x")) splitArgs = args[0].split("x");
-      if (args[0].includes("×")) splitArgs = args[0].split("×");
+      const splitArgs = args[0].split("x");
       const challengeID = Math.floor(Math.abs(splitArgs[0]));
       const completion = Math.floor(Math.abs(splitArgs[1]));
       const ec = ECs.EternityChallenges[(challengeID - 1) * 5 + (completion - 1)];
+      const nextEC = args[0] === "12x5" ? "You have no more ECs left to complete!" : ECs.order[ECs.order.indexOf(args[0]) + 1];
 
       if (tree) return `${ec.tree}`;
       return `The tree for EC${challengeID}x${completion} is: ${ec.tree}
       TT for Completion: \`${ec.tt}\`
       IP Requirement for Completion: \`${ec.ip}\` ${ec.note === null ? `` : `\n    Note: \`${ec.note}\``}
-      Other completions: \`${ECs.otherCompletions(challengeID, completion)}\``;
+      Other completions: \`${ECs.otherCompletions(challengeID, completion)}\`
+      Next EC in order: \`${nextEC}\``;
     },
     argInfo: {
       ec: { key: "ec", type: "number" },

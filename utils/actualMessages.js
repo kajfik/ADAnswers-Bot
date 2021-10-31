@@ -288,6 +288,7 @@ const messages = {
     ` Buffalo Springfield.`,
     ` The Human League.`,
     ` Ozzy Osbourne.`,
+    ` UB40.`,
     // This section is based on artists from my Christmas playlist. https://open.spotify.com/playlist/1MxPeMIRjhHTwqInI39Xb4?si=9a8f2a00a4d14974
     ` Bobby Helms.`,
     ` Burl Ives.`,
