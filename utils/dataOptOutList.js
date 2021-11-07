@@ -2,6 +2,6 @@
 
 module.exports = {
   OptOutList: [
-    "IDogeFrickingEverything#9631"
+    "IDogeFrickingEverything#9631",
   ]
 };

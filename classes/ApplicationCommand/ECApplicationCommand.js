@@ -48,7 +48,6 @@ class ECApplicationCommand extends TimeStudyApplicationCommand {
           }
         });
       }).catch(error => {
-        // eslint-disable-next-line no-console
         Log.error(error);
         interaction.followUp({ content: "Something went wrong. Please try again." });
       });

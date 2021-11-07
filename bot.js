@@ -72,6 +72,9 @@ async function ready() {
 
 client.once("ready", ready);
 
+client.on("error", err => Log.error(err));
+client.on("warn", warn => Log.warning(warn));
+
 client.on("interactionCreate", async interaction => {
   if (!interaction.isCommand()) return;
   if (!Global.client.application?.owner) await Global.client.application?.fetch();
@@ -90,23 +93,21 @@ client.on("interactionCreate", async interaction => {
       interaction.reply({ content: `I'm sorry, I don't know what page you're looking for.`, ephemeral: false });
       return;
     }
-    const helpClass = new Help({
+    new Help({
       page: args,
       message: interaction,
       id: interaction.channelId,
-    });
-    helpClass.send();
+    }).send();
     await Global.incrementBigFourTags("help", person);
     Log.divider();
     return;
   }
   if (interaction.commandName === "meta") {
-    const metaClass = new Meta({
+    new Meta({
       page: 1,
       message: interaction,
       id: interaction.channelId,
-    });
-    metaClass.send();
+    }).send();
     await Global.incrementBigFourTags("meta", person);
     Log.divider();
     return;

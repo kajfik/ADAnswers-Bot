@@ -97,7 +97,7 @@ const EternityChallenges = [
     challenge: 3,
     completion: 2,
     tt: 155,
-    ip: "`1e600`",
+    ip: "`1e675`",
     note: "`To unlock the challenge, use TD, and then switch to the tree.`",
     tree: "`11,21,22,31,32,33,41,42,51,61,71,81,91,101,111,121,131,141,151,161,162,171|3`"
   },
@@ -105,7 +105,7 @@ const EternityChallenges = [
     challenge: 3,
     completion: 3,
     tt: 165,
-    ip: "`1e600`",
+    ip: "`1e750`",
     note: "`To unlock the challenge, use TD, and then switch to the tree.`",
     tree: "`11,21,22,31,32,33,41,42,51,61,72,82,92,102,111,121,131,141,151,161,162,171|3`"
   },
@@ -113,7 +113,7 @@ const EternityChallenges = [
     challenge: 3,
     completion: 4,
     tt: 182,
-    ip: "`1e600`",
+    ip: "`1e825`",
     note: "`To unlock the challenge, use TD, and then switch to the tree.`",
     tree: "`11,21,22,31,32,33,41,42,51,61,72,82,92,102,111,121,131,141,151,161,162,171|3`"
   },
@@ -121,7 +121,7 @@ const EternityChallenges = [
     challenge: 3,
     completion: 5,
     tt: 208,
-    ip: "`1e600`",
+    ip: "`1e900`",
     note: "`To unlock the challenge, use TD, and then switch to the tree.`",
     tree: "`11,21,22,31,32,33,41,42,51,61,72,82,92,102,111,121,131,141,151,161,162,171|3`"
   },
@@ -213,7 +213,7 @@ const EternityChallenges = [
     completion: 1,
     tt: 161,
     ip: "`1e850`",
-    note: "`1e15 times last crunch, wait for RGs (+TS33 at 163 TT)`. Remember to buy DimBoosts!",
+    note: "`1e15 times last crunch, wait for RGs (+TS33 at 163 TT)`. Remember to buy DimBoosts!`",
     tree: "`11,21,22,32,42,51,61,62,72,82,92,102,111,121,131,141,33|6`"
   },
   {
@@ -221,7 +221,7 @@ const EternityChallenges = [
     completion: 2,
     tt: 176,
     ip: "`1e1100`",
-    note: "Remember to buy DimBoosts!",
+    note: "`Remember to buy DimBoosts!`",
     tree: "`11,21,22,32,42,51,61,62,72,82,92,102,111,121,131,141,151,162|6`"
   },
   {
@@ -229,7 +229,7 @@ const EternityChallenges = [
     completion: 3,
     tt: 208,
     ip: "`1e1350`",
-    note: "Remember to buy DimBoosts!",
+    note: "`Remember to buy DimBoosts!`",
     tree: "`11,21,22,31,32,33,41,42,51,61,62,72,82,92,102,111,121,131,141,151,161,162,171|6`"
   },
   {
@@ -237,7 +237,7 @@ const EternityChallenges = [
     completion: 4,
     tt: 252,
     ip: "`1e1600`",
-    note: "Remember to buy DimBoosts!",
+    note: "`Remember to buy DimBoosts!`",
     tree: "`11,21,22,31,32,33,41,42,51,61,62,72,82,92,102,111,121,131,141,151,161,162,171|6`"
   },
   {
@@ -245,7 +245,7 @@ const EternityChallenges = [
     completion: 5,
     tt: 320,
     ip: "`1e1850`",
-    note: "`Get eternity upgrade 5 (1e40 EP)`. Remember to buy DimBoosts!",
+    note: "`Get eternity upgrade 5 (1e40 EP). Remember to buy DimBoosts!`",
     tree: "`11,21,22,31,32,33,41,42,51,61,62,72,82,92,102,111,121,131,141,151,161,162,171|6`"
   },
   // EC7

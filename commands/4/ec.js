@@ -9,7 +9,6 @@ const EternityChallengeCommand = require("./eternitychallenge");
 module.exports = {
   command: new TimeStudyApplicationCommand({
     name: "ec",
-
     description: "shorthand for /eternitychallenge",
     type: "shorthand",
     check: "ecsCheck",

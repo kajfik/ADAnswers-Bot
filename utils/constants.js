@@ -109,6 +109,7 @@ module.exports = {
     for (const folder of this.allCommandFiles) {
       iteration = 0;
       const folderNumber = Misc.toNumber(folder);
+      // Yes, this is the actual path to the bot files on my computer. It will have to be changed if you want to run it locally
       const commandFiles = fs.readdirSync(`C:/Users/User/Documents/GitHub/ADAnswers-Bot/commands/${folder}`).filter(file => file.endsWith(".js"));
       for (const file of commandFiles) {
         const command = require(`../commands/${folder}/${file}`);
@@ -183,8 +184,12 @@ module.exports = {
     });
   },
   async incrementBigFourTags(commandName, person) {
-    if (OptOutList.includes(person)) return;
+    // We still do this one, as we do total requests.
     await this.incrementTag("totalSuccesses", "Tags");
+    if (OptOutList.includes(person)) {
+      Log.info(`[${Date()}] ${person} is opted out.`);
+      return;
+    }
     await this.incrementTag(commandName, "Tags");
     await this.incrementTag(Time.newDate().getHours(), "TimeTags");
     await this.incrementPersonTag(person);

@@ -16,13 +16,13 @@ module.exports = {
     };
     let realPath = undefined;
     switch (path) {
-      case "active": 
+      case "active":
         realPath = CONSTS.ACTIVE;
         break;
-      case "passive": 
+      case "passive":
         realPath = CONSTS.PASSIVE;
         break;
-      case "idle": 
+      case "idle":
         realPath = CONSTS.IDLE;
         break;
       default: throw `Unknown argument: Expected path name (\`active\`, \`passive\`, \`idle\`) but found: --> ${str} <--`;
