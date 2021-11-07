@@ -3,8 +3,8 @@
 
 const { ApplicationCommand } = require("../../classes/ApplicationCommand/ApplicationCommand");
 
-const base = `It is recommended to have at least the first 12 infinity upgrades and 100 spare IP.
-If you want to get those 100 IP, you probably want to get upgrade 13 and 14 as well to speed things up. (Note: Those upgrades won't work inside challenges.)`;
+const base = ` It is recommended to have at least the first 12 infinity upgrades and 100 spare IP.
+ If you want to get those 100 IP, you probably want to get upgrade 13 and 14 as well to speed things up. (Note: Those upgrades won't work inside challenges.)`;
 
 const icBase = (ic, ip) => `Attempt IC${ic} at ~e${ip} IP. No special strat for this challenge.`;
 
@@ -22,7 +22,7 @@ Make sure to do the antitable achievement in these runs, because this achievemen
 You can use this written guide: <https://pastebin.com/MBBTimjD> or this video guide: <https://youtu.be/6o-QKHLcimU> or you can use this strat: 
 > Autobuyers off and manually buy the highest dimension available. Keep 6th dim, 8th dim, dimboost, and galaxy autobuyers on. Keep tickspeed cost under the cost of dimensions. Remember to always buy 8th dimension if it's available.`,
   "c10": base,
-  "c11": `Once you have the "Galaxies are twice as effective" upgrade this challenge becomes a normal infinity run. Just do it once you have that upgrade.`,
+  "c11": `${base}\n If you are on web, this challenge becomes a normal infinity run once you have the "Galaxies are twice as effective" upgrade. Just do it once you have that upgrade.`,
   "c12": `It is recommended to have at least the first 12 Infinity Upgrades and ~200 Infinities. Spare IP is not important for C12.
 If you want to get those 200 Infinities, you probably want to get upgrades 13 to 15 as well to speed things up. (Note: Those upgrades won't work inside challenges.)
 The exact number of infinities could be arugued, but 200 was relatively reasonable to Tables -- who completed C12 in 5 minutes with 200 Infinities and 0 Infinity Points.`,
