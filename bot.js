@@ -19,6 +19,7 @@ const { Help } = require("./classes/FunctionClasses/Help");
 const { Meta } = require("./classes/Meta");
 const { Log } = require("./classes/FunctionClasses/Log");
 const Global = require("./utils/constants");
+const { OnMessageEvents } = require("./classes/FunctionClasses/OnMessageEvents");
 
 const client = new Discord.Client({
   intents: [
@@ -138,8 +139,9 @@ client.on("messageCreate", async message => {
   const adIDs = config.ids.AD;
   const args = message.content.slice(config.prefix.length).trim().split(/ +/u);
   let mods;
-  if (message.stickers.size > 0) Global.stickerDelete(message);
-  if (message.mentions.has("830197123378053172")) message.author.send("hey, you mentioned me! I'm here to help you! For more information about commands, check out `/help`!");
+  const Events = new OnMessageEvents(message, args);
+  if (message.stickers.size > 0) Events.stickerDelete();
+  if (message.mentions.has("830197123378053172")) Events.mentioned();
   if (message.channelId === adIDs.general) return;
   try {
     if (message.guildId === adIDs.serverID) {
@@ -151,31 +153,13 @@ client.on("messageCreate", async message => {
 
       // Sends a message with the amount of helpers, and then DMs you the list.
       if (message.content.toLowerCase() === "++helpers" && ((message.author.id === config.ids.earth && message.guildId === adIDs.serverID) || isMod)) {
-        const roleInfo = message.guild.roles.resolve(config.ids.helperRole);
-        const namesAndIDs = roleInfo.members.map(member => `${member.user.username}#${member.user.discriminator} (${member.user.id}) [${member.roles.highest.name}]`);
-
-        Log.info(namesAndIDs.join("\n"));
-        message.reply(`Currently, ${roleInfo.members.size} person(s) have the Helper role.`);
-        message.author.send(namesAndIDs.join("\n"));
+        Events.helpers();
       }
     }
 
     // Allows me (earth) to message the most recent person to cause an error
     if (message.content.toLowerCase().startsWith(`++intercom`) && message.author.id === config.ids.earth) {
-      let id;
-      if (args[0].length === "213071245896450068".length) id = args[0];
-      else id = Global.lastErrorUserID;
-      const user = await Global.client.users.fetch(id);
-      Global.lastErrorUserID = id;
-      const person = `${user.username}#${user.discriminator}`;
-      const sent = id === args[0] ? message.content.slice(`++intercom`.length + id.length + 2) : message.content.slice(`++intercom`.length);
-      user.send(`${sent}\n**/-------------------------------------------------------------/**\n the above message was sent by earth#1337, the owner of the bot. this is a one way intercom.`).catch(error => {
-        Log.error(`[${Date()}] ${error}`);
-        message.reply(`Cannot send messages to ${person}.`);
-      });
-      Log.info(`Intercom message successfully sent to ${person}. Message: \n
-      ${sent}`);
-      message.reply(`Successfully sent message to ${person}.`);
+      await Events.intercom();
     }
 
   } catch (e) {

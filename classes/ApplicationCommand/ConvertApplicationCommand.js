@@ -2,6 +2,7 @@
 
 const { fairConversions } = require("../FunctionClasses/Conversions");
 const { Misc } = require("../FunctionClasses/Misc");
+const { ApplicationCommand }  = require("../ApplicationCommand/ApplicationCommand");
 
 class ConvertApplicationCommand extends ApplicationCommand {
   execute(interaction) {
