@@ -161,7 +161,6 @@ client.on("messageCreate", async message => {
     if (message.content.toLowerCase().startsWith(`++intercom`) && message.author.id === config.ids.earth) {
       await Events.intercom();
     }
-
   } catch (e) {
     Log.error(`[${Date()}] ${e}`);
   }
