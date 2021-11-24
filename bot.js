@@ -142,6 +142,9 @@ client.on("messageCreate", async message => {
   const Events = new OnMessageEvents(message, args);
   if (message.stickers.size > 0) Events.stickerDelete();
   if (message.mentions.has("830197123378053172")) Events.mentioned();
+  // Deletes any messages that contain an @everyone and an http link in an effort to stop scammers.
+  // This also mutes them.
+  if (message.guildId === adIDs.serverID && message.author.id !== config.ids.bot && message.content.includes("@everyone") && message.content.includes("http")) Events.muteScammers();
   if (message.channelId === adIDs.general) return;
   try {
     if (message.guildId === adIDs.serverID) {

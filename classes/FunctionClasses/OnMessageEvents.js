@@ -3,6 +3,8 @@
 const Global = require("../../utils/constants");
 const { ids } = require("../../utils/config.json");
 const { Log } = require("../../classes/FunctionClasses/Log");
+const { MessageEmbed } = require("discord.js");
+const { Time } = require("./Time");
 
 class OnMessageEvents {
   constructor(message, args) {
@@ -55,6 +57,23 @@ class OnMessageEvents {
     Log.info(`Intercom message successfully sent to ${person}. Message: \n
     ${sent}`);
     message.reply(`Successfully sent message to ${person}.`);
+  }
+
+  muteScammers() {
+    const message = this.message;
+    const embed = new MessageEmbed()
+      .setTitle(`${message.author.username}#${message.author.discriminator}`)
+      .setThumbnail(message.author.avatarURL())
+      .setColor("BLURPLE")
+      .addField("Message", message.content)
+      .setDescription(`Message sent by <@${message.author.id}> was deleted and member was muted.`)
+      .setTimestamp(Time.newDate());
+    // Add muted
+    message.member.roles.add(message.guild.roles.cache.get(ids.mutedRole));
+    // Delete message
+    message.delete();
+    // Send deleted message in #modchannel
+    message.guild.channels.cache.get(ids.AD.modChannel).send({ embeds: [embed] });
   }
 }
 

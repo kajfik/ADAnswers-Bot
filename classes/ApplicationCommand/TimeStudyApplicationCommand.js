@@ -1,6 +1,7 @@
 "use strict";
 
 const { ApplicationCommand } = require("./ApplicationCommand");
+const { Log } = require("../FunctionClasses/Log");
 
 /**
  * @class TimeStudyApplicationCommand
