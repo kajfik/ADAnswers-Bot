@@ -289,6 +289,15 @@ const messages = {
     ` The Human League.`,
     ` Ozzy Osbourne.`,
     ` UB40.`,
+    ` Pet Shop Boys.`,
+    ` Jacob Collier.`,
+    ` Daniel Caesar.`,
+    ` Mahalia.`,
+    ` Ty Dollar $ign.`,
+    ` Irene Cara.`,
+    ` Bill Medley.`,
+    ` Jennifer Warnes.`,
+    ` Merry Clayton.`,
     // This section is based on artists from my Christmas playlist. https://open.spotify.com/playlist/1MxPeMIRjhHTwqInI39Xb4?si=9a8f2a00a4d14974
     ` Bobby Helms.`,
     ` Burl Ives.`,
@@ -320,7 +329,11 @@ const messages = {
     ` The Platters.`,
     ` Lou Monte.`,
     ` The Pogues.`,
-    ` The Oak Ridge Boys.`
+    ` The Oak Ridge Boys.`,
+    ` Mormon Tabernacle Choir.`,
+    ` Lauren Daigle.`,
+    ` Casting Crowns.`,
+    ` Guy Lombardo.`
   ],
 };
 

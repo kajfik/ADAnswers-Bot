@@ -7,6 +7,10 @@ const { footerMessages } = require("../../utils/messages");
 const { Log } = require("./Log");
 const Global = require("../../utils/constants");
 
+Array.prototype.last = function() {
+  return this[this.length - 1];
+};
+
 class Help {
   constructor(info) {
     this.page = info.page;
@@ -52,7 +56,7 @@ class Help {
         title: `Help (p${this.page}/${this.fieldsArray.length - 1})`,
         description: this.getHelpDescription(),
         fields: this.page === 69
-          ? this.fieldsArray[this.fieldsArray.length - 1]
+          ? this.fieldsArray.last()
           : this.fieldsArray[this.page - 1],
         timestamp: new Date(),
         footer: {
@@ -119,8 +123,9 @@ class Help {
             await i.update(this.actualMessage());
           }
         } catch (error) {
+          console.log(this.message)
           this.message.reply(`Bot ran into an error idk how to fix itm`);
-          const moreInfo = `From: ${this.message.author.username}#${this.message.author.discriminator}
+          const moreInfo = `From: ${this.message.user.username}#${this.message.user.discriminator}
                              Content: ${this.message.content}
                              Attempted command: help
                              Channel type: ${this.message.channel.type}

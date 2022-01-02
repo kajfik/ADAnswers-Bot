@@ -17,7 +17,7 @@ const metaMessageObject = {
   // eslint-disable-next-line max-len
   "contributing": `If you are interested in contributing to the bot, check out both information files at [this readme](https://github.com/earthernsence/ADAnswers-Bot#readme) and [this readme](https://github.com/earthernsence/ADAnswers-Bot/tree/main/commands#readme)`,
   // eslint-disable-next-line max-len
-  "alldata": `If you want to see all data for the bot, go to [SQLite Viewer](https://inloop.github.io/sqlite-viewer/) and put in [this file](https://github.com/earthernsence/ADAnswers-Bot/blob/main/database.sqlite) for command usage data or [this file](https://github.com/earthernsence/ADAnswers-Bot/blob/main/timeTags.sqlite) for data on when commands are used (UTC-5) from the bot's repository.`
+  "alldata": `If you want to see all data for the bot, go to [SQLite Viewer](https://inloop.github.io/sqlite-viewer/) and put in [this file](https://github.com/earthernsence/ADAnswers-Bot/blob/main/database.sqlite) for command usage data or [this file](https://github.com/earthernsence/ADAnswers-Bot/blob/main/timeTags.sqlite) for data on when commands are used (${Time.timezone}) from the bot's repository.`
 };
 
 class Meta {
@@ -25,6 +25,8 @@ class Meta {
     this.page = info.page;
     this.message = info.message;
     this.id = info.id;
+    this.person = `${this.message.user.username}#${this.message.user.discriminator}`;
+    this.expirationTimestamp = Math.floor((Date.now() + 60000) / 1000);
   }
 
   rows(disabled, person) {
@@ -40,7 +42,7 @@ class Meta {
             .setCustomId("primary-next-page")
             .setEmoji("▶️")
             .setDisabled(disabled)
-            .setStyle("PRIMARY")
+            .setStyle("PRIMARY"),
         ),
       new MessageActionRow()
         .addComponents(
@@ -108,8 +110,8 @@ class Meta {
         { name: "Top 5 used commands", value: `${tagStuff.top5commands}`, inline: true },
         { name: "Bottom 5 used commands", value: `${tagStuff.bottom5commands}`, inline: true },
         { name: "All data", value: metaMessageObject.alldata, inline: true },
-        { name: "Top 5 active hours (UTC-5)", value: `${tagStuff.top5hours}`, inline: true },
-        { name: "Bottom 5 active hours (UTC-5)", value: `${tagStuff.bottom5hours}`, inline: true },
+        { name: `Top 5 active hours (${Time.timezone})`, value: `${tagStuff.top5hours}`, inline: true },
+        { name: `Bottom 5 active hours (${Time.timezone})`, value: `${tagStuff.bottom5hours}`, inline: true },
         { name: "Top 5 users", value: `${tagStuff.top5users}`, inline: true },
         { name: "Bottom 5 users", value: `${tagStuff.bottom5users}`, inline: true },
       ]
@@ -150,7 +152,7 @@ class Meta {
   }
 
   getHelpDescription() {
-    return `Information about the bot.`;
+    return `Information about the bot.\nExpires at <t:${this.expirationTimestamp}>`;
   }
 
   getFooter() {
@@ -201,10 +203,10 @@ class Meta {
         try {
           if (i.customId === "primary-next-page") {
             this.page = this.pageChange(this.page);
-            await i.update(await this.actualMessage(false, `${this.message.user.username}#${this.message.user.discriminator}`));
+            await i.update(await this.actualMessage(false, this.person));
           } else if (i.customId === "primary-previous-page") {
             this.page = this.pageChange(this.page);
-            await i.update(await this.actualMessage(false, `${this.message.user.username}#${this.message.user.discriminator}`));
+            await i.update(await this.actualMessage(false, this.person));
           }
         } catch (error) {
           this.message.reply(`Bot ran into an error idk how to fix itm`);
@@ -222,7 +224,7 @@ class Meta {
         }
       });
       collector.on("end", async() => {
-        this.message.editReply(await this.actualMessage(true, `${this.message.user.username}#${this.message.user.discriminator}`));
+        this.message.editReply(await this.actualMessage(true, this.person));
       });
     });
   }

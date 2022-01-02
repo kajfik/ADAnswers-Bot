@@ -1,5 +1,7 @@
 "use strict";
 
+const config = require("../../utils/config.json");
+
 class Time {
   static newDate() {
     return new Date();
@@ -8,11 +10,11 @@ class Time {
 
   static clockify(array) {
     const time = array.map(t => String(t).padStart(2, "0"));
-    return `${time.join(":")} (UTC-5)`;
+    return `${time.join(":")} (${Time.timezone})`;
   }
 
   static clockifyNoTensInHours(array) {
-    return `${array.join(":")} (UTC-5)`;
+    return `${array.join(":")} (${Time.timezone})`;
   }
 
   static secondify(hours, minutes, seconds) {
@@ -58,6 +60,10 @@ class Time {
 
     if (isMS) return Time.clockify([dhms.days, timeString.substr(0, 1), timeString.substr(1, 2), timeString.substr(3, 2)]);
     return Time.clockifyNoTensInHours([timeString.substr(0, 1), timeString.substr(1, 2), timeString.substr(3, 2)]);
+  }
+
+  static get timezone() {
+    return config.timezone;
   }
 }
 
