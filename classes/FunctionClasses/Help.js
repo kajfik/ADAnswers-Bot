@@ -123,7 +123,7 @@ class Help {
             await i.update(this.actualMessage());
           }
         } catch (error) {
-          console.log(this.message)
+          console.log(this.message);
           this.message.reply(`Bot ran into an error idk how to fix itm`);
           const moreInfo = `From: ${this.message.user.username}#${this.message.user.discriminator}
                              Content: ${this.message.content}

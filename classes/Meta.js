@@ -57,7 +57,7 @@ class Meta {
           new MessageButton()
             .setStyle("SECONDARY")
             .setDisabled(true)
-            .setLabel(disabled ? `Expired after 60 seconds` : `Requested by ${person}.`)
+            .setLabel(disabled ? `Time expired` : `Requested by ${person}.`)
             .setCustomId("secondary-info-button")
         )
     ];
@@ -151,22 +151,22 @@ class Meta {
     };
   }
 
-  getHelpDescription() {
-    return `Information about the bot.\nExpires at <t:${this.expirationTimestamp}>`;
+  getHelpDescription(disabled) {
+    return `Information about the bot.\nExpire${disabled ? "d" : "s"} <t:${this.expirationTimestamp}:R> at <t:${this.expirationTimestamp}:T>`;
   }
 
   getFooter() {
     return `This superfluous bot was created by @earth#1337.\n${footerMessages.next(false)}`;
   }
 
-  async embedObject() {
+  async embedObject(disabled) {
     const f = await this.fieldsArray();
     if (this.page < f.length + 1 || this.page === 69) {
       const hex = this.page === 69 ? "696969" : Math.round(this.page / f.length * 255).toString(16).repeat(3);
       return {
         color: `#${hex}`,
         title: `Meta (p${this.page}/${f.length})`,
-        description: this.getHelpDescription(),
+        description: this.getHelpDescription(disabled),
         fields: f[this.page - 1],
         timestamp: new Date(),
         footer: {
@@ -189,14 +189,14 @@ class Meta {
   }
 
   async actualMessage(disabled, person) {
-    return { embeds: [await this.embedObject()], components: this.rows(disabled, person), ephemeral: false };
+    return { embeds: [await this.embedObject(disabled)], components: this.rows(disabled, person), ephemeral: false };
   }
 
   async send() {
     const filter = i => (i.customId.startsWith("primary") || i.customId.startsWith("secondary")) && i.user.id === this.message.user.id;
     // Works for 60 seconds.
     const collector = this.message.channel.createMessageComponentCollector({ filter, time: 60000 });
-    this.message.reply(await this.actualMessage(false, `${this.message.user.username}#${this.message.user.discriminator}`)).then(() => {
+    this.message.reply(await this.actualMessage(false, this.person)).then(() => {
 
       collector.on("collect", async i => {
         if (i.user.id !== this.message.user.id) return;

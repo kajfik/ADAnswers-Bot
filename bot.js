@@ -15,11 +15,10 @@ const Discord = require("discord.js");
 const Sequelize = require("sequelize");
 const config = require("./utils/config.json");
 const { Internal } = require("./classes/FunctionClasses/Internal");
-const { Help } = require("./classes/FunctionClasses/Help");
-const { Meta } = require("./classes/Meta");
 const { Log } = require("./classes/FunctionClasses/Log");
 const Global = require("./utils/constants");
-const { OnMessageEvents } = require("./classes/FunctionClasses/OnMessageEvents");
+const { OnMessageEvents } = require("./classes/FunctionClasses/Events/OnMessageEvents");
+const { InteractionEvents } = require("./classes/FunctionClasses/Events/InteractionEvents");
 
 const client = new Discord.Client({
   intents: [
@@ -40,24 +39,20 @@ const client = new Discord.Client({
 
 client.login(config.token);
 
+function createSequelizes(name) {
+  return new Sequelize({
+    dialect: "sqlite",
+    storage: `./${name}.sqlite`,
+    logging: false,
+  });
+}
+
 async function ready() {
   Global.client = client;
   Global.client.commands = new Discord.Collection();
-  Global.sequelize = new Sequelize({
-    dialect: "sqlite",
-    storage: "./database.sqlite",
-    logging: false,
-  });
-  Global.timeSequelize = new Sequelize({
-    dialect: "sqlite",
-    storage: "./timeTags.sqlite",
-    logging: false,
-  });
-  Global.userSequelize = new Sequelize({
-    dialect: "sqlite",
-    storage: "./userTags.sqlite",
-    logging: false,
-  });
+  Global.sequelize = createSequelizes("database");
+  Global.timeSequelize = createSequelizes("timeTags");
+  Global.userSequelize = createSequelizes("userTags");
   Global.setTags();
   await Global.ready(false);
   Internal.startIntervals();
@@ -76,95 +71,9 @@ client.once("ready", ready);
 client.on("error", err => Log.error(err));
 client.on("warn", warn => Log.warning(warn));
 
-client.on("interactionCreate", async interaction => {
-  if (!interaction.isCommand()) return;
-  if (!Global.client.application?.owner) await Global.client.application?.fetch();
-  if (interaction.channelId === config.ids.AD.general && interaction.commandName !== "deadchat") {
-    interaction.reply({ content: `hey buddy! can't use commands in general. nice try though. proud of u`, ephemeral: true });
-    return;
-  }
-  const hasCommand = Global.client.commands.has(interaction.commandName) || interaction.commandName === "help" || interaction.commandName === "meta";
+// I prefer to have this on one line, so you will have to deal with the return-await.
+// eslint-disable-next-line no-return-await
+client.on("interactionCreate", async interaction => await new InteractionEvents(interaction).run());
 
-  if (hasCommand) await Global.incrementTag("totalRequests", "Tags");
-  const person = `${interaction.user.username}#${interaction.user.discriminator}`;
-
-  if (interaction.commandName === "help") {
-    const args = interaction.options.getInteger("page") ? interaction.options.getInteger("page") : 1;
-    if (args > Global.fieldsArray.length && args !== 69) {
-      interaction.reply({ content: `I'm sorry, I don't know what page you're looking for.`, ephemeral: false });
-      return;
-    }
-    new Help({
-      page: args,
-      message: interaction,
-      id: interaction.channelId,
-    }).send();
-    await Global.incrementBigFourTags("help", person);
-    Log.divider();
-    return;
-  }
-  if (interaction.commandName === "meta") {
-    new Meta({
-      page: 1,
-      message: interaction,
-      id: interaction.channelId,
-    }).send();
-    await Global.incrementBigFourTags("meta", person);
-    Log.divider();
-    return;
-  }
-
-  if (!hasCommand) return;
-
-  try {
-    Global.client.commands.get(interaction.commandName).execute(interaction, interaction.channelId);
-    await Global.incrementBigFourTags(interaction.commandName, person);
-    Log.divider();
-  } catch (error) {
-    interaction.reply({ content: `Bot ran into an error while executing command ${interaction.commandName}. ${error}`, ephemeral: false });
-    const moreInfo = `From: ${person}
-                             Attempted command: ${interaction.commandName}
-                             Channel type: ${interaction.channel.type}
-                             Time: ${Date()}
-                             User ID: ${interaction.user.id}`;
-    Log.info(moreInfo);
-    Global.client.channels.cache.get(config.ids.testServerErrorLoggingChannel).send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
-    Global.client.users.cache.get(config.ids.earth).send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
-    Log.error(`[${Date()}] ${error}`);
-    Global.lastErrorUserID = interaction.user.id;
-  }
-});
-
-client.on("messageCreate", async message => {
-  const adIDs = config.ids.AD;
-  const args = message.content.slice(config.prefix.length).trim().split(/ +/u);
-  let mods;
-  const Events = new OnMessageEvents(message, args);
-  if (message.stickers.size > 0) Events.stickerDelete();
-  if (message.mentions.has("830197123378053172")) Events.mentioned();
-  try {
-    if (message.guildId === adIDs.serverID) {
-      // Deletes any messages that contain an @everyone and an http link in an effort to stop scammers.
-      // This also mutes them.
-      if (message.author.id !== config.ids.bot && message.content.includes("@everyone") && message.content.includes("http")) Events.muteScammers();
-      if (message.channelId === adIDs.general) return;
-      await message.guild.members.fetch();
-      mods = message.guild.roles.resolve(adIDs.modRole).members.map(member => member.id);
-
-      const isMod = message.guildId === adIDs.serverID ? mods.includes(message.author.id) : false;
-      if (!Global.client.application?.owner) await Global.client.application?.fetch();
-
-      // Sends a message with the amount of helpers, and then DMs you the list.
-      if (message.content.toLowerCase() === "++helpers" && ((message.author.id === config.ids.earth && message.guildId === adIDs.serverID) || isMod)) {
-        Events.helpers();
-      }
-    }
-
-    // Allows me (earth) to message the most recent person to cause an error
-    if (message.content.toLowerCase().startsWith(`++intercom`) && message.author.id === config.ids.earth) {
-      await Events.intercom();
-    }
-  } catch (e) {
-    Log.error(`[${Date()}] ${e}`);
-  }
-});
+// eslint-disable-next-line no-return-await
+client.on("messageCreate", async message => await new OnMessageEvents(message).run());

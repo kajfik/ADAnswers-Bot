@@ -1,15 +1,38 @@
 "use strict";
 
-const Global = require("../../utils/constants");
-const { ids } = require("../../utils/config.json");
-const { Log } = require("../../classes/FunctionClasses/Log");
+const Global = require("../../../utils/constants");
+const { ids } = require("../../../utils/config.json");
+const { Log } = require("../Log");
 const { MessageEmbed } = require("discord.js");
-const { Time } = require("./Time");
+const { Time } = require("../Time");
+const { Events } = require("./Events");
 
-class OnMessageEvents {
-  constructor(message, args) {
+class OnMessageEvents extends Events {
+  constructor(message) {
+    super(message);
     this.message = message;
-    this.args = args;
+    this.args = message.content.slice(2).trim().split(/ +/u);
+  }
+
+  get isScammer() {
+    return this.message.author.id !== ids.bot && this.message.content.includes("@everyone") && this.message.content.includes("http");
+  }
+
+  get intercomCondition() {
+    return this.message.content.toLowerCase().startsWith(`++intercom`) && message.author.id === ids.earth;
+  }
+
+  async isMod() {
+    return await this.message.guildId === ids.AD.serverID ? this.mods().includes(this.message.author.id) : false;
+  }
+
+  async helperCondition() {
+    return await this.message.content.toLowerCase() === "++helpers" && ((this.message.author.id === ids.earth && this.message.guildId === ids.AD.serverID) || this.isMod());
+  }
+
+  async mods() {
+    await this.message.guild.members.fetch();
+    return this.message.guild.roles.resolve(ids.AD.modRole).members.map(member => member.id);
   }
 
   stickerDelete() {
@@ -30,9 +53,9 @@ class OnMessageEvents {
     message.author.send("hey, you mentioned me! I'm here to help you! For more information about commands, check out `/help`! you can use me in DMs as well!");
   }
 
-  helpers() {
+  async helpers() {
     const message = this.message;
-    const roleInfo = message.guild.roles.resolve(ids.helperRole);
+    const roleInfo = await this.message.guild.roles.resolve(ids.helperRole);
     const namesAndIDs = roleInfo.members.map(member => `${member.user.username}#${member.user.discriminator} (${member.user.id}) [${member.roles.highest.name}]`);
 
     Log.info(namesAndIDs.join("\n"));
@@ -74,6 +97,23 @@ class OnMessageEvents {
     message.delete();
     // Send deleted message in #modchannel
     message.guild.channels.cache.get(ids.AD.modChannel).send({ embeds: [embed] });
+  }
+
+  async run() {
+    if (this.message.mentions.has("830197123378053172")) this.mentioned();
+    try {
+      if (this.message.guildId === ids.AD.serverID) {
+        if (this.message.stickers.size > 0) this.stickerDelete();
+        if (this.isScammer) this.muteScammers();
+        if (this.message.channelId === ids.AD.general) return;
+        if (!this.message.content.startsWith("++")) return;
+        if (!Global.client.application?.owner) await Global.client.application?.fetch();
+        // if (await this.helperCondition()) await this.helpers();
+      }
+      if (this.intercomCondition) await this.intercom();
+    } catch (error) {
+      Log.error(`[${Date()}] ${error}`);
+    }
   }
 }
 

@@ -75,7 +75,7 @@ class ApplicationCommand extends Command {
                              Attempted command: ${interaction.commandName}
                              Channel type: ${interaction.channel.type}
                              Time: ${Date()}
-                             URL: ${interaction.channel.type === "DM" ? "N/A" : `${message.url}`}
+                             URL: ${interaction.channel.type === "DM" ? "N/A" : `${interaction.url}`}
                              Args: ${this.argKey ? this.getArgs(interaction) : `N/A`}`;
     Log.info(moreInfo);
     interaction.client.channels.cache.get("722912387287744572").send(`ADAnswersBot has ran into an error, ${error}. ${moreInfo}`);
