@@ -14,8 +14,8 @@ class OnMessageEvents extends Events {
     this.args = message.content.slice(2).trim().split(/ +/u);
   }
 
-  get isScammer() {
-    return this.message.author.id !== ids.bot && this.message.content.includes("@everyone") && this.message.content.includes("http");
+  async isScammer() {
+    return await this.message.author.id !== ids.bot && this.message.content.includes("@everyone") && this.message.content.includes("http") && !this.isMod();
   }
 
   get intercomCondition() {
@@ -104,7 +104,7 @@ class OnMessageEvents extends Events {
     try {
       if (this.message.guildId === ids.AD.serverID) {
         if (this.message.stickers.size > 0) this.stickerDelete();
-        if (this.isScammer) this.muteScammers();
+        if (await this.isScammer()) this.muteScammers();
         if (this.message.channelId === ids.AD.general) return;
         if (!this.message.content.startsWith("++")) return;
         if (!Global.client.application?.owner) await Global.client.application?.fetch();
