@@ -25,7 +25,8 @@ const normalChallenge = challengeInfo => new MessageEmbed()
 const infinityChallenge = challengeInfo => new MessageEmbed()
   .setTitle(`Infinity Challenge ${challengeInfo.number}`)
   .setColor("#b67f33")
-  .addFields({ name: "Unlock requirements", value: `${challengeInfo.requirements}` },
+  .addFields(
+    { name: "Unlock requirements", value: `${challengeInfo.requirements}` },
     { name: "Challenge", value: `${challengeInfo.challenge}` },
     { name: "Goal", value: `${challengeInfo.goal}` },
     { name: "Strategy", value: `${challengeInfo.strategy}` },
