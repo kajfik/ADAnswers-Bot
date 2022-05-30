@@ -2,7 +2,6 @@
 
 const { combined } = require("../../utils/messages");
 const Global = require("../../utils/constants");
-
 class Internal {
   static startIntervals() {
     setInterval(Internal.setBotStatus, 15000);

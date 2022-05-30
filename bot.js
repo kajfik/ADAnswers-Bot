@@ -73,7 +73,37 @@ client.on("warn", warn => Log.warning(warn));
 
 // I prefer to have this on one line, so you will have to deal with the return-await.
 // eslint-disable-next-line no-return-await
-client.on("interactionCreate", async interaction => await new InteractionEvents(interaction).run());
+client.on("interactionCreate", async interaction => {
+  const events = new InteractionEvents(interaction);
+  if (!events.message.isCommand()) return;
+  if (!Global.client.application?.owner) await Global.client.application?.fetch();
+  if (events.message.channelId === config.ids.AD.general && events.message.commandName !== "deadchat") {
+    events.commandInGeneral();
+    return;
+  }
+
+  if (events.hasCommand) await events.requestsTag();
+
+  if (events.message.commandName === "help") {
+    await events.help();
+    return;
+  }
+
+  if (events.message.commandName === "meta") {
+    await events.meta();
+    return;
+  }
+
+  if (!events.hasCommand) return;
+
+  try {
+    await events.execute();
+  } catch (error) {
+    events.error(error);
+  }
+});
 
 // eslint-disable-next-line no-return-await
-client.on("messageCreate", async message => await new OnMessageEvents(message).run());
+client.on("messageCreate", async message => {
+  await new OnMessageEvents(message).run();
+});

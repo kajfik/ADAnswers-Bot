@@ -69,7 +69,7 @@ class InteractionEvents extends Events {
 
   async execute() {
     const interaction = this.message;
-    Global.client.commands.get(interaction.commandName).execute(interaction, interaction.channelId);
+    await Global.client.commands.get(interaction.commandName).execute(interaction, interaction.channelId);
     await Global.incrementBigFourTags(interaction.commandName, this.person);
     Log.divider();
   }

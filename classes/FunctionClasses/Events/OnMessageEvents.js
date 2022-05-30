@@ -15,7 +15,11 @@ class OnMessageEvents extends Events {
   }
 
   async isScammer() {
-    return await this.message.author.id !== ids.bot && this.message.content.includes("@everyone") && this.message.content.includes("http") && !this.isMod();
+    const isMod = await this.isMod();
+    return this.message.author.id !== ids.bot &&
+    this.message.content.includes("@everyone") &&
+    this.message.content.includes("http") &&
+    !isMod;
   }
 
   get intercomCondition() {
@@ -23,7 +27,8 @@ class OnMessageEvents extends Events {
   }
 
   async isMod() {
-    return await this.message.guildId === ids.AD.serverID ? this.mods().includes(this.message.author.id) : false;
+    const mods = await this.mods();
+    return await this.message.guildId === ids.AD.serverID ? mods.includes(this.message.author.id) : false;
   }
 
   async helperCondition() {
