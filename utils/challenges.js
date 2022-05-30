@@ -121,7 +121,8 @@ const challenges = {
       Mobile: Reach **1e650** antimatter`,
     strategy: `As the reward of IC1 is not that good, it's recommended to do it once you have the galaxy upgrade for 5e11 IP. No special strat for this challenge.`,
     reward: `×1.3 on all Infinity Dimensions for each Infinity Challenge completed`,
-    rewardFormula: `\`1.3 ^ ICs completed\` (to a max of ×8.2)`
+    rewardFormula: `\`1.3 ^ ICs completed\` (to a max of ×8.2)`,
+    image: `https://cdn.discordapp.com/attachments/824678601160917003/980928603309109358/IC1.png`,
   },
   "ic2": {
     number: 2,
@@ -130,7 +131,8 @@ const challenges = {
     goal: `Reach **1e10500** antimatter`,
     strategy: `Do not attempt IC2 before you reached ID4 at ~e45 IP. If you cannot get e10500 AM in a normal infinity, why would you try to reach it inside a challenge? No special strat for this challenge.`,
     reward: `Dimensional Sacrifice autobuyer and stronger Dimensional Sacrifice`,
-    rewardFormula: `\`(log10(AD1)/10)^2.6\` to \`AD1^0.011\``
+    rewardFormula: `\`(log10(AD1)/10)^2.6\` to \`AD1^0.011\``,
+    image: `https://cdn.discordapp.com/attachments/824678601160917003/980928603569135718/IC2.png`,
   },
   "ic3": {
     number: 3,
@@ -139,7 +141,8 @@ const challenges = {
     goal: `Reach **1e5000** antimatter`,
     strategy: `Attempt IC3 after getting the ID1 for e56 IP. This might take an hour to do. No special strat for this challenge.`,
     reward: `Antimatter Dimension multiplier based on Antimatter Galaxies and Tickspeed purchases`,
-    rewardFormula: `\`(1.05 + (galaxies * 0.005)) ^ tickspeed upgrade bought\``
+    rewardFormula: `\`(1.05 + (galaxies * 0.005)) ^ tickspeed upgrade bought\``,
+    image: `https://cdn.discordapp.com/attachments/824678601160917003/980928603795644426/IC3.png`,
   },
   "ic4": {
     number: 4,
@@ -168,7 +171,8 @@ const challenges = {
     
     Video guide: <https://youtu.be/lI70hBlpaqc>`,
     reward: `All Antimatter Dimension multipliers become multiplier^1.05`,
-    rewardFormula: `\`multiplier ^ 1.05\``
+    rewardFormula: `\`multiplier ^ 1.05\``,
+    image: `https://cdn.discordapp.com/attachments/824678601160917003/980928603996946542/IC4.png`,
   },
   "ic5": {
     number: 5,
@@ -183,6 +187,7 @@ const challenges = {
     Post-Eternity guide (has Eternity spoilers!): ||https://cdn.discordapp.com/attachments/536249899487068181/848926013869522994/SVID_20200120_131504_1.mp4||`,
     reward: `All Galaxies are 10% stronger and reduce the requirements for them and Dimension Boosts by 1`,
     rewardFormula: `Think really hard`,
+    image: `https://cdn.discordapp.com/attachments/824678601160917003/980928604277997599/IC5.png`,
   },
   "ic6": {
     number: 6,
@@ -191,7 +196,8 @@ const challenges = {
     goal: `Reach **2e22222** antimatter`,
     strategy: icBase(6, 102),
     reward: `Infinity Dimension multiplier based on tickspeed`,
-    rewardFormula: `\`Tickspeed per second ^ 0.0005\``
+    rewardFormula: `\`Tickspeed per second ^ 0.0005\``,
+    image: `https://cdn.discordapp.com/attachments/824678601160917003/980928604621905970/IC6.png`,
   },
   "ic7": {
     number: 7,
@@ -200,7 +206,8 @@ const challenges = {
     goal: `Reach **1e10000** antimatter`,
     strategy: icBase(7, 114),
     reward: `Dimension Boost multiplier ×2.5 ➜ ×4`,
-    rewardFormula: `\`×2.5\` to \`×4\``
+    rewardFormula: `\`×2.5\` to \`×4\``,
+    image: `https://cdn.discordapp.com/attachments/824678601160917003/980928604856803338/IC7.png`,
   },
   "ic8": {
     number: 8,
@@ -209,7 +216,8 @@ const challenges = {
     goal: `Reach **1e27000** antimatter`,
     strategy: icBase(8, 129),
     reward: `You get a multiplier to Antimatter Dimensions 2-7 based on 1st and 8th Antimatter Dimension multipliers.`,
-    rewardFormula: `\`(AD1 multiplier * AD8 multiplier) ^ 0.02\``
+    rewardFormula: `\`(AD1 multiplier * AD8 multiplier) ^ 0.02\``,
+    image: `https://cdn.discordapp.com/attachments/824678601160917003/980928605091659856/IC8.png`,
   }
 };
 

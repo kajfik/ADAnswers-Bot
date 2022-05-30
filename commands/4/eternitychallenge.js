@@ -10,6 +10,7 @@ const footerText = () => (Math.random > 0.5 ? `Be sure to read the pins in your 
 const eternityChallenge = challengeInfo => new MessageEmbed()
   .setTitle(`Eternity Challenge ${challengeInfo.challengeID}x${challengeInfo.completion}`)
   .setColor("#b241e3")
+  .setThumbnail(ECs.ECImages[challengeInfo.challengeID])
   .addFields(
     { name: "Unlock requirements", value: `${challengeInfo.requirements}` },
     { name: "Challenge", value: `${ECs.ECDescriptions[challengeInfo.challengeID]}` },

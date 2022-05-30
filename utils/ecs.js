@@ -871,6 +871,21 @@ const EternityChallenges = [
   },
 ];
 
+const ECImages = {
+  "1": "https://cdn.discordapp.com/attachments/824678601160917003/980926672423501834/EC1.png",
+  "2": "https://cdn.discordapp.com/attachments/824678601160917003/980926672624840765/EC2.png",
+  "3": "https://cdn.discordapp.com/attachments/824678601160917003/980926672809373696/EC3.png",
+  "4": "https://cdn.discordapp.com/attachments/824678601160917003/980926673061027880/EC4.png",
+  "5": "https://cdn.discordapp.com/attachments/824678601160917003/980926673337843762/EC5.png",
+  "6": "https://cdn.discordapp.com/attachments/824678601160917003/980926673593700402/EC6.png",
+  "7": "https://cdn.discordapp.com/attachments/824678601160917003/980926673891520602/EC7.png",
+  "8": "https://cdn.discordapp.com/attachments/824678601160917003/980926674126381096/EC8.png",
+  "9": "https://cdn.discordapp.com/attachments/824678601160917003/980926674352889956/EC9.png",
+  "10": "https://cdn.discordapp.com/attachments/824678601160917003/980926674734551040/EC10.png",
+  "11": "https://cdn.discordapp.com/attachments/824678601160917003/980926703461339186/EC11.png",
+  "12": "https://cdn.discordapp.com/attachments/824678601160917003/980926703658479616/EC12.png",
+};
+
 const order = ["1x1", "2x1", "1x2", "3x1", "4x1", "5x1", "1x3", "3x2", "2x2", "6x1", "1x4", "3x3", "7x1", "4x2", "4x3", "6x2", "1x5", "5x2", "2x3", "3x4", "7x2", "5x3", "8x1", "3x5", "6x3", "2x4", "5x4", "7x3", "2x5", "5x5", "4x4", "6x4", "7x4", "8x2", "6x5", "4x5", "8x3", "9x1", "9x2", "8x4", "9x3", "9x4", "8x5", "9x5", "10x1", "7x5", "10x2", "10x3", "10x4", "10x5", "11x1", "11x2", "11x3", "11x4", "11x5", "12x1", "12x2", "12x3", "12x4", "12x5"];
 const orderWithMultSigns = ["1×1", "2×1", "1×2", "3×1", "4×1", "5×1", "1×3", "3×2", "2×2", "6×1", "1×4", "3×3", "7×1", "4×2", "4×3", "6×2", "1×5", "5×2", "2×3", "3×4", "7×2", "5×3", "8×1", "3×5", "6×3", "2×4", "5×4", "7×3", "2×5", "5×5", "4×4", "6×4", "7×4", "8×2", "6×5", "4×5", "8×3", "9×1", "9×2", "8×4", "9×3", "9×4", "8×5", "9×5", "10×1", "7×5", "10×2", "10×3", "10×4", "10×5", "11×1", "11×2", "11×3", "11×4", "11×5", "12×1", "12×2", "12×3", "12×4", "12×5"];
 
@@ -913,4 +928,4 @@ function otherCompletions(id, completion) {
   return completions.filter(Number).map((value, index) => `${index + 1}x${value}`).join(", ");
 }
 
-module.exports = { EternityChallenges, order, orderWithMultSigns, otherCompletions, ECDescriptions, ECRewards };
+module.exports = { EternityChallenges, order, orderWithMultSigns, otherCompletions, ECDescriptions, ECRewards, ECImages };
