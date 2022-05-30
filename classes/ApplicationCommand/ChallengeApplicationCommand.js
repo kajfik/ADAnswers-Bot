@@ -1,5 +1,6 @@
 "use strict";
 
+const { Log } = require("../FunctionClasses/Log");
 const { ApplicationCommand } = require("./ApplicationCommand");
 
 class ChallengeApplicationCommand extends ApplicationCommand {
@@ -25,7 +26,7 @@ class ChallengeApplicationCommand extends ApplicationCommand {
         interaction.reply({ embeds: [embed], ephemeral: !isHelper });
       }
     } catch (e) {
-      console.log(e);
+      Log.error(e);
     }
   }
 
