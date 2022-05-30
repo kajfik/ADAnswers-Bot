@@ -8,7 +8,8 @@ class ChallengeApplicationCommand extends ApplicationCommand {
     try {
       if (this.name !== "eternitychallenge" && this.name !== "ec") {
         const arg = this.type === "shorthand" ? undefined : interaction.options.getString("challenge");
-        const embed = this.getArgMessage(arg);
+        const info = this.type === "shorthand" ? undefined : interaction.options.getString("info");
+        const embed = this.getArgMessage(arg, info);
         const user = interaction.member === null ? interaction.user : interaction.member.user;
         embed.setAuthor({ name: `${user.username}#${user.discriminator}`, iconURL: user.avatarURL() });
         const isHelper = this.hasHelperRole(interaction);

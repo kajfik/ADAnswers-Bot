@@ -5,6 +5,8 @@ const ECs = require("../../utils/ecs");
 const { ChallengeApplicationCommand } = require("../../classes/ApplicationCommand/ChallengeApplicationCommand");
 const { MessageEmbed } = require("discord.js");
 
+const footerText = () => (Math.random > 0.5 ? `Be sure to read the pins in your progression channel!` : `Art by MrKrutaman#1705`);
+
 const eternityChallenge = challengeInfo => new MessageEmbed()
   .setTitle(`Eternity Challenge ${challengeInfo.challengeID}x${challengeInfo.completion}`)
   .setColor("#b241e3")
@@ -21,7 +23,7 @@ const eternityChallenge = challengeInfo => new MessageEmbed()
     { name: "Next EC", value: `${challengeInfo.nextEC}` },
   )
   .setTimestamp()
-  .setFooter({ text: `Be sure to read the pins in your progression channel!`, iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
+  .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
 
 module.exports = {
   command: new ChallengeApplicationCommand({
