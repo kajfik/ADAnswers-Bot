@@ -15,9 +15,6 @@ const achievementsMessageObject = {
   "r36": `Do ***not*** do this on your first Infinity. When you Infinity, Galaxies are reset back to 0, so you can attempt it later when it's easier.`,
   get "Claustrophobic"() { return this.r36; },
 
-  "r41": `Get it after infinity. Change notation to Cancer in options and buy 10 galaxies. You can just switch to Cancer Notation before buying a Galaxy.`,
-  get "Spreading cancer"() { return this.r41; },
-
   "r71": `Do it after the e39 ID2. Disable boost, galaxy and all dim autobuyers, go into C2 and buy 10 1st dims.`,
   get "Error 909: Dimension Not Found"() { return this.r71; },
 

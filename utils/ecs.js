@@ -929,7 +929,6 @@ function otherCompletions(id, completion) {
 }
 
 const shownFields = (challengeInfo, requestedFields) => {
-  // Const challengeInfo = EternityChallenges[(challengeID - 1) * 5 + (completion - 1)];
   switch (requestedFields) {
     case "unlock": return [{ name: "Unlock requirements", value: `${challengeInfo.requirements}` }];
     case "challenge": return [{ name: "Challenge", value: `${ECDescriptions[challengeInfo.challengeID]}` }];
