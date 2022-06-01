@@ -811,6 +811,16 @@ module.exports = {
     {
       name: "peakipmin",
       description: "Tells why peak IP/min disappears at e100 IP"
+    },
+    {
+      name: "study",
+      description: "retrieve information about a certain study",
+      options: [{
+        name: "study",
+        description: "using the ID number of the study (ex first study is 11)",
+        type: "INTEGER",
+        required: true
+      }]
     }
   ],
   find(name) {
