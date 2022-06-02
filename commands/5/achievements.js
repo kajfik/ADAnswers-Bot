@@ -2,6 +2,7 @@
 "use strict";
 
 const { AchievementApplicationCommand } = require("../../classes/ApplicationCommand/AchievementApplicationCommand");
+const { achievements } = require("../../utils/achievements");
 
 /* eslint-disable no-negated-condition */
 
@@ -78,7 +79,7 @@ module.exports = {
     description: "sends link to achievements guide",
     check: true,
     sent: [`Check out this cool guide by Hellbach! https://docs.google.com/document/d/1C8W_lt9EPxpu9wIloWZo5CPDdZ4ItP1-IU1Vs3x7lEg`],
-    acceptableArgs: Object.keys(achievementsMessageObject),
+    acceptableArgs: Object.keys(achievements).concat(Object.keys(achievementsMessageObject)),
     getArgMessage(arg) {
       return achievementsMessageObject[arg];
     },

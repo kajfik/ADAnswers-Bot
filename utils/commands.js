@@ -142,6 +142,12 @@ module.exports = {
         description: "which achievement do you want to see a guide for? choice not required!",
         required: false,
         choices: getChoices("achievements")
+      },
+      {
+        name: "other",
+        type: "INTEGER",
+        description: "this is for achievements that don't need a guide, using their ID",
+        required: false,
       }]
     },
     {

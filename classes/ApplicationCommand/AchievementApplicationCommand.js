@@ -15,18 +15,34 @@ class AchievementApplicationCommand extends ApplicationCommand {
    * @param {Object} interaction - The interaction object used for the command that contains all useful information
    */
   execute(interaction) {
-    const args = [this.getArgs(interaction)];
-    if (args[0] === null) {
+    const args = [this.getArgs(interaction), interaction.options.getInteger("other")];
+
+    if (args[0] !== null && args[1] !== null) {
+      interaction.reply({ content: "You can only use one argument at a time.", ephemeral: true });
+      return;
+    }
+
+    if (args[0] === null && args[1] !== null) {
+      args[0] = args[1];
+    }
+
+    if (args[0] === null && args[1] === null) {
       interaction.reply({ content: this.sent[0], ephemeral: !this.hasHelperRole(interaction) });
       return;
     }
-    if (args.length !== 0 && !this.acceptableArgs.includes(args[0])) {
-      interaction.reply("This achievement is either useless or can be easily achieved.");
-    } else this.regularCommand(interaction, args, interaction.channel.id);
+
+    this.regularCommand(interaction, args);
   }
 
   regularCommand(interaction, args) {
-    const achievementInfo = achievements[achievements.findAchievement(args[0])];
+    let achievementInfo;
+
+    if (typeof args[0] === "string") {
+      achievementInfo = achievements[achievements.findAchievement(args[0])];
+    } else {
+      achievementInfo = achievements[achievements.findAchievementById(args[0])];
+    }
+
     const user = interaction.member === null ? interaction.user : interaction.member.user;
     const isHelper = this.hasHelperRole(interaction);
 
