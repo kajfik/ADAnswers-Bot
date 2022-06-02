@@ -26,6 +26,10 @@ class ChallengeApplicationCommand extends ApplicationCommand {
         const user = interaction.member === null ? interaction.user : interaction.member.user;
         const picture = new MessageAttachment(`images/challenges/EC${args[0]}.png`);
         const isHelper = this.hasHelperRole(interaction);
+        const ephemeral = !isHelper && args[2];
+
+        console.log(ephemeral);
+        console.log(args);
 
         if (args[3] === "tree") {
           interaction.reply({ content: this.getArgMessage(challenge, true), ephemeral: !isHelper });
@@ -34,7 +38,7 @@ class ChallengeApplicationCommand extends ApplicationCommand {
 
         embed.setAuthor({ name: `${user.username}#${user.discriminator}`, iconURL: user.avatarURL() });
         embed.setThumbnail(`attachment://EC${args[0]}.png`);
-        interaction.reply({ embeds: [embed], files: [picture], ephemeral: !isHelper });
+        interaction.reply({ embeds: [embed], files: [picture], ephemeral });
       }
     } catch (e) {
       Log.error(e);

@@ -51,6 +51,81 @@ const studies = {
     prerequisites: ["TS11"],
     type: "normal"
   },
+  "31": {
+    id: 31,
+    effect: `Powers up bonuses that are based on your Infinities`,
+    formula: `\`(Bonuses ^ 4)\``,
+    cost: 3,
+    colour: STUDY_COLOURS.NORMAL,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    prerequisites: ["TS21"],
+    type: "normal"
+  },
+  "32": {
+    id: 32,
+    effect: "You gain more Infinities based on Dimension Boosts",
+    formula: "×`dimension boosts`",
+    cost: 2,
+    colour: STUDY_COLOURS.NORMAL,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    prerequisites: ["TS22"],
+    type: "normal"
+  },
+  "33": {
+    id: 33,
+    effect: "You keep half of your Replicanti Galaxies on Infinity",
+    cost: 2,
+    colour: STUDY_COLOURS.NORMAL,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    prerequisites: ["TS22"],
+    type: "normal"
+  },
+  "41": {
+    id: 41,
+    effect: "All Galaxies give a ×1.2 multiplier to Infinity Points gained",
+    cost: 4,
+    colour: STUDY_COLOURS.NORMAL,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    prerequisites: ["TS31"],
+    type: "normal"
+  },
+  "42": {
+    id: 42,
+    effect: "Antimatter Galaxy requirement increases by 52 8th Dimensions instead of 60",
+    cost: 6,
+    colour: STUDY_COLOURS.NORMAL,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    prerequisites: ["TS32"],
+    type: "normal"
+  },
+  "51": {
+    id: 51,
+    effect: "You gain ×1e15 more Infinity Points",
+    cost: 3,
+    colour: STUDY_COLOURS.NORMAL,
+    reqType: TS_REQUIREMENT_TYPE.AT_LEAST_ONE,
+    prerequisites: ["TS41", "TS42"],
+    type: "normal"
+  },
+  "61": {
+    id: 61,
+    effect: "You gain ×15 more Eternity Points",
+    cost: 3,
+    colour: STUDY_COLOURS.NORMAL,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    prerequisites: ["TS51"],
+    type: "normal"
+  },
+  "62": {
+    id: 62,
+    effect: "You gain Replicanti 3 times faster",
+    cost: 3,
+    prerequisites: ["TS42", "1 or more EC5 completion"],
+    colour: STUDY_COLOURS.NORMAL,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    type: "normal"
+  },
+  // Dimension path studies
   "71": {
     id: 71,
     effect: "Dimensional Sacrifice affects all other Antimatter Dimensions with reduced effect",
@@ -59,7 +134,8 @@ const studies = {
     colour: STUDY_COLOURS.ANTIMATTER,
     reqType: TS_REQUIREMENT_TYPE.ONE,
     prerequisites: ["TS61"],
-    type: "antimatter"
+    type: "antimatter",
+    exclusiveWith: "Infinity or Time branch"
   },
   "72": {
     id: 72,
@@ -69,7 +145,8 @@ const studies = {
     colour: STUDY_COLOURS.INFINITY,
     reqType: TS_REQUIREMENT_TYPE.ONE,
     prerequisites: ["TS61"],
-    type: "infinity"
+    type: "infinity",
+    exclusiveWith: "Antimatter or Time branch"
   },
   "73": {
     id: 73,
@@ -79,7 +156,38 @@ const studies = {
     colour: STUDY_COLOURS.TIME,
     reqType: TS_REQUIREMENT_TYPE.ONE,
     prerequisites: ["TS61"],
-    type: "time"
+    type: "time",
+    exclusiveWith: "Antimatter or Infinity branch"
+  },
+  "81": {
+    id: 81,
+    effect: "Base Dimension Boost power becomes ×10",
+    cost: 4,
+    colour: STUDY_COLOURS.ANTIMATTER,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    prerequisites: ["TS71"],
+    type: "antimatter",
+    exclusiveWith: "Infinity or Time branch"
+  },
+  "82": {
+    id: 82,
+    effect: "Dimension Boosts affect Infinity Dimensions",
+    cost: 6,
+    colour: STUDY_COLOURS.INFINITY,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    prerequisites: ["TS72"],
+    type: "infinity",
+    exclusiveWith: "Antimatter or Time branch"
+  },
+  "83": {
+    id: 83,
+    effect: "Dimension Boost multiplier based on tick upgrades gained from TDs",
+    cost: 5,
+    colour: STUDY_COLOURS.TIME,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    prerequisites: ["TS73"],
+    type: "time",
+    exclusiveWith: "Antimatter or Infinity branch"
   },
   "111": {
     id: 111,
@@ -99,7 +207,8 @@ const studies = {
     prerequisites: ["TS111"],
     colour: STUDY_COLOURS.ACTIVE,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    type: "active"
+    type: "active",
+    exclusiveWith: "Passive or Idle branch"
   },
   "122": {
     id: 122,
@@ -108,7 +217,8 @@ const studies = {
     prerequisites: ["TS111"],
     colour: STUDY_COLOURS.PASSIVE,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    type: "passive"
+    type: "passive",
+    exclusiveWith: "Active or Idle branch"
   },
   "123": {
     id: 123,
@@ -118,11 +228,12 @@ const studies = {
     prerequisites: ["TS111"],
     colour: STUDY_COLOURS.IDLE,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    type: "idle"
+    type: "idle",
+    exclusiveWith: "Active or Passive branch"
   },
   "224": {
     id: 224,
-    effect: `Distant Galaxy cost scaling starts later(1 per 2000} Dim Boosts)`,
+    effect: `Distant Galaxy cost scaling starts later (1 per 2000 Dim Boosts)`,
     formula: "`floor(boosts / 2000)`",
     cost: 900,
     prerequisites: ["TS212"],
