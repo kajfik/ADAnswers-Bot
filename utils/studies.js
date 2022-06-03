@@ -172,6 +172,7 @@ const studies = {
   "82": {
     id: 82,
     effect: "Dimension Boosts affect Infinity Dimensions",
+    formula: "`1.0000109 ^ (dimboosts ^ 2)`",
     cost: 6,
     colour: STUDY_COLOURS.INFINITY,
     reqType: TS_REQUIREMENT_TYPE.ONE,
@@ -182,12 +183,78 @@ const studies = {
   "83": {
     id: 83,
     effect: "Dimension Boost multiplier based on tick upgrades gained from TDs",
+    formula: "`1.0004 ^ tickspeed upgrades from TDs`",
     cost: 5,
     colour: STUDY_COLOURS.TIME,
     reqType: TS_REQUIREMENT_TYPE.ONE,
     prerequisites: ["TS73"],
     type: "time",
     exclusiveWith: "Antimatter or Infinity branch"
+  },
+  "91": {
+    id: 91,
+    effect: "Antimatter Dimension multiplier based on time spent in this Eternity",
+    formula: "`10 ^ (min(total minutes in Eternity, 20) * 15)`",
+    cost: 4,
+    colour: STUDY_COLOURS.ANTIMATTER,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    prerequisites: ["TS81"],
+    type: "antimatter",
+    exclusiveWith: "Infinity or Time branch"
+  },
+  "92": {
+    id: 92,
+    effect: "Infinity Dimension multiplier based on fastest Eternity time",
+    formula: "`2 ^ (60 / max(best eternity time in seconds, 2))`",
+    cost: 5,
+    colour: STUDY_COLOURS.INFINITY,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    prerequisites: ["TS82"],
+    type: "infinity",
+    exclusiveWith: "Antimatter or Time branch"
+  },
+  "93": {
+    id: 93,
+    effect: "Time Dimension multiplier based on tick upgrades gained",
+    formula: "`tickspeed upgrades gained ^ 0.25`",
+    cost: 7,
+    colour: STUDY_COLOURS.TIME,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    prerequisites: ["TS83"],
+    type: "time",
+    exclusiveWith: "Antimatter or Infinity branch"
+  },
+  "101": {
+    id: 101,
+    effect: "Antimatter Dimension multiplier equal to Replicanti amount",
+    formula: "`replicanti`",
+    cost: 4,
+    colour: STUDY_COLOURS.ANTIMATTER,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    prerequisites: ["TS91"],
+    type: "antimatter",
+    exclusiveWith: "Infinity or Time branch"
+  },
+  "102": {
+    id: 102,
+    effect: "Replicanti Galaxies boost Replicanti multiplier",
+    formula: "`5 ^ replicanti galaxies`",
+    cost: 6,
+    colour: STUDY_COLOURS.INFINITY,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    prerequisites: ["TS92"],
+    type: "infinity",
+    exclusiveWith: "Antimatter or Time branch"
+  },
+  "103": {
+    id: 103,
+    effect: "Time Dimension multiplier equal to Replicanti Galaxy amount",
+    formula: "`replicanti galaxies`",
+    cost: 6,
+    colour: STUDY_COLOURS.TIME,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    prerequisites: ["TS93"],
+    type: "time",
   },
   "111": {
     id: 111,
@@ -228,6 +295,76 @@ const studies = {
     prerequisites: ["TS111"],
     colour: STUDY_COLOURS.IDLE,
     reqType: TS_REQUIREMENT_TYPE.ONE,
+    type: "idle",
+    exclusiveWith: "Active or Passive branch"
+  },
+  "131": {
+    id: 131,
+    effect: "Automatic Replicanti Galaxies are disabled, but you can get 50% more",
+    cost: 5,
+    prerequisites: ["TS121"],
+    colour: STUDY_COLOURS.ACTIVE,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    type: "active",
+    exclusiveWith: "Passive or Idle branch"
+  },
+  "132": {
+    id: 132,
+    effect: "Replicanti Galaxies are 40% stronger",
+    cost: 5,
+    prerequisites: ["TS122"],
+    colour: STUDY_COLOURS.PASSIVE,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    type: "passive",
+    exclusiveWith: "Active or Idle branch"
+  },
+  "133": {
+    id: 133,
+    effect: "Replicanti are ×10 slower until 1.8e308 but Replicanti Galaxies are 50% stronger",
+    cost: 5,
+    prerequisites: ["TS123"],
+    colour: STUDY_COLOURS.IDLE,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    type: "idle",
+    exclusiveWith: "Active or Passive branch"
+  },
+  "141": {
+    id: 141,
+    effect: "Multiplier to Infinity Points, which decays over this Infinity",
+    formula: `
+    \`scaled infinity = (time in this infinity in seconds * 10) + 1\`
+    \`capped infinity = min(scaled infinity ^ 0.125, 500)\`
+    \`this infinity multiplier = 1e15 ^ log(scaled infinity) * capped infinity\`
+    multiplier: ×\`1e45 / this infinity multiplier\``,
+    cost: 4,
+    colour: STUDY_COLOURS.ACTIVE,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    prerequisites: ["TS131"],
+    type: "active",
+    exclusiveWith: "Passive or Idle branch"
+  },
+  "142": {
+    id: 142,
+    effect: "You gain ×1e25 more Infinity Points",
+    cost: 4,
+    colour: STUDY_COLOURS.PASSIVE,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    prerequisites: ["TS132"],
+    type: "passive",
+    exclusiveWith: "Active or Idle branch"
+  },
+  "143": {
+    id: 143,
+    effect: "Multiplier to Infinity Points, which increases over this Infinity",
+    formula: `
+    \`scaled infinity = (time in this infinity in seconds * 10) + 1\`
+    \`capped infinity = min(scaled infinity ^ 0.125, 500)\`
+    \`this infinity multiplier = 1e15 ^ log(scaled infinity) * capped infinity\`
+    multiplier: \`×this infinity multiplier\``,
+    cost: 4,
+    colour: STUDY_COLOURS.IDLE,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    prerequisites: ["TS133"],
     type: "idle",
     exclusiveWith: "Active or Passive branch"
   },

@@ -31,6 +31,11 @@ class AchievementApplicationCommand extends ApplicationCommand {
       return;
     }
 
+    if (!this.acceptableArgs.includes(`${args[0]}`)) {
+      interaction.reply({ content: "That is not an achievement!", ephemeral: true });
+      return;
+    }
+
     this.regularCommand(interaction, args);
   }
 
@@ -41,6 +46,11 @@ class AchievementApplicationCommand extends ApplicationCommand {
       achievementInfo = achievements[achievements.findAchievement(args[0])];
     } else {
       achievementInfo = achievements[achievements.findAchievementById(args[0])];
+    }
+
+    if (achievementInfo === undefined) {
+      interaction.reply({ content: "That achievement does not exist.", ephemeral: true });
+      return;
     }
 
     const user = interaction.member === null ? interaction.user : interaction.member.user;

@@ -26,10 +26,7 @@ class ChallengeApplicationCommand extends ApplicationCommand {
         const user = interaction.member === null ? interaction.user : interaction.member.user;
         const picture = new MessageAttachment(`images/challenges/EC${args[0]}.png`);
         const isHelper = this.hasHelperRole(interaction);
-        const ephemeral = !isHelper && args[2];
-
-        console.log(ephemeral);
-        console.log(args);
+        const ephemeral = isHelper ? args[2] : true;
 
         if (args[3] === "tree") {
           interaction.reply({ content: this.getArgMessage(challenge, true), ephemeral: !isHelper });
