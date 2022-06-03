@@ -593,6 +593,10 @@ module.exports = {
       name: "savebank",
       description: "Provides a link to Buck's save bank."
     },
+    {
+      name: "savesharing",
+      description: "Provides a brief explanation on sharing saves."
+    },
     { name: "secondsplit", description: "describes second split paths" },
     {
       name: "setcrunchauto",
