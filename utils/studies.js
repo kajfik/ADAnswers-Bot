@@ -8,6 +8,7 @@ const TS_REQUIREMENT_TYPE = {
   AT_LEAST_ONE: "At least one of",
   ALL: "All of",
   ONE: "",
+  OR: (one, two) => `${one} or ${two}`,
 };
 
 const STUDY_COLOURS = {
@@ -135,7 +136,7 @@ const studies = {
     reqType: TS_REQUIREMENT_TYPE.ONE,
     prerequisites: ["TS61"],
     type: "antimatter",
-    exclusiveWith: "Infinity or Time branch"
+    exclusiveWith: "Infinity or Time branch is purchased"
   },
   "72": {
     id: 72,
@@ -146,7 +147,7 @@ const studies = {
     reqType: TS_REQUIREMENT_TYPE.ONE,
     prerequisites: ["TS61"],
     type: "infinity",
-    exclusiveWith: "Antimatter or Time branch"
+    exclusiveWith: "Antimatter or Time branch is purchased"
   },
   "73": {
     id: 73,
@@ -157,7 +158,7 @@ const studies = {
     reqType: TS_REQUIREMENT_TYPE.ONE,
     prerequisites: ["TS61"],
     type: "time",
-    exclusiveWith: "Antimatter or Infinity branch"
+    exclusiveWith: "Antimatter or Infinity branch is purchased"
   },
   "81": {
     id: 81,
@@ -178,7 +179,7 @@ const studies = {
     reqType: TS_REQUIREMENT_TYPE.ONE,
     prerequisites: ["TS72"],
     type: "infinity",
-    exclusiveWith: "Antimatter or Time branch"
+    exclusiveWith: "Antimatter or Time branch is purchased"
   },
   "83": {
     id: 83,
@@ -189,7 +190,7 @@ const studies = {
     reqType: TS_REQUIREMENT_TYPE.ONE,
     prerequisites: ["TS73"],
     type: "time",
-    exclusiveWith: "Antimatter or Infinity branch"
+    exclusiveWith: "Antimatter or Infinity branch is purchased"
   },
   "91": {
     id: 91,
@@ -211,7 +212,7 @@ const studies = {
     reqType: TS_REQUIREMENT_TYPE.ONE,
     prerequisites: ["TS82"],
     type: "infinity",
-    exclusiveWith: "Antimatter or Time branch"
+    exclusiveWith: "Antimatter or Time branch is purchased"
   },
   "93": {
     id: 93,
@@ -222,7 +223,7 @@ const studies = {
     reqType: TS_REQUIREMENT_TYPE.ONE,
     prerequisites: ["TS83"],
     type: "time",
-    exclusiveWith: "Antimatter or Infinity branch"
+    exclusiveWith: "Antimatter or Infinity branch is purchased"
   },
   "101": {
     id: 101,
@@ -233,7 +234,7 @@ const studies = {
     reqType: TS_REQUIREMENT_TYPE.ONE,
     prerequisites: ["TS91"],
     type: "antimatter",
-    exclusiveWith: "Infinity or Time branch"
+    exclusiveWith: "Infinity or Time branch is purchased"
   },
   "102": {
     id: 102,
@@ -244,7 +245,7 @@ const studies = {
     reqType: TS_REQUIREMENT_TYPE.ONE,
     prerequisites: ["TS92"],
     type: "infinity",
-    exclusiveWith: "Antimatter or Time branch"
+    exclusiveWith: "Antimatter or Time branch is purchased"
   },
   "103": {
     id: 103,
@@ -255,6 +256,7 @@ const studies = {
     reqType: TS_REQUIREMENT_TYPE.ONE,
     prerequisites: ["TS93"],
     type: "time",
+    exclusiveWith: "Antimatter or Infinity branch is purchased"
   },
   "111": {
     id: 111,
@@ -275,7 +277,7 @@ const studies = {
     colour: STUDY_COLOURS.ACTIVE,
     reqType: TS_REQUIREMENT_TYPE.ONE,
     type: "active",
-    exclusiveWith: "Passive or Idle branch"
+    exclusiveWith: "Passive or Idle branch is purchased"
   },
   "122": {
     id: 122,
@@ -285,7 +287,7 @@ const studies = {
     colour: STUDY_COLOURS.PASSIVE,
     reqType: TS_REQUIREMENT_TYPE.ONE,
     type: "passive",
-    exclusiveWith: "Active or Idle branch"
+    exclusiveWith: "Active or Idle branch is purchased"
   },
   "123": {
     id: 123,
@@ -296,7 +298,7 @@ const studies = {
     colour: STUDY_COLOURS.IDLE,
     reqType: TS_REQUIREMENT_TYPE.ONE,
     type: "idle",
-    exclusiveWith: "Active or Passive branch"
+    exclusiveWith: "Active or Passive branch is purchased"
   },
   "131": {
     id: 131,
@@ -306,7 +308,7 @@ const studies = {
     colour: STUDY_COLOURS.ACTIVE,
     reqType: TS_REQUIREMENT_TYPE.ONE,
     type: "active",
-    exclusiveWith: "Passive or Idle branch"
+    exclusiveWith: "Passive or Idle branch is purchased"
   },
   "132": {
     id: 132,
@@ -316,7 +318,7 @@ const studies = {
     colour: STUDY_COLOURS.PASSIVE,
     reqType: TS_REQUIREMENT_TYPE.ONE,
     type: "passive",
-    exclusiveWith: "Active or Idle branch"
+    exclusiveWith: "Active or Idle branch is purchased"
   },
   "133": {
     id: 133,
@@ -326,7 +328,7 @@ const studies = {
     colour: STUDY_COLOURS.IDLE,
     reqType: TS_REQUIREMENT_TYPE.ONE,
     type: "idle",
-    exclusiveWith: "Active or Passive branch"
+    exclusiveWith: "Active or Passive branch is purchased"
   },
   "141": {
     id: 141,
@@ -341,7 +343,7 @@ const studies = {
     reqType: TS_REQUIREMENT_TYPE.ONE,
     prerequisites: ["TS131"],
     type: "active",
-    exclusiveWith: "Passive or Idle branch"
+    exclusiveWith: "Passive or Idle branch is purchased"
   },
   "142": {
     id: 142,
@@ -351,7 +353,7 @@ const studies = {
     reqType: TS_REQUIREMENT_TYPE.ONE,
     prerequisites: ["TS132"],
     type: "passive",
-    exclusiveWith: "Active or Idle branch"
+    exclusiveWith: "Active or Idle branch is purchased"
   },
   "143": {
     id: 143,
@@ -366,7 +368,169 @@ const studies = {
     reqType: TS_REQUIREMENT_TYPE.ONE,
     prerequisites: ["TS133"],
     type: "idle",
-    exclusiveWith: "Active or Passive branch"
+    exclusiveWith: "Active or Passive branch is purchased"
+  },
+  "151": {
+    id: 151,
+    effect: "×1e4 multiplier on all Time Dimensions`",
+    cost: 8,
+    colour: STUDY_COLOURS.NORMAL,
+    reqType: TS_REQUIREMENT_TYPE.AT_LEAST_ONE,
+    prerequisites: ["TS141", "TS142", "TS143"],
+    type: "normal"
+  },
+  "161": {
+    id: 161,
+    effect: "×1e616 multiplier on all Antimatter Dimensions`",
+    cost: 7,
+    colour: STUDY_COLOURS.NORMAL,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    prerequisites: ["TS151"],
+    type: "normal"
+  },
+  "162": {
+    id: 162,
+    effect: "×1e11 multiplier on all Infinity Dimensions`",
+    cost: 7,
+    colour: STUDY_COLOURS.NORMAL,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    prerequisites: ["TS151"],
+    type: "normal"
+  },
+  "171": {
+    id: 171,
+    effect: "Time Shard requirement for the next Tickspeed upgrade goes up slower",
+    formula: "`×1.33` ➜ `×1.25`",
+    cost: 15,
+    colour: STUDY_COLOURS.NORMAL,
+    reqType: TS_REQUIREMENT_TYPE.AT_LEAST_ONE,
+    prerequisites: ["TS161", "TS162"],
+    type: "normal"
+  },
+  "181": {
+    id: 181,
+    effect: "You gain 1% of your Infinity Points gained on crunch each second",
+    cost: 200,
+    colour: STUDY_COLOURS.NORMAL,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    prerequisites: ["TS171"],
+    type: "normal",
+    exclusiveWith: "you have not completed EC1, 2, or 3 at least once",
+    isBestWaifu: "yes, TS181 is the best waifu"
+  },
+  "191": {
+    id: 191,
+    effect: "After Eternity you permanently keep 5% of your Infinities as Banked Infinities",
+    cost: 400,
+    colour: STUDY_COLOURS.NORMAL,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    prerequisites: ["TS181"],
+    type: "normal",
+    exclusiveWith: "you have not completed EC10 at least once"
+  },
+  "192": {
+    id: 192,
+    effect: "Replicanti can go beyond 1.8e308, but growth slows down at higher amounts",
+    cost: 730,
+    colour: STUDY_COLOURS.NORMAL,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    prerequisites: ["TS181"],
+    type: "normal",
+    exclusiveWith: "you have not completed EC10 at least once"
+  },
+  "193": {
+    id: 193,
+    effect: "Antimatter Dimension multiplier based on Eternities",
+    formula: "×`1e13000 ^ eternities / 1e6`, capping at ×1e13000",
+    cost: 300,
+    colour: STUDY_COLOURS.NORMAL,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    prerequisites: ["TS181"],
+    type: "normal",
+    exclusiveWith: "you have not completed EC10 at least once"
+  },
+  "201": {
+    id: 201,
+    effect: "Pick a second path from the Dimension Split",
+    cost: 900,
+    colour: STUDY_COLOURS.NORMAL,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    prerequisites: ["TS192"],
+    type: "normal",
+  },
+  "211": {
+    id: 211,
+    effect: "Dimension Boost requirement scaling is reduced by 5",
+    cost: 120,
+    colour: STUDY_COLOURS.NORMAL,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    prerequisites: ["TS191"],
+    type: "normal",
+  },
+  "212": {
+    id: 212,
+    effect: "All Galaxies are stronger based on your Time Shards",
+    formula: "`log2(time shards) ^ 0.005`",
+    cost: 150,
+    colour: STUDY_COLOURS.NORMAL,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    prerequisites: ["TS191"],
+    type: "normal",
+  },
+  "213": {
+    id: 213,
+    effect: "You gain Replicanti 20 times faster",
+    cost: 200,
+    colour: STUDY_COLOURS.NORMAL,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    prerequisites: ["TS193"],
+    type: "normal",
+  },
+  "214": {
+    id: 214,
+    effect: "Dimensional Sacrifice boosts the 8th Antimatter Dimension even more",
+    formula: `
+    \`boost = total sacrifice boost\`
+    \`first part = boost ^ 7.6\` (clamped at a max exponent of 44000)
+    \`second part = boost ^ 1.05\` (clamped at a max exponent of 120000)
+    final multiplier: \`first part * second part\` (capped at 1e164000)
+    `,
+    cost: 120,
+    colour: STUDY_COLOURS.NORMAL,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    prerequisites: ["TS193"],
+    type: "normal",
+  },
+  "221": {
+    id: 221,
+    effect: "Time Dimension multiplier based on Dimension Boosts",
+    formula: "`1.0025 ^ dimension boosts`",
+    cost: 900,
+    colour: STUDY_COLOURS.LIGHT,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    prerequisites: ["TS211"],
+    type: "light",
+    exclusiveWith: "TS222 is purchased"
+  },
+  "222": {
+    id: 222,
+    effect: "Dimension Boost costs scale by another 2 less",
+    cost: 900,
+    colour: STUDY_COLOURS.DARK,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    prerequisites: ["TS211"],
+    type: "dark",
+    exclusiveWith: "TS221 is purchased"
+  },
+  "223": {
+    id: 223,
+    effect: "Distant Galaxy cost scaling starts 7 Galaxies later",
+    cost: 900,
+    colour: STUDY_COLOURS.LIGHT,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    prerequisites: ["TS212"],
+    type: "light",
+    exclusiveWith: "TS224 is purchased"
   },
   "224": {
     id: 224,
@@ -376,7 +540,7 @@ const studies = {
     prerequisites: ["TS212"],
     colour: STUDY_COLOURS.DARK,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    exclusiveWith: "TS223",
+    exclusiveWith: "TS223 is purchased",
     type: "dark"
   },
   "225": {
@@ -387,9 +551,86 @@ const studies = {
     prerequisites: ["TS213"],
     colour: STUDY_COLOURS.LIGHT,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    exclusiveWith: "TS226",
+    exclusiveWith: "TS226 is purchased",
     type: "light"
-  }
+  },
+  "226": {
+    id: 226,
+    effect: "You gain extra Replicanti Galaxies based on their max",
+    formula: "`floor(max replicanti galaxy upgrades bought / 15)`",
+    cost: 900,
+    colour: STUDY_COLOURS.DARK,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    prerequisites: ["TS213"],
+    type: "dark",
+    exclusiveWith: "TS225 is purchased"
+  },
+  "227": {
+    id: 227,
+    effect: "Dimensional Sacrifice affects 4th Time Dimension with reduced effect",
+    formula: "`max(log10(sacrifice boost) ^ 10, 1)`",
+    cost: 900,
+    colour: STUDY_COLOURS.LIGHT,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    prerequisites: ["TS214"],
+    type: "light",
+    exclusiveWith: "TS228 is purchased"
+  },
+  "228": {
+    id: 228,
+    effect: "Dimensional Sacrifice formula scales better",
+    formula: "`AD1^0.011` -> `AD1^0.013`",
+    cost: 900,
+    colour: STUDY_COLOURS.DARK,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    prerequisites: ["TS214"],
+    type: "dark",
+    exclusiveWith: "TS227 is purchased"
+  },
+  "231": {
+    id: 231,
+    effect: "Dimension Boosts are stronger based on their amount",
+    formula: "`dimension boosts ^ 0.3`",
+    cost: 500,
+    colour: STUDY_COLOURS.LIGHT,
+    // We're about to do something really fucking stupid
+    reqType: TS_REQUIREMENT_TYPE.OR("TS221", "TS222"),
+    prerequisites: [],
+    type: "light",
+    exclusiveWith: "TS232 is purchased"
+  },
+  "232": {
+    id: 232,
+    effect: "All Galaxies are stronger based on Antimatter Galaxies",
+    formula: "`(1 + galaxies / 1000) ^ 0.2`",
+    cost: 500,
+    colour: STUDY_COLOURS.DARK,
+    reqType: TS_REQUIREMENT_TYPE.OR("TS223", "TS224"),
+    prerequisites: [],
+    type: "dark",
+    exclusiveWith: "TS231 is purchased"
+  },
+  "233": {
+    id: 233,
+    effect: "Max Replicanti Galaxy upgrade is cheaper based on current Replicanti",
+    formula: "`replicanti ^ 0.3`",
+    cost: 500,
+    colour: STUDY_COLOURS.LIGHT,
+    reqType: TS_REQUIREMENT_TYPE.OR("TS225", "TS226"),
+    prerequisites: [],
+    type: "light",
+    exclusiveWith: "TS234 is purchased"
+  },
+  "234": {
+    id: 234,
+    effect: "Dimensional Sacrifice applies to 1st Antimatter Dimension",
+    cost: 500,
+    colour: STUDY_COLOURS.DARK,
+    reqType: TS_REQUIREMENT_TYPE.OR("TS227", "TS228"),
+    prerequisites: [],
+    type: "dark",
+    exclusiveWith: "TS233 is purchased"
+  },
 };
 
 function getFields(studyInfo) {
@@ -402,7 +643,10 @@ function getFields(studyInfo) {
     fields.push({ name: "Formula", value: `${studyInfo.formula}` });
   }
   if (studyInfo.exclusiveWith) {
-    fields.push({ name: "Cannot be purchased if", value: `${studyInfo.exclusiveWith} is purchased` });
+    fields.push({ name: "Cannot be purchased if", value: `${studyInfo.exclusiveWith}` });
+  }
+  if (studyInfo.isBestWaifu) {
+    fields.push({ name: "Is best waifu?", value: `${studyInfo.isBestWaifu}` });
   }
   return fields;
 }
