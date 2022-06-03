@@ -1,6 +1,6 @@
 "use strict";
 
-const { trees } = require("../../utils/trees");
+const { trees } = require("../../utils/databases/trees");
 
 
 class Tree {

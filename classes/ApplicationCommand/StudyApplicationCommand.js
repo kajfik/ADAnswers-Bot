@@ -2,7 +2,7 @@
 
 const { MessageAttachment } = require("discord.js");
 const { ApplicationCommand } = require("./ApplicationCommand");
-const { studies } = require("../../utils/studies");
+const { studies } = require("../../utils/databases/studies");
 
 class StudyApplicationCommand extends ApplicationCommand {
   execute(interaction) {

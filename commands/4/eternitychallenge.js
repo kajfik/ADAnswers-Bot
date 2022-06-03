@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 "use strict";
 
-const ECs = require("../../utils/ecs");
+const ECs = require("../../utils/databases/ecs");
 const { ChallengeApplicationCommand } = require("../../classes/ApplicationCommand/ChallengeApplicationCommand");
 const { MessageEmbed } = require("discord.js");
 

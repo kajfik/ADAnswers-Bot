@@ -2,7 +2,7 @@
 "use strict";
 
 const { AchievementApplicationCommand } = require("../../classes/ApplicationCommand/AchievementApplicationCommand");
-const { achievements } = require("../../utils/achievements");
+const { achievements } = require("../../utils/databases/achievements");
 
 /* eslint-disable no-negated-condition */
 

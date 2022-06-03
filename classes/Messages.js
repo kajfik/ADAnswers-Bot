@@ -1,6 +1,6 @@
 "use strict";
 
-const messages = require("../utils/actualMessages");
+const messages = require("../utils/databases/actualMessages");
 const { Time } = require("./FunctionClasses/Time");
 const { Misc } = require("./FunctionClasses/Misc");
 

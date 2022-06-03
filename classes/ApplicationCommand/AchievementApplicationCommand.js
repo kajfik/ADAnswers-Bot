@@ -2,7 +2,7 @@
 
 const { MessageAttachment } = require("discord.js");
 const { ApplicationCommand } = require("./ApplicationCommand");
-const { Achievement, achievements } = require("../../utils/achievements");
+const { Achievement, achievements } = require("../../utils/databases/achievements");
 
 /**
  * @class AchievementApplicationCommand

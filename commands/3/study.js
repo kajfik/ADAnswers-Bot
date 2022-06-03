@@ -1,7 +1,7 @@
 "use strict";
 
 const { StudyApplicationCommand } = require("../../classes/ApplicationCommand/StudyApplicationCommand");
-const { studies, TimeStudy } = require("../../utils/studies");
+const { studies, TimeStudy } = require("../../utils/databases/studies");
 
 module.exports = {
   command: new StudyApplicationCommand({

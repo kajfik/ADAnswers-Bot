@@ -56,7 +56,7 @@ class Help {
         title: `Help (p${this.page}/${this.fieldsArray.length - 1})`,
         description: this.getHelpDescription(),
         fields: this.page === 69
-          ? this.fieldsArray.last()
+          ? this.fieldsArray[this.fieldsArray.length - 1]
           : this.fieldsArray[this.page - 1],
         timestamp: new Date(),
         footer: {
