@@ -602,7 +602,7 @@ const achievements = {
     fullName: "No ethical consumption",
     achievement: `Get 5e9 Banked Infinities`,
     reward: `After Eternity you permanently keep 5% of your Infinities as Banked Infinities (stacks with TS191 to a total of 10%)`,
-    strategy: `See \`/infinitygrinding late\`. Done in conjunction with r134 (When Will It Be Enough).`,
+    strategy: `See \`/infinitygrinding late\`. Done in conjunction with r134 (When will it be enough?).`,
   },
   "132": {
     id: 132,
@@ -623,7 +623,7 @@ const achievements = {
   },
   "134": {
     id: 134,
-    fullName: "When Will It Be Enough",
+    fullName: "When will it be enough?",
     achievement: `Reach 1e18,000 Replicanti`,
     reward: `You gain Replicanti 2 times faster under 1.8e308 Replicanti`,
     strategy: `Disable RG autobuyer while grinding banked infinities and wait. Done in conjunction with r131 (No Ethical Consumption). Takes 9 hours on mobile, 30 on web.`

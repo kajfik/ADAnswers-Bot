@@ -23,6 +23,19 @@ const STUDY_COLOURS = {
   LIGHT: "#ffffff"
 };
 
+const TREE_CONSTANTS = {
+  PRE_SPLIT_EARLY: "11,21,33,31,41",
+  PRE_SPLIT: "11,22,32,42,51,61",
+  EXTRA: "21,31,41,33,62",
+  ANTIMATTER: "71,81,91,101",
+  INFINITY: "72,82,92,102",
+  TIME: "73,83,93,103",
+  ACTIVE: "121,131,141",
+  PASSIVE: "122,132,142",
+  IDLE: "123,133,143",
+  POST_SPLIT: "151,161,171,181,162",
+};
+
 const studies = {
   "11": {
     id: 11,
@@ -660,5 +673,6 @@ const TimeStudy = studyInfo => new MessageEmbed()
 
 module.exports = {
   studies,
-  TimeStudy
+  TimeStudy,
+  TREE_CONSTANTS
 };
