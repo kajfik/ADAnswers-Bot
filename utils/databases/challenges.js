@@ -58,7 +58,7 @@ const challenges = {
   "c7": {
     number: 7,
     requirements: `Reach Infinity`,
-    challenge: `Web: \n
+    challenge: `Web: Multiplier per 10 dimensions is random from 0.30 and 10 \n
                   Mobile: The multiplier from buying 10 Antimatter Dimensions is reduced to ×1, but is increased by ×0.2 per Dimension Boost, up to a maximum of ×2.`,
     strategy: base,
     reward: `7th Antimatter Dimension autobuyer`,

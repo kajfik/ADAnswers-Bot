@@ -24,16 +24,16 @@ const STUDY_COLOURS = {
 };
 
 const TREE_CONSTANTS = {
-  PRE_SPLIT_EARLY: "11,21,33,31,41",
-  PRE_SPLIT: "11,22,32,42,51,61",
-  EXTRA: "21,31,41,33,62",
-  ANTIMATTER: "71,81,91,101",
-  INFINITY: "72,82,92,102",
-  TIME: "73,83,93,103",
-  ACTIVE: "121,131,141",
-  PASSIVE: "122,132,142",
-  IDLE: "123,133,143",
-  POST_SPLIT: "151,161,171,181,162",
+  PRE_SPLIT_EARLY: [11, 21, 33, 31, 41],
+  PRE_SPLIT: [11, 22, 32, 42, 51, 61],
+  EXTRA: [21, 31, 41, 33, 62],
+  ANTIMATTER: [71, 81, 91, 101],
+  INFINITY: [72, 82, 92, 102],
+  TIME: [73, 83, 93, 103],
+  ACTIVE: [121, 131, 141],
+  PASSIVE: [122, 132, 142],
+  IDLE: [123, 133, 143],
+  POST_SPLIT: [151, 161, 171, 181, 162],
 };
 
 const studies = {
@@ -671,8 +671,22 @@ const TimeStudy = studyInfo => new MessageEmbed()
   .setTimestamp()
   .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
 
+function getAffordableStudiesFromStudyList(list, theorems) {
+  let remainingTheorems = theorems;
+  const affordableStudies = [];
+  for (const studyId of list) {
+    const study = studies[`${studyId}`];
+    if (study.cost <= remainingTheorems) {
+      affordableStudies.push(study.id);
+      remainingTheorems -= study.cost;
+    }
+  }
+  return affordableStudies;
+}
+
 module.exports = {
   studies,
   TimeStudy,
-  TREE_CONSTANTS
+  TREE_CONSTANTS,
+  getAffordableStudiesFromStudyList
 };

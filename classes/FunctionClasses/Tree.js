@@ -1,5 +1,6 @@
 "use strict";
 
+const { getAffordableStudiesFromStudyList } = require("../../utils/databases/studies");
 const { trees } = require("../../utils/databases/trees");
 
 
@@ -22,9 +23,10 @@ class Tree {
   generateTree() {
     for (const tree of this.trees) {
       if (this.theorems >= tree.requirement) {
+        const affordableStudies = getAffordableStudiesFromStudyList(tree.ts, this.theorems);
         return `${tree.desc === undefined
           ? ""
-          : `${tree.desc} `}\`${tree.ts.join(",")}|0\``;
+          : `${tree.desc} `}\`${affordableStudies.join(",")}|0\``;
       }
     }
     return "Oh no! This message should never appear. Please submit a bug report to earth so that he can fix this.";
