@@ -8,7 +8,7 @@ const TS_REQUIREMENT_TYPE = {
   AT_LEAST_ONE: "At least one of",
   ALL: "All of",
   ONE: "",
-  OR: (one, two) => `${one} or ${two}`,
+  OR: (one, two) => `TS${one} or TS${two}`,
 };
 
 const STUDY_COLOURS = {
@@ -44,7 +44,7 @@ const studies = {
     cost: 1,
     colour: STUDY_COLOURS.NORMAL,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["None"],
+    prerequisites: [],
     type: "normal"
   },
   "21": {
@@ -53,7 +53,7 @@ const studies = {
     cost: 3,
     colour: STUDY_COLOURS.NORMAL,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS11"],
+    prerequisites: [11],
     type: "normal"
   },
   "22": {
@@ -62,7 +62,7 @@ const studies = {
     cost: 2,
     colour: STUDY_COLOURS.NORMAL,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS11"],
+    prerequisites: [11],
     type: "normal"
   },
   "31": {
@@ -72,7 +72,7 @@ const studies = {
     cost: 3,
     colour: STUDY_COLOURS.NORMAL,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS21"],
+    prerequisites: [21],
     type: "normal"
   },
   "32": {
@@ -82,7 +82,7 @@ const studies = {
     cost: 2,
     colour: STUDY_COLOURS.NORMAL,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS22"],
+    prerequisites: [22],
     type: "normal"
   },
   "33": {
@@ -91,7 +91,7 @@ const studies = {
     cost: 2,
     colour: STUDY_COLOURS.NORMAL,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS22"],
+    prerequisites: [22],
     type: "normal"
   },
   "41": {
@@ -100,7 +100,7 @@ const studies = {
     cost: 4,
     colour: STUDY_COLOURS.NORMAL,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS31"],
+    prerequisites: [31],
     type: "normal"
   },
   "42": {
@@ -109,7 +109,7 @@ const studies = {
     cost: 6,
     colour: STUDY_COLOURS.NORMAL,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS32"],
+    prerequisites: [32],
     type: "normal"
   },
   "51": {
@@ -118,7 +118,7 @@ const studies = {
     cost: 3,
     colour: STUDY_COLOURS.NORMAL,
     reqType: TS_REQUIREMENT_TYPE.AT_LEAST_ONE,
-    prerequisites: ["TS41", "TS42"],
+    prerequisites: [41, 42],
     type: "normal"
   },
   "61": {
@@ -127,14 +127,15 @@ const studies = {
     cost: 3,
     colour: STUDY_COLOURS.NORMAL,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS51"],
+    prerequisites: [51],
     type: "normal"
   },
   "62": {
     id: 62,
     effect: "You gain Replicanti 3 times faster",
     cost: 3,
-    prerequisites: ["TS42", "1 or more EC5 completion"],
+    prerequisites: [42],
+    additionalPrerequisites: ["1 or more EC5 completion"],
     colour: STUDY_COLOURS.NORMAL,
     reqType: TS_REQUIREMENT_TYPE.ONE,
     type: "normal"
@@ -147,7 +148,7 @@ const studies = {
     cost: 4,
     colour: STUDY_COLOURS.ANTIMATTER,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS61"],
+    prerequisites: [61],
     type: "antimatter",
     exclusiveWith: "Infinity or Time branch is purchased"
   },
@@ -158,7 +159,7 @@ const studies = {
     cost: 6,
     colour: STUDY_COLOURS.INFINITY,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS61"],
+    prerequisites: [61],
     type: "infinity",
     exclusiveWith: "Antimatter or Time branch is purchased"
   },
@@ -169,7 +170,7 @@ const studies = {
     cost: 5,
     colour: STUDY_COLOURS.TIME,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS61"],
+    prerequisites: [61],
     type: "time",
     exclusiveWith: "Antimatter or Infinity branch is purchased"
   },
@@ -179,7 +180,7 @@ const studies = {
     cost: 4,
     colour: STUDY_COLOURS.ANTIMATTER,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS71"],
+    prerequisites: [71],
     type: "antimatter",
     exclusiveWith: "Infinity or Time branch"
   },
@@ -190,7 +191,7 @@ const studies = {
     cost: 6,
     colour: STUDY_COLOURS.INFINITY,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS72"],
+    prerequisites: [72],
     type: "infinity",
     exclusiveWith: "Antimatter or Time branch is purchased"
   },
@@ -201,7 +202,7 @@ const studies = {
     cost: 5,
     colour: STUDY_COLOURS.TIME,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS73"],
+    prerequisites: [73],
     type: "time",
     exclusiveWith: "Antimatter or Infinity branch is purchased"
   },
@@ -212,7 +213,7 @@ const studies = {
     cost: 4,
     colour: STUDY_COLOURS.ANTIMATTER,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS81"],
+    prerequisites: [81],
     type: "antimatter",
     exclusiveWith: "Infinity or Time branch"
   },
@@ -223,7 +224,7 @@ const studies = {
     cost: 5,
     colour: STUDY_COLOURS.INFINITY,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS82"],
+    prerequisites: [82],
     type: "infinity",
     exclusiveWith: "Antimatter or Time branch is purchased"
   },
@@ -234,7 +235,7 @@ const studies = {
     cost: 7,
     colour: STUDY_COLOURS.TIME,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS83"],
+    prerequisites: [83],
     type: "time",
     exclusiveWith: "Antimatter or Infinity branch is purchased"
   },
@@ -245,7 +246,7 @@ const studies = {
     cost: 4,
     colour: STUDY_COLOURS.ANTIMATTER,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS91"],
+    prerequisites: [91],
     type: "antimatter",
     exclusiveWith: "Infinity or Time branch is purchased"
   },
@@ -256,7 +257,7 @@ const studies = {
     cost: 6,
     colour: STUDY_COLOURS.INFINITY,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS92"],
+    prerequisites: [92],
     type: "infinity",
     exclusiveWith: "Antimatter or Time branch is purchased"
   },
@@ -267,7 +268,7 @@ const studies = {
     cost: 6,
     colour: STUDY_COLOURS.TIME,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS93"],
+    prerequisites: [93],
     type: "time",
     exclusiveWith: "Antimatter or Infinity branch is purchased"
   },
@@ -278,7 +279,7 @@ const studies = {
     cost: 12,
     colour: STUDY_COLOURS.NORMAL,
     reqType: TS_REQUIREMENT_TYPE.AT_LEAST_ONE,
-    prerequisites: ["TS101", "TS102", "TS103"],
+    prerequisites: [101, 102, 103],
     type: "normal"
   },
   "121": {
@@ -286,7 +287,7 @@ const studies = {
     effect: `You gain more EP based on how fast your last ten Eternities were`,
     formula: "`250 / average time per eternity`, capped at 50",
     cost: 9,
-    prerequisites: ["TS111"],
+    prerequisites: [111],
     colour: STUDY_COLOURS.ACTIVE,
     reqType: TS_REQUIREMENT_TYPE.ONE,
     type: "active",
@@ -296,7 +297,7 @@ const studies = {
     id: 122,
     effect: `You gain ×35 more Eternity Points`,
     cost: 9,
-    prerequisites: ["TS111"],
+    prerequisites: [111],
     colour: STUDY_COLOURS.PASSIVE,
     reqType: TS_REQUIREMENT_TYPE.ONE,
     type: "passive",
@@ -307,7 +308,7 @@ const studies = {
     effect: "You gain more Eternity Points based on time spent this Eternity",
     formula: "`sqrt(time in this eternity in seconds * 1.39)`",
     cost: 9,
-    prerequisites: ["TS111"],
+    prerequisites: [111],
     colour: STUDY_COLOURS.IDLE,
     reqType: TS_REQUIREMENT_TYPE.ONE,
     type: "idle",
@@ -317,7 +318,7 @@ const studies = {
     id: 131,
     effect: "Automatic Replicanti Galaxies are disabled, but you can get 50% more",
     cost: 5,
-    prerequisites: ["TS121"],
+    prerequisites: [121],
     colour: STUDY_COLOURS.ACTIVE,
     reqType: TS_REQUIREMENT_TYPE.ONE,
     type: "active",
@@ -327,7 +328,7 @@ const studies = {
     id: 132,
     effect: "Replicanti Galaxies are 40% stronger",
     cost: 5,
-    prerequisites: ["TS122"],
+    prerequisites: [122],
     colour: STUDY_COLOURS.PASSIVE,
     reqType: TS_REQUIREMENT_TYPE.ONE,
     type: "passive",
@@ -337,7 +338,7 @@ const studies = {
     id: 133,
     effect: "Replicanti are ×10 slower until 1.8e308 but Replicanti Galaxies are 50% stronger",
     cost: 5,
-    prerequisites: ["TS123"],
+    prerequisites: [123],
     colour: STUDY_COLOURS.IDLE,
     reqType: TS_REQUIREMENT_TYPE.ONE,
     type: "idle",
@@ -354,7 +355,7 @@ const studies = {
     cost: 4,
     colour: STUDY_COLOURS.ACTIVE,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS131"],
+    prerequisites: [131],
     type: "active",
     exclusiveWith: "Passive or Idle branch is purchased"
   },
@@ -364,7 +365,7 @@ const studies = {
     cost: 4,
     colour: STUDY_COLOURS.PASSIVE,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS132"],
+    prerequisites: [132],
     type: "passive",
     exclusiveWith: "Active or Idle branch is purchased"
   },
@@ -379,7 +380,7 @@ const studies = {
     cost: 4,
     colour: STUDY_COLOURS.IDLE,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS133"],
+    prerequisites: [133],
     type: "idle",
     exclusiveWith: "Active or Passive branch is purchased"
   },
@@ -389,7 +390,7 @@ const studies = {
     cost: 8,
     colour: STUDY_COLOURS.NORMAL,
     reqType: TS_REQUIREMENT_TYPE.AT_LEAST_ONE,
-    prerequisites: ["TS141", "TS142", "TS143"],
+    prerequisites: [141, 142, 143],
     type: "normal"
   },
   "161": {
@@ -398,7 +399,7 @@ const studies = {
     cost: 7,
     colour: STUDY_COLOURS.NORMAL,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS151"],
+    prerequisites: [151],
     type: "normal"
   },
   "162": {
@@ -407,7 +408,7 @@ const studies = {
     cost: 7,
     colour: STUDY_COLOURS.NORMAL,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS151"],
+    prerequisites: [151],
     type: "normal"
   },
   "171": {
@@ -417,7 +418,7 @@ const studies = {
     cost: 15,
     colour: STUDY_COLOURS.NORMAL,
     reqType: TS_REQUIREMENT_TYPE.AT_LEAST_ONE,
-    prerequisites: ["TS161", "TS162"],
+    prerequisites: [161, 162],
     type: "normal"
   },
   "181": {
@@ -426,7 +427,7 @@ const studies = {
     cost: 200,
     colour: STUDY_COLOURS.NORMAL,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS171"],
+    prerequisites: [171],
     type: "normal",
     exclusiveWith: "you have not completed EC1, 2, or 3 at least once",
     isBestWaifu: "yes, TS181 is the best waifu"
@@ -437,7 +438,7 @@ const studies = {
     cost: 400,
     colour: STUDY_COLOURS.NORMAL,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS181"],
+    prerequisites: [181],
     type: "normal",
     exclusiveWith: "you have not completed EC10 at least once"
   },
@@ -447,7 +448,7 @@ const studies = {
     cost: 730,
     colour: STUDY_COLOURS.NORMAL,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS181"],
+    prerequisites: [181],
     type: "normal",
     exclusiveWith: "you have not completed EC10 at least once"
   },
@@ -458,7 +459,7 @@ const studies = {
     cost: 300,
     colour: STUDY_COLOURS.NORMAL,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS181"],
+    prerequisites: [181],
     type: "normal",
     exclusiveWith: "you have not completed EC10 at least once"
   },
@@ -468,7 +469,7 @@ const studies = {
     cost: 900,
     colour: STUDY_COLOURS.NORMAL,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS192"],
+    prerequisites: [192],
     type: "normal",
   },
   "211": {
@@ -477,7 +478,7 @@ const studies = {
     cost: 120,
     colour: STUDY_COLOURS.NORMAL,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS191"],
+    prerequisites: [191],
     type: "normal",
   },
   "212": {
@@ -487,7 +488,7 @@ const studies = {
     cost: 150,
     colour: STUDY_COLOURS.NORMAL,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS191"],
+    prerequisites: [191],
     type: "normal",
   },
   "213": {
@@ -496,7 +497,7 @@ const studies = {
     cost: 200,
     colour: STUDY_COLOURS.NORMAL,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS193"],
+    prerequisites: [193],
     type: "normal",
   },
   "214": {
@@ -511,7 +512,7 @@ const studies = {
     cost: 120,
     colour: STUDY_COLOURS.NORMAL,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS193"],
+    prerequisites: [193],
     type: "normal",
   },
   "221": {
@@ -521,7 +522,7 @@ const studies = {
     cost: 900,
     colour: STUDY_COLOURS.LIGHT,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS211"],
+    prerequisites: [211],
     type: "light",
     exclusiveWith: "TS222 is purchased"
   },
@@ -531,7 +532,7 @@ const studies = {
     cost: 900,
     colour: STUDY_COLOURS.DARK,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS211"],
+    prerequisites: [211],
     type: "dark",
     exclusiveWith: "TS221 is purchased"
   },
@@ -541,7 +542,7 @@ const studies = {
     cost: 900,
     colour: STUDY_COLOURS.LIGHT,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS212"],
+    prerequisites: [212],
     type: "light",
     exclusiveWith: "TS224 is purchased"
   },
@@ -550,7 +551,7 @@ const studies = {
     effect: `Distant Galaxy cost scaling starts later (1 per 2000 Dim Boosts)`,
     formula: "`floor(boosts / 2000)`",
     cost: 900,
-    prerequisites: ["TS212"],
+    prerequisites: [212],
     colour: STUDY_COLOURS.DARK,
     reqType: TS_REQUIREMENT_TYPE.ONE,
     exclusiveWith: "TS223 is purchased",
@@ -561,7 +562,7 @@ const studies = {
     effect: "You gain extra Replicanti Galaxies based on your Replicanti amount",
     formula: "`floor(log10(replicanti) / 1000)`",
     cost: 900,
-    prerequisites: ["TS213"],
+    prerequisites: [213],
     colour: STUDY_COLOURS.LIGHT,
     reqType: TS_REQUIREMENT_TYPE.ONE,
     exclusiveWith: "TS226 is purchased",
@@ -574,7 +575,7 @@ const studies = {
     cost: 900,
     colour: STUDY_COLOURS.DARK,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS213"],
+    prerequisites: [213],
     type: "dark",
     exclusiveWith: "TS225 is purchased"
   },
@@ -585,7 +586,7 @@ const studies = {
     cost: 900,
     colour: STUDY_COLOURS.LIGHT,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS214"],
+    prerequisites: [214],
     type: "light",
     exclusiveWith: "TS228 is purchased"
   },
@@ -596,7 +597,7 @@ const studies = {
     cost: 900,
     colour: STUDY_COLOURS.DARK,
     reqType: TS_REQUIREMENT_TYPE.ONE,
-    prerequisites: ["TS214"],
+    prerequisites: [214],
     type: "dark",
     exclusiveWith: "TS227 is purchased"
   },
@@ -607,8 +608,8 @@ const studies = {
     cost: 500,
     colour: STUDY_COLOURS.LIGHT,
     // We're about to do something really fucking stupid
-    reqType: TS_REQUIREMENT_TYPE.OR("TS221", "TS222"),
-    prerequisites: [],
+    reqType: TS_REQUIREMENT_TYPE.OR(221, 222),
+    prerequisites: [221, 222],
     type: "light",
     exclusiveWith: "TS232 is purchased"
   },
@@ -618,8 +619,8 @@ const studies = {
     formula: "`(1 + galaxies / 1000) ^ 0.2`",
     cost: 500,
     colour: STUDY_COLOURS.DARK,
-    reqType: TS_REQUIREMENT_TYPE.OR("TS223", "TS224"),
-    prerequisites: [],
+    reqType: TS_REQUIREMENT_TYPE.OR(223, 224),
+    prerequisites: [223, 224],
     type: "dark",
     exclusiveWith: "TS231 is purchased"
   },
@@ -629,8 +630,8 @@ const studies = {
     formula: "`replicanti ^ 0.3`",
     cost: 500,
     colour: STUDY_COLOURS.LIGHT,
-    reqType: TS_REQUIREMENT_TYPE.OR("TS225", "TS226"),
-    prerequisites: [],
+    reqType: TS_REQUIREMENT_TYPE.OR(225, 226),
+    prerequisites: [225, 226],
     type: "light",
     exclusiveWith: "TS234 is purchased"
   },
@@ -639,8 +640,8 @@ const studies = {
     effect: "Dimensional Sacrifice applies to 1st Antimatter Dimension",
     cost: 500,
     colour: STUDY_COLOURS.DARK,
-    reqType: TS_REQUIREMENT_TYPE.OR("TS227", "TS228"),
-    prerequisites: [],
+    reqType: TS_REQUIREMENT_TYPE.OR(227, 228),
+    prerequisites: [227, 228],
     type: "dark",
     exclusiveWith: "TS233 is purchased"
   },
@@ -650,8 +651,16 @@ function getFields(studyInfo) {
   const fields = [
     { name: "Effect", value: `${studyInfo.effect}` },
     { name: "Cost", value: `${studyInfo.cost} Time Theorems` },
-    { name: "Prerequisites", value: `${studyInfo.reqType} ${studyInfo.prerequisites.join(", ")}` }
   ];
+  if (studyInfo.id === 11) {
+    fields.push({ name: "Prerequisites", value: `None` });
+  } else if (studyInfo.prerequisites.length === 0) {
+    fields.push({ name: "Prerequisites", value: `${studyInfo.reqType}` });
+  } else {
+    fields.push({
+      name: "Prerequisites",
+      value: `${studyInfo.reqType} TS${studyInfo.prerequisites.join(", TS")} ${studyInfo.additionalPrerequisites ? `and ${studyInfo.additionalPrerequisites}` : ``}` });
+  }
   if (studyInfo.formula) {
     fields.push({ name: "Formula", value: `${studyInfo.formula}` });
   }
@@ -677,8 +686,14 @@ function getAffordableStudiesFromStudyList(list, theorems) {
   for (const studyId of list) {
     const study = studies[`${studyId}`];
     if (study.cost <= remainingTheorems) {
-      affordableStudies.push(study.id);
-      remainingTheorems -= study.cost;
+      // If ANY of the study's prerequisites are in affordable studies, we can purchase it. Otherwise, we can't.
+      // Some studies have multiple possible prerequisites, but we only need one of them in order for us to purchase the next study
+      // Some studies have no prerequisites so we can always purchase them
+      // TS11 has no prerequisites, so we have an extra OR to see if it's the study we're thinking about buying
+      if (study.prerequisites.some(r => affordableStudies.includes(r)) || study.id === 11) {
+        affordableStudies.push(studyId);
+        remainingTheorems -= study.cost;
+      }
     }
   }
   return affordableStudies;

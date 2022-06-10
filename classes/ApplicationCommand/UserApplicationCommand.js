@@ -7,6 +7,10 @@ const Global = require("../../utils/constants");
 
 class UserApplicationCommand extends ApplicationCommand {
   async execute(interaction) {
+    if (interaction.channel.type === "DM") {
+      interaction.reply("This command can only be used in a server.");
+      return;
+    }
     const user = this.getArgs(interaction);
     const info = await this.getUserInfo(user, interaction);
     const embed = new MessageEmbed()
