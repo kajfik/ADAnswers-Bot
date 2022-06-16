@@ -154,9 +154,9 @@ const challenges = {
     strategy: `You can attempt IC4 at e68+ IP.
 
     **Before challenge:**
-    - set Sacrifice autobuyer to 1e30x 
-    - set Dimboost limit (or "Max 8ths used on reset" on web) to 4
-    - set "Galaxies required to always Dimboost" to 100
+    - on **web**: set "Max 8ths used on reset" to 4, "Galaxies required to always Dimboost" to 100, "Bulk DimBoost Amount" to 1, and "Max Galaxies" to 10000
+    - on **mobile**: set "Buy max every X seconds" to 0, enable "Limit Dimboosts to 4 until X Galaxies" at 100, and disable "Limit Galaxies to"
+    - set Sacrifice autobuyer to 1e30x
     - disable Dimension autobuyers 1-7
     - keep Dimension 8, Tickspeed, Dimboost, and Galaxy autobuyers enabled
     

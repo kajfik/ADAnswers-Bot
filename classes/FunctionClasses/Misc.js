@@ -42,6 +42,12 @@ class Misc {
   static capitalise(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
+
+  static formatNumber(number) {
+    const exponent = Math.floor(Math.log10(number));
+    const mantissa = number / Math.pow(10, exponent);
+    return `${mantissa.toFixed(2)}e${exponent}`;
+  }
 }
 
 module.exports = { Misc };

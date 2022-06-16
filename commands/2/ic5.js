@@ -12,8 +12,8 @@ module.exports = {
     type: "shorthand",
     check: "weirdICsCheck",
     getArgMessage() {
-      return ChallengeCommand.command.messageObject.ic5;
+      return ChallengeCommand.command.getArgMessage("ic5", "strategy");
     },
-    sent: [ChallengeCommand.command.messageObject.ic5],
+    sent: [ChallengeCommand.command.getArgMessage("ic5", "strategy")],
   })
 };

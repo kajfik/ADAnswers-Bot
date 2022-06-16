@@ -9,6 +9,7 @@ const infinitygrindingCommand = require("../commands/3/infinitygrinding");
 const RealityCommand = require("../commands/8/reality");
 const PeopleCommand = require("../commands/69/people");
 const HowtoplayCommand = require("../commands/6/howtoplay");
+const { upgrades } = require("./databases/upgrades");
 
 /**
  * @param {string} command - The command to get the message object for.
@@ -41,12 +42,27 @@ function htpChoices(which) {
   return choices;
 }
 
+function upgradeChoices(which) {
+  const choices = [];
+  const upgradesToIterate = upgrades[which];
+  for (const thing in upgradesToIterate) {
+    const upgrade = upgradesToIterate[thing];
+    choices.push({
+      name: upgrade.id,
+      value: upgrade.id,
+      type: "STRING"
+    });
+  }
+  return choices;
+}
+
 /**
  * Gets the choices for a specific command.
  * @param {string} command - The command to get the choices for.
  * @param {string} which - Used in eternitychallenge for getting both completions and challenges.
  * @returns {Array} - The choices for the command.
  */
+// eslint-disable-next-line complexity
 function getChoices(command, which) {
   const choices = [];
   if (command === "achievements") {
@@ -105,6 +121,8 @@ function getChoices(command, which) {
     }
   } else if (command === "howtoplay") {
     return htpChoices(which);
+  } else if (command === "upgrade") {
+    return upgradeChoices(which);
   } else {
     for (const ach in getMessageObject(command)) {
       choices.push({
@@ -160,7 +178,7 @@ module.exports = {
     },
     {
       name: "antitables",
-      description: "Args: `prebreak`, `postbreak`, `posteternity`. Sends a guide to Antitables.",
+      description: "Args: prebreak, postbreak, posteternity. Sends a guide to Antitables.",
       options: [{
         name: "when",
         type: "STRING",
@@ -189,7 +207,7 @@ module.exports = {
     { name: "c9", description: "shorthand for `/challenge c9`" },
     {
       name: "challenge",
-      description: "Args: all challenges, including `ecs`. Returns a guide for each argument.",
+      description: "Args: all challenges. Use /ec for eternity challenges. Returns a guide for each argument.",
       options: [{
         name: "challenge",
         type: "STRING",
@@ -269,11 +287,11 @@ module.exports = {
     },
     {
       name: "dilationtrees",
-      description: "Sends a tree for your progress in dilation, `first` or `after3paths`",
+      description: "Sends a tree for your progress in dilation, first or after3paths",
       options: [{
         name: "when",
         type: "STRING",
-        description: "At what point in the game are you? `first` or `after3paths`?",
+        description: "At what point in the game are you? first or after3paths?",
         required: true,
         choices: getChoices("dilationtrees")
       }]
@@ -486,7 +504,7 @@ module.exports = {
     },
     {
       name: "infinitygrinding",
-      description: "Args: `early`, `late`. Early is for EC4, late is for banking infinities.",
+      description: "Args: early, late. Early is for EC4, late is for banking infinities.",
       options: [{
         name: "when",
         type: "STRING",
@@ -536,12 +554,12 @@ module.exports = {
     },
     {
       name: "news",
-      description: "Args: `listmobile` and `listweb`. Args are optional.",
+      description: "Args: listmobile, listweb, info. Args are optional.",
       options: [{
-        name: "list",
+        name: "info",
         type: "STRING",
         description: "list mobile or web news",
-        required: false,
+        required: true,
         choices: [
           {
             name: "listmobile",
@@ -553,6 +571,12 @@ module.exports = {
             name: "listweb",
             value: "listweb",
             description: "list web news",
+            type: "STRING"
+          },
+          {
+            name: "info",
+            value: "info",
+            description: "get info about the news ticker",
             type: "STRING"
           }
         ]
@@ -606,7 +630,7 @@ module.exports = {
     { name: "slightsmile", description: "kaj no" },
     {
       name: "studytree",
-      description: "Generates a Time Study tree based on your total Time Theorems. See /tstreerange",
+      description: "Generates a Time Study tree based on your total Time Theorems",
       options: [{
         name: "theorems",
         type: "NUMBER",
@@ -628,7 +652,7 @@ module.exports = {
     { name: "thanks", description: "say thanks" },
     {
       name: "ts",
-      description: "shorthand for `/studytree`. See /tstreerange",
+      description: "shorthand for `/studytree`",
       options: [{
         name: "theorems",
         type: "NUMBER",
@@ -642,10 +666,6 @@ module.exports = {
         required: false,
         choices: getChoices("studytree")
       }]
-    },
-    {
-      name: "tstreerange",
-      description: "Says why sometimes the bot will recommend a tree for more TT than you have"
     },
     {
       name: "xkcd",
@@ -758,7 +778,7 @@ module.exports = {
         },
         {
           name: "breakinfinity",
-          description: "explains replicanti",
+          description: "explains breakinfinity",
           type: "SUB_COMMAND_GROUP",
           options: getChoices("howtoplay", "breakinfinity")
         },
@@ -786,6 +806,36 @@ module.exports = {
           type: "SUB_COMMAND_GROUP",
           options: getChoices("howtoplay", "dilation")
         },
+      ]
+    },
+    {
+      name: "upgrade",
+      description: "explains nearly each upgrade in the game",
+      options: [
+        {
+          name: "infinity",
+          description: "explains any infinity upgrade",
+          type: "STRING",
+          choices: getChoices("upgrade", "infinity"),
+        },
+        {
+          name: "break",
+          description: "explains any breakinfinity upgrade",
+          type: "STRING",
+          choices: getChoices("upgrade", "break")
+        },
+        {
+          name: "eternity",
+          description: "explains any eternity upgrade",
+          type: "STRING",
+          choices: getChoices("upgrade", "eternity")
+        },
+        {
+          name: "dilation",
+          description: "explains any dilation upgrade",
+          type: "STRING",
+          choices: getChoices("upgrade", "dilation")
+        }
       ]
     },
     {

@@ -1,6 +1,8 @@
 /* eslint-disable max-len */
 "use strict";
 
+const Decimal = require("break_infinity.js");
+
 const ECDescriptions = {
   "1": `Time Dimensions are disabled.`,
   "2": `Infinity Dimensions are disabled.`,
@@ -67,18 +69,36 @@ const ECRewards = {
   }
 };
 
+// These are based on the number of completions *currently*
+const SecondaryUnlocks = {
+  "1": completion => 20000 + 20000 * completion,
+  "2": completion => 1300 + 150 * completion,
+  "3": completion => 17300 + 1550 * completion,
+  "4": completion => 1e8 + 5e7 * completion,
+  "5": completion => 160 + 14 * completion,
+  "6": completion => 40 + 5 * completion,
+  "7": completion => `1e${new Decimal("1e500000").times(new Decimal("1e300000").pow(completion)).exponent}`,
+  "8": completion => `1e${new Decimal("1e4000").times(new Decimal("1e1000").pow(completion)).exponent}`,
+  "9": completion => `1e${new Decimal("1e17500").times(new Decimal("1e2000").pow(completion)).exponent}`,
+  "10": completion => `1e${new Decimal("1e100").times(new Decimal("1e20").pow(completion)).exponent}`,
+};
+
+const ECGoals = {
+  "1": completion => `1e${new Decimal("1e1800").times(new Decimal(1e200).pow(completion)).exponent}`,
+};
+
 const EternityChallenges = [
   // EC1
   {
     challenge: 1,
     completion: 1,
     tt: 130,
-    ip: "`1e1800`",
+    ip: `\`${ECGoals[1](0)}\``,
     note: null,
     tree: "`11,22,32,42,51,61,72,82,92,102,111,121,131,141,151,161,171|1`",
     unlock: {
       currency: "Eternities",
-      amount: "20000",
+      amount: SecondaryUnlocks["1"](0),
       tt: 30,
     }
   },
@@ -86,12 +106,12 @@ const EternityChallenges = [
     challenge: 1,
     completion: 2,
     tt: 140,
-    ip: "`1e2000`",
+    ip: `\`${ECGoals[1](1)}\``,
     note: "`Get 60,000 Eternities before trying.`",
     tree: "`11,22,32,42,51,61,72,82,92,102,111,121,131,141,151,161,162,171,21,33,31,41|1`",
     unlock: {
       currency: "Eternities",
-      amount: "40000",
+      amount: SecondaryUnlocks["1"](1),
       tt: 30,
     }
   },
@@ -99,12 +119,12 @@ const EternityChallenges = [
     challenge: 1,
     completion: 3,
     tt: 147,
-    ip: "`1e2200`",
+    ip: `\`${ECGoals[1](2)}\``,
     note: null,
     tree: "`11,22,32,42,51,61,62,72,82,92,102,111,121,131,141,151,161,162,171,21,33,31,41|1`",
     unlock: {
       currency: "Eternities",
-      amount: "60000",
+      amount: SecondaryUnlocks["1"](2),
       tt: 30,
     }
   },
@@ -112,12 +132,12 @@ const EternityChallenges = [
     challenge: 1,
     completion: 4,
     tt: 163,
-    ip: "`1e2400`",
+    ip: `\`${ECGoals[1](3)}\``,
     note: null,
     tree: "`11,22,32,42,51,61,62,72,82,92,102,111,121,131,141,151,161,162,171,21,33,31,41|1`",
     unlock: {
       currency: "Eternities",
-      amount: "80000",
+      amount: SecondaryUnlocks["1"](3),
       tt: 30,
     }
   },
@@ -125,12 +145,12 @@ const EternityChallenges = [
     challenge: 1,
     completion: 5,
     tt: 176,
-    ip: "`1e2600`",
+    ip: `\`${ECGoals[1](4)}\``,
     note: null,
     tree: "`11,21,22,32,33,41,42,51,61,62,72,82,92,102,111,121,131,141,151,161,162,171|1`",
     unlock: {
       currency: "Eternities",
-      amount: "100000",
+      amount: SecondaryUnlocks["1"](4),
       tt: 30,
     }
   },
@@ -144,7 +164,7 @@ const EternityChallenges = [
     tree: "`11,22,32,42,51,61,73,83,93,103,111,121,131,141,151,161,171|2`",
     unlock: {
       currency: "Tickspeed upgrades from Time Dimensions",
-      amount: "1300",
+      amount: SecondaryUnlocks["2"](0),
       tt: 35,
     }
   },
@@ -157,7 +177,7 @@ const EternityChallenges = [
     tree: "`11,21,22,31,32,33,41,42,51,61,73,83,93,103,111,121,131,141,151,161,162,171|2`",
     unlock: {
       currency: "Tickspeed upgrades from Time Dimensions",
-      amount: "1450",
+      amount: SecondaryUnlocks["2"](1),
       tt: 35,
     }
   },
@@ -170,7 +190,7 @@ const EternityChallenges = [
     tree: "`11,21,22,31,32,33,41,42,51,61,73,83,93,103,111,121,131,141,151,161,162,171|2`",
     unlock: {
       currency: "Tickspeed upgrades from Time Dimensions",
-      amount: "1600",
+      amount: SecondaryUnlocks["2"](2),
       tt: 35,
     }
   },
@@ -183,7 +203,7 @@ const EternityChallenges = [
     tree: "`11,21,22,31,32,33,41,42,51,61,73,83,93,103,111,121,131,141,151,161,162,171|2`",
     unlock: {
       currency: "Tickspeed upgrades from Time Dimensions",
-      amount: "1750",
+      amount: SecondaryUnlocks["2"](3),
       tt: 35,
     }
   },
@@ -196,7 +216,7 @@ const EternityChallenges = [
     tree: "`11,21,22,31,32,33,41,42,51,61,73,83,93,103,111,121,131,141,151,161,162,171|2`",
     unlock: {
       currency: "Tickspeed upgrades from Time Dimensions",
-      amount: "1900",
+      amount: SecondaryUnlocks["2"](4),
       tt: 35,
     }
   },
@@ -210,7 +230,7 @@ const EternityChallenges = [
     tree: `11,22,32,42,51,61,71,81,91,101,111,122,132,142,151,161,162,171|3`,
     unlock: {
       currency: "8th Antimatter Dimensions",
-      amount: "17300",
+      amount: SecondaryUnlocks["3"](0),
       tt: 40,
     }
   },
@@ -223,7 +243,7 @@ const EternityChallenges = [
     tree: "`11,21,22,31,32,33,41,42,51,61,71,81,91,101,111,121,131,141,151,161,162,171|3`",
     unlock: {
       currency: "8th Antimatter Dimensions",
-      amount: "18850",
+      amount: SecondaryUnlocks["3"](1),
       tt: 40,
     }
   },
@@ -236,7 +256,7 @@ const EternityChallenges = [
     tree: "`11,21,22,31,32,33,41,42,51,61,72,82,92,102,111,121,131,141,151,161,162,171|3`",
     unlock: {
       currency: "8th Antimatter Dimensions",
-      amount: "19800",
+      amount: SecondaryUnlocks["3"](2),
       tt: 40,
     }
   },
@@ -249,7 +269,7 @@ const EternityChallenges = [
     tree: "`11,21,22,31,32,33,41,42,51,61,72,82,92,102,111,121,131,141,151,161,162,171|3`",
     unlock: {
       currency: "8th Antimatter Dimensions",
-      amount: "21050",
+      amount: SecondaryUnlocks["3"](3),
       tt: 40,
     }
   },
@@ -262,7 +282,7 @@ const EternityChallenges = [
     tree: "`11,21,22,31,32,33,41,42,51,61,72,82,92,102,111,121,131,141,151,161,162,171|3`",
     unlock: {
       currency: "8th Antimatter Dimensions",
-      amount: "22300",
+      amount: SecondaryUnlocks["3"](4),
       tt: 40,
     }
   },
@@ -277,7 +297,7 @@ const EternityChallenges = [
     completionReqs: "16 Infinities or less",
     unlock: {
       currency: "Infinities",
-      amount: "100,000,000",
+      amount: SecondaryUnlocks["4"](0),
       tt: 70,
     }
   },
@@ -291,7 +311,7 @@ const EternityChallenges = [
     completionReqs: "12 Infinities or less",
     unlock: {
       currency: "Infinities",
-      amount: "150,000,000",
+      amount: SecondaryUnlocks["4"](1),
       tt: 70,
     }
   },
@@ -305,7 +325,7 @@ const EternityChallenges = [
     completionReqs: "8 Infinities or less",
     unlock: {
       currency: "Infinities",
-      amount: "200,000,000",
+      amount: SecondaryUnlocks["4"](2),
       tt: 70,
     }
   },
@@ -319,7 +339,7 @@ const EternityChallenges = [
     completionReqs: "4 Infinities or less",
     unlock: {
       currency: "Infinities",
-      amount: "250,000,000",
+      amount: SecondaryUnlocks["4"](3),
       tt: 70,
     }
   },
@@ -333,7 +353,7 @@ const EternityChallenges = [
     completionReqs: "0 Infinities or less",
     unlock: {
       currency: "Infinities",
-      amount: "300,000,000",
+      amount: SecondaryUnlocks["4"](4),
       tt: 70,
     }
   },
@@ -347,7 +367,7 @@ const EternityChallenges = [
     tree: "`11,21,22,32,42,51|5`",
     unlock: {
       currency: "Antimatter Galaxies",
-      amount: "160",
+      amount: SecondaryUnlocks["5"](0),
       tt: 130,
     }
   },
@@ -360,7 +380,7 @@ const EternityChallenges = [
     tree: "`11,22,32,42,51,61,72,82,92,102,111|5`",
     unlock: {
       currency: "Antimatter Galaxies",
-      amount: "174",
+      amount: SecondaryUnlocks["5"](1),
       tt: 130,
     }
   },
@@ -373,7 +393,7 @@ const EternityChallenges = [
     tree: "`11,22,32,42,51,61,72,82,92,102,111,121,131,141|5`",
     unlock: {
       currency: "Antimatter Galaxies",
-      amount: "188",
+      amount: SecondaryUnlocks["5"](2),
       tt: 130,
     }
   },
@@ -386,7 +406,7 @@ const EternityChallenges = [
     tree: "`11,21,22,31,32,33,42,51,61,62,72,82,92,102,111,121,131,141,151|5`",
     unlock: {
       currency: "Antimatter Galaxies",
-      amount: "202",
+      amount: SecondaryUnlocks["5"](3),
       tt: 130,
     }
   },
@@ -399,7 +419,7 @@ const EternityChallenges = [
     tree: "`11,21,22,31,32,33,41,42,51,61,62,72,82,92,102,111,121,131,141,151,161,162,171|5`",
     unlock: {
       currency: "Antimatter Galaxies",
-      amount: "216",
+      amount: SecondaryUnlocks["5"](4),
       tt: 130,
     }
   },
@@ -413,7 +433,7 @@ const EternityChallenges = [
     tree: "`11,21,22,32,42,51,61,62,72,82,92,102,111,121,131,141,33|6`",
     unlock: {
       currency: "Replicanti Galaxies",
-      amount: "40",
+      amount: SecondaryUnlocks["6"](0),
       tt: 85,
     }
   },
@@ -426,7 +446,7 @@ const EternityChallenges = [
     tree: "`11,21,22,32,42,51,61,62,72,82,92,102,111,121,131,141,151,162|6`",
     unlock: {
       currency: "Replicanti Galaxies",
-      amount: "45",
+      amount: SecondaryUnlocks["6"](1),
       tt: 85,
     }
   },
@@ -439,7 +459,7 @@ const EternityChallenges = [
     tree: "`11,21,22,31,32,33,41,42,51,61,62,72,82,92,102,111,121,131,141,151,161,162,171|6`",
     unlock: {
       currency: "Replicanti Galaxies",
-      amount: "50",
+      amount: SecondaryUnlocks["6"](2),
       tt: 85,
     }
   },
@@ -452,7 +472,7 @@ const EternityChallenges = [
     tree: "`11,21,22,31,32,33,41,42,51,61,62,72,82,92,102,111,121,131,141,151,161,162,171|6`",
     unlock: {
       currency: "Replicanti Galaxies",
-      amount: "55",
+      amount: SecondaryUnlocks["6"](3),
       tt: 85,
     }
   },
@@ -465,7 +485,7 @@ const EternityChallenges = [
     tree: "`11,21,22,31,32,33,41,42,51,61,62,72,82,92,102,111,121,131,141,151,161,162,171|6`",
     unlock: {
       currency: "Replicanti Galaxies",
-      amount: "60",
+      amount: SecondaryUnlocks["6"](4),
       tt: 85,
     }
   },
@@ -479,7 +499,7 @@ const EternityChallenges = [
     tree: "`11,21,22,32,42,51,61,62,71,81,91,101,111|7`",
     unlock: {
       currency: "Antimatter",
-      amount: "1e500,000",
+      amount: SecondaryUnlocks["7"](0),
       tt: 115,
     }
   },
@@ -492,7 +512,7 @@ const EternityChallenges = [
     tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,121,131,141|7`",
     unlock: {
       currency: "Antimatter",
-      amount: "1e800,000",
+      amount: SecondaryUnlocks["7"](1),
       tt: 115,
     }
   },
@@ -505,7 +525,7 @@ const EternityChallenges = [
     tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,121,131,141,151,161,162|7`",
     unlock: {
       currency: "Antimatter",
-      amount: "1e1,100,000",
+      amount: SecondaryUnlocks["7"](2),
       tt: 115,
     }
   },
@@ -518,7 +538,7 @@ const EternityChallenges = [
     tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,121,131,141,151,161,162,171|7`",
     unlock: {
       currency: "Antimatter",
-      amount: "1e1,400,000",
+      amount: SecondaryUnlocks["7"](3),
       tt: 115,
     }
   },
@@ -531,7 +551,7 @@ const EternityChallenges = [
     tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,121,131,141,151,161,162,171,181,193,214|7`",
     unlock: {
       currency: "Antimatter",
-      amount: "1e1,700,000",
+      amount: SecondaryUnlocks["7"](4),
       tt: 115,
     }
   },
@@ -545,7 +565,7 @@ const EternityChallenges = [
     tree: "`11,22,32,42,51,61,73,83,93,103,111,123,133,143,151,161,162|8`",
     unlock: {
       currency: "Infinity Points",
-      amount: "1e4000",
+      amount: SecondaryUnlocks["8"](0),
       tt: 115,
     }
   },
@@ -558,7 +578,7 @@ const EternityChallenges = [
     tree: "`11,21,22,31,32,33,41,42,51,61,62,73,83,93,103,111,123,133,143,151,161,162,171|8`",
     unlock: {
       currency: "Infinity Points",
-      amount: "1e5000",
+      amount: SecondaryUnlocks["8"](1),
       tt: 115,
     }
   },
@@ -571,7 +591,7 @@ const EternityChallenges = [
     tree: "`11,21,22,31,32,33,41,42,51,61,62,73,83,93,103,111,123,133,143,151,161,162,171,181|8`",
     unlock: {
       currency: "Infinity Points",
-      amount: "1e6000",
+      amount: SecondaryUnlocks["8"](2),
       tt: 115,
     }
   },
@@ -584,7 +604,7 @@ const EternityChallenges = [
     tree: "`11,21,22,31,32,33,41,42,51,61,62,73,83,93,103,111,123,133,143,151,161,162,171,181|8`",
     unlock: {
       currency: "Infinity Points",
-      amount: "1e7000",
+      amount: SecondaryUnlocks["8"](3),
       tt: 115,
     }
   },
@@ -597,7 +617,7 @@ const EternityChallenges = [
     tree: "`11,21,22,31,32,33,41,42,51,61,62,73,83,93,103,111,123,133,143,151,161,162,171,181|8`",
     unlock: {
       currency: "Infinity Points",
-      amount: "1e8000",
+      amount: SecondaryUnlocks["8"](4),
       tt: 115,
     }
   },
@@ -611,7 +631,7 @@ const EternityChallenges = [
     tree: "`11,22,32,42,51,61,73,83,93,103,111,121,131,141,151,161,162,171|9`",
     unlock: {
       currency: "Infinity Power",
-      amount: "1e17500",
+      amount: SecondaryUnlocks["9"](0),
       tt: 415,
     }
   },
@@ -624,7 +644,7 @@ const EternityChallenges = [
     tree: "`11,21,22,31,32,33,41,42,51,61,62,73,83,93,103,111,121,131,141,151,161,162,171|9`",
     unlock: {
       currency: "Infinity Power",
-      amount: "1e19500",
+      amount: SecondaryUnlocks["9"](1),
       tt: 415,
     }
   },
@@ -637,7 +657,7 @@ const EternityChallenges = [
     tree: "`11,21,22,31,32,33,41,42,51,61,62,73,83,93,103,111,121,131,141,151,161,162,171|9`",
     unlock: {
       currency: "Infinity Power",
-      amount: "1e21500",
+      amount: SecondaryUnlocks["9"](2),
       tt: 415,
     }
   },
@@ -650,7 +670,7 @@ const EternityChallenges = [
     tree: "`11,21,22,31,32,33,41,42,51,61,62,73,83,93,103,111,121,131,141,151,161,162,171|9`",
     unlock: {
       currency: "Infinity Power",
-      amount: "1e23500",
+      amount: SecondaryUnlocks["9"](3),
       tt: 415,
     }
   },
@@ -663,7 +683,7 @@ const EternityChallenges = [
     tree: "`11,21,22,31,32,33,41,42,51,61,62,73,83,93,103,111,121,131,141,151,161,162,171,181|9`",
     unlock: {
       currency: "Infinity Power",
-      amount: "1e25500",
+      amount: SecondaryUnlocks["9"](4),
       tt: 415,
     }
   },
@@ -677,7 +697,7 @@ const EternityChallenges = [
     tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,121,131,141,151,161,162,171,181|10`",
     unlock: {
       currency: "Eternity Points",
-      amount: "1e100",
+      amount: SecondaryUnlocks["10"](0),
       tt: 550,
     }
   },
@@ -690,7 +710,7 @@ const EternityChallenges = [
     tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,121,131,141,151,161,162,171,181,191,193,211,214|10`",
     unlock: {
       currency: "Eternity Points",
-      amount: "1e120",
+      amount: SecondaryUnlocks["10"](1),
       tt: 550,
     }
   },
@@ -703,7 +723,7 @@ const EternityChallenges = [
     tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,121,131,141,151,161,162,171,181,192,193,214|10`",
     unlock: {
       currency: "Eternity Points",
-      amount: "1e140",
+      amount: SecondaryUnlocks["10"](2),
       tt: 550,
     }
   },
@@ -716,7 +736,7 @@ const EternityChallenges = [
     tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,121,131,141,151,161,162,171,181,192,193,213,214|10`",
     unlock: {
       currency: "Eternity Points",
-      amount: "1e160",
+      amount: SecondaryUnlocks["10"](3),
       tt: 550,
     }
   },
@@ -729,7 +749,7 @@ const EternityChallenges = [
     tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,121,131,141,151,161,162,171,181,191,192,193,211,213,214,225,228,233|10`",
     unlock: {
       currency: "Eternity Points",
-      amount: "1e180",
+      amount: SecondaryUnlocks["10"](4),
       tt: 550,
     }
   },
