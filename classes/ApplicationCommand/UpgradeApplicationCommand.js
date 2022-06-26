@@ -2,6 +2,7 @@
 
 const { upgrades, UpgradeEmbedGetters } = require("../../utils/databases/upgrades");
 const { ApplicationCommand } = require("./ApplicationCommand");
+const { MessageAttachment } = require("discord.js");
 
 class UpgradeApplicationCommand extends ApplicationCommand {
   execute(interaction) {
@@ -16,11 +17,13 @@ class UpgradeApplicationCommand extends ApplicationCommand {
     const user = interaction.member === null ? interaction.user : interaction.member.user;
     const isHelper = this.hasHelperRole(interaction);
     const embedGetter = UpgradeEmbedGetters[argInfo.name];
+    const picture = new MessageAttachment(`images/upgrades/${argInfo.name}.png`);
 
     const embed = embedGetter(upgrade)
+      .setThumbnail(`attachment://${argInfo.name}.png`)
       .setAuthor({ name: `${user.username}#${user.discriminator}`, iconURL: user.avatarURL() });
 
-    interaction.reply({ embeds: [embed], ephemeral: !isHelper });
+    interaction.reply({ embeds: [embed], files: [picture], ephemeral: !isHelper });
   }
 
   getOptions(interaction) {

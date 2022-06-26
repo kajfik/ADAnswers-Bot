@@ -13,6 +13,6 @@ module.exports = {
     Originally, the limit was broken by MikeMcl who developed the library "decimal.js" (hence the moniker "decimal"), but the library was far less optimised than it could have been. Then Patashu optimised the library and improved it by creating "break_infinity.js", which stores the two parts of a "double" (mantissa and exponent) separately, thus allowing very, very large numbers.
     The original library created by MikeMcl was created for more precise numbers over speed, which is what Patashu built off of: <https://github.com/MikeMcl/decimal.js/>
     The library created by Patashu is optimized for speed, not for precision, making it good for incremental games: <https://github.com/Patashu/break_infinity.js>
-    Razenpok worked with Patashu on improving the library and porting it to C#: <https://github.com/Razenpok/BreakInfinity.cs>`]
+  Razenpok worked with Patashu on improving the library and [porting it to C#](<https://github.com/Razenpok/BreakInfinity.cs>)`]
   }),
 };

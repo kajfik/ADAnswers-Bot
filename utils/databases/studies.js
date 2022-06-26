@@ -429,7 +429,7 @@ const studies = {
     reqType: TS_REQUIREMENT_TYPE.ONE,
     prerequisites: [171],
     type: "normal",
-    exclusiveWith: "you have not completed EC1, 2, or 3 at least once",
+    exclusiveWith: "you have not completed EC1, 2, and 3 at least once",
     isBestWaifu: "yes, TS181 is the best waifu"
   },
   "191": {

@@ -71,8 +71,6 @@ client.once("ready", ready);
 client.on("error", err => Log.error(err));
 client.on("warn", warn => Log.warning(warn));
 
-// I prefer to have this on one line, so you will have to deal with the return-await.
-// eslint-disable-next-line no-return-await
 client.on("interactionCreate", async interaction => {
   const events = new InteractionEvents(interaction);
   if (!events.message.isCommand()) return;

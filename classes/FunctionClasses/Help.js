@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 "use strict";
 
-const { MessageActionRow, MessageButton } = require("discord.js");
+const { MessageActionRow, MessageButton, MessageAttachment, MessageEmbed } = require("discord.js");
 const config = require("../../utils/config.json");
 const { footerMessages } = require("../../utils/messages");
 const { Log } = require("./Log");
@@ -51,18 +51,15 @@ class Help {
   embedObject() {
     if (this.page < this.fieldsArray.length || this.page === 69) {
       const hex = this.page === 69 ? "696969" : Math.round(this.page / this.fieldsArray.length * 255).toString(16).repeat(3);
-      return {
-        color: `#${hex}`,
-        title: `Help (p${this.page}/${this.fieldsArray.length - 1})`,
-        description: this.getHelpDescription(),
-        fields: this.page === 69
+      return new MessageEmbed()
+        .setTitle(`Help (p${this.page}/${this.fieldsArray.length - 1})`)
+        .setDescription(this.getHelpDescription())
+        .setColor(`#${hex}`)
+        .setTimestamp()
+        .setFooter({ text: this.getFooter(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` })
+        .addFields(this.page === 69
           ? this.fieldsArray[this.fieldsArray.length - 1]
-          : this.fieldsArray[this.page - 1],
-        timestamp: new Date(),
-        footer: {
-          text: this.getFooter()
-        }
-      };
+          : this.fieldsArray[this.page - 1]);
     }
     return {
       color: `#11aa22`,
@@ -97,7 +94,10 @@ class Help {
   }
 
   actualMessage() {
-    return { embeds: [this.embedObject(this.page, this.fieldsArray)], components: this.rows, ephemeral: true };
+    const picture = new MessageAttachment("images/misc/help.png");
+    const embed = this.embedObject(this.page, this.fieldsArray)
+      .setThumbnail("attachment://help.png");
+    return { embeds: [embed], files: [picture], components: this.rows, ephemeral: true };
   }
 
   send() {
