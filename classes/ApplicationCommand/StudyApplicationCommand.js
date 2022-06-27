@@ -18,8 +18,12 @@ class StudyApplicationCommand extends ApplicationCommand {
     const user = interaction.member === null ? interaction.user : interaction.member.user;
     const embed = this.getArgMessage(arg);
 
-    embed.setAuthor({ name: `${user.username}#${user.discriminator}`, iconURL: user.avatarURL() });
-    embed.setThumbnail(`attachment://${studies[arg].type}.png`);
+    embed.setAuthor({ name: `${user.username}#${user.discriminator}`, iconURL: user.avatarURL() })
+      .setThumbnail(`attachment://${studies[arg].type}.png`);
+    if (studies[arg].hasGraph) {
+      embed.addFields({ name: "Effect formula graph", value: "** **" });
+      embed.setImage(studies[arg].graph);
+    }
 
     interaction.reply({ embeds: [embed], files: [picture], ephemeral: !isHelper });
   }

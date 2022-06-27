@@ -54,7 +54,9 @@ const studies = {
     colour: STUDY_COLOURS.NORMAL,
     reqType: TS_REQUIREMENT_TYPE.ONE,
     prerequisites: [11],
-    type: "normal"
+    type: "normal",
+    hasGraph: true,
+    graph: "https://cdn.discordapp.com/attachments/387799188848640013/426601079774642186/replicanti_formula.png"
   },
   "22": {
     id: 22,
@@ -291,7 +293,9 @@ const studies = {
     colour: STUDY_COLOURS.ACTIVE,
     reqType: TS_REQUIREMENT_TYPE.ONE,
     type: "active",
-    exclusiveWith: "Passive or Idle branch is purchased"
+    exclusiveWith: "Passive or Idle branch is purchased",
+    hasGraph: true,
+    graph: "https://cdn.discordapp.com/attachments/351476683016241166/516858452489011200/unknown.png"
   },
   "122": {
     id: 122,
@@ -301,7 +305,9 @@ const studies = {
     colour: STUDY_COLOURS.PASSIVE,
     reqType: TS_REQUIREMENT_TYPE.ONE,
     type: "passive",
-    exclusiveWith: "Active or Idle branch is purchased"
+    exclusiveWith: "Active or Idle branch is purchased",
+    hasGraph: true,
+    graph: "https://cdn.discordapp.com/attachments/351476683016241166/516858452489011200/unknown.png"
   },
   "123": {
     id: 123,
@@ -312,7 +318,9 @@ const studies = {
     colour: STUDY_COLOURS.IDLE,
     reqType: TS_REQUIREMENT_TYPE.ONE,
     type: "idle",
-    exclusiveWith: "Active or Passive branch is purchased"
+    exclusiveWith: "Active or Passive branch is purchased",
+    hasGraph: true,
+    graph: "https://cdn.discordapp.com/attachments/351476683016241166/516858452489011200/unknown.png"
   },
   "131": {
     id: 131,
@@ -357,7 +365,9 @@ const studies = {
     reqType: TS_REQUIREMENT_TYPE.ONE,
     prerequisites: [131],
     type: "active",
-    exclusiveWith: "Passive or Idle branch is purchased"
+    exclusiveWith: "Passive or Idle branch is purchased",
+    hasGraph: true,
+    graph: "https://cdn.discordapp.com/attachments/351476683016241166/516856522589077504/unknown.png"
   },
   "142": {
     id: 142,
@@ -367,7 +377,9 @@ const studies = {
     reqType: TS_REQUIREMENT_TYPE.ONE,
     prerequisites: [132],
     type: "passive",
-    exclusiveWith: "Active or Idle branch is purchased"
+    exclusiveWith: "Active or Idle branch is purchased",
+    hasGraph: true,
+    graph: "https://cdn.discordapp.com/attachments/351476683016241166/516856522589077504/unknown.png"
   },
   "143": {
     id: 143,
@@ -382,7 +394,9 @@ const studies = {
     reqType: TS_REQUIREMENT_TYPE.ONE,
     prerequisites: [133],
     type: "idle",
-    exclusiveWith: "Active or Passive branch is purchased"
+    exclusiveWith: "Active or Passive branch is purchased",
+    hasGraph: true,
+    graph: "https://cdn.discordapp.com/attachments/351476683016241166/516856522589077504/unknown.png"
   },
   "151": {
     id: 151,

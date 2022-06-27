@@ -227,6 +227,7 @@ const upgrades = {
       name: "ID Multiplier from Eternities (EU2)",
       effect: `Infinity Dimensions multiplier based on Eternities, softcap at 1e5 Eternities`,
       formula: `
+      (Softcap around 1e5 eternities; refer to graph)
       eterPreCap = \`clampMax(eternities, 1e5)\`
       base = \`eterPreCap / 200 + 1\`
       pow = \`log(eterPreCap * 2  + 1) / log10(4)\`
@@ -235,12 +236,14 @@ const upgrades = {
       eterPostCap = \`eternities - 1e5\`
       mult1 = \`eterPostCap / 200 + 1\`
       mult2 = \`ln(eterPostCap * 2 + 1) / log10(4)\`
-      multPostCap = \`mult1 * mult2 \`
+      multPostCap = \`mult1 * mult2\`
 
       final multiplier: \`multPostCap * multPreCap\`
       `,
       cost: 10,
       formatNicely: false,
+      hasGraph: true,
+      graph: `https://cdn.discordapp.com/attachments/351479640755404820/990792593120063598/idMultEternities.png`,
     },
     "idMultICRecords": {
       id: "idMultICRecords",
