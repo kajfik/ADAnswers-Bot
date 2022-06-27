@@ -2,6 +2,8 @@
 "use strict";
 
 const { MessageEmbed } = require("discord.js");
+const { Misc } = require("../../classes/FunctionClasses/Misc");
+const link = (content, url) => Misc.link(content, url);
 
 const base = ` It is recommended to have at least the first 12 infinity upgrades and 100 spare IP.
  If you want to get those 100 IP, you probably want to get upgrade 13 and 14 as well to speed things up. (Note: Those upgrades won't work inside challenges.)`;
@@ -287,6 +289,7 @@ const newChallengeMessageObject = {
   "ic6": infinityChallenge(challenges.ic6),
   "ic7": infinityChallenge(challenges.ic7),
   "ic8": infinityChallenge(challenges.ic8),
+  "ecs": `Check out ${link("this message", "https://canary.discord.com/channels/351476683016241162/408764187960147982/731639441474453537")} by Ninjatsu!`
 };
 
 module.exports = { challenges, normalChallenge, infinityChallenge, newChallengeMessageObject, shownFields };

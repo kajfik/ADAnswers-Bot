@@ -7,7 +7,6 @@ const { ApplicationCommand } = require("../../classes/ApplicationCommand/Applica
 
 module.exports = {
   command: new ApplicationCommand({
-
     name: "offlineticks",
     description: "offline ticks stuff",
     check: true,

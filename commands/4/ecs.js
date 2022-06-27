@@ -6,9 +6,8 @@ const ChallengeCommand = require("../5/challenge");
 
 module.exports = {
   command: new TimeStudyApplicationCommand({
-
     name: "ecs",
-    description: "shorthand for `/challenge ecs`",
+    description: "sends link to ninjatsu's EC guide",
     type: "shorthand",
     check: "ecsCheck",
     sent: [ChallengeCommand.command.messageObject.ecs],
