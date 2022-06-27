@@ -1,6 +1,8 @@
 /* eslint-disable max-len */
 "use strict";
 
+const { Misc } = require("../../classes/FunctionClasses/Misc");
+const link = (content, url) => Misc.link(content, url);
 const { ApplicationCommand } = require("../../classes/ApplicationCommand/ApplicationCommand");
 
 module.exports = {
@@ -10,7 +12,7 @@ module.exports = {
     description: "offline ticks stuff",
     check: true,
     sent: [`If you would like to have better offline progress and don't mind longer loading times you can increase the „Max offline ticks“ option up to 1m which represents 14 hours of accurate offline progress. Pressing the „speed up“ button calculates the rest of the offline ticks as if you had set the limit to 1k.
-    More info here: https://www.reddit.com/r/AntimatterDimensions/comments/esiji2/mobile_offline_ip_generation_is_significantly/ffa98qt.
+    More info ${link("here", "https://www.reddit.com/r/AntimatterDimensions/comments/esiji2/mobile_offline_ip_generation_is_significantly/ffa98qt")}.
     Another explanation, courtesy of Tables:
     It's how many ticks of progress you can get at maximum when the game isn't active
     Normally 1 second = 20 ticks, so if your max offline ticks is less than that amount (e.g. 1 hour = 3600 seconds = 72,000 ticks) that's simply how much you get. If your max offline ticks are lower than that, your ticks get spaced out so they represent more time each. For instance in the above, if you have a max of 25K, each offline tick would need to be about 130ms long or so.

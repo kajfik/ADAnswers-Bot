@@ -8,16 +8,17 @@ const { footerMessages } = require("../utils/messages");
 const { Time } = require("./FunctionClasses/Time");
 const { Log } = require("./FunctionClasses/Log");
 const Global = require("../utils/constants");
+const { hyperlink } = require("@discordjs/builders");
 
 const NOW = new Date();
 const metaMessageObject = {
   "lastrestart": `The last restart was on <t:${Date.parse(NOW) / 1000}>.`,
-  "suggest": `Submit an issue on [GitHub](https://github.com/earthernsence/ADAnswers-Bot/issues) to suggest more commands, or to report a bug with the bot!`,
-  "invite": `If, for whatever reason, you wish to invite me to your server, go to [this link](https://discord.com/oauth2/authorize?client_id=830197123378053172&permissions=2147560512&scope=applications.commands%20bot).`,
+  "suggest": `Submit an issue on ${hyperlink("GitHub", "https://github.com/earthernsence/ADAnswers-Bot/issues")} to suggest more commands, or to report a bug with the bot!`,
+  "invite": `If, for whatever reason, you wish to invite me to your server, go to ${hyperlink("this link", "https://discord.com/oauth2/authorize?client_id=830197123378053172&permissions=2147560512&scope=applications.commands%20bot")}.`,
   // eslint-disable-next-line max-len
-  "contributing": `If you are interested in contributing to the bot, check out both information files at [this readme](https://github.com/earthernsence/ADAnswers-Bot#readme) and [this readme](https://github.com/earthernsence/ADAnswers-Bot/tree/main/commands#readme)`,
+  "contributing": `If you are interested in contributing to the bot, check out both information files at ${hyperlink("this readme", "https://github.com/earthernsence/ADAnswers-Bot#readme")} and ${hyperlink("this readme", "https://github.com/earthernsence/ADAnswers-Bot/tree/main/commands#readme")}. Both are slightly outdated.`,
   // eslint-disable-next-line max-len
-  "alldata": `If you want to see all data for the bot, go to [SQLite Viewer](https://inloop.github.io/sqlite-viewer/) and put in [this file](https://github.com/earthernsence/ADAnswers-Bot/blob/main/database.sqlite) for command usage data or [this file](https://github.com/earthernsence/ADAnswers-Bot/blob/main/timeTags.sqlite) for data on when commands are used (${Time.timezone}) from the bot's repository.`
+  "alldata": `If you want to see all data for the bot, go to ${hyperlink("SQLite Viewer", "https://inloop.github.io/sqlite-viewer/")} and put in [this file](https://github.com/earthernsence/ADAnswers-Bot/blob/main/database.sqlite) for command usage data or [this file](https://github.com/earthernsence/ADAnswers-Bot/blob/main/timeTags.sqlite) for data on when commands are used (${Time.timezone}) from the bot's repository.`
 };
 
 class Meta {

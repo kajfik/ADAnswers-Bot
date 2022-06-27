@@ -1,5 +1,7 @@
 "use strict";
 
+const { hyperlink, hideLinkEmbed } = require("@discordjs/builders");
+
 class Misc {
   static toNumber(value) {
     return parseInt(value, 10);
@@ -47,6 +49,10 @@ class Misc {
     const exponent = Math.floor(Math.log10(number));
     const mantissa = number / Math.pow(10, exponent);
     return `${mantissa.toFixed(2)}e${exponent}`;
+  }
+
+  static link(content, link) {
+    return hyperlink(content, hideLinkEmbed(link));
   }
 }
 

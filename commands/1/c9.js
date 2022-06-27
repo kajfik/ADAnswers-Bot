@@ -10,8 +10,8 @@ module.exports = {
     type: "shorthand",
     check: "earlyInfinityCheck",
     getArgMessage() {
-      return ChallengeCommand.command.messageObject.c9;
+      return ChallengeCommand.command.getArgMessage("c9", "strategy");
     },
-    sent: [ChallengeCommand.command.messageObject.c9],
+    sent: [ChallengeCommand.command.getArgMessage("c9", "strategy")],
   })
 };

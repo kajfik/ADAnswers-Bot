@@ -1,6 +1,8 @@
 /* eslint-disable max-len */
 "use strict";
 
+const { Misc } = require("../../classes/FunctionClasses/Misc");
+const link = (content, url) => Misc.link(content, url);
 const { ApplicationCommand } = require("../../classes/ApplicationCommand/ApplicationCommand");
 
 module.exports = {
@@ -10,10 +12,10 @@ module.exports = {
     description: "How to import/export saves",
     check: true,
     sent: [`android -> web:
-    Click "Export to web", open <https://paste.ee/>, submit new paste, open the paste link on pc, copy the save, press "Import" in the web version. 
+    Click "Export to web", open ${link("paste.ee", "https://paste.ee/")}, submit new paste, open the paste link on pc, copy the save, press "Import" in the web version. 
     
     web -> android:
-    Press "Export", open <https://paste.ee/>, submit new paste, open the paste link on your device, copy the save, press "Import" in the app. 
+    Press "Export", open ${link("paste.ee", "https://paste.ee/")}, submit new paste, open the paste link on your device, copy the save, press "Import" in the app. 
     
     (alternatively you can use google docs instead of paste.ee)
     

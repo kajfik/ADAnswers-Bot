@@ -1,6 +1,8 @@
 /* eslint-disable max-len */
 "use strict";
 
+const { Misc } = require("../../classes/FunctionClasses/Misc");
+const link = (content, url) => Misc.link(content, url);
 const { AchievementApplicationCommand } = require("../../classes/ApplicationCommand/AchievementApplicationCommand");
 const { achievements } = require("../../utils/databases/achievements");
 
@@ -78,7 +80,7 @@ module.exports = {
     name: "achievements",
     description: "sends link to achievements guide",
     check: true,
-    sent: [`(Check out this cool guide by Hellbach!)[https://docs.google.com/document/d/1C8W_lt9EPxpu9wIloWZo5CPDdZ4ItP1-IU1Vs3x7lEg]`],
+    sent: [`${link("Check out this cool guide by Hellbach!", "https://docs.google.com/document/d/1C8W_lt9EPxpu9wIloWZo5CPDdZ4ItP1-IU1Vs3x7lEg")}`],
     acceptableArgs: Object.keys(achievements).concat(Object.keys(achievementsMessageObject)),
     getArgMessage(arg) {
       return achievementsMessageObject[arg];
