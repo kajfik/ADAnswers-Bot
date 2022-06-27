@@ -79,7 +79,7 @@ class Checks {
   }
 
   static setCrunchAutoCheck(id, message) {
-    return Checks.botCommandsCheck(id, message) || config.ids.break[0] === id;
+    return Checks.botCommandsCheck(id, message) || Checks.commonCheck(id) || config.ids.break[0] === id;
   }
 
   static studytreeCheck(id, message) {

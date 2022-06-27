@@ -1,6 +1,7 @@
 "use strict";
 
 const { MessageEmbed } = require("discord.js");
+const { Misc } = require("../../classes/FunctionClasses/Misc");
 
 const footerText = () => (Math.random() > 0.5 ? `Be sure to read the pins in your progression channel!` : `Art by MrKrutaman#1705`);
 
@@ -20,7 +21,8 @@ const STUDY_COLOURS = {
   PASSIVE: "#632fb3",
   IDLE: "#297bfb",
   DARK: "#000000",
-  LIGHT: "#ffffff"
+  LIGHT: "#ffffff",
+  FORBIDDEN: "#ff0000",
 };
 
 const TREE_CONSTANTS = {
@@ -46,6 +48,15 @@ const studies = {
     reqType: TS_REQUIREMENT_TYPE.ONE,
     prerequisites: [],
     type: "normal"
+  },
+  "12": {
+    id: 12,
+    effect: "Unlock a secret achievement",
+    cost: 0,
+    colour: STUDY_COLOURS.FORBIDDEN,
+    reqType: TS_REQUIREMENT_TYPE.ONE,
+    prerequisites: [],
+    type: "forbidden"
   },
   "21": {
     id: 21,
@@ -666,15 +677,14 @@ function getFields(studyInfo) {
     { name: "Effect", value: `${studyInfo.effect}` },
     { name: "Cost", value: `${studyInfo.cost} Time Theorems` },
   ];
-  if (studyInfo.id === 11) {
+  if (studyInfo.id === 11 || studyInfo.id === 12) {
     fields.push({ name: "Prerequisites", value: `None` });
   } else if (studyInfo.prerequisites.length === 0) {
     fields.push({ name: "Prerequisites", value: `${studyInfo.reqType}` });
-  } else {
-    fields.push({
-      name: "Prerequisites",
-      value: `${studyInfo.reqType} TS${studyInfo.prerequisites.join(", TS")} ${studyInfo.additionalPrerequisites ? `and ${studyInfo.additionalPrerequisites}` : ``}` });
-  }
+  } else if (studyInfo.id >= 231) fields.push({ name: "Prerequisites", value: `${studyInfo.reqType}` });
+  else fields.push({
+    name: "Prerequisites",
+    value: `${studyInfo.reqType} ${Misc.makeEnumeration(studyInfo.prerequisites, ", TS", "TS", "or")} ${studyInfo.additionalPrerequisites ? `and ${studyInfo.additionalPrerequisites}` : ``}` });
   if (studyInfo.formula) {
     fields.push({ name: "Formula", value: `${studyInfo.formula}` });
   }

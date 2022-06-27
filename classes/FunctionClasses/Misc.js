@@ -1,6 +1,7 @@
 "use strict";
 
 const { hyperlink, hideLinkEmbed } = require("@discordjs/builders");
+const { ids } = require("../../utils/config.json");
 
 class Misc {
   static toNumber(value) {
@@ -53,6 +54,20 @@ class Misc {
 
   static link(content, link) {
     return hyperlink(content, hideLinkEmbed(link));
+  }
+
+  static isHelper(rolesIDArray) {
+    return rolesIDArray.includes(ids.helperRole);
+  }
+
+  // eslint-disable-next-line max-params
+  static makeEnumeration(items, separator = ", ", name = "", length2Separator) {
+    if (items.length === 0) return "";
+    if (items.length === 1) return `${name}${items[0]}`;
+    if (items.length === 2) return `${name}${items[0]} ${length2Separator} ${name}${items[1]}`;
+    const commaSeparated = items.slice(0, items.length - 1).join(separator);
+    const last = items[items.length - 1];
+    return `${name}${commaSeparated}, and ${name}${last}`;
   }
 }
 

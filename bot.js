@@ -19,6 +19,8 @@ const { Log } = require("./classes/FunctionClasses/Log");
 const Global = require("./utils/constants");
 const { OnMessageEvents } = require("./classes/FunctionClasses/Events/OnMessageEvents");
 const { InteractionEvents } = require("./classes/FunctionClasses/Events/InteractionEvents");
+const { ApplicationCommand } = require("./classes/ApplicationCommand/ApplicationCommand");
+const { Misc } = require("./classes/FunctionClasses/Misc");
 
 const client = new Discord.Client({
   intents: [
@@ -75,7 +77,7 @@ client.on("interactionCreate", async interaction => {
   const events = new InteractionEvents(interaction);
   if (!events.message.isCommand()) return;
   if (!Global.client.application?.owner) await Global.client.application?.fetch();
-  if (events.message.channelId === config.ids.AD.general && events.message.commandName !== "deadchat") {
+  if (events.message.channelId === config.ids.AD.general && events.message.commandName !== "deadchat" && !Misc.isHelper(interaction.member._roles)) {
     events.commandInGeneral();
     return;
   }
