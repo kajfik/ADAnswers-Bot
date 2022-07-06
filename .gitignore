@@ -1,6 +1,6 @@
 config.json
 /node_modules
-package.json
 package-lock.json
 .vscode
 test.js
+/dist

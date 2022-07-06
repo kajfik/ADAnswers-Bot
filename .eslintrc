@@ -8,14 +8,18 @@
     "jquery": true,
     "node": true
   },
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 2021,
+    "sourceType": "module",
     "ecmaFeatures": {
       "impliedStrict": false
     }
   },
+  "plugins": ["@typescript-eslint"],
   "rules": {
-    "no-console": "warn",
+    "sort-imports": "warn",
+    "no-console": "off",
     "no-template-curly-in-string": "warn",
     "array-callback-return": "error",
     "complexity": "warn",
