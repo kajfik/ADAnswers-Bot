@@ -68,6 +68,6 @@ export const challenge: Command = {
 
     type ChallengeObjectKey = keyof typeof Challenge.challenges;
     embed.setFields(Challenge.shownFields(Challenge.challenges[chall as ChallengeObjectKey], info));
-    interaction.reply({ embeds: [embed], files: [picture] });
+    interaction.reply({ embeds: [embed], files: [picture], ephemeral: !isHelper(interaction) });
   }
 };

@@ -114,6 +114,6 @@ export const howtoplay: Command = {
 
     const entry: string = h2p[group][info];
 
-    await interaction.reply({ content: entry });
+    await interaction.reply({ content: entry, ephemeral: !isHelper(interaction) });
   }
 };

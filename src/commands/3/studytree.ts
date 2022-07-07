@@ -35,6 +35,6 @@ export const studytree: Command = {
     const path: string = interaction.options.getString("path") as string;
     const tree = new Tree(theorems, path).generateTree();
 
-    await interaction.reply({ content: tree });
+    await interaction.reply({ content: tree, ephemeral: !isHelper(interaction) });
   }
 };
