@@ -1,16 +1,16 @@
-import { BaseCommandInteraction } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, CommandInteraction } from "discord.js";
 import { Command } from "../../command";
 import { isHelper } from "../../functions/Misc";
 
 export const dilationtrees: Command = {
   name: "dilationtrees",
   description: "Args: `first`, `after3paths`. First = before dilation 3 paths upgrade, after3paths = beyond",
-  type: "CHAT_INPUT",
+  type: ApplicationCommandType.ChatInput,
   options: [
     {
       name: "when",
       description: "At what point in the game are you? first or after3paths?",
-      type: "STRING",
+      type: ApplicationCommandOptionType.String,
       required: true,
       choices: [
         { name: "first", value: "first" },
@@ -18,8 +18,8 @@ export const dilationtrees: Command = {
       ]
     }
   ],
-  run: async(interaction: BaseCommandInteraction) => {
-    if (!interaction || !interaction.isCommand()) return;
+  run: async(interaction: CommandInteraction) => {
+    if (!interaction || !interaction.isChatInputCommand()) return;
 
     const when = interaction.options.getString("when");
 

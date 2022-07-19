@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-import { BaseCommandInteraction, ChatInputApplicationCommandData, Client } from "discord.js";
+import { ChatInputApplicationCommandData, Client, CommandInteraction } from "discord.js";
 import { Model, ModelStatic } from "sequelize/types";
 
 export interface Command extends ChatInputApplicationCommandData {
-  run: (interaction: BaseCommandInteraction, client: Client, tags?: ModelStatic<Model>) => void;
+  run: (interaction: CommandInteraction, client: Client, tags?: ModelStatic<Model>) => void;
 }

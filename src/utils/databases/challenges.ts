@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { EmbedFieldData, MessageEmbed } from "discord.js";
+import { EmbedBuilder, EmbedField } from "discord.js";
 import { link } from "../../functions/Misc";
 
 const base = ` It is recommended to have at least the first 12 infinity upgrades and 100 spare IP.
@@ -239,39 +239,39 @@ export const challenges: ChallengeArray = {
 
 const footerText = (): string => (Math.random() > 0.5 ? `Be sure to read the pins in your progression channel!` : `Art by MrKrutaman#1705`);
 
-export const shownFields = (challengeInfo: ChallengeInfo, requestedFields?: string): EmbedFieldData[] => {
+export const shownFields = (challengeInfo: ChallengeInfo, requestedFields?: string): EmbedField[] => {
   switch (requestedFields) {
-    case "unlock": return [{ name: "Unlock requirements", value: `${challengeInfo.requirements}` }];
-    case "challenge": return [{ name: "Challenge", value: `${challengeInfo.challenge}` }];
-    case "goal": return [{ name: "Goal", value: `${challengeInfo.goal}` }];
-    case "strategy": return [{ name: "Strategy", value: `${challengeInfo.strategy}` }];
+    case "unlock": return [{ name: "Unlock requirements", value: `${challengeInfo.requirements}`, inline: false }];
+    case "challenge": return [{ name: "Challenge", value: `${challengeInfo.challenge}`, inline: false }];
+    case "goal": return [{ name: "Goal", value: `${challengeInfo.goal}`, inline: false }];
+    case "strategy": return [{ name: "Strategy", value: `${challengeInfo.strategy}`, inline: false }];
     case "reward": {
-      const fields = [{ name: "Reward", value: `${challengeInfo.reward}` }];
-      if (challengeInfo.rewardFormula) fields.push({ name: "Reward formula", value: `${challengeInfo.rewardFormula}` });
+      const fields = [{ name: "Reward", value: `${challengeInfo.reward}`, inline: false }];
+      if (challengeInfo.rewardFormula) fields.push({ name: "Reward formula", value: `${challengeInfo.rewardFormula}`, inline: false });
       return fields;
     }
     default: {
       const fields = [
-        { name: "Unlock requirements", value: `${challengeInfo.requirements}` },
-        { name: "Challenge", value: `${challengeInfo.challenge}` },
-        { name: "Goal", value: `${challengeInfo.goal}` },
-        { name: "Strategy", value: `${challengeInfo.strategy}` },
-        { name: "Reward", value: `${challengeInfo.reward}` }
+        { name: "Unlock requirements", value: `${challengeInfo.requirements}`, inline: false },
+        { name: "Challenge", value: `${challengeInfo.challenge}`, inline: false },
+        { name: "Goal", value: `${challengeInfo.goal}`, inline: false },
+        { name: "Strategy", value: `${challengeInfo.strategy}`, inline: false },
+        { name: "Reward", value: `${challengeInfo.reward}`, inline: false }
       ];
-      if (challengeInfo.rewardFormula) fields.push({ name: "Reward formula", value: `${challengeInfo.rewardFormula}` });
+      if (challengeInfo.rewardFormula) fields.push({ name: "Reward formula", value: `${challengeInfo.rewardFormula}`, inline: false });
       return fields;
     }
   }
 };
 
-export const normalChallenge = (challengeInfo: ChallengeInfo): MessageEmbed => new MessageEmbed()
+export const normalChallenge = (challengeInfo: ChallengeInfo): EmbedBuilder => new EmbedBuilder()
   .setTitle(`Challenge ${challengeInfo.number}`)
   .setColor("#22aa48")
   .setFields(shownFields(challengeInfo))
   .setTimestamp()
   .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
 
-export const infinityChallenge = (challengeInfo: ChallengeInfo): MessageEmbed => new MessageEmbed()
+export const infinityChallenge = (challengeInfo: ChallengeInfo): EmbedBuilder => new EmbedBuilder()
   .setTitle(`Infinity Challenge ${challengeInfo.number}`)
   .setColor("#b67f33")
   .addFields(shownFields(challengeInfo))
@@ -282,7 +282,7 @@ export const infinityChallenge = (challengeInfo: ChallengeInfo): MessageEmbed =>
 // We do still recreate them for when a specific field is requested, because these get overwrriten if you don't.
 
 interface ChallengeMessageObject {
-  [key: string]: MessageEmbed | string;
+  [key: string]: EmbedBuilder | string;
 }
 
 export const newChallengeMessageObject: ChallengeMessageObject = {

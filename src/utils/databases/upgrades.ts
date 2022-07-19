@@ -1,4 +1,4 @@
-import { EmbedFieldData, MessageEmbed } from "discord.js";
+import { EmbedBuilder, EmbedField } from "discord.js";
 import { footerText, formatNumber, pluralise } from "../../functions/Misc";
 import { UpgradeInfo } from "../types";
 
@@ -350,66 +350,66 @@ export const upgrades: UpgradeData = {
 };
 
 const FieldGetter = {
-  infinity(upgradeInfo: UpgradeInfo): EmbedFieldData[] {
+  infinity(upgradeInfo: UpgradeInfo): EmbedField[] {
     const fields = [
-      { name: "Effect", value: upgradeInfo.effect },
-      { name: "Requirement", value: upgradeInfo.requirement as string },
-      { name: "Cost", value: `${upgradeInfo.cost} ${pluralise("Infinity Point", upgradeInfo.cost as number)}` },
+      { name: "Effect", value: upgradeInfo.effect, inline: false },
+      { name: "Requirement", value: upgradeInfo.requirement as string, inline: false },
+      { name: "Cost", value: `${upgradeInfo.cost} ${pluralise("Infinity Point", upgradeInfo.cost as number)}`, inline: false },
     ];
-    if (upgradeInfo.formula) fields.push({ name: "Effect formula", value: upgradeInfo.formula });
+    if (upgradeInfo.formula) fields.push({ name: "Effect formula", value: upgradeInfo.formula, inline: false });
     return fields;
   },
-  breakInfinity(upgradeInfo: UpgradeInfo): EmbedFieldData[] {
+  breakInfinity(upgradeInfo: UpgradeInfo): EmbedField[] {
     const fields = [
-      { name: "Effect", value: upgradeInfo.effect },
+      { name: "Effect", value: upgradeInfo.effect, inline: false },
     ];
-    if (typeof upgradeInfo.cost === "number") fields.push({ name: "Cost", value: `${formatNumber(upgradeInfo.cost)} ${pluralise("Infinity Point", upgradeInfo.cost)}` });
-    else if (typeof upgradeInfo.cost === "string") fields.push({ name: "Cost", value: upgradeInfo.cost });
-    if (upgradeInfo.formula) fields.push({ name: "Effect formula", value: upgradeInfo.formula });
+    if (typeof upgradeInfo.cost === "number") fields.push({ name: "Cost", value: `${formatNumber(upgradeInfo.cost)} ${pluralise("Infinity Point", upgradeInfo.cost)}`, inline: false });
+    else if (typeof upgradeInfo.cost === "string") fields.push({ name: "Cost", value: upgradeInfo.cost, inline: false });
+    if (upgradeInfo.formula) fields.push({ name: "Effect formula", value: upgradeInfo.formula, inline: false });
     return fields;
   },
-  eternity(upgradeInfo: UpgradeInfo): EmbedFieldData[] {
+  eternity(upgradeInfo: UpgradeInfo): EmbedField[] {
     const formattedCost = upgradeInfo.formatNicely === undefined ? formatNumber(upgradeInfo.cost as number) : upgradeInfo.cost;
     const fields = [
-      { name: "Effect", value: upgradeInfo.effect },
-      { name: "Cost", value: `${formattedCost} ${pluralise("Eternity Point", upgradeInfo.cost as number)}` }
+      { name: "Effect", value: upgradeInfo.effect, inline: false },
+      { name: "Cost", value: `${formattedCost} ${pluralise("Eternity Point", upgradeInfo.cost as number)}`, inline: false }
     ];
-    if (upgradeInfo.formula) fields.push({ name: "Effect formula", value: upgradeInfo.formula });
+    if (upgradeInfo.formula) fields.push({ name: "Effect formula", value: upgradeInfo.formula, inline: false });
     return fields;
   },
-  dilation(upgradeInfo: UpgradeInfo): EmbedFieldData[] {
+  dilation(upgradeInfo: UpgradeInfo): EmbedField[] {
     const formattedCost = formatNumber(upgradeInfo.initialCost as number);
     const fields = [
-      { name: "Effect", value: upgradeInfo.effect },
-      { name: "Cost", value: `${formattedCost} Dilated Time${upgradeInfo.rebuyable ? `, increasing by a factor of ${upgradeInfo.increment} each purchase` : ``}` },
+      { name: "Effect", value: upgradeInfo.effect, inline: false },
+      { name: "Cost", value: `${formattedCost} Dilated Time${upgradeInfo.rebuyable ? `, increasing by a factor of ${upgradeInfo.increment} each purchase` : ``}`, inline: false },
     ];
-    if (upgradeInfo.formula) fields.push({ name: "Effect formula", value: upgradeInfo.formula });
+    if (upgradeInfo.formula) fields.push({ name: "Effect formula", value: upgradeInfo.formula, inline: false });
     return fields;
   }
 };
 
-const InfinityUpgrade = (upgradeInfo: UpgradeInfo) => new MessageEmbed()
+const InfinityUpgrade = (upgradeInfo: UpgradeInfo) => new EmbedBuilder()
   .setTitle(upgradeInfo.name)
   .setColor("#b67f33")
   .addFields(FieldGetter.infinity(upgradeInfo))
   .setTimestamp()
   .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
 
-const BreakInfinityUpgrade = (upgradeInfo: UpgradeInfo) => new MessageEmbed()
+const BreakInfinityUpgrade = (upgradeInfo: UpgradeInfo) => new EmbedBuilder()
   .setTitle(upgradeInfo.name)
   .setColor("#b67f33")
   .addFields(FieldGetter.breakInfinity(upgradeInfo))
   .setTimestamp()
   .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
 
-const EternityUpgrade = (upgradeInfo: UpgradeInfo) => new MessageEmbed()
+const EternityUpgrade = (upgradeInfo: UpgradeInfo) => new EmbedBuilder()
   .setTitle(upgradeInfo.name)
   .setColor("#b341e0")
   .addFields(FieldGetter.eternity(upgradeInfo))
   .setTimestamp()
   .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
 
-const DilationUpgrade = (upgradeInfo: UpgradeInfo) => new MessageEmbed()
+const DilationUpgrade = (upgradeInfo: UpgradeInfo) => new EmbedBuilder()
   .setTitle(upgradeInfo.name)
   .setColor("#64dd17")
   .addFields(FieldGetter.dilation(upgradeInfo))

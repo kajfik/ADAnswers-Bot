@@ -1,14 +1,14 @@
 /* eslint-disable max-len */
+import { ApplicationCommandType, CommandInteraction } from "discord.js";
 import { isHelper, link } from "../../functions/Misc";
-import { BaseCommandInteraction } from "discord.js";
 import { Command } from "../../command";
 
 export const decimal: Command = {
   name: "decimal",
   description: "Explains how break_infinity.js works",
-  type: "CHAT_INPUT",
-  run: async(interaction: BaseCommandInteraction) => {
-    if (!interaction || !interaction.isCommand()) return;
+  type: ApplicationCommandType.ChatInput,
+  run: async(interaction: CommandInteraction) => {
+    if (!interaction || !interaction.isChatInputCommand()) return;
 
     // eslint-disable-next-line max-len
     const content: string = `Computers use the "64-bit Double-precision floating-point format" (or "double") for storing decimal values and as per the IEEE 754 standard its maximum value is 2^1024 which is about 1.79e308. In JavaScript, the programming language used for the web version, this value is named "Infinity". In the beginning, this was the largest number. 

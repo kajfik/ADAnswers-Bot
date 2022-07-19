@@ -1,24 +1,24 @@
+import { ApplicationCommandOptionType, ApplicationCommandType, CommandInteraction } from "discord.js";
 import { isHelper, link } from "../../functions/Misc";
-import { BaseCommandInteraction } from "discord.js";
 import { Command } from "../../command";
 import wiki from "wikijs";
 
 export const wikipedia: Command = {
   name: "wikipedia",
   description: "displays given Wikipedia article based on search term",
-  type: "CHAT_INPUT",
+  type: ApplicationCommandType.ChatInput,
   options: [
     {
       name: "search",
       description: "search term",
       required: true,
-      type: "STRING",
+      type: ApplicationCommandOptionType.String,
     },
     {
       name: "language",
       description: "language",
       required: false,
-      type: "STRING",
+      type: ApplicationCommandOptionType.String,
       choices: [
         { name: "en", value: "en" },
         { name: "de", value: "de" },
@@ -27,8 +27,8 @@ export const wikipedia: Command = {
       ]
     }
   ],
-  run: async(interaction: BaseCommandInteraction) => {
-    if (!interaction || !interaction.isCommand()) return;
+  run: async(interaction: CommandInteraction) => {
+    if (!interaction || !interaction.isChatInputCommand()) return;
 
     const language: string = interaction.options.getString("language") || "en";
 

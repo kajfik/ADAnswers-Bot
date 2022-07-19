@@ -50,8 +50,8 @@ Let's give our command a name and a description. We do this by putting propertie
 export const oneminuteinf: Command = {
   name: "1minuteinf", // This is what shows to people when attempting to use the slash command
   description: "explains the UI change at infinity in under a minute", // Shown to people in /help
-  type: "CHAT_INPUT", // do not change, is essential for creating the command on my end,
-  run: async(interaction: BaseCommandInteraction) { // What runs the command. In here is where we can change the content of the message sent when using the command.
+  type: ApplicationCommandType.ChatInput, // do not change, is essential for creating the command on my end,
+  run: async(interaction: CommandInteraction) { // What runs the command. In here is where we can change the content of the message sent when using the command.
     if (!interaction) return; // stops it from running if the interaction is undefined (happens sometimes on spotty wifi)
 
     const content: string = `...`; // Content of the message

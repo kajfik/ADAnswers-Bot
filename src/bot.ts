@@ -1,4 +1,4 @@
-import { Client, Intents } from "discord.js";
+import { Client, GatewayIntentBits, Partials } from "discord.js";
 import { DataTypes, Sequelize } from "sequelize";
 import interactionCreate from "./listeners/interactionCreate";
 import messageCreate from "./listeners/messageCreate";
@@ -9,18 +9,18 @@ console.log("Starting bot...");
 
 const client = new Client({
   intents: [
-    Intents.FLAGS.GUILDS,
-    Intents.FLAGS.GUILD_MESSAGES,
-    Intents.FLAGS.DIRECT_MESSAGES,
-    Intents.FLAGS.GUILD_INTEGRATIONS,
-    Intents.FLAGS.GUILD_MEMBERS
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.DirectMessages,
+    GatewayIntentBits.GuildIntegrations,
+    GatewayIntentBits.GuildMembers
   ],
   partials: [
-    "MESSAGE",
-    "CHANNEL",
-    "USER",
-    "REACTION",
-    "GUILD_MEMBER"
+    Partials.Message,
+    Partials.Channel,
+    Partials.User,
+    Partials.Reaction,
+    Partials.GuildMember
   ]
 });
 

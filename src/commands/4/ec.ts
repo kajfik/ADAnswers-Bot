@@ -1,4 +1,4 @@
-import { BaseCommandInteraction, MessageAttachment, MessageEmbed, User } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, CommandInteraction, EmbedBuilder, User } from "discord.js";
 import { eternityChallenge, shownFields } from "../../functions/ecs";
 import { Command } from "../../command";
 import { findEC } from "../../utils/databases/eternitychallenges";
@@ -6,13 +6,13 @@ import { isHelper } from "../../functions/Misc";
 
 export const ec: Command = {
   name: "ec",
-  description: "usage: `/ec [challenge] [completion]`. follow onscreen prompts",
-  type: "CHAT_INPUT",
+  description: "usage: /ec [challenge] [completion]. follow onscreen prompts",
+  type: ApplicationCommandType.ChatInput,
   options: [
     {
       name: "ec",
       description: "What Eternity Challenge are you doing?",
-      type: "INTEGER",
+      type: ApplicationCommandOptionType.Integer,
       required: true,
       // eslint-disable-next-line camelcase
       min_value: 1,
@@ -22,7 +22,7 @@ export const ec: Command = {
     {
       name: "completion",
       description: "What completion do you want to see?",
-      type: "INTEGER",
+      type: ApplicationCommandOptionType.Integer,
       required: true,
       // eslint-disable-next-line camelcase
       min_value: 1,
@@ -32,13 +32,13 @@ export const ec: Command = {
     {
       name: "hide",
       description: "ONLY AFFECTS ANYTHING IF YOU'RE A HELPER! Defaults to false.",
-      type: "BOOLEAN",
+      type: ApplicationCommandOptionType.Boolean,
       required: false,
     },
     {
       name: "info",
       description: "(Optional) What information about the challenge do you want to see?",
-      type: "STRING",
+      type: ApplicationCommandOptionType.String,
       required: false,
       choices: [
         { name: "unlock", value: "unlock" },
@@ -50,8 +50,8 @@ export const ec: Command = {
       ]
     }
   ],
-  run: async(interaction: BaseCommandInteraction) => {
-    if (!interaction || !interaction.isCommand()) return;
+  run: async(interaction: CommandInteraction) => {
+    if (!interaction || !interaction.isChatInputCommand()) return;
 
     const eternityChallengeRequested: number = interaction.options.getInteger("ec") as number;
     const completion: number = interaction.options.getInteger("completion") as number;
@@ -61,19 +61,19 @@ export const ec: Command = {
     if (!isHelper(interaction)) hide = true;
 
     const user: User = interaction.member === null ? interaction.user : interaction.member.user as User;
-    const picture: MessageAttachment = new MessageAttachment(`src/images/challenges/EC${eternityChallengeRequested}.png`);
+    const picture: AttachmentBuilder = new AttachmentBuilder(`src/images/challenges/EC${eternityChallengeRequested}.png`);
 
-    const embed: MessageEmbed = eternityChallenge(findEC(eternityChallengeRequested, completion))
+    const embed: EmbedBuilder = eternityChallenge(findEC(eternityChallengeRequested, completion))
       .setAuthor({ name: `${user.username}#${user.discriminator}`, iconURL: user.displayAvatarURL() })
       .setThumbnail(`attachment://EC${eternityChallengeRequested}.png`);
 
     if (!info) {
-      await interaction.reply({ embeds: [embed], files: [picture] });
+      await interaction.reply({ embeds: [embed], files: [picture], ephemeral: hide });
       return;
     }
 
     if (info === "tree") {
-      await interaction.reply({ content: `${findEC(eternityChallengeRequested, completion).tree}` });
+      await interaction.reply({ content: `${findEC(eternityChallengeRequested, completion).tree}`, ephemeral: hide });
       return;
     }
 

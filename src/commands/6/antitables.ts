@@ -1,4 +1,4 @@
-import { BaseCommandInteraction } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, CommandInteraction } from "discord.js";
 import { Command } from "../../command";
 import { StringIndexedStringObjectType } from "../../utils/types";
 import { isHelper } from "../../functions/Misc";
@@ -16,12 +16,12 @@ const antitablesCommand: StringIndexedStringObjectType = {
 export const antitables: Command = {
   name: "antitables",
   description: "Args: `prebreak`, `postbreak`, `posteternity`. Sends a guide to Antitables.",
-  type: "CHAT_INPUT",
+  type: ApplicationCommandType.ChatInput,
   options: [
     {
       name: "when",
       description: "prebreak, postbreak, or posteternity",
-      type: "STRING",
+      type: ApplicationCommandOptionType.String,
       required: true,
       choices: [
         { name: "prebreak", value: "prebreak" },
@@ -30,8 +30,8 @@ export const antitables: Command = {
       ]
     }
   ],
-  run: async(interaction: BaseCommandInteraction) => {
-    if (!interaction || !interaction.isCommand()) return;
+  run: async(interaction: CommandInteraction) => {
+    if (!interaction || !interaction.isChatInputCommand()) return;
 
     const when: string = interaction.options.getString("when") as string;
 

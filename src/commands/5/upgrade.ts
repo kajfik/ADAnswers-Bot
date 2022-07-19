@@ -1,4 +1,4 @@
-import { BaseCommandInteraction, MessageAttachment, MessageEmbed, User } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, CommandInteraction, EmbedBuilder, User } from "discord.js";
 import { UpgradeEmbedGetters, upgrades } from "../../utils/databases/upgrades";
 import { Command } from "../../command";
 import { UpgradeInfo } from "../../utils/types";
@@ -20,39 +20,39 @@ function getChoices(typeOfUpgrade: string) {
 export const upgrade: Command = {
   name: "upgrade",
   description: "Args: `infinity`, `break`, `eternity`, `dilation`. Explains what the upgrades are",
-  type: "CHAT_INPUT",
+  type: ApplicationCommandType.ChatInput,
   options: [
     {
       name: "infinity",
       description: "explains what an infinity upgrade is",
-      type: "STRING",
+      type: ApplicationCommandOptionType.String,
       required: false,
       choices: getChoices("infinity"),
     },
     {
       name: "break",
       description: "explains what a break upgrade is",
-      type: "STRING",
+      type: ApplicationCommandOptionType.String,
       required: false,
       choices: getChoices("break"),
     },
     {
       name: "eternity",
       description: "explains what an eternity upgrade is",
-      type: "STRING",
+      type: ApplicationCommandOptionType.String,
       required: false,
       choices: getChoices("eternity"),
     },
     {
       name: "dilation",
       description: "explains what a dilation upgrade is",
-      type: "STRING",
+      type: ApplicationCommandOptionType.String,
       required: false,
       choices: getChoices("dilation"),
     }
   ],
-  run: async(interaction: BaseCommandInteraction) => {
-    if (!interaction || !interaction.isCommand()) return;
+  run: async(interaction: CommandInteraction) => {
+    if (!interaction || !interaction.isChatInputCommand()) return;
 
     if (interaction.options.data.length > 1) {
       await interaction.reply({ content: "You can only use one upgrade type at a time." });
@@ -69,10 +69,10 @@ export const upgrade: Command = {
     const type: string = interaction.options.data[0].name;
     const upgradeName: string = interaction.options.data[0].value as string;
 
-    const picture = new MessageAttachment(`src/images/upgrades/${type}.png`);
+    const picture = new AttachmentBuilder(`src/images/upgrades/${type}.png`);
 
     const upgradeRequested = upgrades[type][upgradeName];
-    const embed: MessageEmbed = UpgradeEmbedGetters[type](upgradeRequested);
+    const embed: EmbedBuilder = UpgradeEmbedGetters[type](upgradeRequested);
     embed.setAuthor({ name: `${user.username}#${user.discriminator}`, iconURL: user.displayAvatarURL() })
       .setThumbnail(`attachment://${type}.png`);
 

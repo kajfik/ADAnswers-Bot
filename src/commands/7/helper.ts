@@ -1,4 +1,4 @@
-import { BaseCommandInteraction, MessageActionRow, MessageButton, MessageComponentInteraction, MessageEmbed } from "discord.js";
+import { ActionRowBuilder, ApplicationCommandType, ButtonBuilder, ButtonStyle, Colors, CommandInteraction, ComponentType, EmbedBuilder, MessageComponentInteraction } from "discord.js";
 import { isEligibleForHelper, isHelper } from "../../functions/Misc";
 import { Command } from "../../command";
 import { ids } from "../../config.json";
@@ -6,15 +6,15 @@ import { ids } from "../../config.json";
 export const helperRequest: Command = {
   name: "helper",
   description: "sends a consent form to become a designated helper",
-  type: "CHAT_INPUT",
-  run: async(interaction: BaseCommandInteraction) => {
-    if (!interaction || !interaction.isCommand()) return;
+  type: ApplicationCommandType.ChatInput,
+  run: async(interaction: CommandInteraction) => {
+    if (!interaction || !interaction.isChatInputCommand()) return;
 
     const isCurrentlyHelper: boolean = isHelper(interaction) as boolean;
     const isEligible: boolean = isEligibleForHelper(interaction);
 
     if (!isEligible) {
-      await interaction.reply({ content: `Hey! I'm glad you want to get the Helper role, but in order to do so, you need to have the "Infinity Dimension" role or greater.` });
+      await interaction.reply({ content: `Hey! I'm glad you want to get the Helper role, but in order to do so, you need to have the "Infinity Dimension" role or greater.`, ephemeral: true });
       return;
     }
 
@@ -23,26 +23,27 @@ export const helperRequest: Command = {
       // eslint-disable-next-line max-len
       : { name: "Adding the helper role will...", value: `allow you to use the bot in Progression Discussion. To become a Helper, understand that you agree to keep all *personal* use of the bot to <#351479640755404820> or the bot's DMs, and only use the bot outside of there to assist others on their journey through Antimatter Dimensions. **You are not free of consequences.** This is effectively a contract. Breaking it can result in some form of punishment. Moderators and admins are aware at all times of who is and who isn't a helper.\nYou can remove this role at any time by doing /helper again.` };
 
-    const embed: MessageEmbed = new MessageEmbed()
-      .setColor("DARK_AQUA")
+    const embed: EmbedBuilder = new EmbedBuilder()
+      .setColor(Colors.DarkAqua)
       .setTitle("ADAnswersBot Helper")
       .setDescription(`Are you sure you want to ${isCurrentlyHelper ? "remove" : "add"} the helper role?`)
       .setThumbnail(interaction.user.displayAvatarURL())
-      .addField(field.name, field.value)
+      .addFields({ name: field.name, value: field.value })
       .setTimestamp();
 
-    const buttons: MessageActionRow = new MessageActionRow()
+    const buttons: ActionRowBuilder<ButtonBuilder> = new ActionRowBuilder<ButtonBuilder>()
       .addComponents(
-        new MessageButton()
-          .setStyle(isCurrentlyHelper ? "DANGER" : "SUCCESS")
+        new ButtonBuilder()
+          .setStyle(isCurrentlyHelper ? ButtonStyle.Danger : ButtonStyle.Success)
           .setLabel(isCurrentlyHelper ? "Remove" : "Add")
-          .setCustomId(isCurrentlyHelper ? "button_remove" : "button_add")
+          .setCustomId(isCurrentlyHelper ? "helper_button_remove" : "helper_button_add")
       );
 
-    const filter = (i: MessageComponentInteraction) => i.customId.startsWith("button");
-    const collector = interaction.channel?.createMessageComponentCollector({ componentType: "ACTION_ROW", filter, time: 60000 });
+    // These filters need fairly verbose conditions, in order to not have the interactions overlap when running multiple collectors.
+    const filter = (i: MessageComponentInteraction) => i.customId.startsWith("helper_button");
+    const collector = interaction.channel?.createMessageComponentCollector({ componentType: ComponentType.Button, filter, time: 60000 });
 
-    await interaction.reply({ embeds: [embed], components: [buttons] })
+    await interaction.reply({ embeds: [embed], components: [buttons], ephemeral: true })
       .then(() => {
         collector?.on("collect", async i => {
           await interaction.guild?.members.fetch(interaction.user.id).then(async member => {

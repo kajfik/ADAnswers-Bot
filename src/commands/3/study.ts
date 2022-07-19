@@ -1,4 +1,4 @@
-import { BaseCommandInteraction, MessageAttachment, MessageEmbed, User } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, CommandInteraction, EmbedBuilder, User } from "discord.js";
 import { Command } from "../../command";
 import { StudyInfo } from "../../utils/types";
 import { TimeStudy } from "../../functions/studies";
@@ -8,12 +8,12 @@ import { studies } from "../../utils/databases/studies";
 export const study: Command = {
   name: "study",
   description: "Args: all study IDs. Returns information about the study",
-  type: "CHAT_INPUT",
+  type: ApplicationCommandType.ChatInput,
   options: [
     {
       name: "study",
       description: "The study you want to get information about using the study ID",
-      type: "INTEGER",
+      type: ApplicationCommandOptionType.Integer,
       required: true,
       // eslint-disable-next-line camelcase
       min_value: 11,
@@ -21,8 +21,8 @@ export const study: Command = {
       max_value: 234,
     }
   ],
-  run: (interaction: BaseCommandInteraction) => {
-    if (!interaction || !interaction.isCommand()) return;
+  run: (interaction: CommandInteraction) => {
+    if (!interaction || !interaction.isChatInputCommand()) return;
 
     const user: User = interaction.member === null ? interaction.user : interaction.member.user as User;
 
@@ -33,9 +33,9 @@ export const study: Command = {
       return;
     }
 
-    const embed: MessageEmbed = TimeStudy(studyRequested);
+    const embed: EmbedBuilder = TimeStudy(studyRequested);
 
-    const picture: MessageAttachment = new MessageAttachment(`src/images/studies/${studyRequested.type}.png`);
+    const picture: AttachmentBuilder = new AttachmentBuilder(`src/images/studies/${studyRequested.type}.png`);
 
     embed.setAuthor({ name: `${user.username}#${user.discriminator}`, iconURL: user.displayAvatarURL() })
       .setThumbnail(`attachment://${studyRequested.type}.png`);

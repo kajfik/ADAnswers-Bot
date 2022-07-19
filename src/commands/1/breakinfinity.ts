@@ -1,12 +1,12 @@
-import { BaseCommandInteraction } from "discord.js";
+import { ApplicationCommandType, CommandInteraction } from "discord.js";
 import { Command } from "../../command";
 import { isHelper } from "../../functions/Misc";
 
 export const breakinfinity: Command = {
   name: "breakinfinity",
   description: "describes break infinity and gives an order to get break infinity upgrades",
-  type: "CHAT_INPUT",
-  run: async(interaction: BaseCommandInteraction) => {
+  type: ApplicationCommandType.ChatInput,
+  run: async(interaction: CommandInteraction) => {
     if (!interaction) return;
 
     // eslint-disable-next-line max-len

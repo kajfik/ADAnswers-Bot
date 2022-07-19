@@ -1,29 +1,29 @@
+import { EmbedBuilder, EmbedField } from "discord.js";
 import { AchievementInfo } from "../types";
-import { MessageEmbed } from "discord.js";
-import { footerText } from "../../functions/Misc";
+import { footerText } from "../../functions/achievements";
 
 interface AchievementsData {
   [key: string]: AchievementInfo;
 }
 
-function getFields(achievementInfo: AchievementInfo) {
+function getFields(achievementInfo: AchievementInfo): EmbedField[] {
   const fields = [
-    { name: "Achievement", value: `${achievementInfo.achievement}` },
+    { name: "Achievement", value: `${achievementInfo.achievement}`, inline: false },
   ];
 
   if (achievementInfo.strategy) {
-    fields.push({ name: "Strategy", value: `${achievementInfo.strategy}` });
+    fields.push({ name: "Strategy", value: `${achievementInfo.strategy}`, inline: false });
   }
 
   if (achievementInfo.reward) {
-    fields.push({ name: "Reward", value: `${achievementInfo.reward}` });
-    if (achievementInfo.rewardFormula) fields.push({ name: "Reward formula", value: `${achievementInfo.rewardFormula}` });
+    fields.push({ name: "Reward", value: `${achievementInfo.reward}`, inline: false });
+    if (achievementInfo.rewardFormula) fields.push({ name: "Reward formula", value: `${achievementInfo.rewardFormula}`, inline: false });
   }
 
   return fields;
 }
 
-export const Achievement = (achievementInfo: AchievementInfo) => new MessageEmbed()
+export const Achievement = (achievementInfo: AchievementInfo) => new EmbedBuilder()
   .setTitle(`Achievement ${achievementInfo.id} ("${achievementInfo.fullName}")`)
   .setColor("#43a047")
   // We will set the image in AchievementApplicationCommand

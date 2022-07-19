@@ -1,12 +1,12 @@
-import { BaseCommandInteraction } from "discord.js";
+import { ApplicationCommandType, CommandInteraction } from "discord.js";
 import { Command } from "../../command";
 import { isHelper } from "../../functions/Misc";
 
 export const dimboostorgalaxy: Command = {
   name: "dimboostorgalaxy",
   description: "tells you if you should do a dimboost or galaxy",
-  type: "CHAT_INPUT",
-  run: async(interaction: BaseCommandInteraction) => {
+  type: ApplicationCommandType.ChatInput,
+  run: async(interaction: CommandInteraction) => {
     if (!interaction) return;
 
     // eslint-disable-next-line max-len

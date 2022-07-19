@@ -1,16 +1,16 @@
+import { ApplicationCommandOptionType, ApplicationCommandType, CommandInteraction } from "discord.js";
 import { getBaseLog, isHelper } from "../../functions/Misc";
-import { BaseCommandInteraction } from "discord.js";
 import { Command } from "../../command";
 
 export const ep: Command = {
   name: "ep",
   description: "calculates the amount of IP required to get the number of EP specified (2 < x < 1000)",
-  type: "CHAT_INPUT",
+  type: ApplicationCommandType.ChatInput,
   options: [
     {
       name: "ep",
       description: "the number of EP to calculate",
-      type: "NUMBER",
+      type: ApplicationCommandOptionType.Number,
       required: true,
       // Thanks discordjs
       // eslint-disable-next-line camelcase
@@ -19,8 +19,8 @@ export const ep: Command = {
       min_value: 2,
     }
   ],
-  run: async(interaction: BaseCommandInteraction) => {
-    if (!interaction || !interaction.isCommand()) return;
+  run: async(interaction: CommandInteraction) => {
+    if (!interaction || !interaction.isChatInputCommand()) return;
 
     const eternityPointsRequested: number = Math.floor(Math.abs(interaction.options.getNumber("ep") as number));
     const infinityPointsNeeded: number = Math.ceil(308 * getBaseLog(5, eternityPointsRequested) + 215.6);

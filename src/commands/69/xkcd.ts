@@ -1,23 +1,23 @@
-import { BaseCommandInteraction } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, CommandInteraction } from "discord.js";
 import { Command } from "../../command";
 import { isHelper } from "../../functions/Misc";
 
 export const xkcd: Command = {
   name: "xkcd",
   description: "any XKCD comic using the number",
-  type: "CHAT_INPUT",
+  type: ApplicationCommandType.ChatInput,
   options: [
     {
       name: "xkcd",
       description: "the comic number",
       required: true,
-      type: "INTEGER",
+      type: ApplicationCommandOptionType.Integer,
       // eslint-disable-next-line camelcase
       min_value: 1,
     }
   ],
-  run: async(interaction: BaseCommandInteraction) => {
-    if (!interaction || !interaction.isCommand()) return;
+  run: async(interaction: CommandInteraction) => {
+    if (!interaction || !interaction.isChatInputCommand()) return;
 
     // eslint-disable-next-line max-len
     const content: string = `https://xkcd.com/${interaction.options.getInteger("xkcd")}/`;

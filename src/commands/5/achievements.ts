@@ -1,5 +1,5 @@
 import { Achievement, acceptableArgs, achievementsMessageObject } from "../../utils/databases/achievements";
-import { BaseCommandInteraction, MessageAttachment, User } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, CommandInteraction, User } from "discord.js";
 import { findAchievementByID, findAchievementByName } from "../../functions/achievements";
 import { isHelper, link } from "../../functions/Misc";
 import { AchievementInfo } from "src/utils/types";
@@ -20,28 +20,28 @@ function getChoices() {
 export const achievements: Command = {
   name: "achievements",
   description: "sends link to achievements guide",
-  type: "CHAT_INPUT",
+  type: ApplicationCommandType.ChatInput,
   options: [
     {
       name: "achievement",
       description: "which achievement do you want to see a guide for?",
       required: false,
-      type: "STRING",
+      type: ApplicationCommandOptionType.String,
       choices: getChoices(),
     },
     {
       name: "other",
       description: "which achievement do you want to see a guide for, using the achievement ID",
       required: false,
-      type: "INTEGER",
+      type: ApplicationCommandOptionType.Integer,
       // eslint-disable-next-line camelcase
       min_value: 11,
       // eslint-disable-next-line camelcase
       max_value: 138,
     }
   ],
-  run: async(interaction: BaseCommandInteraction) => {
-    if (!interaction || !interaction.isCommand()) return;
+  run: async(interaction: CommandInteraction) => {
+    if (!interaction || !interaction.isChatInputCommand()) return;
 
     const ach: string = interaction.options.getString("achievement") as string;
     const other: number = interaction.options.getInteger("other") as number;
@@ -69,7 +69,7 @@ export const achievements: Command = {
         achievement = findAchievementByID(11) as AchievementInfo;
       }
 
-      const picture = new MessageAttachment(`src/images/achievements/${achievement.id}.png`);
+      const picture = new AttachmentBuilder(`src/images/achievements/${achievement.id}.png`);
 
       const embed = Achievement(achievement)
         .setAuthor({ name: `${user.username}#${user.discriminator}`, iconURL: user.displayAvatarURL() })

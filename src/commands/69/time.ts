@@ -1,4 +1,4 @@
-import { BaseCommandInteraction } from "discord.js";
+import { ApplicationCommandType, CommandInteraction } from "discord.js";
 import { Command } from "../../command";
 import { decimalTimeAsHMS } from "../../functions/time";
 import { isHelper } from "../../functions/Misc";
@@ -6,9 +6,9 @@ import { isHelper } from "../../functions/Misc";
 export const time: Command = {
   name: "time",
   description: "Displays the current time, in Decimal time. https://en.wikipedia.org/wiki/Decimal_time",
-  type: "CHAT_INPUT",
-  run: async(interaction: BaseCommandInteraction) => {
-    if (!interaction || !interaction.isCommand()) return;
+  type: ApplicationCommandType.ChatInput,
+  run: async(interaction: CommandInteraction) => {
+    if (!interaction || !interaction.isChatInputCommand()) return;
 
     const content: string = `Currently ${decimalTimeAsHMS(new Date())}`;
 

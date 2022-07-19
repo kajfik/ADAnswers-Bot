@@ -1,13 +1,13 @@
+import { ApplicationCommandType, CommandInteraction } from "discord.js";
 import { isHelper, link } from "../../functions/Misc";
-import { BaseCommandInteraction } from "discord.js";
 import { Command } from "../../command";
 
 export const savesharing: Command = {
   name: "savesharing",
   description: "Provides a brief explanation on sharing saves.",
-  type: "CHAT_INPUT",
-  run: async(interaction: BaseCommandInteraction) => {
-    if (!interaction || !interaction.isCommand()) return;
+  type: ApplicationCommandType.ChatInput,
+  run: async(interaction: CommandInteraction) => {
+    if (!interaction || !interaction.isChatInputCommand()) return;
 
     // eslint-disable-next-line max-len
     const content: string = `Due to the size of Antimatter Dimensions saves, you can not share them directly on Discord. \nInstead, you need to upload them to a site such as ${link("paste.ee", "https://paste.ee/")}. Pastebin will NOT work for this. \n\nTo do this, follow these steps: 

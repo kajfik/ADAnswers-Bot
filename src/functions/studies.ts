@@ -1,4 +1,4 @@
-import { ColorResolvable, MessageEmbed } from "discord.js";
+import { ColorResolvable, EmbedBuilder } from "discord.js";
 import { footerText, makeEnumeration } from "./Misc";
 import { StudyInfo } from "../utils/types";
 import { studies } from "../utils/databases/studies";
@@ -28,7 +28,7 @@ function getFields(studyInfo: StudyInfo) {
   return fields;
 }
 
-export const TimeStudy = (studyInfo: StudyInfo): MessageEmbed => new MessageEmbed()
+export const TimeStudy = (studyInfo: StudyInfo): EmbedBuilder => new EmbedBuilder()
   .setTitle(`Time Study ${studyInfo.id}`)
   .setColor(studyInfo.colour as ColorResolvable)
   .addFields(getFields(studyInfo))

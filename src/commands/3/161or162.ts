@@ -1,4 +1,4 @@
-import { BaseCommandInteraction } from "discord.js";
+import { ApplicationCommandType, CommandInteraction } from "discord.js";
 import { Command } from "../../command";
 import { isHelper } from "../../functions/Misc";
 
@@ -6,8 +6,8 @@ import { isHelper } from "../../functions/Misc";
 export const onesixtyoneor162: Command = {
   name: "161or162",
   description: "Explains whether to chose TS161 or TS162",
-  type: "CHAT_INPUT",
-  run: async(interaction: BaseCommandInteraction) => {
+  type: ApplicationCommandType.ChatInput,
+  run: async(interaction: CommandInteraction) => {
     if (!interaction) return;
 
     // eslint-disable-next-line max-len

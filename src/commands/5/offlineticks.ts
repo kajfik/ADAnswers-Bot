@@ -1,14 +1,14 @@
 /* eslint-disable max-len */
+import { ApplicationCommandType, CommandInteraction } from "discord.js";
 import { isHelper, link } from "../../functions/Misc";
-import { BaseCommandInteraction } from "discord.js";
 import { Command } from "../../command";
 
 export const offlineticks: Command = {
   name: "offlineticks",
   description: "offline ticks stuff",
-  type: "CHAT_INPUT",
-  run: async(interaction: BaseCommandInteraction) => {
-    if (!interaction || !interaction.isCommand()) return;
+  type: ApplicationCommandType.ChatInput,
+  run: async(interaction: CommandInteraction) => {
+    if (!interaction || !interaction.isChatInputCommand()) return;
 
     // eslint-disable-next-line max-len
     const content: string = `If you would like to have better offline progress and don't mind longer loading times you can increase the „Max offline ticks“ option up to 1m which represents 14 hours of accurate offline progress. Pressing the „speed up“ button calculates the rest of the offline ticks as if you had set the limit to 1k.

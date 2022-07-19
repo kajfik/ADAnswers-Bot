@@ -1,12 +1,12 @@
-import { BaseCommandInteraction } from "discord.js";
+import { ApplicationCommandType, CommandInteraction } from "discord.js";
 import { Command } from "../../command";
 import { isHelper } from "../../functions/Misc";
 
 export const earlyinfinity: Command = {
   name: "earlyinfinity",
   description: "Describes how to progress pre-2x better Galaxies",
-  type: "CHAT_INPUT",
-  run: async(interaction: BaseCommandInteraction) => {
+  type: ApplicationCommandType.ChatInput,
+  run: async(interaction: CommandInteraction) => {
     if (!interaction) return;
 
     // eslint-disable-next-line max-len

@@ -1,4 +1,4 @@
-import { Client, Message, MessageEmbed, TextChannel } from "discord.js";
+import { Client, Colors, EmbedBuilder, Message, TextChannel } from "discord.js";
 import { ids } from "../config.json";
 
 export default (client: Client): void => {
@@ -39,11 +39,11 @@ async function isScammer(message: Message<boolean>): Promise<boolean> {
 }
 
 function muteScammer(message: Message<boolean>): void {
-  const embed = new MessageEmbed()
+  const embed = new EmbedBuilder()
     .setTitle(`${message.author.username}#${message.author.discriminator}`)
     .setThumbnail(message.author.displayAvatarURL())
-    .setColor("BLURPLE")
-    .addField("Message", message.content)
+    .setColor(Colors.Blurple)
+    .addFields({ name: "Message", value: message.content, inline: false })
     .setDescription(`Message sent by <@${message.author.id}> was deleted and member was muted.`)
     .setTimestamp();
 

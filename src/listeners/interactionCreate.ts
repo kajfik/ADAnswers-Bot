@@ -1,4 +1,4 @@
-import { BaseCommandInteraction, Client, Interaction } from "discord.js";
+import { Client, CommandInteraction, Interaction, InteractionType } from "discord.js";
 import { incrementBigFourTags, incrementTag } from "../functions/database";
 import { Commands } from "../commands";
 import { InteractionEvents } from "../classes/events/InteractionEvents";
@@ -9,7 +9,7 @@ import { tags } from "../bot";
 export default (client: Client): void => {
   client.on("interactionCreate", async(interaction: Interaction) => {
     try {
-      if (interaction.isCommand() || interaction.isContextMenu()) {
+      if (interaction.type === InteractionType.ApplicationCommand) {
         await handleSlashCommand(client, interaction);
       }
     } catch (error) {
@@ -18,7 +18,7 @@ export default (client: Client): void => {
   });
 };
 
-const handleSlashCommand = async(client: Client, interaction: BaseCommandInteraction): Promise<void> => {
+const handleSlashCommand = async(client: Client, interaction: CommandInteraction): Promise<void> => {
   if (!client.application?.owner) await client.application?.fetch();
 
   if (interaction.channelId === ids.AD.general && interaction.commandName !== "deadchat" && !isHelper(interaction)) {
@@ -43,6 +43,6 @@ const handleSlashCommand = async(client: Client, interaction: BaseCommandInterac
     await incrementBigFourTags(interaction.commandName, `${interaction.user.username}#${interaction.user.discriminator}`);
   } catch (error) {
     console.log(error);
-    interaction.followUp({ content: `Error running command ${interaction.commandName}` });
+    interaction.reply({ content: `Error running command ${interaction.commandName}` });
   }
 };

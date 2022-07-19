@@ -1,5 +1,5 @@
+import { ActivityType, Client } from "discord.js";
 import { Model, ModelStatic, Sequelize } from "sequelize";
-import { Client } from "discord.js";
 import { Commands } from "../commands";
 import { PresenceMessage } from "../functions/presence";
 import { ids } from "../config.json";
@@ -27,7 +27,7 @@ export default (client: Client, databases: Sequelize[], tagsArray: ModelStatic<M
 
     function setBotStatus(): void {
       const next = PresenceMessage.next();
-      client.user?.setActivity(next, { type: "LISTENING" });
+      client.user?.setActivity(next, { type: ActivityType.Listening });
     }
 
     setInterval(setBotStatus, 15000);

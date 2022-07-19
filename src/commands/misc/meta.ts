@@ -1,4 +1,4 @@
-import { BaseCommandInteraction, EmbedFieldData, InteractionReplyOptions, MessageActionRow, MessageButton, MessageComponentInteraction, MessageEmbed } from "discord.js";
+import { ActionRowBuilder, ApplicationCommandType, ButtonBuilder, ButtonStyle, Colors, CommandInteraction, EmbedBuilder, EmbedField, InteractionReplyOptions, MessageComponentInteraction } from "discord.js";
 import { dhmsFromMS, getTimezoneFromDate } from "../../functions/time";
 import { isHelper, link } from "../../functions/Misc";
 import { Command } from "../../command";
@@ -7,7 +7,7 @@ import { TagInfo } from "../../utils/types";
 import config from "../../config.json";
 import { getTagInfo } from "../../functions/database";
 const NOW = Date();
-const metaFields = (interaction: BaseCommandInteraction, tagInfo: TagInfo): { [key: number]: Array<EmbedFieldData> } => ({
+const metaFields = (interaction: CommandInteraction, tagInfo: TagInfo): { [key: number]: Array<EmbedField> } => ({
   1: [
     {
       name: "Bot version",
@@ -78,12 +78,12 @@ const metaFields = (interaction: BaseCommandInteraction, tagInfo: TagInfo): { [k
 
 // Sorry
 // eslint-disable-next-line max-params
-const embed = (currentPage: number, interaction: BaseCommandInteraction, disabled: boolean, expirationTimestamp: number, tagInfo: TagInfo) => new MessageEmbed()
+const embed = (currentPage: number, interaction: CommandInteraction, disabled: boolean, expirationTimestamp: number, tagInfo: TagInfo) => new EmbedBuilder()
   .setTitle(`Meta (p${currentPage}/2)`)
   .setDescription(`Internal bot information.\nExpire${disabled ? "d" : "s"} <t:${expirationTimestamp}:R> at <t:${expirationTimestamp}:T>`)
   .addFields(metaFields(interaction, tagInfo)[currentPage])
   .setFooter({ text: `This superfluous bot was created by @earth#1337\nBot version: ${config.version}`, iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` })
-  .setColor("BLURPLE")
+  .setColor(Colors.Blurple)
   .setTimestamp();
 
 const getNextPage = (currentPage: number, up: boolean) => {
@@ -101,36 +101,36 @@ const getNextPage = (currentPage: number, up: boolean) => {
 export const meta: Command = {
   name: "meta",
   description: "information about the bot",
-  type: "CHAT_INPUT",
-  run: async(interaction: BaseCommandInteraction) => {
-    if (!interaction || !interaction.isCommand()) return;
+  type: ApplicationCommandType.ChatInput,
+  run: async(interaction: CommandInteraction) => {
+    if (!interaction || !interaction.isChatInputCommand()) return;
 
     const expirationTimestamp = Math.floor((Date.now() + 60000) / 1000);
     let currentPage = 1;
     const personRequested = `${interaction.user.username}#${interaction.user.discriminator}`;
     const tagInfo = await getTagInfo();
 
-    const buttons = (disabled: boolean) => new MessageActionRow()
+    const buttons = (disabled: boolean) => new ActionRowBuilder<ButtonBuilder>()
       .addComponents(
-        new MessageButton()
-          .setCustomId("button_prev")
+        new ButtonBuilder()
+          .setCustomId("meta_button_prev")
           .setEmoji("◀️")
-          .setStyle("PRIMARY")
+          .setStyle(ButtonStyle.Primary)
           .setDisabled(disabled),
-        new MessageButton()
-          .setCustomId("button_next")
+        new ButtonBuilder()
+          .setCustomId("meta_button_next")
           .setEmoji("▶️")
-          .setStyle("PRIMARY")
+          .setStyle(ButtonStyle.Primary)
           .setDisabled(disabled),
       );
-    const buttons2 = (disabled: boolean, person: string) => new MessageActionRow()
+    const buttons2 = (disabled: boolean, person: string) => new ActionRowBuilder<ButtonBuilder>()
       .addComponents(
-        new MessageButton()
-          .setStyle("LINK")
+        new ButtonBuilder()
+          .setStyle(ButtonStyle.Link)
           .setLabel("GitHub repository")
           .setURL("https://github.com/earthernsence/ADAnswers-Bot"),
-        new MessageButton()
-          .setStyle("SECONDARY")
+        new ButtonBuilder()
+          .setStyle(ButtonStyle.Secondary)
           .setDisabled(true)
           .setLabel(disabled ? `Time expired` : `Requested by ${person}.`)
           .setCustomId("secondary-info-button")
@@ -144,7 +144,8 @@ export const meta: Command = {
       components: [buttons(false), buttons2(false, personRequested)]
     };
 
-    const filter = (i: MessageComponentInteraction) => i.customId.startsWith("button");
+    // These filters need fairly verbose conditions, in order to not have the interactions overlap when running multiple collectors.
+    const filter = (i: MessageComponentInteraction) => i.customId.startsWith("meta_button");
     const collector = interaction.channel?.createMessageComponentCollector({ filter, time: 60000 });
 
     await interaction.reply(content).then(() => {
@@ -160,7 +161,7 @@ export const meta: Command = {
         }
       });
       collector?.on("end", async() => {
-        await interaction.reply({
+        await interaction.editReply({
           embeds: [embed(currentPage, interaction, true, expirationTimestamp, tagInfo)],
           components: [buttons(true), buttons2(true, personRequested)]
         });

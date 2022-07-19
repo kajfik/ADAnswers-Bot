@@ -1,4 +1,4 @@
-import { BaseCommandInteraction, InteractionReplyOptions, MessageActionRow, MessageAttachment, MessageButton, MessageComponentInteraction, MessageEmbed, MessageSelectMenu } from "discord.js";
+import { ActionRowBuilder, ApplicationCommandType, AttachmentBuilder, ButtonBuilder, ButtonStyle, CommandInteraction, EmbedBuilder, InteractionReplyOptions, MessageComponentInteraction, SelectMenuBuilder } from "discord.js";
 import { Command } from "../../command";
 import { commandsByPage } from "../../commands";
 import config from "../../config.json";
@@ -15,7 +15,7 @@ const getNextPage = (currentPage: number, up: boolean) => {
   return possiblePages[index];
 };
 
-const getEmbed = (currentPage: number) => new MessageEmbed()
+const getEmbed = (currentPage: number) => new EmbedBuilder()
   .setTitle(`Help (p${currentPage}/8)`)
   .setDescription(`A comprehensive list of commands.`)
   .setColor(`#${currentPage === 69 ? "696969" : Math.round(currentPage / 8 * 255).toString(16).repeat(3)}`)
@@ -33,28 +33,28 @@ const fields = (page: number) => commandsByPage[page].map(command => ({
 export const help: Command = {
   name: "help",
   description: "help command",
-  type: "CHAT_INPUT",
-  run: async(interaction: BaseCommandInteraction) => {
-    if (!interaction || !interaction.isCommand()) return;
+  type: ApplicationCommandType.ChatInput,
+  run: async(interaction: CommandInteraction) => {
+    if (!interaction || !interaction.isChatInputCommand()) return;
 
     let currentPage: number = 1;
 
-    const buttons: MessageActionRow = new MessageActionRow()
+    const buttons: ActionRowBuilder<ButtonBuilder> = new ActionRowBuilder<ButtonBuilder>()
       .addComponents(
-        new MessageButton()
-          .setCustomId("button_prev")
+        new ButtonBuilder()
+          .setCustomId("help_button_prev")
           .setEmoji("◀️")
-          .setStyle("PRIMARY"),
-        new MessageButton()
-          .setCustomId("button_next")
+          .setStyle(ButtonStyle.Primary),
+        new ButtonBuilder()
+          .setCustomId("help_button_next")
           .setEmoji("▶️")
-          .setStyle("PRIMARY"),
+          .setStyle(ButtonStyle.Primary),
       );
 
-    const selectMenu: MessageActionRow = new MessageActionRow()
+    const selectMenu: ActionRowBuilder<SelectMenuBuilder> = new ActionRowBuilder<SelectMenuBuilder>()
       .addComponents(
-        new MessageSelectMenu()
-          .setCustomId("select_page")
+        new SelectMenuBuilder()
+          .setCustomId("help_select_page")
           .setOptions([
             {
               label: "Page 1: Pre-Break Infinity",
@@ -99,11 +99,12 @@ export const help: Command = {
           ])
       );
 
-    const picture = new MessageAttachment("src/images/misc/help.png");
+    const picture = new AttachmentBuilder("src/images/misc/help.png");
 
     const content: InteractionReplyOptions = { embeds: [getEmbed(currentPage)], files: [picture], components: [buttons, selectMenu], ephemeral: true };
 
-    const filter = (i: MessageComponentInteraction) => i.customId.startsWith("select") || i.customId.startsWith("button");
+    // These filters need fairly verbose conditions, in order to not have the interactions overlap when running multiple collectors.
+    const filter = (i: MessageComponentInteraction) => i.customId.startsWith("help_select") || i.customId.startsWith("help_button");
     const collector = interaction.channel?.createMessageComponentCollector({ filter, time: 60000 });
 
     await interaction.reply(content).then(() => {
@@ -115,7 +116,7 @@ export const help: Command = {
             await i.update({ embeds: [getEmbed(page)], files: [picture], components: [buttons, selectMenu] });
           }
           if (i.isButton()) {
-            const up = i.customId.startsWith("button_next");
+            const up = i.customId.startsWith("help_button_next");
             const page = getNextPage(currentPage, up);
             currentPage = page;
             await i.update({ embeds: [getEmbed(page)], files: [picture], components: [buttons, selectMenu] });

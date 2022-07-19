@@ -1,16 +1,16 @@
-import { BaseCommandInteraction } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, CommandInteraction } from "discord.js";
 import { Command } from "../../command";
 import { isHelper } from "../../functions/Misc";
 
 export const infinitygrinding: Command = {
   name: "infinitygrinding",
   description: "Sends how to grind infinities for requested time period. Early = EC4, late = banked",
-  type: "CHAT_INPUT",
+  type: ApplicationCommandType.ChatInput,
   options: [
     {
       name: "when",
       description: "at what point in the game you are. Early = EC4, late = banked",
-      type: "STRING",
+      type: ApplicationCommandOptionType.String,
       required: true,
       choices: [
         { name: "early", value: "early" },
@@ -18,8 +18,8 @@ export const infinitygrinding: Command = {
       ]
     }
   ],
-  run: async(interaction: BaseCommandInteraction) => {
-    if (!interaction || !interaction.isCommand()) return;
+  run: async(interaction: CommandInteraction) => {
+    if (!interaction || !interaction.isChatInputCommand()) return;
 
     const when = interaction.options.getString("when");
 

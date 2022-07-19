@@ -1,4 +1,4 @@
-import { BaseCommandInteraction } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, CommandInteraction } from "discord.js";
 import { Command } from "../../command";
 import { Tree } from "../../classes/Tree";
 import { isHelper } from "../../functions/Misc";
@@ -6,12 +6,12 @@ import { isHelper } from "../../functions/Misc";
 export const studytree: Command = {
   name: "studytree",
   description: "Generates a Time Study tree based on your total Time Theorems.",
-  type: "CHAT_INPUT",
+  type: ApplicationCommandType.ChatInput,
   options: [
     {
       name: "theorems",
       description: "The number of Time Theorems you have.",
-      type: "INTEGER",
+      type: ApplicationCommandOptionType.Integer,
       required: true,
       // eslint-disable-next-line camelcase
       min_value: 0,
@@ -19,7 +19,7 @@ export const studytree: Command = {
     {
       name: "path",
       description: "The path you want to use; only has effect 54 < x < 123 where x is TT",
-      type: "STRING",
+      type: ApplicationCommandOptionType.String,
       required: false,
       choices: [
         { name: "Passive", value: "passive" },
@@ -28,8 +28,8 @@ export const studytree: Command = {
       ]
     }
   ],
-  run: async(interaction: BaseCommandInteraction) => {
-    if (!interaction || !interaction.isCommand()) return;
+  run: async(interaction: CommandInteraction) => {
+    if (!interaction || !interaction.isChatInputCommand()) return;
 
     const theorems: number = interaction.options.getInteger("theorems") as number;
     const path: string = interaction.options.getString("path") as string;

@@ -1,13 +1,13 @@
 import { hideLinkEmbed, hyperlink } from "@discordjs/builders";
-import { BaseCommandInteraction } from "discord.js";
+import { CommandInteraction } from "discord.js";
 import { ids } from "../config.json";
 
-export function isHelper(interaction: BaseCommandInteraction): boolean | undefined {
+export function isHelper(interaction: CommandInteraction): boolean | undefined {
   // Now that's an expression!
   return interaction.guild?.members.resolve(interaction.user)?.roles.cache.has(ids.helperRole);
 }
 
-export function isEligibleForHelper(interaction: BaseCommandInteraction): boolean {
+export function isEligibleForHelper(interaction: CommandInteraction): boolean {
   const roles = interaction.guild?.members.resolve(interaction.user)?.roles.cache;
   const eligibleRoles = ids.rolesGreaterThanOrEqualToInfinityDimension;
   const eligible = roles?.some(role => eligibleRoles.includes(role.id));

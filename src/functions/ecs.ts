@@ -1,6 +1,6 @@
 import { ECDescriptions, ECRewards, order } from "../utils/databases/eternitychallenges";
 import { EC } from "../utils/types";
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 import { footerText } from "./Misc";
 
 export function otherCompletions(id: number, completion: number): string {
@@ -36,7 +36,7 @@ export function otherCompletions(id: number, completion: number): string {
   return completions.filter(Number).map((value, index) => `${index + 1}x${value}`).join(", ");
 }
 
-export const eternityChallenge = (challengeInfo: EC, requestedFields?: string): MessageEmbed => new MessageEmbed()
+export const eternityChallenge = (challengeInfo: EC, requestedFields?: string): EmbedBuilder => new EmbedBuilder()
   .setTitle(`Eternity Challenge ${challengeInfo.challenge}x${challengeInfo.completion}`)
   .setColor("#b241e3")
   .addFields(shownFields(challengeInfo, requestedFields))

@@ -1,5 +1,5 @@
+import { ApplicationCommandOptionType, ApplicationCommandType, CommandInteraction } from "discord.js";
 import { order, orderAsString } from "../../utils/databases/eternitychallenges";
-import { BaseCommandInteraction } from "discord.js";
 import { Command } from "../../command";
 import { isHelper } from "../../functions/Misc";
 import { otherCompletions } from "../../functions/ecs";
@@ -7,13 +7,13 @@ import { otherCompletions } from "../../functions/ecs";
 export const eco: Command = {
   name: "eco",
   description: "Args: highest eternity challenge you've down in the order (optional). Returns the EC order.",
-  type: "CHAT_INPUT",
+  type: ApplicationCommandType.ChatInput,
   options: [
     {
       name: "challenge",
       description: "What Eternity Challenge are you doing?",
       required: false,
-      type: "INTEGER",
+      type: ApplicationCommandOptionType.Integer,
       // eslint-disable-next-line camelcase
       min_value: 1,
       // eslint-disable-next-line camelcase
@@ -23,15 +23,15 @@ export const eco: Command = {
       name: "completion",
       description: "What completion do you want to see?",
       required: false,
-      type: "INTEGER",
+      type: ApplicationCommandOptionType.Integer,
       // eslint-disable-next-line camelcase
       min_value: 1,
       // eslint-disable-next-line camelcase
       max_value: 5,
     }
   ],
-  run: async(interaction: BaseCommandInteraction) => {
-    if (!interaction || !interaction.isCommand()) return;
+  run: async(interaction: CommandInteraction) => {
+    if (!interaction || !interaction.isChatInputCommand()) return;
 
     const challenge: number = interaction.options.getInteger("challenge") as number;
     const completion: number = interaction.options.getInteger("completion") as number;

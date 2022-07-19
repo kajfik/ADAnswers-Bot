@@ -1,10 +1,10 @@
-import { BaseCommandInteraction, GuildMember, MessageEmbed, User } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, ChannelType, CommandInteraction, EmbedBuilder, GuildMember, User } from "discord.js";
 import { Command } from "../../command";
 import { UserInfo } from "../../utils/types";
 import { getPersonTag } from "../../functions/database";
 import { pluralise } from "../../functions/Misc";
 
-async function getUserInfo(user: User, interaction: BaseCommandInteraction): Promise<UserInfo> {
+async function getUserInfo(user: User, interaction: CommandInteraction): Promise<UserInfo> {
   const u = await interaction.guild?.members.resolve(user.id) as GuildMember;
 
   return {
@@ -26,19 +26,19 @@ async function getUserInfo(user: User, interaction: BaseCommandInteraction): Pro
 export const user: Command = {
   name: "user",
   description: "get information about a user",
-  type: "CHAT_INPUT",
+  type: ApplicationCommandType.ChatInput,
   options: [
     {
       name: "user",
       description: "the user to get information about",
       required: true,
-      type: "USER",
+      type: ApplicationCommandOptionType.User,
     }
   ],
-  run: async(interaction: BaseCommandInteraction) => {
-    if (!interaction || !interaction.isCommand()) return;
+  run: async(interaction: CommandInteraction) => {
+    if (!interaction || !interaction.isChatInputCommand()) return;
 
-    if (interaction.channel?.type === "DM") {
+    if (interaction.channel?.type === ChannelType.DM) {
       interaction.reply("This command can only be used in a server.");
       return;
     }
@@ -49,13 +49,13 @@ export const user: Command = {
       return;
     }
     const info = await getUserInfo(userRequested, interaction);
-    const embed = new MessageEmbed()
+    const embed = new EmbedBuilder()
       .setTitle(`${info.fullPerson}`)
       .setThumbnail(info.avatar)
-      .addField("Bot information", await info.tagInfo())
-      .addField("Nickname", info.nick)
-      .addField(`Roles (${info.rolesUnjoined?.length ?? 0})`, info.roles ?? "This user has no roles")
-      .addField("Joined", info.joined)
+      .addFields({ name: "Bot information", value: await info.tagInfo() })
+      .addFields({ name: "Nickname", value: info.nick })
+      .addFields({ name: `Roles (${info.rolesUnjoined?.length ?? 0})`, value: info.roles ?? "This user has no roles" })
+      .addFields({ name: "Joined", value: info.joined })
       .setTimestamp()
       .setFooter({ text: `${interaction.guild?.name}`, iconURL: interaction.guild?.iconURL() as string });
 

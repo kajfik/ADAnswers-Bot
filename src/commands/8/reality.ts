@@ -1,4 +1,4 @@
-import { BaseCommandInteraction } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, CommandInteraction } from "discord.js";
 import { Command } from "../../command";
 import { StringIndexedStringObjectType } from "../../utils/types";
 import { isHelper } from "../../functions/Misc";
@@ -16,14 +16,14 @@ const realityMessageObject: StringIndexedStringObjectType = {
 /* eslint-enable max-len */
 
 export const reality: Command = {
-  name: "realitry",
+  name: "reality",
   description: "Information surrounding the upcoming reality update.",
-  type: "CHAT_INPUT",
+  type: ApplicationCommandType.ChatInput,
   options: [
     {
       name: "info",
       description: "Shows selected information about the reality update.",
-      type: "STRING",
+      type: ApplicationCommandOptionType.String,
       required: true,
       choices: [
         { name: "link", value: "link" },
@@ -36,8 +36,8 @@ export const reality: Command = {
       ]
     }
   ],
-  run: async(interaction: BaseCommandInteraction) => {
-    if (!interaction || !interaction.isCommand()) return;
+  run: async(interaction: CommandInteraction) => {
+    if (!interaction || !interaction.isChatInputCommand()) return;
 
     const informationRequested: string = interaction.options.getString("info") as string;
     const content: string = realityMessageObject[informationRequested];

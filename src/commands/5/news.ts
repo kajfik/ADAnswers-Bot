@@ -1,17 +1,17 @@
+import { ApplicationCommandOptionType, ApplicationCommandType, CommandInteraction } from "discord.js";
 import { isHelper, link } from "../../functions/Misc";
-import { BaseCommandInteraction } from "discord.js";
 import { Command } from "../../command";
 
 export const news: Command = {
   name: "news",
   description: "Args: `listmobile`, `listweb`, `info`. Explains what the news ticker is and where it came from",
-  type: "CHAT_INPUT",
+  type: ApplicationCommandType.ChatInput,
   options: [
     {
       name: "info",
       description: "What information about news do you want to see?",
       required: true,
-      type: "STRING",
+      type: ApplicationCommandOptionType.String,
       choices: [
         { name: "listmobile", value: "listmobile" },
         { name: "listweb", value: "listweb" },
@@ -19,8 +19,8 @@ export const news: Command = {
       ]
     }
   ],
-  run: async(interaction: BaseCommandInteraction) => {
-    if (!interaction || !interaction.isCommand()) return;
+  run: async(interaction: CommandInteraction) => {
+    if (!interaction || !interaction.isChatInputCommand()) return;
 
     let content: string;
     const info = interaction.options.getString("info");
