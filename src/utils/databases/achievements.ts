@@ -88,7 +88,7 @@ export const achievements: AchievementsData = {
     fullName: "9th Dimension is a lie",
     achievement: "Have exactly 99 8th Antimatter Dimensions",
     reward: "8th Antimatter Dimensions are 10% stronger",
-    strategy: `Get it after your first galaxy and the 90 8th dim costing dimboost by toggling Until 10 next to tickspeed.`,
+    strategy: `Get it after your first galaxy and the 90 8th dim costing dimboost by toggling the 8th Dimension autobuyer to singles.`,
   },
   "24": {
     id: 24,
@@ -115,7 +115,7 @@ export const achievements: AchievementsData = {
     fullName: "There's no point in doing that...",
     achievement: "Buy a single 1st Antimatter Dimension when you have over 1e150 of them.",
     reward: "1st Antimatter Dimensions are 10% stronger",
-    strategy: `After you have e150 1st dims, toggle Until 10 next to tickspeed and buy a 1st dim.`,
+    strategy: `After you have e150 1st dims, toggle the 1st Dimension autobuyer to singles.`,
   },
   "31": {
     id: 31,
@@ -654,10 +654,10 @@ export const achievements: AchievementsData = {
 };
 
 export const achievementsMessageObject = {
-  "r23": `Get it after your first galaxy and the 90 8th dim costing dimboost by toggling Until 10 next to tickspeed.`,
+  "r23": `Get it after your first galaxy and the 90 8th dim costing dimboost by toggling the 8th Dimension autobuyer to singles.`,
   get "9th Dimension is a lie"() { return this.r23; },
 
-  "r28": `After you have e150 1st dims, toggle Until 10 next to tickspeed and buy a 1st dim.`,
+  "r28": `After you have e150 1st dims, toggle the 1st Dimension autobuyer to singles.`,
   get "There's no point in doing that..."() { return this.r28; },
 
   "r36": `Do ***not*** do this on your first Infinity. When you Infinity, Galaxies are reset back to 0, so you can attempt it later when it's easier.`,
