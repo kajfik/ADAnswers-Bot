@@ -1,5 +1,4 @@
-import { hideLinkEmbed, hyperlink } from "@discordjs/builders";
-import { CommandInteraction } from "discord.js";
+import { CommandInteraction, hideLinkEmbed, hyperlink } from "discord.js";
 import { ids } from "../config.json";
 
 export function isHelper(interaction: CommandInteraction): boolean | undefined {

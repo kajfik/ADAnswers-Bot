@@ -1,10 +1,10 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, CommandInteraction, EmbedBuilder, User } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, CommandInteraction, EmbedBuilder, SlashCommandSubcommandBuilder, User } from "discord.js";
 import { UpgradeEmbedGetters, upgrades } from "../../utils/databases/upgrades";
 import { Command } from "../../command";
 import { UpgradeInfo } from "../../utils/types";
 import { isHelper } from "../../functions/Misc";
 
-function getChoices(typeOfUpgrade: string) {
+function getChoices(typeOfUpgrade: string): { name: string, value: string, type: any }[] {
   const choices = [];
   const upgradesToIterate = upgrades[typeOfUpgrade as keyof typeof upgrades];
   for (const upgrade in upgradesToIterate) {
@@ -12,6 +12,7 @@ function getChoices(typeOfUpgrade: string) {
     choices.push({
       name: upgradeObject.id,
       value: upgradeObject.id,
+      type: ApplicationCommandOptionType.String
     });
   }
   return choices;
@@ -22,34 +23,42 @@ export const upgrade: Command = {
   description: "Args: `infinity`, `break`, `eternity`, `dilation`. Explains what the upgrades are",
   type: ApplicationCommandType.ChatInput,
   options: [
-    {
-      name: "infinity",
-      description: "explains what an infinity upgrade is",
-      type: ApplicationCommandOptionType.String,
-      required: false,
-      choices: getChoices("infinity"),
-    },
-    {
-      name: "break",
-      description: "explains what a break upgrade is",
-      type: ApplicationCommandOptionType.String,
-      required: false,
-      choices: getChoices("break"),
-    },
-    {
-      name: "eternity",
-      description: "explains what an eternity upgrade is",
-      type: ApplicationCommandOptionType.String,
-      required: false,
-      choices: getChoices("eternity"),
-    },
-    {
-      name: "dilation",
-      description: "explains what a dilation upgrade is",
-      type: ApplicationCommandOptionType.String,
-      required: false,
-      choices: getChoices("dilation"),
-    }
+    new SlashCommandSubcommandBuilder()
+      .setName("infinity")
+      .setDescription("Explains what a infinity upgrade is")
+      .addStringOption(option =>
+        option.setName("upgrade")
+          .setRequired(true)
+          .setDescription("The upgrade you want to know about")
+          .setChoices(...getChoices("infinity"))
+      ).toJSON(),
+    new SlashCommandSubcommandBuilder()
+      .setName("break")
+      .setDescription("Explains what a break upgrade is")
+      .addStringOption(option =>
+        option.setName("upgrade")
+          .setRequired(true)
+          .setDescription("The upgrade you want to know about")
+          .setChoices(...getChoices("break"))
+      ).toJSON(),
+    new SlashCommandSubcommandBuilder()
+      .setName("eternity")
+      .setDescription("Explains what a eternity upgrade is")
+      .addStringOption(option =>
+        option.setName("upgrade")
+          .setRequired(true)
+          .setDescription("The upgrade you want to know about")
+          .setChoices(...getChoices("eternity"))
+      ).toJSON(),
+    new SlashCommandSubcommandBuilder()
+      .setName("dilation")
+      .setDescription("Explains what a dilation upgrade is")
+      .addStringOption(option =>
+        option.setName("upgrade")
+          .setRequired(true)
+          .setDescription("The upgrade you want to know about")
+          .setChoices(...getChoices("dilation"))
+      ).toJSON(),
   ],
   run: async(interaction: CommandInteraction) => {
     if (!interaction || !interaction.isChatInputCommand()) return;
@@ -66,8 +75,8 @@ export const upgrade: Command = {
 
     const user: User = interaction.member === null ? interaction.user : interaction.member.user as User;
 
-    const type: string = interaction.options.data[0].name;
-    const upgradeName: string = interaction.options.data[0].value as string;
+    const type: string = interaction.options.getSubcommand();
+    const upgradeName: string = interaction.options.getString("upgrade") as string;
 
     const picture = new AttachmentBuilder(`src/images/upgrades/${type}.png`);
 

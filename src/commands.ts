@@ -36,6 +36,7 @@ import { secondsplit } from "./commands/3/secondsplit";
 import { study } from "./commands/3/study";
 import { studytree } from "./commands/3/studytree";
 import { ts } from "./commands/3/ts";
+import { timeshards } from "./commands/3/timeshards";
 
 import { bankedinfinities } from "./commands/4/bankedinfinities";
 import { changeectree } from "./commands/4/changeectree";
@@ -98,7 +99,7 @@ import { meta } from "./commands/misc/meta";
 export const commandsByPage: { [page: number]: Command[] } = {
   1: [oneminuteinf, breakinfinity, bulkbuy, c9, columns, dimboostorgalaxy, earlyinfinity, galaxyboost, grindingforbreak, infinity, iugo, sacrifice, swipetrick],
   2: [bugo, ic4, ic5, infinitydimensions, peakipmin, replicanti, setcrunchauto],
-  3: [onesixtyoneor162, earlyeternityprogression, eep, ep, eternitygrinding, firstsplit, infinitygrinding, respec, secondsplit, study, studytree, ts],
+  3: [onesixtyoneor162, earlyeternityprogression, eep, ep, eternitygrinding, firstsplit, infinitygrinding, respec, secondsplit, study, studytree, ts, timeshards],
   4: [bankedinfinities, changeectree, dilation, dilationgrind, dilationtrees, ec, eco, ecs, eternitychallenge, eternitychallengeorder, failec],
   5: [achievements, adbonus, bottombuttons, challenge, galaxyscaling, importexport, news, offlineticks, oom, upgrade],
   6: [abb, androidorweb, antitables, decimal, howtoplay, notations],
@@ -110,9 +111,9 @@ export const commandsByPage: { [page: number]: Command[] } = {
 export const Commands: Command[] = [
   oneminuteinf, breakinfinity, bulkbuy, c9, columns, dimboostorgalaxy, earlyinfinity, galaxyboost, grindingforbreak, infinity, iugo, sacrifice, swipetrick,
   bugo, ic4, ic5, infinitydimensions, peakipmin, replicanti, setcrunchauto,
-  onesixtyoneor162, earlyeternityprogression, eep, ep, eternitygrinding, firstsplit, infinitygrinding, respec, secondsplit, study, studytree, ts,
+  onesixtyoneor162, earlyeternityprogression, eep, ep, eternitygrinding, firstsplit, infinitygrinding, respec, secondsplit, study, studytree, ts, timeshards,
   bankedinfinities, changeectree, dilation, dilationgrind, dilationtrees, ec, eco, ecs, eternitychallenge, eternitychallengeorder, failec,
-  achievements, adbonus, bottombuttons, challenge, galaxyscaling, importexport, news, offlineticks, oom, upgrade,
+  achievements, adbonus, bottombuttons, challenge, galaxyscaling, importexport, news, offlineticks, upgrade, oom,
   abb, androidorweb, antitables, decimal, howtoplay, notations,
   fivehours, contributors, helperRequest, slashcommand,
   discordformatting, invertedtheme, ipepcolour, justask, paperclips, reality, roles, savebank, savesharing, secretachievements, site,
