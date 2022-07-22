@@ -95,7 +95,10 @@ export const challenges: ChallengeArray = {
     challenge: `Whenever you buy Tickspeed upgrades, or 10 of an Antimatter Dimension, everything else of equal cost will increase to its next cost step.`,
     strategy: `I recommend having all Infinity upgrades (except the last 4 which don't work in challenges) and at least 100 unspent IP before attempting C9. Some players prefer attempting this challenge at higher IP values (10k+) where the challenge becomes trivial.\n
       You can use this written guide: <https://pastebin.com/MBBTimjD> or this video guide: <https://youtu.be/6o-QKHLcimU> or you can use this strat: 
-      > Autobuyers off and manually buy the highest dimension available. Keep 6th dim, 8th dim, dimboost, and galaxy autobuyers on. Keep tickspeed cost under the cost of dimensions. Remember to always buy 8th dimension if it's available.`,
+      - Disable all autobuyers except 6th dim, 8th dim, dimboost, and galaxy autobuyers which should stay enabled.
+      - Keep repeatedly buying the highest dimension available.
+      - From time to time buy Tickspeed in singles, and make sure to keep the Tickspeed cost under the cost of dimensions.
+      - Make sure to not press M/Max or Buy max tickspeed.`,
     reward: `Tickspeed Autobuyer`,
     image: `https://cdn.discordapp.com/attachments/824678601160917003/980908584332308490/C9.png`,
     goal: `Reach Infinity under these circumstances`,
@@ -170,20 +173,18 @@ export const challenges: ChallengeArray = {
     **Before challenge:**
     - on **web**: set "Max 8ths used on reset" to 4, "Galaxies required to always Dimboost" to 100, "Bulk DimBoost Amount" to 1, and "Max Galaxies" to 10000
     - on **mobile**: set "Buy max every X seconds" to 0, enable "Limit Dimboosts to 4 until X Galaxies" at 100, and disable "Limit Galaxies to"
-    - set Sacrifice autobuyer to 1e30x
-    - disable Dimension autobuyers 1-7
+    - disable Sacrifice autobuyer and Dimension autobuyers 1-7
     - keep Dimension 8, Tickspeed, Dimboost, and Galaxy autobuyers enabled
     
     **In challenge:**
     - hold M/Max until you get stuck
     - press "lose a dimboost"/"lose a reset"
-    - press M/Max once (don't hold it, just press)
+    - press M/Max two or three times (don't hold it, just press)
     - repeatedly buy dimensions 7->1 until you reach the next Galaxy
     - repeat
     
     **After challenge:**
-    - set Sacrifice autobuyer back to 2x 
-    - enable Dimension autobuyers 1-7
+    - enable Sacrifice autobuyer and Dimension autobuyers 1-7
     
     Video guide: <https://youtu.be/lI70hBlpaqc>`,
     reward: `All Antimatter Dimension multipliers become multiplier^1.05`,
