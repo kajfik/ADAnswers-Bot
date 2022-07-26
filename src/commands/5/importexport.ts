@@ -1,16 +1,24 @@
 import { ApplicationCommandType, CommandInteraction } from "discord.js";
+import { isHelper, link } from "../../functions/Misc";
 import { Command } from "../../command";
-import { isHelper } from "../../functions/Misc";
 
 export const importexport: Command = {
   name: "importexport",
-  description: "sends that screenshot of the break infinity upgrade order spreadsheet",
+  description: "explains how to transfer save from web to android and vice versa",
   type: ApplicationCommandType.ChatInput,
   run: async(interaction: CommandInteraction) => {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     // eslint-disable-next-line max-len
-    const content: string = "https://cdn.discordapp.com/attachments/351476683016241166/855129740222005278/unknown.png";
+    const content: string = `android -> web:
+    Click "Export to web", open ${link("paste.ee", "https://paste.ee")}, submit new paste, open the paste link on pc, copy the save, press "Import" in the web version. 
+
+    web -> android:
+    Press "Export", open ${link("paste.ee", "https://paste.ee")}, submit new paste, open the paste link on your device, copy the save, press "Import" in the app. 
+
+    (alternatively you can use google docs instead of ${link("paste.ee", "https://paste.ee")})
+
+    When you use the "Export to web" option and send the save to your pc using some messaging service like messenger/whatsapp the save may be cut in half because of a character limit of those services.`;
 
     await interaction.reply({ content, ephemeral: !isHelper(interaction) });
   }

@@ -38,6 +38,12 @@ export const challenge: Command = {
         { name: "strategy", value: "strategy" },
         { name: "reward", value: "reward" }
       ]
+    },
+    {
+      name: "target",
+      description: "(Optional) Which user would you like to show the information to?",
+      required: false,
+      type: ApplicationCommandOptionType.User,
     }
   ],
   run: (interaction: CommandInteraction) => {
@@ -49,9 +55,10 @@ export const challenge: Command = {
     // This second case should never happen, considering we have *specific choices* that can be used.
     const chall = interaction.options.getString("challenge");
     const info = interaction.options.getString("info");
+    const target = interaction.options.getUser("target") as User;
 
     if (chall === "ecs") {
-      interaction.reply({ content: Challenge.newChallengeMessageObject["ecs" as ObjectKey] as string });
+      interaction.reply({ content: `${target ? `*Suggested for <@${target.id}>*:\n` : ""}${Challenge.newChallengeMessageObject["ecs" as ObjectKey] as string}` });
       return;
     }
 
@@ -62,12 +69,12 @@ export const challenge: Command = {
     embed.setThumbnail(`attachment://${chall?.toUpperCase()}.png`);
 
     if (!info) {
-      interaction.reply({ embeds: [embed], files: [picture], ephemeral: !isHelper(interaction) });
+      interaction.reply({ content: target ? `*Suggested for <@${target.id}>*` : null, embeds: [embed], files: [picture], ephemeral: !isHelper(interaction) });
       return;
     }
 
     type ChallengeObjectKey = keyof typeof Challenge.challenges;
     embed.setFields(Challenge.shownFields(Challenge.challenges[chall as ChallengeObjectKey], info));
-    interaction.reply({ embeds: [embed], files: [picture], ephemeral: !isHelper(interaction) });
+    interaction.reply({ content: target ? `*Suggested for <@${target.id}>*` : null, embeds: [embed], files: [picture], ephemeral: !isHelper(interaction) });
   }
 };

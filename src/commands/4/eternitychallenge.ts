@@ -48,6 +48,12 @@ export const eternitychallenge: Command = {
         { name: "tree", value: "tree" },
         { name: "reward", value: "reward" },
       ]
+    },
+    {
+      name: "target",
+      description: "(Optional) Which user would you like to show the information to?",
+      required: false,
+      type: ApplicationCommandOptionType.User,
     }
   ],
   run: async(interaction: CommandInteraction) => {
@@ -57,6 +63,7 @@ export const eternitychallenge: Command = {
     const completion: number = interaction.options.getInteger("completion") as number;
     let hide: boolean = interaction.options.getBoolean("hide") as boolean;
     const info: string = interaction.options.getString("info") as string;
+    const target: User = interaction.options.getUser("target") as User;
 
     if (!isHelper(interaction)) hide = true;
 
@@ -68,16 +75,16 @@ export const eternitychallenge: Command = {
       .setThumbnail(`attachment://EC${eternityChallengeRequested}.png`);
 
     if (!info) {
-      await interaction.reply({ embeds: [embed], files: [picture], ephemeral: hide });
+      await interaction.reply({ content: target ? `*Suggested for <@${target.id}>*` : null, embeds: [embed], files: [picture], ephemeral: hide });
       return;
     }
 
     if (info === "tree") {
-      await interaction.reply({ content: `${findEC(eternityChallengeRequested, completion).tree}`, ephemeral: hide });
+      await interaction.reply({ content: `${target ? `*Suggested for <@${target.id}>:*\n` : ""}${findEC(eternityChallengeRequested, completion).tree}`, ephemeral: hide });
       return;
     }
 
     embed.setFields(shownFields(findEC(eternityChallengeRequested, completion), info));
-    await interaction.reply({ embeds: [embed], files: [picture], ephemeral: hide });
+    await interaction.reply({ content: target ? `*Suggested for <@${target.id}>*` : null, embeds: [embed], files: [picture], ephemeral: hide });
   }
 };
