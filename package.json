@@ -31,7 +31,9 @@
     "lint": "eslint --ext .js,.ts src/",
     "serve": "tsc & pm2 start dist/bot.js",
     "restart": "pm2 stop all & pm2 delete all & tsc & pm2 start dist/bot.js",
-    "commands": "ts-node src/commands.ts"
+    "commands": "ts-node src/commands.ts",
+    "testbot": "tsc & pm2 start dist/testbot.js",
+    "restarttestbot": "pm2 stop testbot & pm2 delete testbot & tsc & pm2 start dist/testbot.js"
   },
   "keywords": [
     "discord",
@@ -40,5 +42,5 @@
     "bot"
   ],
   "author": "earth",
-  "license": "CC BY-SA 4.0"
+  "license": "CC BY-NC-SA 4.0"
 }

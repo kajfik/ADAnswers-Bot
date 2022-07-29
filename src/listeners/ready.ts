@@ -1,4 +1,4 @@
-import { ActivityType, Client } from "discord.js";
+import { ActivityType, ApplicationCommandType, Client, ContextMenuCommandBuilder } from "discord.js";
 import { Model, ModelStatic, Sequelize } from "sequelize";
 import { Commands } from "../commands";
 import { PresenceMessage } from "../functions/presence";
@@ -21,8 +21,14 @@ export default (client: Client, databases: Sequelize[], tagsArray: ModelStatic<M
     }
 
     await client.application.commands.set(Commands);
+    await client.application.commands.create(new ContextMenuCommandBuilder()
+      .setName("Report message")
+      .setType(ApplicationCommandType.Message));
     console.log("Commands globally deployed.");
     await client.guilds.cache.get(ids.testServer)?.commands.set(Commands);
+    await client.guilds.cache.get(ids.testServer)?.commands.create(new ContextMenuCommandBuilder()
+      .setName("Report message")
+      .setType(ApplicationCommandType.Message));
     console.log("Commands deployed to test server.");
 
     function setBotStatus(): void {
