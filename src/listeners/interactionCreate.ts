@@ -24,36 +24,13 @@ export default (client: Client): void => {
   client.on("interactionCreate", async(interaction: Interaction) => {
     try {
       if (interaction.isMessageContextMenuCommand()) {
-        if (new Date().getTime() - interaction.targetMessage.createdAt.getTime() > 6.048e8) {
-          await interaction.reply({ content: "This message was created more than a week ago, so it cannot be reported.", ephemeral: true });
-          return;
-        }
-        if (interaction.targetMessage.content === undefined || interaction.targetMessage.author.bot) {
-          await interaction.reply({ content: "This type of message cannot be reported.", ephemeral: true });
-          return;
-        }
-
-        const modal = new ModalBuilder()
-          .setCustomId("report-message-modal")
-          .setTitle("Report message");
-
-        const input = new TextInputBuilder()
-          .setCustomId("report-message-input")
-          .setLabel("Reason for reporting (Optional)")
-          .setStyle(TextInputStyle.Short)
-          .setRequired(false);
-
-        modal.addComponents(new ActionRowBuilder<TextInputBuilder>().addComponents(input));
-
-        await interaction.showModal(modal);
-        currentMessageBeingReported = interaction;
-        interaction.deferReply({ ephemeral: true });
+        await handleContextMenu(interaction);
       } else if (interaction.type === InteractionType.ApplicationCommand) {
         if (interaction.isMessageContextMenuCommand()) return;
         await handleSlashCommand(client, interaction);
       } else if (interaction.type === InteractionType.ModalSubmit) {
         await interaction.deferReply({ ephemeral: true });
-        await handleContextMenu(currentMessageBeingReported, interaction);
+        await handleModalSubmit(currentMessageBeingReported, interaction);
       }
     } catch (error) {
       console.log(error);
@@ -61,7 +38,35 @@ export default (client: Client): void => {
   });
 };
 
-const handleContextMenu = async(interaction: MessageContextMenuCommandInteraction, modalSubmitInteraction: ModalSubmitInteraction) => {
+const handleContextMenu = async(interaction: MessageContextMenuCommandInteraction) => {
+  // 6.048e+8 is the amount of milliseconds in a week
+  if (new Date().getTime() - interaction.targetMessage.createdAt.getTime() > 6.048e8) {
+    await interaction.reply({ content: "This message was created more than a week ago, so it cannot be reported.", ephemeral: true });
+    return;
+  }
+  if (interaction.targetMessage.content === undefined || interaction.targetMessage.author.bot) {
+    await interaction.reply({ content: "This type of message cannot be reported.", ephemeral: true });
+    return;
+  }
+
+  const modal = new ModalBuilder()
+    .setCustomId("report-message-modal")
+    .setTitle("Report message");
+
+  const input = new TextInputBuilder()
+    .setCustomId("report-message-input")
+    .setLabel("Reason for reporting (Optional)")
+    .setStyle(TextInputStyle.Short)
+    .setRequired(false);
+
+  modal.addComponents(new ActionRowBuilder<TextInputBuilder>().addComponents(input));
+
+  await interaction.showModal(modal);
+  currentMessageBeingReported = interaction;
+  interaction.deferReply({ ephemeral: true });
+};
+
+const handleModalSubmit = async(interaction: MessageContextMenuCommandInteraction, modalSubmitInteraction: ModalSubmitInteraction) => {
   const reason = modalSubmitInteraction.fields.getTextInputValue("report-message-input");
 
   const messageReportEmbed = new EmbedBuilder()
