@@ -72,6 +72,7 @@ import { fivehours } from "./commands/7/5hours";
 import { contributors } from "./commands/7/contributors";
 import { helperRequest } from "./commands/7/helper";
 import { slashcommand } from "./commands/7/slashcommand";
+import { report } from "./commands/7/report";
 
 import { discordformatting } from "./commands/8/discordformatting";
 import { invertedtheme } from "./commands/8/invertedtheme";
@@ -103,7 +104,7 @@ export const commandsByPage: { [page: number]: Command[] } = {
   4: [bankedinfinities, changeectree, dilation, dilationgrind, dilationtrees, ec, eco, ecs, eternitychallenge, eternitychallengeorder, failec],
   5: [achievements, adbonus, bottombuttons, challenge, galaxyscaling, importexport, news, offlineticks, oom, upgrade],
   6: [abb, androidorweb, antitables, decimal, howtoplay, notations],
-  7: [fivehours, contributors, helperRequest, slashcommand],
+  7: [fivehours, contributors, helperRequest, report, slashcommand],
   8: [discordformatting, invertedtheme, ipepcolour, justask, paperclips, reality, roles, savebank, savesharing, secretachievements, site],
   69: [deadchat, pins, slightsmile, time, user, wikipedia, xkcd],
 };
@@ -115,7 +116,7 @@ export const Commands: Command[] = [
   bankedinfinities, changeectree, dilation, dilationgrind, dilationtrees, ec, eco, ecs, eternitychallenge, eternitychallengeorder, failec,
   achievements, adbonus, bottombuttons, challenge, galaxyscaling, importexport, news, offlineticks, upgrade, oom,
   abb, androidorweb, antitables, decimal, howtoplay, notations,
-  fivehours, contributors, helperRequest, slashcommand,
+  fivehours, contributors, helperRequest, report, slashcommand,
   discordformatting, invertedtheme, ipepcolour, justask, paperclips, reality, roles, savebank, savesharing, secretachievements, site,
   deadchat, pins, slightsmile, time, user, wikipedia, xkcd,
   help, meta

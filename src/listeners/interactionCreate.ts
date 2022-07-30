@@ -48,6 +48,10 @@ const handleContextMenu = async(interaction: MessageContextMenuCommandInteractio
     await interaction.reply({ content: "This type of message cannot be reported.", ephemeral: true });
     return;
   }
+  if (interaction.targetMessage.guildId !== ids.AD.serverID) {
+    await interaction.reply({ content: "This message is not from the AD server, so it cannot be reported.", ephemeral: true });
+    return;
+  }
 
   const modal = new ModalBuilder()
     .setCustomId("report-message-modal")
@@ -74,7 +78,7 @@ const handleModalSubmit = async(interaction: MessageContextMenuCommandInteractio
     .setColor(Colors.Red)
     .setTimestamp()
     .setFields(
-      { name: "Reason", value: `Reported by <@${interaction.user.id}> because ... ${reason.length === 0 ? "None provided" : reason.substring(0, 400)}` },
+      { name: "Reason", value: `Reported by <@${interaction.user.id}> because: ${reason.substring(0, 400)}` },
       { name: `Message`, value: `${interaction.targetMessage.content.substring(0, 400)}${interaction.targetMessage.content.length > 400 ? "..." : ""} \n ${link("__**[link]**__", interaction.targetMessage.url)}` },
       { name: "Channel", value: `<#${interaction.targetMessage.channel.id}>` },
       { name: "Author", value: `<@${interaction.targetMessage.author.id}> (${interaction.targetMessage.author.username}#${interaction.targetMessage.author.discriminator})` },
