@@ -102,6 +102,7 @@ export default {
   margin: 0 auto;
   padding: 2rem;
   font-weight: normal;
+  transition: margin-left .5s;
 }
 
 </style>

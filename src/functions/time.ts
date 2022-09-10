@@ -6,9 +6,9 @@ export function getTimezoneFromDate(date: Date): string {
   return timezone;
 }
 
-export function clockify(array: number[]): string {
-  const time = array.map(t => String(t).padStart(2, "0"));
-  return `${time.join(":")} (${getTimezoneFromDate(new Date())})`;
+export function clockify(array: number[], wantTimezone?: boolean): string {
+  const time: string = array.map(t => String(t).padStart(2, "0")).join(":");
+  return `${time}${wantTimezone ? ` (${getTimezoneFromDate(new Date())})` : ""}`;
 }
 
 export function clockifyNoTensInHours(array: number[]): string {
@@ -20,7 +20,7 @@ export function secondify(hours: number, minutes: number, seconds: number): numb
   return Math.floor(((hours * 60 * 60) + (minutes * 60) + (seconds)) / 0.864);
 }
 
-export function dhmsFromMS(ms: number): TimeWithClock {
+export function dhmsFromMS(ms: number, wantTimezone?: boolean): TimeWithClock {
   const days = Math.floor(ms / (3600000 * 24)),
     hours = Math.floor(ms % (3600000 * 24) / 3600000),
     minutes = Math.floor(ms % 3600000 / 60000),
@@ -31,7 +31,7 @@ export function dhmsFromMS(ms: number): TimeWithClock {
     hours,
     minutes,
     seconds,
-    clock: clockify([days, hours, minutes, seconds])
+    clock: clockify([days, hours, minutes, seconds], wantTimezone)
   };
 }
 

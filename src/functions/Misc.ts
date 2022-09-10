@@ -51,3 +51,7 @@ export function toNumber(string: string) {
   if (!match) return 0;
   return parseInt(match[0], 10);
 }
+
+export function randomInArray(array: any[]) {
+  return array[Math.floor(Math.random() * array.length)];
+}

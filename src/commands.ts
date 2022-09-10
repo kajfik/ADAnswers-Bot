@@ -69,6 +69,7 @@ import { howtoplay } from "./commands/6/howtoplay";
 import { notations } from "./commands/6/notations";
 
 import { fivehours } from "./commands/7/5hours";
+import { commands } from "./commands/7/commands";
 import { contributors } from "./commands/7/contributors";
 import { helperRequest } from "./commands/7/helper";
 import { slashcommand } from "./commands/7/slashcommand";
@@ -86,6 +87,7 @@ import { savesharing } from "./commands/8/savesharing";
 import { secretachievements } from "./commands/8/secretachievements";
 import { site } from "./commands/8/site";
 
+import { bushism } from "./commands/69/bushism";
 import { deadchat } from "./commands/69/deadchat";
 import { pins } from "./commands/69/pins";
 import { slightsmile } from "./commands/69/slightsmile";
@@ -104,9 +106,9 @@ export const commandsByPage: { [page: number]: Command[] } = {
   4: [bankedinfinities, changeectree, dilation, dilationgrind, dilationtrees, ec, eco, ecs, eternitychallenge, eternitychallengeorder, failec],
   5: [achievements, adbonus, bottombuttons, challenge, galaxyscaling, importexport, news, offlineticks, oom, upgrade],
   6: [abb, androidorweb, antitables, decimal, howtoplay, notations],
-  7: [fivehours, contributors, helperRequest, report, slashcommand],
+  7: [fivehours, commands, contributors, helperRequest, report, slashcommand],
   8: [discordformatting, invertedtheme, ipepcolour, justask, paperclips, reality, roles, savebank, savesharing, secretachievements, site],
-  69: [deadchat, pins, slightsmile, time, user, wikipedia, xkcd],
+  69: [bushism, deadchat, pins, slightsmile, time, user, wikipedia, xkcd],
 };
 
 export const Commands: Command[] = [
@@ -116,8 +118,8 @@ export const Commands: Command[] = [
   bankedinfinities, changeectree, dilation, dilationgrind, dilationtrees, ec, eco, ecs, eternitychallenge, eternitychallengeorder, failec,
   achievements, adbonus, bottombuttons, challenge, galaxyscaling, importexport, news, offlineticks, upgrade, oom,
   abb, androidorweb, antitables, decimal, howtoplay, notations,
-  fivehours, contributors, helperRequest, report, slashcommand,
+  fivehours, commands, contributors, helperRequest, report, slashcommand,
   discordformatting, invertedtheme, ipepcolour, justask, paperclips, reality, roles, savebank, savesharing, secretachievements, site,
-  deadchat, pins, slightsmile, time, user, wikipedia, xkcd,
+  bushism, deadchat, pins, slightsmile, time, user, wikipedia, xkcd,
   help, meta
 ];

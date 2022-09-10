@@ -266,6 +266,10 @@ export default {
       required: true,
       choices: [
         {
+          name: "2million",
+          description: "for reaching 2 million infinities for the achievement."
+        },
+        {
           name: "early",
           description: "For EC4 unlock farming"
         },
@@ -1559,6 +1563,14 @@ export default {
       }
     ]
   },
+  "commands": {
+    name: "commands",
+    description: "Sends a link to the commands site",
+    usage: `/commands`,
+    aliases: [],
+    examples: [],
+    parameters: [],
+  },
   get byPage() {
     return {
       1: [this["1minuteinf"], this.breakinfinity, this.bulkbuy, this.c9, this.dimboostorgalaxy, this.earlyinfinity, this.galaxyboost, this.grindingforbreak, this.infinity, this.iugo, this.sacrifice, this.swipetrick],
@@ -1567,7 +1579,7 @@ export default {
       4: [this.bankedinfinities, this.changeectree, this.dilation, this.dilationgrind, this.dilationtrees, this.ec, this.eco, this.ecs, this.eternitychallenge, this.eternitychallengeorder, this.failec],
       5: [this.achievements, this.adbonus, this.bottombuttons, this.challenge, this.galaxyscaling, this.importexport, this.news, this.offlineticks, this.oom, this.upgrade],
       6: [this.abb, this.androidorweb, this.antitables, this.decimal, this.howtoplay, this.notations],
-      7: [this["5hours"], this.contributors, this.helper, this.reportmessage, this.slashcommand],
+      7: [this["5hours"], this.commands, this.contributors, this.helper, this.reportmessage, this.slashcommand],
       8: [this.discordformatting, this.invertedtheme, this.ipepcolour, this.justask, this.paperclips, this.reality, this.roles, this.savebank, this.savesharing, this.secretachievements, this.site],
       69: [this.deadchat, this.pins, this.slightsmile, this.time, this.user, this.wikipedia, this.xkcd],
       100: [this.help, this.meta],

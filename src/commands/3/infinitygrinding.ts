@@ -13,6 +13,7 @@ export const infinitygrinding: Command = {
       type: ApplicationCommandOptionType.String,
       required: true,
       choices: [
+        { name: "2million", value: "2million" },
         { name: "early", value: "early" },
         { name: "late", value: "late" }
       ]
@@ -23,19 +24,32 @@ export const infinitygrinding: Command = {
 
     const when = interaction.options.getString("when");
 
-    const content = when === "early"
-      ? "Crunch autobuyer on 5.1 seconds (because of the reward from r87 (and for help with attaining this achievement, use `/achievements other:87`)), and make sure you have TS32 for the extra multiplier based on DimBoosts"
-      : `INFINITY FARMING: (Do this on long AFKs) ---- EC10 diminishing returns, reach at least 5 billion eventually (achievement)
+    let content: string;
 
-      Method:
-      -Normal IDLE build (Autobuy RG off -- good for EP later, use 225 with full tree ++ achievement at e20,000 replicanti)
-                   ----OR----
-      -PASSIVE (Autobuy RG on -- 11% faster infinities, no EP later, use 226 with full tree -- not recommended before very high EP -- 33ms required)
-    
-      -Crunch 5s
-      -AutoGalaxy .4s (or .05s with a maximum galaxy count of the highest you reach in under 4.9 seconds)
-      -AutoDimboost .1s
-      -Get "high" IP before starting`;
+    switch (when) {
+      case "early":
+        content = "Crunch autobuyer on 5.1 seconds (because of the reward from r87 (and for help with attaining this achievement, use `/achievements other:87`)), and make sure you have TS32 for the extra multiplier based on DimBoosts";
+        break;
+      case "late":
+        content = `INFINITY FARMING: (Do this on long AFKs) ---- EC10 diminishing returns, reach at least 5 billion eventually (achievement)
+
+        Method:
+        -Normal IDLE build (Autobuy RG off -- good for EP later, use 225 with full tree ++ achievement at e20,000 replicanti)
+                     ----OR----
+        -PASSIVE (Autobuy RG on -- 11% faster infinities, no EP later, use 226 with full tree -- not recommended before very high EP -- 33ms required)
+      
+        -Crunch 5s
+        -AutoGalaxy .4s (or .05s with a maximum galaxy count of the highest you reach in under 4.9 seconds)
+        -AutoDimboost .1s
+        -Get "high" IP before starting`;
+        break;
+      case "2million":
+        // eslint-disable-next-line max-len
+        content = `You can use the Time study 32 to gain more Infinities on Crunch based on Dimension Boosts. To take advantage of TS 32 you need to have as many Dimension Boosts when you Crunch as possible. However Antimatter Galaxies reset the amount of Dimboosts so you want to disable the Antimatter Galaxy autobuyer. After that set Dimboost autobuyer to buy max dimboosts every 0 seconds and set Crunch autobuyer to something like 0.1-1.0 seconds between Crunches depending on how long it takes to buy Dimboosts.`;
+        break;
+      default:
+        content = "Unknown when";
+    }
 
     await interaction.reply({ content, ephemeral: !isHelper(interaction) });
   }

@@ -29,7 +29,7 @@ export const study: Command = {
     const studyRequested: StudyInfo = studies[`${interaction.options.getInteger("study")}`];
 
     if (!studyRequested) {
-      interaction.reply({ content: "That study doesn't exist." });
+      interaction.reply({ content: "That study doesn't exist.", ephemeral: true });
       return;
     }
 

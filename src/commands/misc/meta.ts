@@ -16,7 +16,7 @@ const metaFields = (interaction: CommandInteraction, tagInfo: TagInfo): { [key: 
     },
     {
       name: "Last restart",
-      value: `<t:${Date.parse(NOW) / 1000}> (uptime: ${dhmsFromMS(interaction.client.uptime as number).clock})`,
+      value: `<t:${Date.parse(NOW) / 1000}> (uptime: ${dhmsFromMS(interaction.client.uptime as number, false).clock})`,
       inline: true,
     },
     {
@@ -133,7 +133,11 @@ export const meta: Command = {
           .setStyle(ButtonStyle.Secondary)
           .setDisabled(true)
           .setLabel(disabled ? `Time expired` : `Requested by ${person}.`)
-          .setCustomId("secondary-info-button")
+          .setCustomId("secondary-info-button"),
+        new ButtonBuilder()
+          .setStyle(ButtonStyle.Link)
+          .setLabel("Commands website")
+          .setURL("https://earthernsence.github.io/ADAnswers-Bot/")
       );
 
 

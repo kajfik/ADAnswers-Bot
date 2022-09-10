@@ -12,6 +12,8 @@ export default {
 <template>
 <h2 v-if="aliases.length > 0">Aliases</h2>
 <ul v-if="aliases.length > 0">
-  <li v-for="alias in aliases">{{ alias }}</li>
+  <li v-for="alias in aliases">
+    <code>{{ alias }}</code>
+  </li>
 </ul>
 </template>

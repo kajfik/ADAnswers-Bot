@@ -58,7 +58,7 @@ export const challenge: Command = {
     const target = interaction.options.getUser("target") as User;
 
     if (chall === "ecs") {
-      interaction.reply({ content: `${target ? `*Suggested for <@${target.id}>*:\n` : ""}${Challenge.newChallengeMessageObject["ecs" as ObjectKey] as string}` });
+      interaction.reply({ content: `${target ? `*Suggested for <@${target.id}>*:\n` : ""}${Challenge.newChallengeMessageObject["ecs" as ObjectKey] as string}`, ephemeral: !isHelper(interaction) });
       return;
     }
 

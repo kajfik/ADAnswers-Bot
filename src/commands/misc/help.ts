@@ -49,6 +49,10 @@ export const help: Command = {
           .setCustomId("help_button_next")
           .setEmoji("▶️")
           .setStyle(ButtonStyle.Primary),
+        new ButtonBuilder()
+          .setStyle(ButtonStyle.Link)
+          .setLabel("Commands website")
+          .setURL("https://earthernsence.github.io/ADAnswers-Bot/")
       );
 
     const selectMenu: ActionRowBuilder<SelectMenuBuilder> = new ActionRowBuilder<SelectMenuBuilder>()
