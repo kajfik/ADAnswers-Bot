@@ -40,6 +40,10 @@ export function pluralise(word: string, count: number) {
   return `${word}s`;
 }
 
+export function quantify(word: string, count: number): string {
+  return `${count} ${pluralise(word, count)}`;
+}
+
 export function formatNumber(number: number) {
   const exponent = Math.floor(Math.log10(number));
   const mantissa = number / Math.pow(10, exponent);

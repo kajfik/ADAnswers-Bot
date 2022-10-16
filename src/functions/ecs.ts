@@ -1,7 +1,21 @@
-import { ECDescriptions, ECRewards, order } from "../utils/databases/eternitychallenges";
+import { ECDescriptions, ECRewards, EternityChallenges, order } from "../utils/databases/eternitychallenges";
 import { EC } from "../utils/types";
 import { EmbedBuilder } from "discord.js";
 import { footerText } from "./Misc";
+
+function findCompletionsAtIndex(indexOfCompletion: number): string {
+  const completions = Array(12);
+
+  for (let i = 0; i < indexOfCompletion; i++) {
+    const previous = order[i].split("x").map(Number);
+    const previousId = previous[0] - 1;
+    const previousCompletion = previous[1];
+
+    completions[previousId] = previousCompletion;
+  }
+
+  return completions.filter(Number).map((value, index) => `${index + 1}x${value}`).join(", ");
+}
 
 export function otherCompletions(id: number, completion: number): string {
   if (id < 1 || id > 12) {
@@ -23,17 +37,21 @@ export function otherCompletions(id: number, completion: number): string {
     return `No other challenge completions required.`;
   }
 
-  const completions = Array(12);
+  return findCompletionsAtIndex(indexOfCompletion);
+}
 
-  for (let i = 0; i < indexOfCompletion; i++) {
-    const previous = order[i].split("x").map(Number);
-    const previousId = previous[0] - 1;
-    const previousCompletion = previous[1];
-
-    completions[previousId] = previousCompletion;
+export function ecsAtTTAmount(tt: number): string {
+  if (tt < 130) return "No ECs can be reasonably completed yet!";
+  if (tt === 130) return "1x1";
+  let highestEC: string = "";
+  for (const chall of EternityChallenges) {
+    if (chall.tt <= tt) {
+      highestEC = `${chall.challenge}x${chall.completion}`;
+    }
   }
+  const index = order.indexOf(highestEC);
 
-  return completions.filter(Number).map((value, index) => `${index + 1}x${value}`).join(", ");
+  return findCompletionsAtIndex(index);
 }
 
 export const eternityChallenge = (challengeInfo: EC, requestedFields?: string): EmbedBuilder => new EmbedBuilder()

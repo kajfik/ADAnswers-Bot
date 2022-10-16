@@ -46,6 +46,7 @@ import { dilationtrees } from "./commands/4/dilationtrees";
 import { ec } from "./commands/4/ec";
 import { eco } from "./commands/4/eco";
 import { ecs } from "./commands/4/ecs";
+import { ecsattt } from "./commands/4/ecsattt";
 import { eternitychallenge } from "./commands/4/eternitychallenge";
 import { eternitychallengeorder } from "./commands/4/eternitychallengeorder";
 import { failec } from "./commands/4/failec";
@@ -86,6 +87,7 @@ import { savebank } from "./commands/8/savebank";
 import { savesharing } from "./commands/8/savesharing";
 import { secretachievements } from "./commands/8/secretachievements";
 import { site } from "./commands/8/site";
+import { xyproblem } from "./commands/8/xyproblem";
 
 import { bushism } from "./commands/69/bushism";
 import { deadchat } from "./commands/69/deadchat";
@@ -103,11 +105,11 @@ export const commandsByPage: { [page: number]: Command[] } = {
   1: [oneminuteinf, breakinfinity, bulkbuy, c9, columns, dimboostorgalaxy, earlyinfinity, galaxyboost, grindingforbreak, infinity, iugo, sacrifice, swipetrick],
   2: [bugo, ic4, ic5, infinitydimensions, peakipmin, replicanti, setcrunchauto],
   3: [onesixtyoneor162, earlyeternityprogression, eep, ep, eternitygrinding, firstsplit, infinitygrinding, respec, secondsplit, study, studytree, ts, timeshards],
-  4: [bankedinfinities, changeectree, dilation, dilationgrind, dilationtrees, ec, eco, ecs, eternitychallenge, eternitychallengeorder, failec],
+  4: [bankedinfinities, changeectree, dilation, dilationgrind, dilationtrees, ec, eco, ecs, ecsattt, eternitychallenge, eternitychallengeorder, failec],
   5: [achievements, adbonus, bottombuttons, challenge, galaxyscaling, importexport, news, offlineticks, oom, upgrade],
   6: [abb, androidorweb, antitables, decimal, howtoplay, notations],
   7: [fivehours, commands, contributors, helperRequest, report, slashcommand],
-  8: [discordformatting, invertedtheme, ipepcolour, justask, paperclips, reality, roles, savebank, savesharing, secretachievements, site],
+  8: [discordformatting, invertedtheme, ipepcolour, justask, paperclips, reality, roles, savebank, savesharing, secretachievements, site, xyproblem],
   69: [bushism, deadchat, pins, slightsmile, time, user, wikipedia, xkcd],
 };
 
@@ -115,11 +117,11 @@ export const Commands: Command[] = [
   oneminuteinf, breakinfinity, bulkbuy, c9, columns, dimboostorgalaxy, earlyinfinity, galaxyboost, grindingforbreak, infinity, iugo, sacrifice, swipetrick,
   bugo, ic4, ic5, infinitydimensions, peakipmin, replicanti, setcrunchauto,
   onesixtyoneor162, earlyeternityprogression, eep, ep, eternitygrinding, firstsplit, infinitygrinding, respec, secondsplit, study, studytree, ts, timeshards,
-  bankedinfinities, changeectree, dilation, dilationgrind, dilationtrees, ec, eco, ecs, eternitychallenge, eternitychallengeorder, failec,
+  bankedinfinities, changeectree, dilation, dilationgrind, dilationtrees, ec, eco, ecs, ecsattt, eternitychallenge, eternitychallengeorder, failec,
   achievements, adbonus, bottombuttons, challenge, galaxyscaling, importexport, news, offlineticks, upgrade, oom,
   abb, androidorweb, antitables, decimal, howtoplay, notations,
   fivehours, commands, contributors, helperRequest, report, slashcommand,
-  discordformatting, invertedtheme, ipepcolour, justask, paperclips, reality, roles, savebank, savesharing, secretachievements, site,
+  discordformatting, invertedtheme, ipepcolour, justask, paperclips, reality, roles, savebank, savesharing, secretachievements, site, xyproblem,
   bushism, deadchat, pins, slightsmile, time, user, wikipedia, xkcd,
   help, meta
 ];
