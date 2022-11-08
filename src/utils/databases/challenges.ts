@@ -280,31 +280,30 @@ export const infinityChallenge = (challengeInfo: ChallengeInfo): EmbedBuilder =>
   .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
 
 // We use this to create base embeds, just so we don't have to recreate them every time.
-// We do still recreate them for when a specific field is requested, because these get overwrriten if you don't.
 
 interface ChallengeMessageObject {
   [key: string]: EmbedBuilder | string;
 }
 
 export const newChallengeMessageObject: ChallengeMessageObject = {
-  "c2": normalChallenge(challenges.c2),
-  "c3": normalChallenge(challenges.c3),
-  "c4": normalChallenge(challenges.c4),
-  "c5": normalChallenge(challenges.c5),
-  "c6": normalChallenge(challenges.c6),
-  "c7": normalChallenge(challenges.c7),
-  "c8": normalChallenge(challenges.c8),
-  "c9": normalChallenge(challenges.c9),
-  "c10": normalChallenge(challenges.c10),
-  "c11": normalChallenge(challenges.c11),
-  "c12": normalChallenge(challenges.c12),
-  "ic1": infinityChallenge(challenges.ic1),
-  "ic2": infinityChallenge(challenges.ic2),
-  "ic3": infinityChallenge(challenges.ic3),
-  "ic4": infinityChallenge(challenges.ic4),
-  "ic5": infinityChallenge(challenges.ic5),
-  "ic6": infinityChallenge(challenges.ic6),
-  "ic7": infinityChallenge(challenges.ic7),
-  "ic8": infinityChallenge(challenges.ic8),
+  get "c2"() { return normalChallenge(challenges.c2); },
+  get "c3"() { return normalChallenge(challenges.c3); },
+  get "c4"() { return normalChallenge(challenges.c4); },
+  get "c5"() { return normalChallenge(challenges.c5); },
+  get "c6"() { return normalChallenge(challenges.c6); },
+  get "c7"() { return normalChallenge(challenges.c7); },
+  get "c8"() { return normalChallenge(challenges.c8); },
+  get "c9"() { return normalChallenge(challenges.c9); },
+  get "c10"() { return normalChallenge(challenges.c10); },
+  get "c11"() { return normalChallenge(challenges.c11); },
+  get "c12"() { return normalChallenge(challenges.c12); },
+  get "ic1"() { return infinityChallenge(challenges.ic1); },
+  get "ic2"() { return infinityChallenge(challenges.ic2); },
+  get "ic3"() { return infinityChallenge(challenges.ic3); },
+  get "ic4"() { return infinityChallenge(challenges.ic4); },
+  get "ic5"() { return infinityChallenge(challenges.ic5); },
+  get "ic6"() { return infinityChallenge(challenges.ic6); },
+  get "ic7"() { return infinityChallenge(challenges.ic7); },
+  get "ic8"() { return infinityChallenge(challenges.ic8); },
   "ecs": `Check out ${link("this message", "https://canary.discord.com/channels/351476683016241162/408764187960147982/731639441474453537")} by Ninjatsu!`
 };

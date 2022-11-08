@@ -64,12 +64,10 @@ export function trees(path?: string) {
     {
       requirement: 318,
       ts: BASE.concat(191, 212, 211),
-      desc: "Do note: EC10 is done between the last list and this one. At this point, the active path is better than either idle or passive, so that is what's recommended by the bot."
     },
     {
       requirement: 123,
       ts: [...BASE],
-      desc: "At 900 Total TT, this flips over into EC10 territory."
     },
     // 2nd Split
     {
