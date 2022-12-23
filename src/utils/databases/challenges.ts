@@ -94,7 +94,7 @@ export const challenges: ChallengeArray = {
     requirements: `Reach Infinity`,
     challenge: `Whenever you buy Tickspeed upgrades, or 10 of an Antimatter Dimension, everything else of equal cost will increase to its next cost step.`,
     strategy: `I recommend having all Infinity upgrades (except the last 4 which don't work in challenges) and at least 100 unspent IP before attempting C9. Some players prefer attempting this challenge at higher IP values (10k+) where the challenge becomes trivial.\n
-      You can use this written guide: <https://pastebin.com/MBBTimjD> or this video guide: <https://youtu.be/6o-QKHLcimU> or you can use this strat: 
+      You can use this video guide: <https://youtu.be/6o-QKHLcimU> or you can use this strat: 
       - Disable all autobuyers except 6th dim, 8th dim, dimboost, and galaxy autobuyers which should stay enabled.
       - Keep repeatedly buying the highest dimension available.
       - From time to time buy Tickspeed in singles, and make sure to keep the Tickspeed cost under the cost of dimensions.
@@ -105,7 +105,7 @@ export const challenges: ChallengeArray = {
   },
   "c10": {
     number: 10,
-    requirements: `Reach Infinity`,
+    requirements: `Reach Infinity and 16 Infinities`,
     challenge: `There are only 6 Antimatter Dimensions, with Dimension Boost and Antimatter Galaxy costs modified.`,
     strategy: base,
     reward: "Dimension Boost autobuyer",
@@ -114,7 +114,7 @@ export const challenges: ChallengeArray = {
   },
   "c11": {
     number: 11,
-    requirements: `Reach Infinity`,
+    requirements: `Reach Infinity and 16 Infinities`,
     challenge: `There's normal matter which rises once you have at least 1 2nd Antimatter Dimension. If it exceeds your antimatter, it will Dimension Boost without giving the bonus.`,
     strategy: `${base}\n If you are on web, this challenge becomes a normal infinity run once you have the "Galaxies are twice as effective" upgrade. Just do it once you have that upgrade.`,
     reward: "Antimatter Galaxy autobuyer",
@@ -123,7 +123,7 @@ export const challenges: ChallengeArray = {
   },
   "c12": {
     number: 12,
-    requirements: `Reach Infinity`,
+    requirements: `Reach Infinit and 16 Infinitiesy`,
     challenge: `Each Antimatter Dimension produces the dimension 2 dimensions below it (1st Antimatter Dimensions still produce antimatter). The 2nd, 4th, and 6th Antimatter Dimensions are made stronger to compensate.`,
     strategy: `It is recommended to have at least the first 12 Infinity Upgrades and ~200 Infinities. Spare IP is not important for C12.
       If you want to get those 200 Infinities, you probably want to get upgrades 13 to 15 as well to speed things up. (Note: Those upgrades won't work inside challenges.)
@@ -171,8 +171,7 @@ export const challenges: ChallengeArray = {
     strategy: `You can attempt IC4 at e68+ IP.
 
     **Before challenge:**
-    - on **web**: set "Max 8ths used on reset" to 4, "Galaxies required to always Dimboost" to 100, "Bulk DimBoost Amount" to 1, and "Max Galaxies" to 10000
-    - on **mobile**: set "Buy max every X seconds" to 0, enable "Limit Dimboosts to 4 until X Galaxies" at 100, and disable "Limit Galaxies to"
+    - set "Buy max every X seconds" to 0, enable "Limit Dimboosts to 4 until X Galaxies" at 100, and disable "Limit Galaxies to"
     - disable Sacrifice autobuyer and Dimension autobuyers 1-7
     - keep Dimension 8, Tickspeed, Dimboost, and Galaxy autobuyers enabled
     
@@ -197,11 +196,7 @@ export const challenges: ChallengeArray = {
     challenge: `Buying Antimatter Dimensions 1-4 causes all smaller Antimatter Dimension costs to increase, and buying Antimatter Dimensions 5-8 causes all larger Antimatter Dimension costs to increase.`,
     goal: `Web: Reach **1e11111** antimatter
     Mobile: Reach **1e16500** antimatter`,
-    strategy: `**On Android, all you have to do is set Antimatter Dimension autobuyers 1-7 to "Buy Singles". Leave 8th dimension autobuyer enabled with "Buys until 10". Then just wait.**
-    The written guide is based on the web version while the video was made on the android one. **The video can be found at the bottom of the written guide.** The strategy for IC5 is the same. Just keep in mind that you need 21 galaxies on web and around 40 galaxies on mobile to complete the challenge. Get at least e83 IP before attempting the challenge.
-    Check out the Post-Eternity guide once you are past Eternity. The old guides still apply, however the Post-Eternity one is just specifically made with the Eternity progression in mind.
-    IC5 written guide: <https://pastebin.com/sj2nFFjH>
-    Post-Eternity guide (has Eternity spoilers!): ||https://cdn.discordapp.com/attachments/536249899487068181/848926013869522994/SVID_20200120_131504_1.mp4||`,
+    strategy: `Set Antimatter Dimension autobuyers 1-7 to "Buy Singles". Leave 8th dimension autobuyer enabled with "Buys until 10". Then just wait. ALl other autobuyers should remain on & purchasing (ie make sure you are still buying galaxies/dimboosts!)`,
     reward: `All Galaxies are 10% stronger and reduce the requirements for them and Dimension Boosts by 1`,
     rewardFormula: `Think really hard`,
     image: `https://cdn.discordapp.com/attachments/824678601160917003/980928604277997599/IC5.png`,

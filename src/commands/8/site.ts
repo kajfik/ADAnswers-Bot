@@ -10,8 +10,9 @@ export const site: Command = {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     // eslint-disable-next-line max-len
-    const content: string = `Web: https://ivark.github.io/
-    Android version: <https://play.google.com/store/apps/details?id=kajfosz.antimatterdimensions>`;
+    const content: string = `Web: https://ivark.github.io/AntimatterDimensions
+    Android version: <https://play.google.com/store/apps/details?id=kajfosz.antimatterdimensions>
+    Steam: <https://store.steampowered.com/app/1399720/Antimatter_Dimensions/>`;
 
     await interaction.reply({ content, ephemeral: !isHelper(interaction) });
   }

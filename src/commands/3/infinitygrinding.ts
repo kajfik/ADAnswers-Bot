@@ -15,7 +15,6 @@ export const infinitygrinding: Command = {
       choices: [
         { name: "2million", value: "2million" },
         { name: "early", value: "early" },
-        { name: "late", value: "late" }
       ]
     }
   ],
@@ -27,21 +26,10 @@ export const infinitygrinding: Command = {
     let content: string;
 
     switch (when) {
-      case "early":
-        content = "Crunch autobuyer on 5.1 seconds (because of the reward from r87 (and for help with attaining this achievement, use `/achievements other:87`)), and make sure you have TS32 for the extra multiplier based on DimBoosts";
-        break;
-      case "late":
-        content = `INFINITY FARMING: (Do this on long AFKs) ---- EC10 diminishing returns, reach at least 5 billion eventually (achievement)
-
-        Method:
-        -Normal IDLE build (Autobuy RG off -- good for EP later, use 225 with full tree ++ achievement at e20,000 replicanti)
-                     ----OR----
-        -PASSIVE (Autobuy RG on -- 11% faster infinities, no EP later, use 226 with full tree -- not recommended before very high EP -- 33ms required)
-      
-        -Crunch 5s
-        -AutoGalaxy .4s (or .05s with a maximum galaxy count of the highest you reach in under 4.9 seconds)
-        -AutoDimboost .1s
-        -Get "high" IP before starting`;
+      case "normal":
+        content = `Crunch autobuyer on 5.1 seconds (because of the reward from r87 (and for help with attaining this achievement, use \`/achievements other:87\`)), and make sure you have TS32 for the extra multiplier based on DimBoosts.
+        If grinding for EC4, make **sure** you are using Idle path before wasting time here!
+        If grinding for banked infinities, make sure to be using TS191!`;
         break;
       case "2million":
         // eslint-disable-next-line max-len

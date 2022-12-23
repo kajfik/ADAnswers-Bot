@@ -7,7 +7,7 @@ const TS_REQUIREMENT_TYPE = {
   OR: (one: number, two: number) => `TS${one} or TS${two}`,
 };
 
-const STUDY_COLOURS = {
+export const STUDY_COLOURS = {
   NORMAL: "#b640dd",
   ANTIMATTER: "#16a94d",
   INFINITY: "#b5813c",

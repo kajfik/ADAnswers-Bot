@@ -90,6 +90,7 @@ import { site } from "./commands/8/site";
 import { xyproblem } from "./commands/8/xyproblem";
 
 import { bushism } from "./commands/69/bushism";
+import { checksave } from "./commands/69/checksave"
 import { deadchat } from "./commands/69/deadchat";
 import { pins } from "./commands/69/pins";
 import { slightsmile } from "./commands/69/slightsmile";
@@ -110,7 +111,7 @@ export const commandsByPage: { [page: number]: Command[] } = {
   6: [abb, androidorweb, antitables, decimal, howtoplay, notations],
   7: [fivehours, commands, contributors, helperRequest, report, slashcommand],
   8: [discordformatting, invertedtheme, ipepcolour, justask, paperclips, reality, roles, savebank, savesharing, secretachievements, site, xyproblem],
-  69: [bushism, deadchat, pins, slightsmile, time, user, wikipedia, xkcd],
+  69: [bushism, checksave, deadchat, pins, slightsmile, time, user, wikipedia, xkcd],
 };
 
 export const Commands: Command[] = [
@@ -122,6 +123,6 @@ export const Commands: Command[] = [
   abb, androidorweb, antitables, decimal, howtoplay, notations,
   fivehours, commands, contributors, helperRequest, report, slashcommand,
   discordformatting, invertedtheme, ipepcolour, justask, paperclips, reality, roles, savebank, savesharing, secretachievements, site, xyproblem,
-  bushism, deadchat, pins, slightsmile, time, user, wikipedia, xkcd,
+  bushism, checksave, deadchat, pins, slightsmile, time, user, wikipedia, xkcd,
   help, meta
 ];
