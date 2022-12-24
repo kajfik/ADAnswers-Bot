@@ -10,7 +10,7 @@ export const bugo: Command = {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     // eslint-disable-next-line max-len
-    const content: string = "https://cdn.discordapp.com/attachments/351476683016241166/855129740222005278/unknown.png";
+    const content: string = "https://cdn.discordapp.com/attachments/351479640755404820/1055698027702128700/break_infinity_upgrade_order.png";
 
     await interaction.reply({ content, ephemeral: !isHelper(interaction) });
   }

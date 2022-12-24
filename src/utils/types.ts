@@ -1,3 +1,4 @@
+import Decimal from "break_infinity.js";
 import { Model } from "sequelize";
 
 export type Trees = {
@@ -96,4 +97,68 @@ export type TagInfo = {
   top5users: string;
   requests: string;
   successes: string;
+}
+
+export type BigCrunchAutobuyerObject = {
+  interval: number
+}
+
+type Replicanti = {
+  unl: boolean
+  chance: number
+  gal: number
+  interval: number
+}
+
+type TimeStudies = {
+  amcost: Decimal
+  ipcost: Decimal
+  epcost: Decimal
+}
+
+type EternityChallenges = {
+  eterc1: number,
+  eterc2: number,
+  eterc3: number,
+  eterc4: number,
+  eterc5: number,
+  eterc6: number,
+  eterc7: number,
+  eterc8: number,
+  eterc9: number,
+  eterc10: number,
+  eterc11: number,
+  eterc12: number,
+}
+
+type Dilation = {
+  dilatedTime: number
+}
+
+// Since everything else is here, let's just put this here as well
+export interface Player {
+  galaxies: number,
+  // Why is it called this again
+  resets: number,
+  // Why is it called this again
+  money: Decimal,
+
+  // Why is it called this again
+  infinitied: number,
+  challengeTimes: Array<number>
+
+  infinityPoints: Decimal,
+  infchallengeTimes: Array<number>
+
+  replicanti: Replicanti
+
+  eternities: number,
+  eternityPoints: Decimal,
+  timestudy: TimeStudies,
+
+  eternityChalls: EternityChallenges,
+
+  dilation: Dilation,
+
+  autobuyers: Array<number | BigCrunchAutobuyerObject>,
 }

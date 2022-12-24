@@ -653,6 +653,12 @@ export const achievements: AchievementsData = {
   },
 };
 
+export const AchievementEmbeds: EmbedBuilder[] = [];
+
+for (const achievement in achievements) {
+  AchievementEmbeds[achievements[achievement].id] = Achievement(achievements[achievement]);
+}
+
 export const achievementsMessageObject = {
   "r23": `Get it after your first galaxy and the 90 8th dim costing dimboost by toggling the 8th Dimension autobuyer to singles.`,
   get "9th Dimension is a lie"() { return this.r23; },

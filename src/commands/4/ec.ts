@@ -70,7 +70,9 @@ export const ec: Command = {
     const user: User = interaction.member === null ? interaction.user : interaction.member.user as User;
     const picture: AttachmentBuilder = new AttachmentBuilder(`src/images/challenges/EC${eternityChallengeRequested}.png`);
 
-    const embed: EmbedBuilder = eternityChallenge(findEC(eternityChallengeRequested, completion))
+    const chall = findEC(eternityChallengeRequested, completion);
+
+    const embed: EmbedBuilder = eternityChallenge(chall)
       .setAuthor({ name: `${user.username}#${user.discriminator}`, iconURL: user.displayAvatarURL() })
       .setThumbnail(`attachment://EC${eternityChallengeRequested}.png`);
 
@@ -80,7 +82,7 @@ export const ec: Command = {
     }
 
     if (info === "tree") {
-      await interaction.reply({ content: `${target ? `*Suggested for <@${target.id}>:*\n` : ""}${findEC(eternityChallengeRequested, completion).tree}`, ephemeral: hide });
+      await interaction.reply({ content: `${target ? `*Suggested for <@${target.id}>:*\n` : ""}${chall.tree}`, ephemeral: hide });
       return;
     }
 

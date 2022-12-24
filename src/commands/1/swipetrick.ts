@@ -15,7 +15,10 @@ export const swipetrick: Command = {
     Make sure swipe navigation is enabled in settings. Now "swipe the button to a different tab". If you set your bottom buttons to \`MIDDLE\` it will be easier to swipe to the left and right.
     This trick works with every bottom button. (You can enable more bottom buttons by setting bottom buttons to \`all\`.)
     
-    Here is a ${hyperlink("video", "https://discord.com/channels/351476683016241162/387798607706718208/843421559413800981")}`;
+    Here is a ${hyperlink("video", "https://discord.com/channels/351476683016241162/387798607706718208/843421559413800981")}
+    
+    You can also peform a similar trick on the web/steam version of the game. 
+    This is accomplished by holding your key of choice, clicking on the how to play button (the [?] in the top-right), and then letting go of your key and closing the h2p.`;
 
     await interaction.reply({ content, ephemeral: !isHelper(interaction) });
   }
