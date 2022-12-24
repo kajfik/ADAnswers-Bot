@@ -4,7 +4,7 @@ import { commandsByPage } from "../../commands";
 import config from "../../config.json";
 
 const getNextPage = (currentPage: number, up: boolean) => {
-  const possiblePages: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 69];
+  const possiblePages: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 69];
   let index: number = possiblePages.indexOf(currentPage);
 
   if (up) index++;
@@ -81,9 +81,9 @@ export const help: Command = {
               description: "ECs and Dilation commands"
             },
             {
-              label: "Page 5: Miscellaneous game commands",
+              label: "Page 5: Early Reality Era",
               value: "5",
-              description: "Miscellaneous game commands"
+              description: "Early Reality Era commands"
             },
             {
               label: "Page 6: Miscellaneous game commands",
@@ -98,6 +98,11 @@ export const help: Command = {
             {
               label: "Page 8: Miscellaneous game commands",
               value: "8",
+              description: "Miscellaneous game commands"
+            },
+            {
+              label: "Page 9: Miscellaneous game commands",
+              value: "9",
               description: "Miscellaneous game commands"
             },
           ])

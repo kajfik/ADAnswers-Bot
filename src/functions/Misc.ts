@@ -1,6 +1,5 @@
 import Decimal from "break_infinity.js";
 import { CommandInteraction, hideLinkEmbed, hyperlink } from "discord.js";
-import fetch from "node-fetch";
 import { ids } from "../config.json";
 
 export function isHelper(interaction: CommandInteraction): boolean | undefined {
@@ -77,17 +76,6 @@ export function toNumber(string: string) {
 export function randomInArray(array: any[]) {
   return array[Math.floor(Math.random() * array.length)];
 }
-
-export const getBuffer = async(url: string): Promise<Buffer> => {
-  try {
-    const response = await fetch(url);
-    const arrayBuffer = await response.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
-    return buffer;
-  } catch (e) {
-    return e;
-  }
-};
 
 export function countWhere(array: Array<any>, predicate: Function) {
   let count = 0;

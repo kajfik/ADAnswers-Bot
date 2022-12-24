@@ -51,46 +51,47 @@ import { eternitychallenge } from "./commands/4/eternitychallenge";
 import { eternitychallengeorder } from "./commands/4/eternitychallengeorder";
 import { failec } from "./commands/4/failec";
 
-import { achievements } from "./commands/5/achievements";
-import { adbonus } from "./commands/5/adbonus";
-import { bottombuttons } from "./commands/5/bottombuttons";
-import { challenge } from "./commands/5/challenge";
-import { galaxyscaling } from "./commands/5/galaxyscaling";
-import { importexport } from "./commands/5/importexport";
-import { news } from "./commands/5/news";
-import { offlineticks } from "./commands/5/offlineticks";
-import { oom } from "./commands/5/oom";
-import { upgrade } from "./commands/5/upgrade";
+import { reality } from "./commands/5/reality";
+import { rm } from "./commands/5/rm";
 
-import { abb } from "./commands/6/abb";
-import { androidorweb } from "./commands/6/androidorweb";
-import { antitables } from "./commands/6/antitables";
-import { decimal } from "./commands/6/decimal";
-import { howtoplay } from "./commands/6/howtoplay";
-import { notations } from "./commands/6/notations";
+import { achievements } from "./commands/6/achievements";
+import { adbonus } from "./commands/6/adbonus";
+import { bottombuttons } from "./commands/6/bottombuttons";
+import { challenge } from "./commands/6/challenge";
+import { galaxyscaling } from "./commands/6/galaxyscaling";
+import { importexport } from "./commands/6/importexport";
+import { news } from "./commands/6/news";
+import { offlineticks } from "./commands/6/offlineticks";
+import { oom } from "./commands/6/oom";
+import { upgrade } from "./commands/6/upgrade";
 
-import { fivehours } from "./commands/7/5hours";
-import { commands } from "./commands/7/commands";
-import { contributors } from "./commands/7/contributors";
-import { helperRequest } from "./commands/7/helper";
-import { slashcommand } from "./commands/7/slashcommand";
-import { report } from "./commands/7/report";
+import { abb } from "./commands/7/abb";
+import { androidorweb } from "./commands/7/androidorweb";
+import { antitables } from "./commands/7/antitables";
+import { decimal } from "./commands/7/decimal";
+import { howtoplay } from "./commands/7/howtoplay";
+import { notations } from "./commands/7/notations";
 
-import { discordformatting } from "./commands/8/discordformatting";
-import { invertedtheme } from "./commands/8/invertedtheme";
-import { ipepcolour } from "./commands/8/ipepcolour";
-import { justask } from "./commands/8/justask";
-import { paperclips } from "./commands/8/paperclips";
-import { reality } from "./commands/8/reality";
-import { roles } from "./commands/8/roles";
-import { savebank } from "./commands/8/savebank";
-import { savesharing } from "./commands/8/savesharing";
-import { secretachievements } from "./commands/8/secretachievements";
-import { site } from "./commands/8/site";
-import { xyproblem } from "./commands/8/xyproblem";
+import { fivehours } from "./commands/8/5hours";
+import { commands } from "./commands/8/commands";
+import { contributors } from "./commands/8/contributors";
+import { helperRequest } from "./commands/8/helper";
+import { slashcommand } from "./commands/8/slashcommand";
+import { report } from "./commands/8/report";
+
+import { discordformatting } from "./commands/9/discordformatting";
+import { invertedtheme } from "./commands/9/invertedtheme";
+import { ipepcolour } from "./commands/9/ipepcolour";
+import { justask } from "./commands/9/justask";
+import { paperclips } from "./commands/9/paperclips";
+import { roles } from "./commands/9/roles";
+import { savebank } from "./commands/9/savebank";
+import { savesharing } from "./commands/9/savesharing";
+import { secretachievements } from "./commands/9/secretachievements";
+import { site } from "./commands/9/site";
+import { xyproblem } from "./commands/9/xyproblem";
 
 import { bushism } from "./commands/69/bushism";
-import { checksave } from "./commands/69/checksave"
 import { deadchat } from "./commands/69/deadchat";
 import { pins } from "./commands/69/pins";
 import { slightsmile } from "./commands/69/slightsmile";
@@ -107,11 +108,12 @@ export const commandsByPage: { [page: number]: Command[] } = {
   2: [bugo, ic4, ic5, infinitydimensions, peakipmin, replicanti, setcrunchauto],
   3: [onesixtyoneor162, earlyeternityprogression, eep, ep, eternitygrinding, firstsplit, infinitygrinding, respec, secondsplit, study, studytree, ts, timeshards],
   4: [bankedinfinities, changeectree, dilation, dilationgrind, dilationtrees, ec, eco, ecs, ecsattt, eternitychallenge, eternitychallengeorder, failec],
-  5: [achievements, adbonus, bottombuttons, challenge, galaxyscaling, importexport, news, offlineticks, oom, upgrade],
-  6: [abb, androidorweb, antitables, decimal, howtoplay, notations],
-  7: [fivehours, commands, contributors, helperRequest, report, slashcommand],
-  8: [discordformatting, invertedtheme, ipepcolour, justask, paperclips, reality, roles, savebank, savesharing, secretachievements, site, xyproblem],
-  69: [bushism, checksave, deadchat, pins, slightsmile, time, user, wikipedia, xkcd],
+  5: [reality, rm],
+  6: [achievements, adbonus, bottombuttons, challenge, galaxyscaling, importexport, news, offlineticks, oom, upgrade],
+  7: [abb, androidorweb, antitables, decimal, howtoplay, notations],
+  8: [fivehours, commands, contributors, helperRequest, report, slashcommand],
+  9: [discordformatting, invertedtheme, ipepcolour, justask, paperclips, roles, savebank, savesharing, secretachievements, site, xyproblem],
+  69: [bushism, deadchat, pins, slightsmile, time, user, wikipedia, xkcd],
 };
 
 export const Commands: Command[] = [
@@ -119,10 +121,11 @@ export const Commands: Command[] = [
   bugo, ic4, ic5, infinitydimensions, peakipmin, replicanti, setcrunchauto,
   onesixtyoneor162, earlyeternityprogression, eep, ep, eternitygrinding, firstsplit, infinitygrinding, respec, secondsplit, study, studytree, ts, timeshards,
   bankedinfinities, changeectree, dilation, dilationgrind, dilationtrees, ec, eco, ecs, ecsattt, eternitychallenge, eternitychallengeorder, failec,
+  reality, rm,
   achievements, adbonus, bottombuttons, challenge, galaxyscaling, importexport, news, offlineticks, upgrade, oom,
   abb, androidorweb, antitables, decimal, howtoplay, notations,
   fivehours, commands, contributors, helperRequest, report, slashcommand,
-  discordformatting, invertedtheme, ipepcolour, justask, paperclips, reality, roles, savebank, savesharing, secretachievements, site, xyproblem,
-  bushism, checksave, deadchat, pins, slightsmile, time, user, wikipedia, xkcd,
+  discordformatting, invertedtheme, ipepcolour, justask, paperclips, roles, savebank, savesharing, secretachievements, site, xyproblem,
+  bushism, deadchat, pins, slightsmile, time, user, wikipedia, xkcd,
   help, meta
 ];
