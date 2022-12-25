@@ -31,7 +31,7 @@ const getNextPage = (currentPage: number, up: boolean) => {
 
   // If our new page that we ended up on is >138, roll back to 11
   // If our new page that we ended up on is <11, roll back to 138
-  if (newPage > 138) {
+  if (newPage > 148) {
     newPage = 11;
   } else if (newPage < 11) {
     newPage = 138;
@@ -60,7 +60,7 @@ export const achievements: Command = {
       // eslint-disable-next-line camelcase
       min_value: 11,
       // eslint-disable-next-line camelcase
-      max_value: 138,
+      max_value: 148,
     }
   ],
   run: async(interaction: CommandInteraction) => {
