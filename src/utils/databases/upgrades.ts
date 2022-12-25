@@ -346,6 +346,9 @@ export const upgrades: UpgradeData = {
       initialCost: 1e15,
       formula: "`tachyon particles / 20000` per second"
     }
+  },
+  reality: {
+
   }
 };
 

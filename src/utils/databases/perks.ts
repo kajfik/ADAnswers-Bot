@@ -1,3 +1,4 @@
+import { PerkInfo } from "../types";
 // Import { EmbedBuilder, EmbedField } from "discord.js";
 
 const PERK_COLOURS = {
@@ -10,13 +11,6 @@ const PERK_COLOURS = {
   ACHIEVEMENTS: "#fbda4b",
   AUTOMATION: "#ff2a1f"
 };
-
-export type PerkInfo = {
-  effect: string,
-  colour: string,
-  prerequisites: string[],
-  reqType: string,
-}
 
 const PERK_REQUIREMENT_TYPE = {
   NONE: "",
@@ -36,7 +30,7 @@ export const Perks: PerkList = {
   // Time Study Branch
   // Recovery Branch
   // Dilation Branch
-  // I took the naming scheme provided to me by a compiled document 
+  // I took the naming scheme provided to me by a compiled document
   // from the Reality-to-Cel1-unlock channel.
 
   "START": {
