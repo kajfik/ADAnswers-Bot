@@ -25,10 +25,10 @@ export type EC = {
 }
 
 export type PerkInfo = {
+  id: string,
+  name: string,
   effect: string,
-  colour: string,
   prerequisites: string[],
-  reqType: string,
 }
 
 export type StringIndexedStringObjectType = {

@@ -15,7 +15,7 @@ function getFields(studyInfo: StudyInfo) {
   } else if (studyInfo.id >= 231) fields.push({ name: "Prerequisites", value: `${studyInfo.reqType}` });
   else fields.push({
     name: "Prerequisites",
-    value: `${studyInfo.reqType} ${makeEnumeration(studyInfo.prerequisites, ", TS", "TS", "or")} ${studyInfo.additionalPrerequisites ? `and ${studyInfo.additionalPrerequisites}` : ``}` });
+    value: `${studyInfo.reqType} ${makeEnumeration<number>(studyInfo.prerequisites, ", TS", "TS", "or")} ${studyInfo.additionalPrerequisites ? `and ${studyInfo.additionalPrerequisites}` : ``}` });
   if (studyInfo.formula) {
     fields.push({ name: "Formula", value: `${studyInfo.formula}` });
   }

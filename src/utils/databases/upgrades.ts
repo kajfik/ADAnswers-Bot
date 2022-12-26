@@ -2,7 +2,7 @@ import { EmbedBuilder, EmbedField } from "discord.js";
 import { footerText, formatNumber, pluralise } from "../../functions/Misc";
 import { UpgradeInfo } from "../types";
 
-export interface UpgradeData {
+interface UpgradeData {
   [key: string]: {
     [key: string]: UpgradeInfo
   }

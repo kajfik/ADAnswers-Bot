@@ -66,6 +66,7 @@ export const upgrade: Command = {
         option.setName("upgrade")
           .setRequired(true)
           .setDescription("The upgrade you want to know about")
+          // So uh, fun fact -- The number of Reality upgrades slides in RIGHT under the limit, <= 25.
           .setChoices(...getChoices("reality"))
       ).toJSON(),
   ],

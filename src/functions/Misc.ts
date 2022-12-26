@@ -23,13 +23,18 @@ export function getBaseLog(x: number, y: number): number {
 }
 
 // eslint-disable-next-line max-params
-export function makeEnumeration(items: Array<number>, separator = ", ", name = "", length2Separator: string) {
+export function makeEnumeration<itemType>(
+  items: Array<itemType>,
+  separator: string = ", ",
+  name: string = "",
+  finalSeperator: string = "or"
+) {
   if (items.length === 0) return "";
   if (items.length === 1) return `${name}${items[0]}`;
-  if (items.length === 2) return `${name}${items[0]} ${length2Separator} ${name}${items[1]}`;
+  if (items.length === 2) return `${name}${items[0]} ${finalSeperator} ${name}${items[1]}`;
   const commaSeparated = items.slice(0, items.length - 1).join(separator);
   const last = items[items.length - 1];
-  return `${name}${commaSeparated}, and ${name}${last}`;
+  return `${name}${commaSeparated}, ${finalSeperator} ${name}${last}`;
 }
 
 export const footerText = () => (Math.random() > 0.5 ? `Be sure to read the pins in your progression channel!` : `Art by MrKrutaman#1705`);
