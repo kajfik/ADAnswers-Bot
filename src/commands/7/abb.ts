@@ -30,7 +30,7 @@ RM - ||Reality Machines||
 RU - ||Reality Upgrade||
 PP - ||Perk Points||
 AP - ||Automator Points||
-CelX ||Celestial X||`;
+CelX - ||Celestial X||`;
 
     await interaction.reply({ content, ephemeral: !isHelper(interaction) });
   }

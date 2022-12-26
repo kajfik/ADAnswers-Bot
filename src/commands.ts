@@ -51,6 +51,8 @@ import { eternitychallenge } from "./commands/4/eternitychallenge";
 import { eternitychallengeorder } from "./commands/4/eternitychallengeorder";
 import { failec } from "./commands/4/failec";
 
+import { autoachievement } from "./commands/5/autoachievement";
+// Import { perks } from "./commands/5/perks";
 import { reality } from "./commands/5/reality";
 import { rm } from "./commands/5/rm";
 
@@ -108,7 +110,7 @@ export const commandsByPage: { [page: number]: Command[] } = {
   2: [bugo, ic4, ic5, infinitydimensions, peakipmin, replicanti, setcrunchauto],
   3: [onesixtyoneor162, earlyeternityprogression, eep, ep, eternitygrinding, firstsplit, infinitygrinding, respec, secondsplit, study, studytree, ts, timeshards],
   4: [bankedinfinities, changeectree, dilation, dilationgrind, dilationtrees, ec, eco, ecs, ecsattt, eternitychallenge, eternitychallengeorder, failec],
-  5: [reality, rm],
+  5: [autoachievement, reality, rm],
   6: [achievements, adbonus, bottombuttons, challenge, galaxyscaling, importexport, news, offlineticks, oom, upgrade],
   7: [abb, androidorweb, antitables, decimal, howtoplay, notations],
   8: [fivehours, commands, contributors, helperRequest, report, slashcommand],
@@ -117,15 +119,26 @@ export const commandsByPage: { [page: number]: Command[] } = {
 };
 
 export const Commands: Command[] = [
+  // Page 1 - Infinity
   oneminuteinf, breakinfinity, bulkbuy, c9, columns, dimboostorgalaxy, earlyinfinity, galaxyboost, grindingforbreak, infinity, iugo, sacrifice, swipetrick,
+  // Page 2 - Break Infinity
   bugo, ic4, ic5, infinitydimensions, peakipmin, replicanti, setcrunchauto,
+  // Page 3 - Eternity
   onesixtyoneor162, earlyeternityprogression, eep, ep, eternitygrinding, firstsplit, infinitygrinding, respec, secondsplit, study, studytree, ts, timeshards,
+  // Page 4 - Eternity Challenges / Dilation
   bankedinfinities, changeectree, dilation, dilationgrind, dilationtrees, ec, eco, ecs, ecsattt, eternitychallenge, eternitychallengeorder, failec,
-  reality, rm,
+  // Page 5 - Reality
+  autoachievement, reality, rm,
+  // Page 6 - Misc
   achievements, adbonus, bottombuttons, challenge, galaxyscaling, importexport, news, offlineticks, upgrade, oom,
+  // Page 7 - Misc
   abb, androidorweb, antitables, decimal, howtoplay, notations,
+  // Page 8 - Misc
   fivehours, commands, contributors, helperRequest, report, slashcommand,
+  // Page 9 - Misc
   discordformatting, invertedtheme, ipepcolour, justask, paperclips, roles, savebank, savesharing, secretachievements, site, xyproblem,
+  // Page 69 - Very misc
   bushism, deadchat, pins, slightsmile, time, user, wikipedia, xkcd,
+  // No page - bot info
   help, meta
 ];

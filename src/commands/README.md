@@ -15,7 +15,8 @@ Page 1 covers until break infinity
 Page 2 rest of infinity era + achievements and swipe trick
 Page 3 is eternity, pre ECs
 Page 4 is ECs + Dilation
-Pages 5, 6, 7, 8 is some more common game info stuff and/or bot functions
+Page 5 is reality
+Pages 6 - 9 is some more common game info stuff and/or bot functions
 ```
 
 `/1minuteinf` is 1, as this is a pre-break era command. For your command this may be different, but we will continue to use `/1minuteinf` as our example.
