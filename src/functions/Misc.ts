@@ -1,5 +1,5 @@
-import Decimal from "break_infinity.js";
 import { CommandInteraction, hideLinkEmbed, hyperlink } from "discord.js";
+import Decimal from "break_infinity.js";
 import { ids } from "../config.json";
 
 export function isHelper(interaction: CommandInteraction): boolean | undefined {

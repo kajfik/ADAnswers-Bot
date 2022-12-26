@@ -583,9 +583,9 @@ const FieldGetter = {
     const formattedCost = formatNumber(upgradeInfo.initialCost as number);
     const fields = [
       { name: "Effect", value: upgradeInfo.effect, inline: false },
-      { name: "Requirement", value: upgradeInfo.requirement as string, inline: false },
       { name: "Cost", value: `${formattedCost} ${pluralise("Reality Machine", upgradeInfo.cost as number)}${upgradeInfo.rebuyable ? `, increasing by a factor of ${upgradeInfo.increment} each purchase` : ``}`, inline: false },
     ];
+    if (upgradeInfo.requirement) fields.push({ name: "Requirement", value: upgradeInfo.requirement as string, inline: false });
     if (upgradeInfo.formula) fields.push({ name: "Effect formula", value: upgradeInfo.formula, inline: false });
     return fields;
 
