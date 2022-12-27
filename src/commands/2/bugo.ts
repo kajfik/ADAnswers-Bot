@@ -10,7 +10,7 @@ export const bugo: Command = {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     // eslint-disable-next-line max-len
-    const content: string = "https://cdn.discordapp.com/attachments/351479640755404820/1055698027702128700/break_infinity_upgrade_order.png";
+    const content: string = "https://cdn.discordapp.com/attachments/351479640755404820/1056773877193265172/bugo_v3_because_earth_sucks.png";
 
     await interaction.reply({ content, ephemeral: !isHelper(interaction) });
   }
