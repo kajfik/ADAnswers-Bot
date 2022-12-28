@@ -26,14 +26,19 @@ export type EC = {
 
 export type GlyphEffect = {
   name: string,
+  primary?: boolean,
   effect: string,
   effectFormula: string,
-  guaranteed: boolean,
+  stacking?: string,
 }
 
 export type Glyph = {
   name: string,
-  emoteId: number,
+  // The ID of the emote on the AD Discord server.
+  emoteId: string,
+  // An alternate character, used if the bot is in DMs or on another server.
+  altText: string,
+  // Effects start in the lower left corner and progress clockwise.
   effects: GlyphEffect[],
 }
 
@@ -42,6 +47,13 @@ export type PerkInfo = {
   name: string,
   effect: string,
   prerequisites: string[],
+}
+
+export type Milestone = {
+  amount: number,
+  resource: string,
+  effect: string,
+  effectFormula: string,
 }
 
 export type StringIndexedStringObjectType = {

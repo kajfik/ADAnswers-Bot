@@ -1,5 +1,6 @@
 import { ApplicationCommandOptionType, ApplicationCommandType, CommandInteraction } from "discord.js";
 import { Command } from "../../command";
+import config from "../../config.json";
 import { isHelper } from "../../functions/Misc";
 
 interface serverSpecificOutput {
@@ -106,7 +107,7 @@ export const glyph: Command = {
 
     const info: string = interaction.options.getString("info") as string;
 
-    const isADServer: boolean = (interaction.guildId === "351476683016241162");
+    const isADServer: boolean = (interaction.guildId === config.ids.AD.serverID);
 
     const content: string = autoAchievementCommand[info](isADServer);
 
