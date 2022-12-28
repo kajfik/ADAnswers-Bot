@@ -24,6 +24,19 @@ export type EC = {
   }
 }
 
+export type GlyphEffect = {
+  name: string,
+  effect: string,
+  effectFormula: string,
+  guaranteed: boolean,
+}
+
+export type Glyph = {
+  name: string,
+  emoteId: number,
+  effects: GlyphEffect[],
+}
+
 export type PerkInfo = {
   id: string,
   name: string,
