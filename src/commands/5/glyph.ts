@@ -1,13 +1,28 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, CommandInteraction } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, CommandInteraction, EmbedBuilder, SlashCommandSubcommandBuilder, User } from "discord.js";
+import { GlyphEmbedGetter, basicGlyphs } from "../../utils/databases/glyphs";
 import { Command } from "../../command";
+import { GlyphInfo } from "../../utils/types";
 import config from "../../config.json";
 import { isHelper } from "../../functions/Misc";
+
+function getEffectChoices(): { name: string, value: string, type: any }[] {
+  const choices = [];
+  for (const glyph in basicGlyphs) {
+    const glyphObject: GlyphInfo = basicGlyphs[glyph];
+    choices.push({
+      name: glyphObject.name,
+      value: glyphObject.name,
+      type: ApplicationCommandOptionType.String,
+    });
+  }
+  return choices;
+}
 
 interface serverSpecificOutput {
   [key: string]: Function;
 }
 
-const autoAchievementCommand: serverSpecificOutput = {
+const glyphInfoCommand: serverSpecificOutput = {
   /* eslint-disable max-len */
   intro(isADServer: boolean): string {
     return `Welcome to Reality!
@@ -87,30 +102,84 @@ export const glyph: Command = {
   description: "Explains Glyphs, their values, and their effects.",
   type: ApplicationCommandType.ChatInput,
   options: [
-    {
-      name: "info",
-      description: "intro, type, order, or companion",
-      type: ApplicationCommandOptionType.String,
-      required: true,
-      choices: [
-        { name: "intro", value: "intro" },
-        { name: "types", value: "types" },
-        { name: "rarity", value: "rarity" },
-        { name: "level", value: "level" },
-        { name: "sacrifice", value: "sacrifice" },
-        { name: "companion", value: "companion" },
-      ]
-    }
+    new SlashCommandSubcommandBuilder()
+      .setName("info")
+      .setDescription("Explains basic information about glyphs")
+      .addStringOption(option =>
+        option.setName("info")
+          .setRequired(true)
+          .setDescription("The information you want to know about")
+          .setChoices(
+            { name: "intro", value: "intro" },
+            { name: "types", value: "types" },
+            { name: "rarity", value: "rarity" },
+            { name: "level", value: "level" },
+            { name: "sacrifice", value: "sacrifice" },
+            { name: "companion", value: "companion" }
+          )
+      ).toJSON(),
+    // {
+    //   name: "info",
+    //   description: "intro, type, order, or companion",
+    //   type: ApplicationCommandOptionType.String,
+    //   required: true,
+    //   choices: [
+    //     { name: "intro", value: "intro" },
+    //     { name: "types", value: "types" },
+    //     { name: "rarity", value: "rarity" },
+    //     { name: "level", value: "level" },
+    //     { name: "sacrifice", value: "sacrifice" },
+    //     { name: "companion", value: "companion" },
+    //   ]
+    // },
+    new SlashCommandSubcommandBuilder()
+      .setName("effect")
+      .setDescription("Explains the effects of a glyph")
+      .addStringOption(option =>
+        option.setName("glyph")
+          .setRequired(true)
+          .setDescription("The glyph you want to know about")
+          .setChoices(...getEffectChoices())
+      ).toJSON(),
   ],
   run: async(interaction: CommandInteraction) => {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
-    const info: string = interaction.options.getString("info") as string;
+    if (interaction.options.data.length > 1) {
+      await interaction.reply({ content: "You can only use one subcommand at a time." });
+      return;
+    }
+
+    if (interaction.options.data.length === 0) {
+      await interaction.reply({ content: "You must specify a subcommand." });
+      return;
+    }
+
+    const user: User = interaction.member === null ? interaction.user : interaction.member.user as User;
 
     const isADServer: boolean = (interaction.guildId === config.ids.AD.serverID);
 
-    const content: string = autoAchievementCommand[info](isADServer);
+    const type: string = interaction.options.getSubcommand();
 
-    await interaction.reply({ content, ephemeral: !isHelper(interaction) });
+    if (type === "info") {
+      const info: string = interaction.options.getString("info") as string;
+
+      const content: string = glyphInfoCommand[info](isADServer);
+
+      await interaction.reply({ content, ephemeral: !isHelper(interaction) });
+
+    } else {
+
+      const glyphName: string = interaction.options.getString("glyph") as string;
+
+      const picture = new AttachmentBuilder(`src/images/glyphs/${glyphName}.png`);
+
+      const glyphRequested = basicGlyphs[glyphName];
+      const embed: EmbedBuilder = GlyphEmbedGetter(glyphRequested);
+      embed.setAuthor({ name: `${user.username}#${user.discriminator}`, iconURL: user.displayAvatarURL() })
+        .setThumbnail(`attachment://${glyphName}.png`);
+
+      await interaction.reply({ embeds: [embed], files: [picture], ephemeral: !isHelper(interaction) });
+    }
   }
 };
