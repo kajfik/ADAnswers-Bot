@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 import { EmbedBuilder, EmbedField } from "discord.js";
+import { Colour } from "../colours";
 import { link } from "../../functions/Misc";
 
 const base = ` It is recommended to have at least the first 12 infinity upgrades and 100 spare IP.
@@ -262,14 +263,14 @@ export const shownFields = (challengeInfo: ChallengeInfo, requestedFields?: stri
 
 export const normalChallenge = (challengeInfo: ChallengeInfo): EmbedBuilder => new EmbedBuilder()
   .setTitle(`Challenge ${challengeInfo.number}`)
-  .setColor("#22aa48")
+  .setColor(Colour.antimatter)
   .setFields(shownFields(challengeInfo))
   .setTimestamp()
   .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
 
 export const infinityChallenge = (challengeInfo: ChallengeInfo): EmbedBuilder => new EmbedBuilder()
   .setTitle(`Infinity Challenge ${challengeInfo.number}`)
-  .setColor("#b67f33")
+  .setColor(Colour.infinity)
   .addFields(shownFields(challengeInfo))
   .setTimestamp()
   .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });

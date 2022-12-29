@@ -16,7 +16,8 @@ Kajfik: Code contributions, notably in eternitychallenge.js,
 L4R5: EC database,
 Ninjatsu: the EC spreadsheet used by many players, provided all of the information in the EC database,
 Pez: commands.find() in commands.js,
-MrKrutaman: challenge, study, upgrade art`;
+MrKrutaman: challenge, study, upgrade art,
+Mirai Sozo: Misc. Reality content`;
 
     await interaction.reply({ content, ephemeral: !isHelper(interaction) });
   }

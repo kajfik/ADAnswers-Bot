@@ -1,8 +1,9 @@
 import { EmbedBuilder, EmbedField } from "discord.js";
 import { footerText, formatNumber, pluralise } from "../../functions/Misc";
+import { Colour } from "../colours";
 import { UpgradeInfo } from "../types";
 
-export interface UpgradeData {
+interface UpgradeData {
   [key: string]: {
     [key: string]: UpgradeInfo
   }
@@ -346,6 +347,198 @@ export const upgrades: UpgradeData = {
       initialCost: 1e15,
       formula: "`tachyon particles / 20000` per second"
     }
+  },
+  reality: {
+    "temporalAmplifier": {
+      id: "temporalAmplifier",
+      name: "Temporal Amplifier",
+      effect: "Gain Dilated Time 3 times faster",
+      initialCost: 1,
+      increment: 30,
+      rebuyable: true,
+    },
+    "replicativeAmplifier": {
+      id: "replicativeAmplifier",
+      name: "Replicative Amplifier",
+      effect: "Gain Replicanti 3 times faster",
+      initialCost: 1,
+      increment: 30,
+      rebuyable: true,
+    },
+    "eternalAmplifier": {
+      id: "eternalAmplifier",
+      name: "Eternal Amplifier",
+      effect: "Gain 3 times more Eternities",
+      initialCost: 2,
+      increment: 30,
+      rebuyable: true,
+    },
+    "superluminalAmplifier": {
+      id: "superluminalAmplifier",
+      name: "Superluminal Amplifier",
+      effect: "Gain 3 times more Tachyon Particles",
+      initialCost: 2,
+      increment: 30,
+      rebuyable: true,
+    },
+    "boundlessAmplifier": {
+      id: "boundlessAmplifier",
+      name: "Boundless Amplifier",
+      effect: "Gain 5 times more Infinities",
+      initialCost: 3,
+      increment: 50,
+      rebuyable: true,
+    },
+    "cosmicallyDuplicate": {
+      id: "cosmicallyDuplicate",
+      name: "Cosmically Duplicate",
+      effect: "Replicanti speed is multiplied based on Replicanti Galaxies",
+      formula: "1 + 0.02 * (Replicanti Galaxies)",
+      initialCost: 15,
+      requirement: "Complete your first Eternity in a Reality without using Replicanti Galaxies"
+    },
+    "innumerablyConstruct": {
+      id: "innumerablyConstruct",
+      name: "Innumerably Construct",
+      effect: "Infinity gain is boosted from Antimatter Galaxy count",
+      formula: "1 + 0.02 * (Replicanti Galaxies)",
+      initialCost: 15,
+      requirement: "Complete your first Infinity in a Reality with at most 1 Antimatter Galaxy"
+    },
+    "paradoxicallyAttain": {
+      id: "paradoxicallyAttain",
+      name: "Paradoxically Attain",
+      effect: "Tachyon Particle gain is boosted based on Achievement Multiplier",
+      formula: "sqrt(Achievement Multiplier)",
+      initialCost: 15,
+      requirement: "Get to Eternity without any Automatic Achievements (Your first Reality does not count)"
+    },
+    "linguisticallyExpand": {
+      id: "linguisticallyExpand",
+      name: "Linguistically Expand",
+      effect: "Gain another Glyph slot",
+      initialCost: 15,
+      requirement: "Eternity for 1e4000 Eternity Points using only a single Glyph with a level of 3 or more"
+    },
+    "existentiallyProlong": {
+      id: "existentiallyProlong",
+      name: "Existentially Prolong",
+      effect: "Start every Reality with 100 Eternities (Also applies to current Reality)",
+      initialCost: 15,
+      requirement: "Complete your first Eternity with at least 1e400 IP"
+    },
+    "boundlessFlow": {
+      id: "boundlessFlow",
+      name: "The Boundless Flow",
+      effect: "Every second, gain 10% of the Infinities you would normally gain from Infinitying",
+      formula: "(Infinities gained on Crunch) * 0.1",
+      initialCost: 50,
+      requirement: "Have at least 1e12 Banked Infinities at once"
+    },
+    "knowingExistence": {
+      id: "knowingExistence",
+      name: "The Knowing Existence",
+      effect: "Eternity Point multiplier based on Reality and Time Theorem count",
+      // Formula: "Unknown",
+      initialCost: 50,
+      requirement: "Eternity for 1e70 Eternity Points without any Eternity Challenge 1 completions"
+    },
+    "telomechanicalProcess": {
+      id: "telomechanicalProcess",
+      name: "The Telomechanical Process",
+      effect: "Improve Eternity Autobuyer and unlock autobuyers for Time Dimensions and the x5 EP upgrade",
+      initialCost: 50,
+      requirement: "Eternity for 1e4000 EP without Time Dimensions 5-8"
+    },
+    "eternalFlow": {
+      id: "eternalFlow",
+      name: "The Eternal Flow",
+      effect: "Gain Eternities per second equal to your Reality count",
+      formula: "(Reality count)",
+      initialCost: 50,
+      requirement: "Have at least 1e7 Eternities in a single Reality"
+    },
+    "paradoxicalForever": {
+      id: "paradoxicalForever",
+      name: "The Paradoxical Forever",
+      effect: "Boost Tachyon Particle gain based on the x5 Eternity Point multiplier",
+      // Formula: "Unknown",
+      initialCost: 50,
+      requirement: "Have 1e10 Eternity Points without purchasing the x5 Eternity Point Upgrade"
+    },
+    "disparityOfRarity": {
+      id: "disparityOfRarity",
+      name: "Disparity of Rarity",
+      effect: "Improve the Glyph Rarity formula",
+      initialCost: 1500,
+      requirement: "Make a new Reality with 4 Glyphs equipped of uncommon or better rarity"
+    },
+    "duplicityOfPotency": {
+      id: "duplicityOfPotency",
+      name: "Duplicity of Potency",
+      effect: "50% chance to get an additional effect on Glyphs",
+      initialCost: 1500,
+      requirement: "Make a new Reality with 4 Glyphs equipped, each having at least 2 effects"
+    },
+    "measureOfForever": {
+      id: "measureOfForever",
+      name: "Measure of Forever",
+      effect: "Eternity Count boosts Glyph level",
+      formula: "0.45 * log(Eternities) ^ 0.5; see Glyph Level Factors panel for more info",
+      initialCost: 1500,
+      requirement: "Make a new Reality with 4 Glyphs equipped, each being level 10 or higher"
+    },
+    "scourToEmpower": {
+      id: "scourToEmpower",
+      name: "Scour to Empower",
+      effect: "Unlock Glyph Sacrifice, allowing you to sacrifice glyphs for permanent bonuses",
+      initialCost: 1500,
+      requirement: "Have at least 30 Glyphs at once"
+    },
+    "parityOfSingularity": {
+      id: "parityOfSingularity",
+      name: "Parity of Singularity",
+      effect: "Unlock a second Black Hole",
+      initialCost: 1500,
+      requirement: "Exist for 100 days after unlocking the first Black Hole"
+    },
+    "cosmicConglomerate": {
+      id: "cosmicConglomerate",
+      name: "Cosmic Conglomerate",
+      effect: "Move Remote Antimatter Galaxy scaling to 100,000 galaxies",
+      initialCost: 1e5,
+      requirement: "Have a total of at least 2,800 Galaxies from all types"
+    },
+    "temporalTranscendence": {
+      id: "temporalTranscendence",
+      name: "Temporal Transcendence",
+      effect: "Time Dimension multiplier based on days spent in a Reality",
+      // Formula: "Unknown"
+      initialCost: 1e5,
+      requirement: "Have at least e28000 Time Shards"
+    },
+    "replicativeRapidly": {
+      id: "replicativeRapidly",
+      name: "Replicative Rapidly",
+      effect: "Replicanti speed is boosted based on your fastest Reality (game time)",
+      // Formula: "Unknown"
+      initialCost: 1e5,
+      requirement: "Make a new Reality in under 15 minutes (game time)"
+    },
+    "syntheticSymbolism": {
+      id: "syntheticSymbolism",
+      name: "Synthetic Symbolism",
+      effect: "Gain another Glyph slot",
+      initialCost: 1e5,
+      requirement: "Reality for at least 5000 Machines without Glyphs equipped"
+    },
+    "effortlessExistence": {
+      id: "effortlessExistence",
+      name: "Effortless Existence",
+      effect: "Unlock the Reality Autobuyer, the Reality automator command, and the Automator if you haven't done so yet",
+      initialCost: 1e5,
+      requirement: "Reach 1e11111 EP"
+    },
   }
 };
 
@@ -385,37 +578,54 @@ const FieldGetter = {
     ];
     if (upgradeInfo.formula) fields.push({ name: "Effect formula", value: upgradeInfo.formula, inline: false });
     return fields;
+  },
+  reality(upgradeInfo: UpgradeInfo): EmbedField[] {
+    const formattedCost = formatNumber(upgradeInfo.initialCost as number);
+    const fields = [
+      { name: "Effect", value: upgradeInfo.effect, inline: false },
+      { name: "Cost", value: `${formattedCost} ${pluralise("Reality Machine", upgradeInfo.cost as number)}${upgradeInfo.rebuyable ? `, increasing by a factor of ${upgradeInfo.increment} each purchase` : ``}`, inline: false },
+    ];
+    if (upgradeInfo.requirement) fields.push({ name: "Requirement", value: upgradeInfo.requirement as string, inline: false });
+    if (upgradeInfo.formula) fields.push({ name: "Effect formula", value: upgradeInfo.formula, inline: false });
+    return fields;
+
   }
 };
 
 const InfinityUpgrade = (upgradeInfo: UpgradeInfo) => new EmbedBuilder()
   .setTitle(upgradeInfo.name)
-  .setColor("#b67f33")
+  .setColor(Colour.infinity)
   .addFields(FieldGetter.infinity(upgradeInfo))
   .setTimestamp()
   .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
 
 const BreakInfinityUpgrade = (upgradeInfo: UpgradeInfo) => new EmbedBuilder()
   .setTitle(upgradeInfo.name)
-  .setColor("#b67f33")
+  .setColor(Colour.infinity)
   .addFields(FieldGetter.breakInfinity(upgradeInfo))
   .setTimestamp()
   .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
 
 const EternityUpgrade = (upgradeInfo: UpgradeInfo) => new EmbedBuilder()
   .setTitle(upgradeInfo.name)
-  .setColor("#b341e0")
+  .setColor(Colour.eternity)
   .addFields(FieldGetter.eternity(upgradeInfo))
   .setTimestamp()
   .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
 
 const DilationUpgrade = (upgradeInfo: UpgradeInfo) => new EmbedBuilder()
   .setTitle(upgradeInfo.name)
-  .setColor("#64dd17")
+  .setColor(Colour.dilation)
   .addFields(FieldGetter.dilation(upgradeInfo))
   .setTimestamp()
   .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
 
+const RealityUpgrade = (upgradeInfo: UpgradeInfo) => new EmbedBuilder()
+  .setTitle(upgradeInfo.name)
+  .setColor(Colour.reality)
+  .addFields(FieldGetter.reality(upgradeInfo))
+  .setTimestamp()
+  .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
 
 interface EmbedGetters {
   [key: string]: Function;
@@ -425,5 +635,6 @@ export const UpgradeEmbedGetters: EmbedGetters = {
   infinity: InfinityUpgrade,
   break: BreakInfinityUpgrade,
   eternity: EternityUpgrade,
-  dilation: DilationUpgrade
+  dilation: DilationUpgrade,
+  reality: RealityUpgrade
 };

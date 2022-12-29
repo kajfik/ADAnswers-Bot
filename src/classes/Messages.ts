@@ -1,4 +1,4 @@
-import { messages } from "../utils/databases/presneceMessages";
+import { messages } from "../utils/databases/presenceMessages";
 
 export class Messages {
   type: string;

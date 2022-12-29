@@ -3,12 +3,12 @@ import { ApplicationCommandOptionChoiceData, ApplicationCommandOptionType, Appli
 import { Command } from "../../command";
 import { isHelper } from "../../functions/Misc";
 
-function getChoices(): ApplicationCommandOptionChoiceData[] {
-  const choices: Array<ApplicationCommandOptionChoiceData> = [];
+function getChoices(): ApplicationCommandOptionChoiceData<string>[] {
+  const choices: Array<ApplicationCommandOptionChoiceData<string>> = [];
   for (const challenge in Challenge.newChallengeMessageObject) {
     choices.push({
-      name: challenge,
-      value: challenge,
+      name: String(challenge),
+      value: String(challenge)
     });
   }
   return choices;
@@ -69,12 +69,12 @@ export const challenge: Command = {
     embed.setThumbnail(`attachment://${chall?.toUpperCase()}.png`);
 
     if (!info) {
-      interaction.reply({ content: target ? `*Suggested for <@${target.id}>*` : null, embeds: [embed], files: [picture], ephemeral: !isHelper(interaction) });
+      interaction.reply({ content: target ? `*Suggested for <@${target.id}>*` : undefined, embeds: [embed], files: [picture], ephemeral: !isHelper(interaction) });
       return;
     }
 
     type ChallengeObjectKey = keyof typeof Challenge.challenges;
     embed.setFields(Challenge.shownFields(Challenge.challenges[chall as ChallengeObjectKey], info));
-    interaction.reply({ content: target ? `*Suggested for <@${target.id}>*` : null, embeds: [embed], files: [picture], ephemeral: !isHelper(interaction) });
+    interaction.reply({ content: target ? `*Suggested for <@${target.id}>*` : undefined, embeds: [embed], files: [picture], ephemeral: !isHelper(interaction) });
   }
 };

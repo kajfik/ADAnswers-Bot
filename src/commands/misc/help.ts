@@ -4,7 +4,7 @@ import { commandsByPage } from "../../commands";
 import config from "../../config.json";
 
 const getNextPage = (currentPage: number, up: boolean) => {
-  const possiblePages: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 69];
+  const possiblePages: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 69];
   let index: number = possiblePages.indexOf(currentPage);
 
   if (up) index++;
@@ -16,9 +16,9 @@ const getNextPage = (currentPage: number, up: boolean) => {
 };
 
 const getEmbed = (currentPage: number) => new EmbedBuilder()
-  .setTitle(`Help (p${currentPage}/8)`)
+  .setTitle(`Help (p${currentPage}/9)`)
   .setDescription(`A comprehensive list of commands.`)
-  .setColor(`#${currentPage === 69 ? "696969" : Math.round(currentPage / 8 * 255).toString(16).repeat(3)}`)
+  .setColor(`#${currentPage === 69 ? "696969" : Math.round(currentPage / 9 * 255).toString(16).repeat(3)}`)
   .setTimestamp()
   .setFooter({ text: `This superfluous bot was created by @earth#1337\nBot version: ${config.version}`, iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` })
   .addFields(fields(currentPage))
@@ -81,9 +81,9 @@ export const help: Command = {
               description: "ECs and Dilation commands"
             },
             {
-              label: "Page 5: Miscellaneous game commands",
+              label: "Page 5: Early Reality Era",
               value: "5",
-              description: "Miscellaneous game commands"
+              description: "Early Reality Era commands"
             },
             {
               label: "Page 6: Miscellaneous game commands",
@@ -98,6 +98,11 @@ export const help: Command = {
             {
               label: "Page 8: Miscellaneous game commands",
               value: "8",
+              description: "Miscellaneous game commands"
+            },
+            {
+              label: "Page 9: Miscellaneous game commands",
+              value: "9",
               description: "Miscellaneous game commands"
             },
           ])

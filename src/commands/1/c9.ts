@@ -29,6 +29,6 @@ export const c9: Command = {
 
     embed.setFields(Challenge.shownFields(Challenge.challenges.c9, "strategy"));
 
-    await interaction.reply({ content: target ? `*Suggested for <@${target.id}>*` : null, embeds: [embed], files: [picture], ephemeral: !isHelper(interaction) });
+    await interaction.reply({ content: target ? `*Suggested for <@${target.id}>*` : undefined, embeds: [embed], files: [picture], ephemeral: !isHelper(interaction) });
   }
 };

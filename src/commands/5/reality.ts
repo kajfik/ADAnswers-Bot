@@ -17,7 +17,7 @@ import { isHelper } from "../../functions/Misc";
 
 export const reality: Command = {
   name: "reality",
-  description: "Information surrounding the upcoming reality update.",
+  description: "Information surrounding the reality update.",
   type: ApplicationCommandType.ChatInput,
   options: [
     {

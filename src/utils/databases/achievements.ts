@@ -1,5 +1,6 @@
 import { EmbedBuilder, EmbedField } from "discord.js";
 import { AchievementInfo } from "../types";
+import { Colour } from "../colours";
 import { footerText } from "../../functions/achievements";
 
 interface AchievementsData {
@@ -25,7 +26,7 @@ function getFields(achievementInfo: AchievementInfo): EmbedField[] {
 
 export const Achievement = (achievementInfo: AchievementInfo) => new EmbedBuilder()
   .setTitle(`Achievement ${achievementInfo.id} ("${achievementInfo.fullName}")`)
-  .setColor("#43a047")
+  .setColor(Colour.achievement)
   // We will set the image in AchievementApplicationCommand
   .addFields(getFields(achievementInfo))
   .setTimestamp()
@@ -514,9 +515,9 @@ export const achievements: AchievementsData = {
   },
   "113": {
     id: 113,
-    fullName: "Long lasting relationship",
-    achievement: "Have your Infinity Power per second exceed your Infinity Power for 60 consecutive seconds during a single Infinity.",
-    strategy: "**THIS WILL HAPPEN NATURALLY. JUST LET IT HAPPEN INSTEAD OF FORCING IT**"
+    fullName: "Eternities are the new infinity",
+    achievement: "Eternity in under 250ms.",
+    reward: "Gain x2 more Eternities."
   },
   "114": {
     id: 114,
@@ -568,8 +569,9 @@ export const achievements: AchievementsData = {
   },
   "124": {
     id: 124,
-    fullName: "Eternities are the new infinity",
-    achievement: "Eternity in under 200ms."
+    fullName: "Long lasting relationship",
+    achievement: "Have your Infinity Power per second exceed your Infinity Power for 60 consecutive seconds during a single Infinity.",
+    strategy: "**THIS WILL HAPPEN NATURALLY. JUST LET IT HAPPEN INSTEAD OF FORCING IT**"
   },
   "125": {
     id: 125,
@@ -602,7 +604,7 @@ export const achievements: AchievementsData = {
   "131": {
     id: 131,
     fullName: "No ethical consumption",
-    achievement: `Get 5e9 Banked Infinities`,
+    achievement: `Get 2e9 Banked Infinities`,
     reward: `After Eternity you permanently keep 5% of your Infinities as Banked Infinities (stacks with TS191 to a total of 10%)`,
     strategy: `See \`/infinitygrinding late\`. Done in conjunction with r134 (When will it be enough?).`,
   },
@@ -649,8 +651,68 @@ export const achievements: AchievementsData = {
   "138": {
     id: 138,
     fullName: "This is what I have to do to get rid of you.",
-    achievement: "Reach 1e26000 Infinity Points without any Time Studies while Dilated."
+    achievement: "Reach 1e26000 Infinity Points without any Time Studies while Dilated.",
+    reward: `Removes the downsides from Time Study 131 and Time Study 133 in the Active and Idle Time Study Paths.`,
+    rewardFormula: `Study 131 requires you to always hold R (either directly, or via the swipe trick) to purchase Replicanti galaxies. Study 133 dramatically slows down replicanti growth early on in your eternities. 
+    By removing the downsides, you can focus on other aspects of your eternities leading up to Reality.`
   },
+  "141": {
+    id: 141,
+    fullName: "Snap back to Reality",
+    achievement: "Make a new Reality",
+    reward: `×4 infinity Point gain, and increase the multiplier for buying 10 Antimatter Dimensions by +0.1`
+  },
+  "142": {
+    id: 142,
+    fullName: "How does this work?",
+    achievement: "Unlock the automator",
+    reward: `Dimension Boosts are 50% stronger.`,
+    strategy: `The automator is unlocked when you gain 100 Automator Points. If you haven't unlocked the Automator yet, check out the Automator tab to see all the possible sources of AP.`
+  },
+  "143": {
+    id: 143,
+    fullName: "Yo dawg, I heard you like reskins...",
+    achievement: `Have all your Eternities in your past 10 Eternities be for at least 1.8e308 times higher Eternity Points than the previous one.`,
+    reward: `Galaxies no longer reset Dimension Boosts.`,
+    strategy: `When you reach about e5000 EP (higher EP gives more leeway), disable automatic Antimatter and Replicanti Galaxies. Set your Eternity autobuyer to 1 EP, and disable it after you get one Eternity. 
+    Then, check your statistics to see how much EP you got from that Eternity. Set your Eternity autobuyer to at least ×1.8e308 of that. If you need to, purchase galaxies by pressing Shift-G and R. 
+    Repeat this process 10 times to get the achievement.`
+  },
+  "144": {
+    id: 144,
+    fullName: "Is this an Interstellar reference?",
+    achievement: "Unlock the Black Hole.",
+  },
+  "145": {
+    id: 145,
+    fullName: "Are you sure these are the right way around?",
+    achievement: "Have either black hole interval smaller than its duration.",
+    reward: "Black Hole intervals are 10% shorter."
+  },
+  "146": {
+    id: 146,
+    fullName: "Perks of Living",
+    achievement: "Have all Perks bought.  ",
+    reward: "+1% Glyph Rarity",
+    rewardFormula: "Increase the rarity of all Glyphs, AFTER their glyph rarity has been calculated, by 1%. Caps at 100%."
+  },
+  "147": {
+    id: 147,
+    fullName: "Master of Reality",
+    achievement: "Have all Reality upgrades bought.",
+    reward: "Unlock ||Teresa, the Celestial of Reality||.",
+    // Strategy: "Repeatable Reality upgrades do not count. You must meet all the requirements for every Reality Upgrade, and then purchase them."
+  },
+  "148": {
+    id: 148,
+    fullName: "Royal Flush",
+    achievement: "Reality with one of each basic Glyph type.",
+    reward: "Gained Glyph level is increased by the number of distinct Glyph types equipped.",
+    rewardFormula: "For each unique Glyph equipped (Power, Infinity, Replication, Time, Dilation, etc), the level of the glyphs you generate when you create a new Reality is increased by 1.",
+    strategy: `First, purchase the Reality Upgrades "Linguistically Expand" and "Synthetic Symbolism". 
+    Then, get one of each glyph type (Power, Infinity, Replication, Time, Dilation). 
+    Finally, equip each of these glyphs and perform a Reality reset.`
+  }
 };
 
 export const AchievementEmbeds: EmbedBuilder[] = [];

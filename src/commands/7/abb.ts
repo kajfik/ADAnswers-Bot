@@ -25,7 +25,12 @@ TT - ||Time Theorem||
 DT - ||Dilated Time||
 TP - ||Tachyon Particles||
 BInf - ||Banked Infinities||
-EU - ||Eternity Upgrade||`;
+EU - ||Eternity Upgrade||
+RM - ||Reality Machines||
+RU - ||Reality Upgrade||
+PP - ||Perk Points||
+AP - ||Automator Points||
+CelX - ||Celestial X||`;
 
     await interaction.reply({ content, ephemeral: !isHelper(interaction) });
   }

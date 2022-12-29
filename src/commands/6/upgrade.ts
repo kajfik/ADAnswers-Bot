@@ -20,7 +20,7 @@ function getChoices(typeOfUpgrade: string): { name: string, value: string, type:
 
 export const upgrade: Command = {
   name: "upgrade",
-  description: "Args: `infinity`, `break`, `eternity`, `dilation`. Explains what the upgrades are",
+  description: "Args: `infinity`, `break`, `eternity`, `dilation`, `reality`. Explains what the upgrades are",
   type: ApplicationCommandType.ChatInput,
   options: [
     new SlashCommandSubcommandBuilder()
@@ -58,6 +58,16 @@ export const upgrade: Command = {
           .setRequired(true)
           .setDescription("The upgrade you want to know about")
           .setChoices(...getChoices("dilation"))
+      ).toJSON(),
+    new SlashCommandSubcommandBuilder()
+      .setName("reality")
+      .setDescription("Explains what a reality upgrade is")
+      .addStringOption(option =>
+        option.setName("upgrade")
+          .setRequired(true)
+          .setDescription("The upgrade you want to know about")
+          // So uh, fun fact -- The number of Reality upgrades slides in RIGHT under the limit, <= 25.
+          .setChoices(...getChoices("reality"))
       ).toJSON(),
   ],
   run: async(interaction: CommandInteraction) => {

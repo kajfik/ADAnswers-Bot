@@ -4,7 +4,7 @@ import { isHelper } from "../../functions/Misc";
 
 export const site: Command = {
   name: "site",
-  description: "Says the game site + link to android version",
+  description: "Says the game site + link to android / steam versions",
   type: ApplicationCommandType.ChatInput,
   run: async(interaction: CommandInteraction) => {
     if (!interaction || !interaction.isChatInputCommand()) return;

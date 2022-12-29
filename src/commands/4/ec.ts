@@ -77,7 +77,7 @@ export const ec: Command = {
       .setThumbnail(`attachment://EC${eternityChallengeRequested}.png`);
 
     if (!info) {
-      await interaction.reply({ content: target ? `*Suggested for <@${target.id}>*` : null, embeds: [embed], files: [picture], ephemeral: hide });
+      await interaction.reply({ content: target ? `*Suggested for <@${target.id}>*` : undefined, embeds: [embed], files: [picture], ephemeral: hide });
       return;
     }
 
@@ -86,7 +86,7 @@ export const ec: Command = {
       return;
     }
 
-    embed.setFields(shownFields(chall, info));
-    await interaction.reply({ content: target ? `*Suggested for <@${target.id}>*` : null, embeds: [embed], files: [picture], ephemeral: hide });
+    embed.setFields(shownFields(findEC(eternityChallengeRequested, completion), info));
+    await interaction.reply({ content: target ? `*Suggested for <@${target.id}>*` : undefined, embeds: [embed], files: [picture], ephemeral: hide });
   }
 };
