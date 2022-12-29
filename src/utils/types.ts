@@ -35,7 +35,7 @@ export type GlyphEffect = {
 export type GlyphInfo = {
   name: string,
   // The ID of the emote on the AD Discord server.
-  emoteId: string,
+  emote: string,
   // An alternate character, used if the bot is in DMs or on another server.
   altText: string,
   // Effects start in the lower left corner and progress clockwise.

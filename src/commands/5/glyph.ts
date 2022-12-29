@@ -118,20 +118,6 @@ export const glyph: Command = {
             { name: "companion", value: "companion" }
           )
       ).toJSON(),
-    // {
-    //   name: "info",
-    //   description: "intro, type, order, or companion",
-    //   type: ApplicationCommandOptionType.String,
-    //   required: true,
-    //   choices: [
-    //     { name: "intro", value: "intro" },
-    //     { name: "types", value: "types" },
-    //     { name: "rarity", value: "rarity" },
-    //     { name: "level", value: "level" },
-    //     { name: "sacrifice", value: "sacrifice" },
-    //     { name: "companion", value: "companion" },
-    //   ]
-    // },
     new SlashCommandSubcommandBuilder()
       .setName("effect")
       .setDescription("Explains the effects of a glyph")
@@ -175,7 +161,7 @@ export const glyph: Command = {
       const picture = new AttachmentBuilder(`src/images/glyphs/${glyphName}.png`);
 
       const glyphRequested = basicGlyphs[glyphName];
-      const embed: EmbedBuilder = GlyphEmbedGetter(glyphRequested);
+      const embed: EmbedBuilder = GlyphEmbedGetter(glyphRequested, isADServer);
       embed.setAuthor({ name: `${user.username}#${user.discriminator}`, iconURL: user.displayAvatarURL() })
         .setThumbnail(`attachment://${glyphName}.png`);
 

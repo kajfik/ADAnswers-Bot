@@ -28,8 +28,8 @@ export const Colour: ColourList = {
   automation: "#ff2a1f",
 
   // TODO: Celestials
-  // teresa: "#",
-  // effarig: "#",
+  teresa: "#5151ec",
+  // Effarig: "#",
   // Is it "nameless", or "enslaved"?
 
 };

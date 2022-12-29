@@ -4,6 +4,7 @@ const TS_REQUIREMENT_TYPE = {
   AT_LEAST_ONE: "At least one of",
   ALL: "All of",
   ONE: "",
+  NONE: "None",
   OR: (one: number, two: number) => `TS${one} or TS${two}`,
 };
 
@@ -43,7 +44,7 @@ export const studies: StudyList = {
     effect: "Tickspeed affects 1st Time Dimension with reduced effect",
     formula: "`reciprocal((((Tickspeed / 1000) ^ 0.005) * 0.95) + (((Tickspeed / 1000) ^ 0.0003) * 0.05))`",
     cost: 1,
-    reqType: TS_REQUIREMENT_TYPE.ONE,
+    reqType: TS_REQUIREMENT_TYPE.NONE,
     prerequisites: [],
     type: "normal"
   },
@@ -51,7 +52,7 @@ export const studies: StudyList = {
     id: 10,
     effect: "Unlock a secret achievement",
     cost: 0,
-    reqType: TS_REQUIREMENT_TYPE.ONE,
+    reqType: TS_REQUIREMENT_TYPE.NONE,
     prerequisites: [],
     type: "forbidden"
   },

@@ -10,7 +10,7 @@ interface GlyphData {
 export const basicGlyphs: GlyphData = {
   power: {
     name: "power",
-    emoteId: "586607087744843776",
+    emote: "<:glyph_power:586607087744843776>",
     altText: "Ω",
     effects: {
       "Bottom Left": {
@@ -42,7 +42,7 @@ export const basicGlyphs: GlyphData = {
   },
   infinity: {
     name: "infinity",
-    emoteId: "586607119856304129",
+    emote: "<:glyph_infinity:586607119856304129>",
     altText: "∞",
     effects: {
       "Bottom Left": {
@@ -74,7 +74,7 @@ export const basicGlyphs: GlyphData = {
   },
   replication: {
     name: "replication",
-    emoteId: "586607179432460298",
+    emote: "<:glyph_replication:586607179432460298>",
     altText: "Ξ",
     effects: {
       "Bottom Left": {
@@ -106,7 +106,7 @@ This makes the glyph stack reasonably while still providing a boost if you use v
   },
   time: {
     name: "time",
-    emoteId: "586607148985876501",
+    emote: "<:glyph_time:586607148985876501>",
     altText: "Δ",
     effects: {
       "Bottom Left": {
@@ -139,7 +139,7 @@ This makes the glyph stack reasonably while still providing a boost if you use v
   },
   dilation: {
     name: "dilation",
-    emoteId: "586607200626278421",
+    emote: "<:glyph_dilation:586607200626278421>",
     altText: "Ψ",
     effects: {
       "Bottom Left": {
@@ -184,8 +184,13 @@ function FieldsGetter(glyphInfo: GlyphInfo): EmbedField[] {
   return fields;
 }
 
-export const GlyphEmbedGetter = (glyphInfo: GlyphInfo) => new EmbedBuilder()
-  .setTitle(capitalize(glyphInfo.name))
+function SymbolGetter(glyphInfo: GlyphInfo, isADServer: boolean) {
+  if (isADServer) return glyphInfo.emote;
+  return glyphInfo.altText;
+}
+
+export const GlyphEmbedGetter = (glyphInfo: GlyphInfo, isADServer: boolean) => new EmbedBuilder()
+  .setTitle(`**${SymbolGetter(glyphInfo, isADServer)}** ${capitalize(glyphInfo.name)}`)
   .setColor("#b67f33")
   .addFields(FieldsGetter(glyphInfo))
   .setTimestamp()

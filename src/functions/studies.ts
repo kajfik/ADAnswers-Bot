@@ -26,7 +26,6 @@ function getFields(studyInfo: StudyInfo) {
   if (studyInfo.isBestWaifu) {
     fields.push({ name: "Is best waifu?", value: `${studyInfo.isBestWaifu}` });
   }
-  console.log(fields);
   return fields;
 }
 
