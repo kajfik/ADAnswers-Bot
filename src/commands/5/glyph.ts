@@ -33,6 +33,18 @@ These glyphs appear in the Glyph tab, in a massive grid called the Glyph Invento
 
 On your first Reality, you are guaranteed to receive a ${isADServer ? "<:glyph_power:586607087744843776>" : "**Ω**"} Power Glyph that raises all Antimatter Dimensions to a small power. It is recommended that you equip it immediately.`;
   },
+  // eslint-disable-next-line no-unused-vars
+  equipping(isADServer: boolean): string {
+    return `To equip a Glyph, you must do one of two things:
+
+    a) Double click the glyph in your inventory. Your glyph inventory is in the lower right corner of the Glyph tab. Go there, find a glyph (such as the power glyph you got from your first Reality), and double click it. 
+    
+    b) Click and drag the glyph to a slot. At the top of the screen will be 3-5 slots (depending on Reality Upgrades) that you can fill with glyphs. Click on a glyph, hold down the mouse button, and drag it up to one of the empty slots. Attempting to place a glyph in a filled slot will require you to reset the Reality. 
+    
+To unequip a glyph, you have to click on the "Unequip Glyphs on Reality" button below the equipped glyphs. Then, you have to either complete your reality, or reset it using the "Start this Reality over" button. 
+
+Glyphs that are not equipped have no effect.`;
+  },
   types(isADServer: boolean): string {
     return `Each Glyph's type is based on its name, and the symbol located within that glyph. Each Glyph type has its own unique effects, based on the area of the game it represents. 
 
@@ -111,6 +123,7 @@ export const glyph: Command = {
           .setDescription("The information you want to know about")
           .setChoices(
             { name: "intro", value: "intro" },
+            { name: "equipping", value: "equipping" },
             { name: "types", value: "types" },
             { name: "rarity", value: "rarity" },
             { name: "level", value: "level" },
