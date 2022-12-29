@@ -16,7 +16,7 @@ export const study: Command = {
       type: ApplicationCommandOptionType.Integer,
       required: true,
       // eslint-disable-next-line camelcase
-      min_value: 11,
+      min_value: 1,
       // eslint-disable-next-line camelcase
       max_value: 234,
     }
@@ -26,9 +26,15 @@ export const study: Command = {
 
     const user: User = interaction.member === null ? interaction.user : interaction.member.user as User;
 
-    const studyRequested: StudyInfo = studies[`${interaction.options.getInteger("study")}`];
+    const studyID: number = interaction.options.getInteger("study") as number;
+
+    const studyRequested: StudyInfo = studies[`${studyID}`];
 
     if (!studyRequested) {
+      if (studyID === 12) {
+        interaction.reply({ content: "Time Study 12? What's that?", ephemeral: true });
+        return;
+      }
       interaction.reply({ content: "That study doesn't exist.", ephemeral: true });
       return;
     }

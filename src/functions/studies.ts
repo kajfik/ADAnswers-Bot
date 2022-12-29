@@ -1,5 +1,6 @@
-import { ColorResolvable, EmbedBuilder } from "discord.js";
 import { footerText, makeEnumeration } from "./Misc";
+import { Colour } from "../utils/colours";
+import { EmbedBuilder } from "discord.js";
 import { StudyInfo } from "../utils/types";
 import { studies } from "../utils/databases/studies";
 
@@ -8,7 +9,7 @@ function getFields(studyInfo: StudyInfo) {
     { name: "Effect", value: `${studyInfo.effect}` },
     { name: "Cost", value: `${studyInfo.cost} Time Theorems` },
   ];
-  if (studyInfo.id === 11 || studyInfo.id === 12) {
+  if (studyInfo.id === 11 || studyInfo.id === 10) {
     fields.push({ name: "Prerequisites", value: `None` });
   } else if (studyInfo.prerequisites.length === 0) {
     fields.push({ name: "Prerequisites", value: `${studyInfo.reqType}` });
@@ -25,12 +26,14 @@ function getFields(studyInfo: StudyInfo) {
   if (studyInfo.isBestWaifu) {
     fields.push({ name: "Is best waifu?", value: `${studyInfo.isBestWaifu}` });
   }
+  console.log(fields);
   return fields;
 }
 
 export const TimeStudy = (studyInfo: StudyInfo): EmbedBuilder => new EmbedBuilder()
   .setTitle(`Time Study ${studyInfo.id}`)
-  .setColor(studyInfo.colour as ColorResolvable)
+  .setColor(Colour[studyInfo.type])
+  // .setColor(studyInfo.colour as ColorResolvable)
   .addFields(getFields(studyInfo))
   .setTimestamp()
   .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });

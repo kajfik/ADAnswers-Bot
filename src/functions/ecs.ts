@@ -1,4 +1,5 @@
 import { ECDescriptions, ECRewards, EternityChallenges, order } from "../utils/databases/eternitychallenges";
+import { Colour } from "../utils/colours";
 import { EC } from "../utils/types";
 import { EmbedBuilder } from "discord.js";
 import { footerText } from "./Misc";
@@ -57,7 +58,7 @@ export function ecsAtTTAmount(tt: number): string {
 
 export const eternityChallenge = (challengeInfo: EC, requestedFields?: string): EmbedBuilder => new EmbedBuilder()
   .setTitle(`Eternity Challenge ${challengeInfo.challenge}x${challengeInfo.completion}`)
-  .setColor("#b241e3")
+  .setColor(Colour.eternity)
   .addFields(shownFields(challengeInfo, requestedFields))
   .setTimestamp()
   .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });

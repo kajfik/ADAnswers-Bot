@@ -67,7 +67,6 @@ export type StudyInfo = {
   effect: string;
   formula?: string;
   cost: number;
-  colour: string;
   prerequisites: number[];
   reqType: string;
   type: string;

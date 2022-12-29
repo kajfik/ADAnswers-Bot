@@ -1,5 +1,6 @@
 import { EmbedBuilder, EmbedField } from "discord.js";
 import { AchievementInfo } from "../types";
+import { Colour } from "../colours";
 import { footerText } from "../../functions/achievements";
 
 interface AchievementsData {
@@ -25,7 +26,7 @@ function getFields(achievementInfo: AchievementInfo): EmbedField[] {
 
 export const Achievement = (achievementInfo: AchievementInfo) => new EmbedBuilder()
   .setTitle(`Achievement ${achievementInfo.id} ("${achievementInfo.fullName}")`)
-  .setColor("#43a047")
+  .setColor(Colour.achievement)
   // We will set the image in AchievementApplicationCommand
   .addFields(getFields(achievementInfo))
   .setTimestamp()

@@ -1,5 +1,6 @@
 import { EmbedBuilder, EmbedField } from "discord.js";
 import { footerText, formatNumber, pluralise } from "../../functions/Misc";
+import { Colour } from "../colours";
 import { UpgradeInfo } from "../types";
 
 interface UpgradeData {
@@ -594,35 +595,35 @@ const FieldGetter = {
 
 const InfinityUpgrade = (upgradeInfo: UpgradeInfo) => new EmbedBuilder()
   .setTitle(upgradeInfo.name)
-  .setColor("#b67f33")
+  .setColor(Colour.infinity)
   .addFields(FieldGetter.infinity(upgradeInfo))
   .setTimestamp()
   .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
 
 const BreakInfinityUpgrade = (upgradeInfo: UpgradeInfo) => new EmbedBuilder()
   .setTitle(upgradeInfo.name)
-  .setColor("#b67f33")
+  .setColor(Colour.infinity)
   .addFields(FieldGetter.breakInfinity(upgradeInfo))
   .setTimestamp()
   .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
 
 const EternityUpgrade = (upgradeInfo: UpgradeInfo) => new EmbedBuilder()
   .setTitle(upgradeInfo.name)
-  .setColor("#b341e0")
+  .setColor(Colour.eternity)
   .addFields(FieldGetter.eternity(upgradeInfo))
   .setTimestamp()
   .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
 
 const DilationUpgrade = (upgradeInfo: UpgradeInfo) => new EmbedBuilder()
   .setTitle(upgradeInfo.name)
-  .setColor("#64dd17")
+  .setColor(Colour.dilation)
   .addFields(FieldGetter.dilation(upgradeInfo))
   .setTimestamp()
   .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
 
 const RealityUpgrade = (upgradeInfo: UpgradeInfo) => new EmbedBuilder()
   .setTitle(upgradeInfo.name)
-  .setColor("#0ba00e")
+  .setColor(Colour.reality)
   .addFields(FieldGetter.reality(upgradeInfo))
   .setTimestamp()
   .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
