@@ -118,8 +118,7 @@ This makes the glyph stack reasonably while still providing a boost if you use v
       },
       "Top Left": {
         name: "Game Speed Multiplier",
-        // TODO: See about that /gametimevsrealtime command.
-        effect: "Multiply Game speed, and effectively everything affected by it.",
+        effect: "Multiply Game speed, and effectively everything affected by it. See `/gamevsrealtime` for more information.",
         effectFormula: "1 + (Level)^0.3 * (1 + 2.5*Rarity)^0.65 / 20",
         stacking: "Multiplicative",
       },

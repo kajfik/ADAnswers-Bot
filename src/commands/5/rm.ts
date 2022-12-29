@@ -23,7 +23,7 @@ export const rm: Command = {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     const realityMachinesRequested: number = Math.floor(Math.abs(interaction.options.getNumber("rm") as number));
-    const eternityPointsNeeded : number = Math.ceil(Math.min(
+    const eternityPointsNeeded: number = Math.ceil(Math.min(
       4000 * (getBaseLog(1000, realityMachinesRequested) + 1),
       4000 / 27 * (realityMachinesRequested + 26)
     ));

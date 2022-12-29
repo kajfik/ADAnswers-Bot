@@ -401,7 +401,7 @@ export const upgrades: UpgradeData = {
       id: "innumerablyConstruct",
       name: "Innumerably Construct",
       effect: "Infinity gain is boosted from Antimatter Galaxy count",
-      // Formula: "1 + 0.02 * (Replicanti Galaxies)",
+      formula: "1 + 0.02 * (Replicanti Galaxies)",
       initialCost: 15,
       requirement: "Complete your first Infinity in a Reality with at most 1 Antimatter Galaxy"
     },
@@ -470,7 +470,6 @@ export const upgrades: UpgradeData = {
       id: "disparityOfRarity",
       name: "Disparity of Rarity",
       effect: "Improve the Glyph Rarity formula",
-      // Formula: "Unknown, may be possible to just delete this",
       initialCost: 1500,
       requirement: "Make a new Reality with 4 Glyphs equipped of uncommon or better rarity"
     },

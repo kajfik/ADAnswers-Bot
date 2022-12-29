@@ -12,4 +12,4 @@ export const clampMax = function(value: number, max: number): number {
 
 export const capitalize = function(word: string): string {
   return word.toLowerCase().replace(/^\w/u, c => c.toUpperCase());
-}
+};

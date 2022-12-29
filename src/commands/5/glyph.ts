@@ -62,7 +62,7 @@ Before you encounter any Celestials, you will have access to 5 effective glyph t
     
 The rarity of a glyph is given as a percentage, ranging from 0% to 100%. At first, this value will be determined solely by RNGesus. Later on, there will be ways to improve your odds; the first improvement comes as a result of the achievement "Perks of Living", which increases the rarity of all future Glyphs by 1%. 
 
-This rarity is wholly independent from level, and is determined from the moment that you create a new Reality, so you can't sacescum them. Your first ever glyph has a rarity of 20%. 
+This rarity is wholly independent from level, and is determined from the moment that you create a new Reality, so you can't savescum them. Your first ever glyph has a rarity of 20%. 
 
 At certain rarity thresholds, the color of your glyph will change. These colors are as follows:
 
