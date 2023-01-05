@@ -1,7 +1,8 @@
 import { EmbedBuilder, EmbedField } from "discord.js";
-import { footerText, formatNumber, pluralise } from "../../functions/Misc";
+import { footerText, pluralise } from "../../functions/Misc";
 import { Colour } from "../colours";
 import { UpgradeInfo } from "../types";
+import { formatNumber } from "../../utils/format";
 
 interface UpgradeData {
   [key: string]: {
@@ -443,9 +444,9 @@ export const upgrades: UpgradeData = {
       initialCost: 50,
       requirement: "Eternity for 1e70 Eternity Points without any Eternity Challenge 1 completions"
     },
-    "telomechanicalProcess": {
-      id: "telomechanicalProcess",
-      name: "The Telomechanical Process",
+    "telemechanicalProcess": {
+      id: "telemechanicalProcess",
+      name: "The Telemechanical Process",
       effect: "Improve Eternity Autobuyer and unlock autobuyers for Time Dimensions and the x5 EP upgrade",
       initialCost: 50,
       requirement: "Eternity for 1e4000 EP without Time Dimensions 5-8"

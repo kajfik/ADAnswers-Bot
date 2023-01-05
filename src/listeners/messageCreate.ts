@@ -5,7 +5,7 @@ export default (client: Client): void => {
   client.on("messageCreate", async(message: Message<boolean>): Promise<void> => {
     if (message.author.bot) return;
     if (message.mentions.has(ids.bot)) mentioned(message);
-    if (message.guildId === ids.AD.serverID) {
+    if (message.guildId === ids.AD.serverID || message.guildId === ids.testServer) {
       if (message.stickers.size > 0) handleStickers(message);
       if (await isScammer(message)) muteScammer(message);
     }
@@ -32,13 +32,18 @@ async function isMod(message: Message<boolean>): Promise<boolean> {
 
 async function isScammer(message: Message<boolean>): Promise<boolean> {
   const mod = await isMod(message);
-  return message.author.id !== ids.bot &&
-    message.content.includes("@everyone") &&
-    message.content.includes("http") &&
-    !mod;
+  const isBot = message.author.id === ids.bot;
+  const atEveryone = message.content.includes("@everyone");
+  const isLink = message.content.includes("http");
+  const scammer = !isBot &&
+  atEveryone &&
+  isLink &&
+  !mod;
+  return scammer;
 }
 
 function muteScammer(message: Message<boolean>): void {
+  console.log("Running muteScammer");
   const embed = new EmbedBuilder()
     .setTitle(`${message.author.username}#${message.author.discriminator}`)
     .setThumbnail(message.author.displayAvatarURL())

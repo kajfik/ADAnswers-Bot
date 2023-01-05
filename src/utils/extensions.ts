@@ -13,3 +13,11 @@ export const clampMax = function(value: number, max: number): number {
 export const capitalize = function(word: string): string {
   return word.toLowerCase().replace(/^\w/u, c => c.toUpperCase());
 };
+
+export function countWhere(array: Array<any>, predicate: Function) {
+  let count = 0;
+  for (const item of array) {
+    if (predicate(item)) ++count;
+  }
+  return count;
+}
