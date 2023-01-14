@@ -8,6 +8,7 @@ export const Colour: ColourList = {
   // General Progression
   antimatter: "#16a94d",
   infinity: "#b5813c",
+  replication: "#03a9f4",
   eternity: "#b540df",
   dilation: "#5ddd33",
   reality: "#026016",

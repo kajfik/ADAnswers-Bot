@@ -1,4 +1,5 @@
 import { EmbedBuilder, EmbedField } from "discord.js";
+import { Colour } from "../colours";
 import { GlyphInfo } from "../types";
 import { capitalize } from "../extensions";
 import { footerText } from "../../functions/Misc";
@@ -10,6 +11,7 @@ interface GlyphData {
 export const basicGlyphs: GlyphData = {
   power: {
     name: "power",
+    colour: Colour.antimatter,
     emote: "<:glyph_power:586607087744843776>",
     altText: "Ω",
     effects: {
@@ -42,6 +44,7 @@ export const basicGlyphs: GlyphData = {
   },
   infinity: {
     name: "infinity",
+    colour: Colour.infinity,
     emote: "<:glyph_infinity:586607119856304129>",
     altText: "∞",
     effects: {
@@ -74,6 +77,7 @@ export const basicGlyphs: GlyphData = {
   },
   replication: {
     name: "replication",
+    colour: Colour.replication,
     emote: "<:glyph_replication:586607179432460298>",
     altText: "Ξ",
     effects: {
@@ -106,6 +110,7 @@ This makes the glyph stack reasonably while still providing a boost if you use v
   },
   time: {
     name: "time",
+    colour: Colour.eternity,
     emote: "<:glyph_time:586607148985876501>",
     altText: "Δ",
     effects: {
@@ -138,6 +143,7 @@ This makes the glyph stack reasonably while still providing a boost if you use v
   },
   dilation: {
     name: "dilation",
+    colour: Colour.dilation,
     emote: "<:glyph_dilation:586607200626278421>",
     altText: "Ψ",
     effects: {
@@ -190,7 +196,7 @@ function SymbolGetter(glyphInfo: GlyphInfo, isADServer: boolean) {
 
 export const GlyphEmbedGetter = (glyphInfo: GlyphInfo, isADServer: boolean) => new EmbedBuilder()
   .setTitle(`**${SymbolGetter(glyphInfo, isADServer)}** ${capitalize(glyphInfo.name)}`)
-  .setColor("#b67f33")
+  .setColor(glyphInfo.colour)
   .addFields(FieldsGetter(glyphInfo))
   .setTimestamp()
   .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });

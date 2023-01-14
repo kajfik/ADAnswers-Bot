@@ -1,3 +1,4 @@
+import { ColorResolvable } from "discord.js";
 import { Model } from "sequelize";
 
 export type AchievementInfo = {
@@ -42,6 +43,7 @@ export type GlyphInfo = {
   effects: {
     [key:string]: GlyphEffect
   },
+  colour: ColorResolvable
 }
 
 export type PerkInfo = {

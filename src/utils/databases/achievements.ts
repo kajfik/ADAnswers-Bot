@@ -1,4 +1,4 @@
-import { EmbedBuilder, EmbedField } from "discord.js";
+import { AttachmentBuilder, EmbedBuilder, EmbedField } from "discord.js";
 import { AchievementInfo } from "../types";
 import { Colour } from "../colours";
 import { footerText } from "../../functions/achievements";
@@ -712,13 +712,155 @@ export const achievements: AchievementsData = {
     strategy: `First, purchase the Reality Upgrades "Linguistically Expand" and "Synthetic Symbolism". 
     Then, get one of each glyph type (Power, Infinity, Replication, Time, Dilation). 
     Finally, equip each of these glyphs and perform a Reality reset.`
-  }
+  },
+  "151": {
+    id: 151,
+    fullName: "You really didn't need it anyway",
+    achievement: "Get 800 Antimatter Galaxies without buying 8th Antimatter Dimensions in your current Infinity.",
+    reward: "Unlock ||V, the Celestial of Achievements.||",
+  },
+  "152": {
+    id: 152,
+    fullName: "Y'all got any more of them Glyphs?",
+    achievement: "Have 100 Glyphs in your inventory.",
+  },
+  "153": {
+    id: 153,
+    fullName: `More like "reallydoesn'tmatter"`,
+    achievement: "Reality without producing antimatter.",
+  },
+  "154": {
+    id: 154,
+    fullName: "I am speed",
+    achievement: "Reality in under 5 seconds (game time).",
+    reward: "10% chance each Reality of ×2 Realities and Perk Points.",
+  },
+  "155": {
+    id: 155,
+    fullName: "Achievement #15983",
+    achievement: "Play for 13.7 billion years.",
+    reward: "Black Hole durations are 10% longer.",
+  },
+  "156": {
+    id: 156,
+    fullName: "College Dropout",
+    achievement: "Reality without buying Time Theorems.",
+    reward: "Gain ×2.5 generated Time Theorems, and a free coupon to McDonalds™️.",
+  },
+  "157": {
+    id: 157,
+    fullName: "It's super effective!",
+    achievement: "Get a Glyph with 4 effects.",
+  },
+  "158": {
+    id: 158,
+    fullName: "Bruh, are you like, inside the hole?",
+    achievement: "Make both Black Holes permanent.",
+    reward: "Black Hole power increased by 10%.",
+  },
+  "161": {
+    id: 161,
+    fullName: "that's where you're wrong kiddo",
+    achievement: "Get 1e100,000,000 antimatter while Dilated.",
+  },
+  "162": {
+    id: 162,
+    fullName: "Reinstalled the game and rejoined the server",
+    achievement: "Have every Time Study at once.",
+  },
+  "163": {
+    id: 163,
+    fullName: "Actually, super easy! Barely an inconvenience!",
+    achievement: "Complete all the Eternity Challenges 5 times with less than 1 second (game time) in your current Reality.",
+  },
+  "164": {
+    id: 164,
+    fullName: "Infinity times two",
+    achievement: "Get 1.8e308 Infinities.",
+    reward: "Gain ×1,024 more Infinities.",
+  },
+  "165": {
+    id: 165,
+    fullName: "Perfectly balanced",
+    achievement: "Get a level 5,000 Glyph with all Glyph level factors equally weighted.",
+    reward: "Unlock optimal automatic Glyph level factor adjustment.",
+    rewardFormula: "Be sure to go turn this on under 'Glyph Level Factors' on the Glyphs tab!"
+  },
+  "166": {
+    id: 166,
+    fullName: "Nicenice.",
+    achievement: "Get a Glyph with level exactly 6,969.",
+    reward: "+69 to Glyph level.",
+  },
+  "167": {
+    id: 167,
+    fullName: "Mr. Layer? Sorry, you're not on the list",
+    achievement: "Reach 1.8e308 Reality Machines.",
+    reward: "Gain more Reality Machines based on your current Reality Machines.",
+    rewardFormula: "`max(1, log_2(reality machines))`"
+  },
+  "168": {
+    id: 168,
+    fullName: "Woah, we're halfway there",
+    achievement: "Get 50 total Ra Celestial Memory levels.",
+    reward: "Get 10% more memories.",
+  },
+  "171": {
+    id: 171,
+    fullName: "The god is delighted",
+    achievement: "Sacrifice every sacrificable Glyph type at least once.",
+    reward: "Glyph sacrifice is ×2 stronger.",
+  },
+  "172": {
+    id: 172,
+    fullName: "Hitchhiker's Guide to Reality",
+    achievement: "Reality for 1.8e308 Reality Machines without having any Charged Infinity Upgrades, having any equipped Glyphs, or buying any Triad Studies.",
+  },
+  "173": {
+    id: 173,
+    fullName: "Cet accomplissement n'existe pas III",
+    achievement: "Reach 9.99999e999 Reality Machines.",
+  },
+  "174": {
+    id: 174,
+    fullName: "Don't you already have two of these?",
+    achievement: "Get a Singularity.",
+  },
+  "175": {
+    id: 175,
+    fullName: "The First Antihistorian",
+    achievement: "Get 25,000 of all Alchemy Resources.",
+    reward: "Synergism can go above 100% and Momentum increases ×10 faster.",
+  },
+  "176": {
+    id: 176,
+    fullName: "Mom counted to 3",
+    achievement: "Annihilate your Dark Matter Dimensions.",
+  },
+  "177": {
+    id: 177,
+    fullName: "This mile took a celestial",
+    achievement: "Complete all Singularity Milestones at least once.",
+  },
+  "178": {
+    id: 178,
+    fullName: "Destroyer of Worlds",
+    achievement: "Get 100,000 Antimatter Galaxies.",
+    reward: "All Galaxies are 1% stronger.",
+  },
 };
 
 export const AchievementEmbeds: EmbedBuilder[] = [];
+export const AchievementImages: AttachmentBuilder[] = [];
 
 for (const achievement in achievements) {
-  AchievementEmbeds[achievements[achievement].id] = Achievement(achievements[achievement]);
+  const ach = achievements[achievement].id;
+  AchievementImages[ach] = new AttachmentBuilder(`src/images/achievements/${ach}.png`);
+}
+
+for (const achievement in achievements) {
+  const ach = achievements[achievement];
+  AchievementEmbeds[ach.id] = Achievement(ach).setThumbnail(`attachment://${ach.id}.png`);
 }
 
 export const achievementsMessageObject = {

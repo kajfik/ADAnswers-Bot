@@ -1,5 +1,6 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, CommandInteraction, EmbedBuilder, SlashCommandSubcommandBuilder, User } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, CommandInteraction, EmbedBuilder, SlashCommandSubcommandBuilder, SlashCommandSubcommandGroupBuilder, User } from "discord.js";
 import { GlyphEmbedGetter, basicGlyphs } from "../../utils/databases/glyphs";
+import { effectCountProbabilityCalculator, rarityProbabilityCalculator, threshold } from "../../functions/glyphs";
 import { Command } from "../../command";
 import { GlyphInfo } from "../../utils/types";
 import config from "../../config.json";
@@ -140,6 +141,70 @@ export const glyph: Command = {
           .setDescription("The glyph you want to know about")
           .setChoices(...getEffectChoices())
       ).toJSON(),
+    new SlashCommandSubcommandGroupBuilder()
+      .setName("utils")
+      .setDescription("Access some glyph utility functions")
+      .addSubcommand(
+        new SlashCommandSubcommandBuilder()
+          .setName("threshold")
+          .setDescription("Returns the minimum level above which three or four effect glyphs start to appear")
+          .addNumberOption(option =>
+            option.setName("rarity")
+              .setRequired(true)
+              .setDescription("The percentage rarity between 0 and 100")
+          ),
+      )
+      .addSubcommand(
+        new SlashCommandSubcommandBuilder()
+          .setName("rarityprobability")
+          .setDescription("Returns the probability of seeing a glyph with the specified rarity, or greater.")
+          .addNumberOption(option =>
+            option.setName("bonus")
+              .setDescription("Refers to the total percentage rarity added bonus in game")
+              .setRequired(true)
+          )
+          .addBooleanOption(option =>
+            option.setName("ru16")
+              .setDescription("Has reality upgrade 16 (Disparity of Rarity) been bought?")
+              .setRequired(true)
+          )
+          .addNumberOption(option =>
+            option.setName("rarity")
+              .setDescription("The target percentage rarity (must be between 0 and 100)")
+              .setRequired(true)
+          )
+      )
+
+      .addSubcommand(
+        new SlashCommandSubcommandBuilder()
+          .setName("effectprobability")
+          .setDescription("Returns the probability of seeing a glyph with the specified rarity, or greater.")
+          .addBooleanOption(option =>
+            option.setName("ru17")
+              .setDescription("Has reality upgrade 17 (Duplicity of Potency) been bought?")
+              .setRequired(true)
+          )
+          .addNumberOption(option =>
+            option.setName("rarity")
+              .setDescription("The target percentage rarity (must be between 0 and 100)")
+              .setRequired(true)
+          )
+          .addNumberOption(option =>
+            option.setName("level")
+              .setDescription("The target level of the glyph")
+              .setRequired(true)
+          )
+          .addNumberOption(option =>
+            option.setName("effects")
+              .setDescription("The target number of effects")
+              .setRequired(true)
+          )
+          .addBooleanOption(option =>
+            option.setName("effarig")
+              .setDescription("Is the target glyph type an Effarig glyph?")
+              .setRequired(true)
+          )
+      ).toJSON()
   ],
   run: async(interaction: CommandInteraction) => {
     if (!interaction || !interaction.isChatInputCommand()) return;
@@ -157,6 +222,36 @@ export const glyph: Command = {
     const user: User = interaction.member === null ? interaction.user : interaction.member.user as User;
 
     const isADServer: boolean = (interaction.guildId === config.ids.AD.serverID);
+
+    if (interaction.options.getSubcommandGroup() !== null) {
+      if (interaction.options.getSubcommand() === "threshold") {
+        const response = await threshold(interaction.options.getNumber("rarity") as number);
+        await interaction.reply({ content: response.status, ephemeral: !isHelper(interaction) });
+        return;
+      }
+
+      if (interaction.options.getSubcommand() === "rarityprobability") {
+        const bonusRarity = interaction.options.getNumber("bonus") as number;
+        const ru16Purchased = interaction.options.getBoolean("ru16") as boolean;
+        const rarity = interaction.options.getNumber("rarity") as number;
+
+        const response = await rarityProbabilityCalculator(bonusRarity, ru16Purchased, rarity);
+        await interaction.reply({ content: response.status, ephemeral: !isHelper(interaction) });
+        return;
+      }
+
+      if (interaction.options.getSubcommand() === "effectprobability") {
+        const ru17Purchased = interaction.options.getBoolean("ru17") as boolean;
+        const rarity = interaction.options.getNumber("rarity") as number;
+        const level = interaction.options.getNumber("level") as number;
+        const effects = interaction.options.getNumber("effects") as number;
+        const isEffarig = interaction.options.getBoolean("effarig") as boolean;
+
+        const response = await effectCountProbabilityCalculator(ru17Purchased, rarity, level, effects, isEffarig);
+        await interaction.reply({ content: response.status, ephemeral: !isHelper(interaction) });
+        return;
+      }
+    }
 
     const type: string = interaction.options.getSubcommand();
 
