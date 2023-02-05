@@ -95,7 +95,8 @@ export const achievements: Command = {
       let picture = AchievementImages[achievement.id];
 
       let embed = AchievementEmbeds[achievement.id]
-        .setAuthor({ name: `${user.username}#${user.discriminator}`, iconURL: user.displayAvatarURL() });
+        .setAuthor({ name: `${user.username}#${user.discriminator}`, iconURL: user.displayAvatarURL() })
+        .setTimestamp();
 
       const expirationTimestamp = Math.floor((Date.now() + 60000) / 1000);
       let currentPage = achievement.id;
@@ -139,7 +140,8 @@ export const achievements: Command = {
             achievement = findAchievementByID(currentPage) as AchievementInfo;
             picture = AchievementImages[achievement.id];
             embed = AchievementEmbeds[achievement.id]
-              .setAuthor({ name: `${user.username}#${user.discriminator}`, iconURL: user.displayAvatarURL() });
+              .setAuthor({ name: `${user.username}#${user.discriminator}`, iconURL: user.displayAvatarURL() })
+              .setTimestamp();
 
             // Update initial message
             await i.update({

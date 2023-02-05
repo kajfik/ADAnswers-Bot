@@ -14,7 +14,7 @@ export const ts: Command = {
       type: ApplicationCommandOptionType.Integer,
       required: true,
       // eslint-disable-next-line camelcase
-      min_value: 0,
+      min_value: 1,
     },
     {
       name: "path",
