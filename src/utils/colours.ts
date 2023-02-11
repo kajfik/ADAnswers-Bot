@@ -23,14 +23,18 @@ export const Colour: ColourList = {
   light: "#ffffff",
   dark: "#000000",
   forbidden: "#ff0000",
+  triad: "#ead584",
 
   // Perks
   achievement: "#fbda4b",
   automation: "#ff2a1f",
 
-  // TODO: Celestials
+  // Celestials
   teresa: "#5151ec",
-  // Effarig: "#",
-  // Is it "nameless", or "enslaved"?
-
+  effarig: "#d13737",
+  nameless: "#f1aa7f",
+  v: "#ead584",
+  ra: "#9575cd",
+  laitela: "#ffffff",
+  pelle: "#dc143c"
 };

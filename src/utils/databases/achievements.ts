@@ -1,5 +1,6 @@
 import { AttachmentBuilder, EmbedBuilder, EmbedField } from "discord.js";
 import { AchievementInfo } from "../types";
+import { Caesar } from "../../functions/Misc";
 import { Colour } from "../colours";
 import { footerText } from "../../functions/achievements";
 
@@ -24,13 +25,32 @@ function getFields(achievementInfo: AchievementInfo): EmbedField[] {
   return fields;
 }
 
+function getDoomedFields(achievementInfo: AchievementInfo): EmbedField[] {
+  const fields = [
+    { name: `${Caesar.randomEncrypt("Achievement")}`, value: `${Caesar.randomEncrypt(achievementInfo.achievement)}`, inline: false },
+  ];
+
+  if (achievementInfo.reward) {
+    fields.push({ name: `${Caesar.randomEncrypt("Reward")}`, value: `${Caesar.randomEncrypt(achievementInfo.reward)}`, inline: false });
+    if (achievementInfo.rewardFormula) fields.push({ name: `${Caesar.randomEncrypt("Reward formula")}`, value: `${Caesar.randomEncrypt(achievementInfo.rewardFormula)}`, inline: false });
+  }
+
+  return fields;
+}
+
 export const Achievement = (achievementInfo: AchievementInfo) => new EmbedBuilder()
   .setTitle(`Achievement ${achievementInfo.id} ("${achievementInfo.fullName}")`)
   .setColor(Colour.achievement)
-  // We will set the image in AchievementApplicationCommand
   .addFields(getFields(achievementInfo))
   .setTimestamp()
   .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
+
+export const DoomedAchievement = (achievementInfo: AchievementInfo) => new EmbedBuilder()
+  .setTitle(Caesar.randomEncrypt(`Achievement ${achievementInfo.id} ("${achievementInfo.fullName}")`))
+  .setColor(Colour.pelle)
+  .addFields(getDoomedFields(achievementInfo))
+  .setTimestamp()
+  .setFooter({ text: Caesar.randomEncrypt(footerText()), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
 
 export const achievements: AchievementsData = {
   "11": {
@@ -848,6 +868,50 @@ export const achievements: AchievementsData = {
     achievement: "Get 100,000 Antimatter Galaxies.",
     reward: "All Galaxies are 1% stronger.",
   },
+  // Since we want a different scramble every time, we generate it dynamically in the DoomedAchievement function
+  "181": {
+    id: 181,
+    fullName: "Antimatter Dimensions Eternal",
+    achievement: "Doom your Reality."
+  },
+  "182": {
+    id: 182,
+    fullName: "One more time",
+    achievement: "Permanently gain back all Antimatter Dimension autobuyers."
+  },
+  "183": {
+    id: 183,
+    fullName: "Deja vOoM",
+    achievement: "Complete Infinity Challenge 5 while Doomed.",
+    reward: "All Antimatter Dimensions are raised to ^1.081",
+    rewardFormula: "`Antimatter Dimensions ^ 1.0812403840463596`"
+  },
+  "184": {
+    id: 184,
+    fullName: "You're out!",
+    achievement: "Encounter the third Pelle Strike.",
+  },
+  "185": {
+    id: 185,
+    fullName: "Four score and seven years ago",
+    achievement: "Encounter the fourth Pelle Strike.",
+  },
+  "186": {
+    id: 186,
+    fullName: "An unhealthy obsession",
+    achievement: "Purchase Time Study 181 while Doomed.",
+  },
+  "187": {
+    id: 187,
+    fullName: "Doomed Time",
+    achievement: "Unlock Dilation while Doomed.",
+    reward: "Increase the multiplier per repeatable Dilated Time multiplier upgrade by ×1.35"
+  },
+  "188": {
+    id: 188,
+    fullName: "The End",
+    achievement: "Beat the game."
+  }
 };
 
 export const AchievementEmbeds: EmbedBuilder[] = [];
@@ -855,12 +919,14 @@ export const AchievementImages: AttachmentBuilder[] = [];
 
 for (const achievement in achievements) {
   const ach = achievements[achievement].id;
-  AchievementImages[ach] = new AttachmentBuilder(`src/images/achievements/${ach}.png`);
+  if (ach >= 181) AchievementImages[ach] = new AttachmentBuilder(`src/images/misc/help.png`);
+  else AchievementImages[ach] = new AttachmentBuilder(`src/images/achievements/${ach}.png`);
 }
 
 for (const achievement in achievements) {
   const ach = achievements[achievement];
-  AchievementEmbeds[ach.id] = Achievement(ach).setThumbnail(`attachment://${ach.id}.png`);
+  if (ach.id >= 181) AchievementEmbeds[ach.id] = DoomedAchievement(ach).setThumbnail(`attachment://help.png`);
+  else AchievementEmbeds[ach.id] = Achievement(ach).setThumbnail(`attachment://${ach.id}.png`);
 }
 
 export const achievementsMessageObject = {

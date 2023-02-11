@@ -1,4 +1,4 @@
-import { footerText, makeEnumeration } from "./Misc";
+import { footerText, makeEnumeration, quantify } from "./Misc";
 import { Colour } from "../utils/colours";
 import { EmbedBuilder } from "discord.js";
 import { StudyInfo } from "../utils/types";
@@ -7,7 +7,7 @@ import { studies } from "../utils/databases/studies";
 function getFields(studyInfo: StudyInfo) {
   const fields = [
     { name: "Effect", value: `${studyInfo.effect}` },
-    { name: "Cost", value: `${studyInfo.cost} Time Theorems` },
+    { name: "Cost", value: `${quantify(studyInfo.isTriad ? "Space Theorem" : "Time Theorem", studyInfo.cost)}` },
   ];
   if (studyInfo.id === 11 || studyInfo.id === 10) {
     fields.push({ name: "Prerequisites", value: `None` });

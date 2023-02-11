@@ -197,7 +197,7 @@ export const challenges: ChallengeArray = {
     challenge: `Buying Antimatter Dimensions 1-4 causes all smaller Antimatter Dimension costs to increase, and buying Antimatter Dimensions 5-8 causes all larger Antimatter Dimension costs to increase.`,
     goal: `Web: Reach **1e11111** antimatter
     Mobile: Reach **1e16500** antimatter`,
-    strategy: `Set Antimatter Dimension autobuyers 1-7 to "Buy Singles". Leave 8th dimension autobuyer enabled with "Buys until 10". Then just wait. ALl other autobuyers should remain on & purchasing (ie make sure you are still buying galaxies/dimboosts!)`,
+    strategy: `Set Antimatter Dimension autobuyers 1-7 to "Buy Singles". Leave 8th dimension autobuyer enabled with "Buys until 10". Then just wait. All other autobuyers should remain on & purchasing (ie make sure you are still buying galaxies/dimboosts!)`,
     reward: `All Galaxies are 10% stronger and reduce the requirements for them and Dimension Boosts by 1`,
     rewardFormula: `Think really hard`,
     image: `https://cdn.discordapp.com/attachments/824678601160917003/980928604277997599/IC5.png`,

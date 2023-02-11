@@ -29,12 +29,12 @@ const getNextPage = (currentPage: number, up: boolean) => {
     newPage -= 2;
   }
 
-  // If our new page that we ended up on is >138, roll back to 11
-  // If our new page that we ended up on is <11, roll back to 138
-  if (newPage > 178) {
+  // If our new page that we ended up on is >188, roll back to 11
+  // If our new page that we ended up on is <11, roll back to 188
+  if (newPage > 188) {
     newPage = 11;
   } else if (newPage < 11) {
-    newPage = 178;
+    newPage = 188;
   }
 
   return newPage;
@@ -60,7 +60,7 @@ export const achievements: Command = {
       // eslint-disable-next-line camelcase
       min_value: 11,
       // eslint-disable-next-line camelcase
-      max_value: 178,
+      max_value: 188,
     }
   ],
   run: async(interaction: CommandInteraction) => {

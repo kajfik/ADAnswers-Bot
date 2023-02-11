@@ -77,6 +77,7 @@ export type StudyInfo = {
   isBestWaifu?: string;
   hasGraph?: boolean;
   graph?: string;
+  isTriad?: boolean
 }
 
 export type TagInfo = {

@@ -58,3 +58,35 @@ export function toNumber(string: string) {
 export function randomInArray(array: any[]) {
   return array[Math.floor(Math.random() * array.length)];
 }
+
+export const Caesar = {
+  mod: (n: number, p: number) => {
+    let n2 = n;
+    if (n < 0)
+      n2 = p - Math.abs(n) % p;
+
+    return n2 % p;
+  },
+  encrypt: (msg: string, key: number) => {
+    let encMsg = "";
+
+    const upper = msg.toUpperCase();
+
+    for (let i = 0; i < upper.length; i++) {
+      let code = upper.charCodeAt(i);
+
+      // Encrypt only letters in 'A' ... 'Z' interval
+      if (code >= 65 && code <= 65 + 26 - 1) {
+        code -= 65;
+        code = Caesar.mod(code + key, 26);
+        code += 65;
+      }
+
+      encMsg += String.fromCharCode(code);
+    }
+
+    return encMsg;
+  },
+  randomKey: () => Math.floor(Math.random() * 25),
+  randomEncrypt: (msg: string) => Caesar.encrypt(msg, Caesar.randomKey())
+};
