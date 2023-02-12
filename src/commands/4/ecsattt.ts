@@ -20,8 +20,14 @@ export const ecsattt: Command = {
 
     const tt: number = interaction.options.getInteger("tt") as number;
 
+    const response = ecsAtTTAmount(tt);
+
     // eslint-disable-next-line max-len
-    const content: string = `At ${quantify("Time Theorem", tt)}, you should have: ${ecsAtTTAmount(tt)}`;
+    const content: string = `At ${quantify("Time Theorem", tt)}, you should have: ${
+      typeof response === "string"
+        ? response
+        : `${response.completions} (Next: ${response.nextEC.challenge}x${response.nextEC.completion} at ${response.nextEC.tt} TT)`
+    }`;
 
     await interaction.reply({ content, ephemeral: !isHelper(interaction) });
   }

@@ -69,6 +69,15 @@ export const upgrade: Command = {
           // So uh, fun fact -- The number of Reality upgrades slides in RIGHT under the limit, <= 25.
           .setChoices(...getChoices("reality"))
       ).toJSON(),
+    new SlashCommandSubcommandBuilder()
+      .setName("imaginary")
+      .setDescription("Explains what an Imaginary upgrade is")
+      .addStringOption(option =>
+        option.setName("upgrade")
+          .setRequired(true)
+          .setDescription("The upgrade you want to know about")
+          .setChoices(...getChoices("imaginary"))
+      ).toJSON()
   ],
   run: async(interaction: CommandInteraction) => {
     if (!interaction || !interaction.isChatInputCommand()) return;

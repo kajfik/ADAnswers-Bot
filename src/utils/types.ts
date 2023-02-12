@@ -133,3 +133,8 @@ export type UserInfo = {
   tag: Model<any, any> | null;
   tagInfo: Function
 }
+
+export type ECsAtTTInfo = {
+  completions: string
+  nextEC: EC
+}

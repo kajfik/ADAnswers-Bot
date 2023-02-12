@@ -1,6 +1,6 @@
-import { ECDescriptions, ECRewards, EternityChallenges, order } from "../utils/databases/eternitychallenges";
+import { EC, ECsAtTTInfo } from "../utils/types";
+import { ECDescriptions, ECRewards, EternityChallenges, findEC, order } from "../utils/databases/eternitychallenges";
 import { Colour } from "../utils/colours";
-import { EC } from "../utils/types";
 import { EmbedBuilder } from "discord.js";
 import { footerText } from "./Misc";
 
@@ -41,19 +41,32 @@ export function otherCompletions(id: number, completion: number): string {
   return findCompletionsAtIndex(indexOfCompletion);
 }
 
-export function ecsAtTTAmount(tt: number): string {
+export function ecsAtTTAmount(tt: number): ECsAtTTInfo | string {
   if (tt < 130) return "No ECs can be reasonably completed yet!";
   if (tt === 130) return "1x1";
   if (tt > 12350) return "all ECs completed!";
 
-  const completions = Array(12);
+  let completions = Array(12);
   for (const chall of EternityChallenges) {
     if (chall.tt <= tt) {
       completions[chall.challenge - 1] = chall.completion;
     }
   }
 
-  return completions.filter(Number).map((value, index) => `${index + 1}x${value}`).join(", ");
+  completions = completions.filter(Number).map((value, index) => `${index + 1}x${value}`);
+  const completionIndices = [];
+
+  for (const completion of completions) {
+    completionIndices[completions.indexOf(completion) + 1] = order.indexOf(completion);
+  }
+
+  const highestInOrder = order[completionIndices.sort((a, b) => b - a)[0]];
+  const next = order[order.indexOf(highestInOrder) + 1];
+
+  return {
+    completions: completions.join(", "),
+    nextEC: findEC(Number(next.split("x")[0]), Number(next.split("x")[1]))
+  };
 }
 
 export const eternityChallenge = (challengeInfo: EC, requestedFields?: string): EmbedBuilder => new EmbedBuilder()
@@ -80,6 +93,7 @@ export const shownFields = (challengeInfo: EC, requestedFields?: string) => {
     case "tree": return [{ name: "Tree", value: `${challengeInfo.tree}` }];
     case "reward": return [{ name: "Reward", value: `${ECRewards[challengeInfo.challenge].reward}` }, { name: "Reward formula", value: `${ECRewards[challengeInfo.challenge].formula}` }];
     default: {
+      const nextEC = fullEC === "12x5" ? "none" : order[order.indexOf(fullEC) + 1].split("x");
       const fields = [
         { name: "Unlock requirements", value: `${ecRequirements(challengeInfo)}` },
         { name: "Challenge", value: `${ECDescriptions[challengeInfo.challenge]}` },
@@ -90,7 +104,8 @@ export const shownFields = (challengeInfo: EC, requestedFields?: string) => {
         { name: "Tree", value: `${challengeInfo.tree}` },
         { name: "Reward", value: `${ECRewards[challengeInfo.challenge].reward}` },
         { name: "Reward formula", value: `${ECRewards[challengeInfo.challenge].formula}` },
-        { name: "Next EC", value: `${fullEC === "12x5" ? "You have no more ECs left to complete!" : order[order.indexOf(fullEC) + 1]}` }
+        { name: "Next EC", value: `${fullEC === "12x5" ? "You have no more ECs left to complete!"
+          : `${order[order.indexOf(fullEC) + 1]} (${findEC(Number(nextEC[0]), Number(nextEC[1])).tt} TT)`}` }
       ];
       return fields;
     }

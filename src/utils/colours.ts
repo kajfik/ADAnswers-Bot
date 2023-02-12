@@ -13,6 +13,7 @@ export const Colour: ColourList = {
   dilation: "#5ddd33",
   reality: "#026016",
   celestial: "#5151ec",
+  imaginary: "#c783ce",
 
   // Time Studies
   normal: "#b640dd",

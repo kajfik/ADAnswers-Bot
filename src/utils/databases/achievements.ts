@@ -626,7 +626,7 @@ export const achievements: AchievementsData = {
     fullName: "No ethical consumption",
     achievement: `Get 2e9 Banked Infinities`,
     reward: `After Eternity you permanently keep 5% of your Infinities as Banked Infinities (stacks with TS191 to a total of 10%)`,
-    strategy: `See \`/infinitygrinding late\`. Done in conjunction with r134 (When will it be enough?).`,
+    strategy: `See \`/infinitygrinding post\`. Done in conjunction with r134 (When will it be enough?).`,
   },
   "132": {
     id: 132,
@@ -980,7 +980,7 @@ export const achievementsMessageObject = {
   "r126": `Reach at least 180 max RGs (can buy antimatter galaxies). Use active path because of 50% more RGs. Disable galaxy autobuyer, crunch, then buy 180 RGs.`,
   get "Popular music"() { return this.r126; },
 
-  "r131": `See \`/infinitygrinding late\`. Done in conjunction with r134 (When will it be enough?).`,
+  "r131": `See \`/infinitygrinding post\`. Done in conjunction with r134 (When will it be enough?).`,
   get "No ethical consumption"() { return this.r131; },
 
   "r133": `Disable your ID autobuyer and the autobuyer for the 2xIP multiplier on the Infinity Upgrades (not Break Infinity Upgrades!) tab.
