@@ -62,10 +62,23 @@ export function ecsAtTTAmount(tt: number): ECsAtTTInfo | string {
 
   const highestInOrder = order[completionIndices.sort((a, b) => b - a)[0]];
   const next = order[order.indexOf(highestInOrder) + 1];
+  const nextECs = [next];
+
+  while (findEC(
+    Number(order[order.indexOf(nextECs[nextECs.length - 1]) + 1].split("x")[0]),
+    Number(order[order.indexOf(nextECs[nextECs.length - 1]) + 1].split("x")[1])
+  ).tt ===
+  findEC(
+    Number(next.split("x")[0]),
+    Number(next.split("x")[1])
+  ).tt) {
+    nextECs.push(order[order.indexOf(nextECs[nextECs.length - 1]) + 1]);
+  }
 
   return {
     completions: completions.join(", "),
-    nextEC: findEC(Number(next.split("x")[0]), Number(next.split("x")[1]))
+    nextEC: findEC(Number(next.split("x")[0]), Number(next.split("x")[1])),
+    nextECs
   };
 }
 

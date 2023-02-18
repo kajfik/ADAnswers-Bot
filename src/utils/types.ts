@@ -136,5 +136,6 @@ export type UserInfo = {
 
 export type ECsAtTTInfo = {
   completions: string
-  nextEC: EC
+  nextEC: EC,
+  nextECs: string[]
 }

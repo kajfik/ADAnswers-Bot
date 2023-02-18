@@ -919,13 +919,13 @@ export const AchievementImages: AttachmentBuilder[] = [];
 
 for (const achievement in achievements) {
   const ach = achievements[achievement].id;
-  if (ach >= 181) AchievementImages[ach] = new AttachmentBuilder(`src/images/misc/help.png`);
+  if (ach >= 181) AchievementImages[ach] = new AttachmentBuilder(`src/images/misc/doomed.png`);
   else AchievementImages[ach] = new AttachmentBuilder(`src/images/achievements/${ach}.png`);
 }
 
 for (const achievement in achievements) {
   const ach = achievements[achievement];
-  if (ach.id >= 181) AchievementEmbeds[ach.id] = DoomedAchievement(ach).setThumbnail(`attachment://help.png`);
+  if (ach.id >= 181) AchievementEmbeds[ach.id] = DoomedAchievement(ach).setThumbnail(`attachment://doomed.png`);
   else AchievementEmbeds[ach.id] = Achievement(ach).setThumbnail(`attachment://${ach.id}.png`);
 }
 
