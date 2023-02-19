@@ -31,6 +31,11 @@ export const upgrade: Command = {
           .setRequired(true)
           .setDescription("The upgrade you want to know about")
           .setChoices(...getChoices("infinity"))
+      )
+      .addBooleanOption(option =>
+        option.setName("charged")
+          .setRequired(false)
+          .setDescription("Is the infinity upgrade Charged?")
       ).toJSON(),
     new SlashCommandSubcommandBuilder()
       .setName("break")
@@ -96,13 +101,17 @@ export const upgrade: Command = {
 
     const type: string = interaction.options.getSubcommand();
     const upgradeName: string = interaction.options.getString("upgrade") as string;
+    const charged: boolean = type === "infinity" && !upgradeName.startsWith("skipReset")
+      ? interaction.options.getBoolean("charged") as boolean
+      : false;
 
-    const picture = new AttachmentBuilder(`src/images/upgrades/${type}.png`);
+    const picture = new AttachmentBuilder(`src/images/upgrades/${charged ? "charged" : type}.png`);
 
     const upgradeRequested = upgrades[type][upgradeName];
-    const embed: EmbedBuilder = UpgradeEmbedGetters[type](upgradeRequested);
+
+    const embed: EmbedBuilder = UpgradeEmbedGetters[charged ? "charged" : type](upgradeRequested);
     embed.setAuthor({ name: `${user.username}#${user.discriminator}`, iconURL: user.displayAvatarURL() })
-      .setThumbnail(`attachment://${type}.png`);
+      .setThumbnail(`attachment://${charged ? "charged" : type}.png`);
 
     if (upgradeRequested.hasGraph) {
       embed.addFields({ name: "Effect formula graph", value: "** **" });

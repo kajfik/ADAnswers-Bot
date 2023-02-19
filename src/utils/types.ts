@@ -108,6 +108,11 @@ export type Trees = {
   desc?: string
 }
 
+export type ChargedInfinityUpgrade = {
+  effect: string
+  formula: string
+}
+
 export type UpgradeInfo = {
   id: string;
   name: string;
@@ -121,6 +126,7 @@ export type UpgradeInfo = {
   increment?: number;
   hasGraph?: boolean;
   graph?: string;
+  charged?: ChargedInfinityUpgrade
 }
 
 export type UserInfo = {

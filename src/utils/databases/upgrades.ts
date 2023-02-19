@@ -18,7 +18,11 @@ export const upgrades: UpgradeData = {
       effect: "Antimatter Dimensions gain a multiplier based on time played",
       requirement: "None",
       cost: 1,
-      formula: "`(time played in minutes / 2) ^ 0.15`"
+      formula: "`(time played in minutes / 2) ^ 0.15`",
+      charged: {
+        effect: "Antimatter Dimensions gain a power effect based on time played and Teresa level",
+        formula: "`1 + (log10(log10(time played in milleseconds)) * (Teresa level ^ 0.5)) / 150`"
+      }
     },
     "18mult": {
       id: "18mult",
@@ -26,7 +30,11 @@ export const upgrades: UpgradeData = {
       effect: "1st and 8th Antimatter Dimensions gain a multiplier based on Infinities",
       requirement: "Time Multiplier",
       cost: 1,
-      formula: "`infinities * 0.2 + 1` (affected by TS31)"
+      formula: "`infinities * 0.2 + 1` (affected by TS31)",
+      charged: {
+        effect: "1st and 8th Antimatter Dimensions gain a power effect based on Infinities and Teresa level",
+        formula: "`1 + log10(max(1, log10(infinities))) * sqrt(Teresa level) / 150`",
+      }
     },
     "27mult": {
       id: "27mult",
@@ -34,7 +42,11 @@ export const upgrades: UpgradeData = {
       effect: "2nd and 7th Antimatter Dimensions gain a multiplier based on Infinities",
       requirement: "Buy 10 Multiplier Increase",
       cost: 1,
-      formula: "`infinities * 0.2 + 1` (affected by TS31)"
+      formula: "`infinities * 0.2 + 1` (affected by TS31)",
+      charged: {
+        effect: "2nd and 7th Antimatter Dimensions gain a power effect based on Infinities and Teresa level",
+        formula: "`1 + log10(max(1, log10(infinities))) * sqrt(Teresa level) / 150`",
+      }
     },
     "36mult": {
       id: "36mult",
@@ -42,7 +54,11 @@ export const upgrades: UpgradeData = {
       effect: "3rd and 6th Antimatter Dimensions gain a multiplier based on Infinities",
       requirement: "1st & 8th Antimatter Dimension Multiplier",
       cost: 1,
-      formula: "`infinities * 0.2 + 1` (affected by TS31)"
+      formula: "`infinities * 0.2 + 1` (affected by TS31)",
+      charged: {
+        effect: "3rd and 6th Antimatter Dimensions gain a power effect based on Infinities and Teresa level",
+        formula: "`1 + log10(max(1, log10(infinities))) * sqrt(Teresa level) / 150`",
+      }
     },
     "45mult": {
       id: "45mult",
@@ -50,7 +66,11 @@ export const upgrades: UpgradeData = {
       effect: "4th and 5th Antimatter Dimensions gain a multiplier based on Infinities",
       requirement: "2nd & 7th Antimatter Dimension Multiplier",
       cost: 1,
-      formula: "`infinities * 0.2 + 1` (affected by TS31)"
+      formula: "`infinities * 0.2 + 1` (affected by TS31)",
+      charged: {
+        effect: "4th and 5th Antimatter Dimensions gain a power effect based on Infinities and Teresa level",
+        formula: "`1 + log10(max(1, log10(infinities))) * sqrt(Teresa level) / 150`",
+      }
     },
     "resetBoost": {
       id: "resetBoost",
@@ -58,6 +78,10 @@ export const upgrades: UpgradeData = {
       effect: "Dimboost and Galaxy requirements are reduced by 9",
       requirement: "3rd & 6th Antimatter Dimension Multiplier",
       cost: 1,
+      charged: {
+        effect: "Decrease Dimension Boost requirement based on Teresa level",
+        formula: "`1 / (1 + sqrt(Teresa level) / 10)`",
+      }
     },
     "buy10mult": {
       id: "buy10mult",
@@ -65,7 +89,11 @@ export const upgrades: UpgradeData = {
       effect: "Increase the multiplier for buying 10 Antimatter Dimensions",
       requirement: "None",
       cost: 1,
-      formula: "`2.0` -> `2.2`"
+      formula: "`2.0` -> `2.2`",
+      charged: {
+        effect: "The multiplier for buying 10 Antimatter Dimensions gains a power effect based on Teresa level",
+        formula: "`Teresa level / 200`"
+      }
     },
     "galaxyBoost": {
       id: "galaxyBoost",
@@ -73,6 +101,10 @@ export const upgrades: UpgradeData = {
       effect: "All Galaxies are twice as strong",
       requirement: "4th & 5th Antimatter Dimension Multiplier",
       cost: 2,
+      charged: {
+        effect: "All Galaxies are stronger based on Teresa level",
+        formula: "`2 + sqrt(Teresa level) / 100`\nThis upgrade in the code is a multiplier, so this is x times stronger galaxies. Subtract 1, and turn it into a percent to find the value on the upgrade."
+      }
     },
     "thisInfinityTimeMult": {
       id: "thisInfinityTimeMult",
@@ -80,7 +112,11 @@ export const upgrades: UpgradeData = {
       effect: "Antimatter Dimensions gain a multiplier based on time spent in current Infinity",
       requirement: "None",
       cost: 3,
-      formula: "`max((time in this infinity in minutes / 5) ^ 0.25, 1)`"
+      formula: "`max((time in this infinity in minutes / 5) ^ 0.25, 1)`",
+      charged: {
+        effect: "Antimatter Dimensions gain a power effect based on time spent in current Infinity and Teresa level",
+        formula: "`1 + (log10(log10(time played in milleseconds)) * (Teresa level ^ 0.5)) / 150`"
+      }
     },
     "unspentIPMult": {
       id: "unspentIPMult",
@@ -88,7 +124,11 @@ export const upgrades: UpgradeData = {
       effect: "Multiplier to 1st Antimatter Dimension based on unspent Infinity Points",
       requirement: "This Infinity Time Multiplier",
       cost: 5,
-      formula: "`((infinity points / 2) ^ 1.5) + 1`"
+      formula: "`((infinity points / 2) ^ 1.5) + 1`",
+      charged: {
+        effect: "Multiplier to 1st Antimatter Dimension based on unspent Infinity Points, powered by Teresa level",
+        formula: "`((IP / 2) ^ (sqrt(Teresa level) * 1.5)) + 1`"
+      }
     },
     "dimboostMult": {
       id: "dimboostMult",
@@ -96,7 +136,11 @@ export const upgrades: UpgradeData = {
       effect: "Increase Dimension Boost multiplier",
       requirement: "Unspent IP Multiplier",
       cost: 7,
-      formula: "`2.0` -> `2.5`"
+      formula: "`2.0` -> `2.5`",
+      charged: {
+        effect: "Dimension Boost multiplier gains a power effect based on Teresa level",
+        formula: "`1 + Teresa level / 200`"
+      }
     },
     "ipGen": {
       id: "ipGen",
@@ -104,7 +148,11 @@ export const upgrades: UpgradeData = {
       effect: "Passively generate Infinity Points 10 times slower than your fastest Infinity",
       requirement: "Dimboost Multiplier Increase",
       cost: 10,
-      formula: "1 IP (affected by all IP multipliers) every `fastest infinity in milliseconds * 10`"
+      formula: "1 IP (affected by all IP multipliers) every `fastest infinity in milliseconds * 10`",
+      charged: {
+        effect: "Gain Reality Machines each real-time second proportional to amount gained on Reality, increasing with Teresa level",
+        formula: "`Teresa level ^ 2`\nBoosted by V level 10 by a factor of `1 + 2.4 * (min(10, max(0, log10(TT) - 350) / 50))`"
+      }
     },
     "skipReset1": {
       id: "skipReset1",
@@ -748,6 +796,12 @@ const FieldGetter = {
     if (upgradeInfo.formula) fields.push({ name: "Effect formula", value: upgradeInfo.formula, inline: false });
     return fields;
   },
+  charged(upgradeInfo: UpgradeInfo): EmbedField[] {
+    return [
+      { name: "Effect", value: upgradeInfo.charged?.effect as string, inline: false },
+      { name: "Formula", value: upgradeInfo.charged?.formula as string, inline: false }
+    ];
+  },
   breakInfinity(upgradeInfo: UpgradeInfo): EmbedField[] {
     const fields = [
       { name: "Effect", value: upgradeInfo.effect, inline: false },
@@ -804,6 +858,13 @@ const InfinityUpgrade = (upgradeInfo: UpgradeInfo) => new EmbedBuilder()
   .setTimestamp()
   .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
 
+const ChargedInfinityUpgrade = (upgradeInfo: UpgradeInfo) => new EmbedBuilder()
+  .setTitle(upgradeInfo.name)
+  .setColor(Colour.celestial)
+  .addFields(FieldGetter.charged(upgradeInfo))
+  .setTimestamp()
+  .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
+
 const BreakInfinityUpgrade = (upgradeInfo: UpgradeInfo) => new EmbedBuilder()
   .setTitle(upgradeInfo.name)
   .setColor(Colour.infinity)
@@ -844,6 +905,7 @@ interface EmbedGetters {
 
 export const UpgradeEmbedGetters: EmbedGetters = {
   infinity: InfinityUpgrade,
+  charged: ChargedInfinityUpgrade,
   break: BreakInfinityUpgrade,
   eternity: EternityUpgrade,
   dilation: DilationUpgrade,
