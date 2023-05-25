@@ -1,5 +1,5 @@
 import { ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, CommandInteraction, EmbedBuilder, SlashCommandSubcommandBuilder, SlashCommandSubcommandGroupBuilder, User } from "discord.js";
-import { GlyphEmbedGetter, basicGlyphs } from "../../utils/databases/glyphs";
+import { GlyphEmbedGetter, basicGlyphs, specialGlyphs } from "../../utils/databases/glyphs";
 import { effectCountProbabilityCalculator, rarityProbabilityCalculator, threshold } from "../../functions/glyphs";
 import { Command } from "../../command";
 import { GlyphInfo } from "../../utils/types";
@@ -8,8 +8,8 @@ import { isHelper } from "../../functions/Misc";
 
 function getEffectChoices(): { name: string, value: string, type: any }[] {
   const choices = [];
-  for (const glyph in basicGlyphs) {
-    const glyphObject: GlyphInfo = basicGlyphs[glyph];
+  for (const glyph in { ...basicGlyphs, ...specialGlyphs }) {
+    const glyphObject: GlyphInfo = basicGlyphs[glyph] ?? specialGlyphs[glyph];
     choices.push({
       name: glyphObject.name,
       value: glyphObject.name,
@@ -276,7 +276,7 @@ export const glyph: Command = {
 
       const picture = new AttachmentBuilder(`src/images/glyphs/${glyphName}.png`);
 
-      const glyphRequested = basicGlyphs[glyphName];
+      const glyphRequested = basicGlyphs[glyphName] ?? specialGlyphs[glyphName];
       const embed: EmbedBuilder = GlyphEmbedGetter(glyphRequested, isADServer);
       embed.setAuthor({ name: `${user.username}#${user.discriminator}`, iconURL: user.displayAvatarURL() })
         .setThumbnail(`attachment://${glyphName}.png`);

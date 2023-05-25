@@ -173,7 +173,83 @@ This makes the glyph stack reasonably while still providing a boost if you use v
       }
     }
   },
-  // TODO: Post-Celestial glyphs. (Low Priority for 4.1.0)
+};
+
+export const specialGlyphs: GlyphData = {
+  effarig: {
+    name: "effarig",
+    colour: Colour.effarig,
+    // AD doesn't have emotes for Effarig, Cursed, or Reality, so they get the text
+    emote: "Ϙ",
+    altText: "Ϙ",
+    effects: {
+
+    }
+  },
+  cursed: {
+    name: "cursed",
+    colour: "#000000",
+    emote: "⸸",
+    altText: "⸸",
+    effects: {
+      "Bottom Left": {
+        name: "Cursed Galaxies",
+        effect: "Reduce the effectiveness of all Galaxies.",
+        effectFormula: "level ^ -0.03",
+        stacking: "Multiplicative"
+      },
+      "Top Left": {
+        name: "Cursed Tickspeed",
+        effect: "The threshold for Tickspeed Upgrades from Time Dimensions is increased.",
+        effectFormula: "max(log(level), 1)",
+        stacking: "Additive"
+      },
+      "Top Right": {
+        name: "Cursed Dimensions",
+        effect: "Reduce all Dimension multipliers.",
+        effectFormula: "level ^ -0.035",
+        stacking: "Multiplicative"
+      },
+      "Bottom Right": {
+        name: "Cursed EP",
+        effect: "Divide EP gain.",
+        effectFormula: "10 ^ (-level / 10)",
+        stacking: "Multiplicative"
+      }
+    }
+  },
+  reality: {
+    name: "reality",
+    colour: Colour.reality,
+    emote: "Ϟ",
+    altText: "Ϟ",
+    effects: {
+      "Bottom Left": {
+        name: "Equipped Glyph Level Increase",
+        effect: "Increase the effective level of equipped basic Glyphs",
+        effectFormula: "floor(sqrt(level * 90))",
+        stacking: "More than one Reality Glyph cannot be equipped simultaneously, dummy!"
+      },
+      "Top Left": {
+        name: "Galaxy Strength Increase",
+        effect: "Increase the strength of all Galaxies",
+        effectFormula: "1 + sqrt(level / 1000000)",
+        stacking: "More than one Reality Glyph cannot be equipped simultaneously, dummy!"
+      },
+      "Top Right": {
+        name: "Reality Amplifier Amplifier",
+        effect: "Multipliers from Reality Upgrade Amplifiers are increased",
+        effectFormula: "1 + level / 125000",
+        stacking: "More than one Reality Glyph cannot be equipped simultaneously, dummy!"
+      },
+      "Bottom Right": {
+        name: "Dilation Glyph Level Effect",
+        effect: "Dilated Time factor for Glyph level is increased",
+        effectFormula: "0.1",
+        stacking: "More than one Reality Glyph cannot be equipped simultaneously, dummy!"
+      }
+    }
+  }
 };
 
 function FieldsGetter(glyphInfo: GlyphInfo): EmbedField[] {
