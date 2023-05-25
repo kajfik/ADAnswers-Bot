@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, CommandInteraction, EmbedBuilder, SlashCommandSubcommandBuilder, User } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandSubCommandData, ApplicationCommandType, AttachmentBuilder, CommandInteraction, EmbedBuilder, SlashCommandSubcommandBuilder, User } from "discord.js";
 import { UpgradeEmbedGetters, upgrades } from "../../utils/databases/upgrades";
 import { Command } from "../../command";
 import { UpgradeInfo } from "../../utils/types";

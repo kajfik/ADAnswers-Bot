@@ -35,7 +35,7 @@ These glyphs appear in the Glyph tab, in a massive grid called the Glyph Invento
 On your first Reality, you are guaranteed to receive a ${isADServer ? "<:glyph_power:586607087744843776>" : "**Ω**"} Power Glyph that raises all Antimatter Dimensions to a small power. It is recommended that you equip it immediately.`;
   },
   // eslint-disable-next-line no-unused-vars
-  equipping(isADServer: boolean): string {
+  equipping(_isADServer: boolean): string {
     return `To equip a Glyph, you must do one of two things:
 
     a) Double click the glyph in your inventory. Your glyph inventory is in the lower right corner of the Glyph tab. Go there, find a glyph (such as the power glyph you got from your first Reality), and double click it. 
@@ -58,7 +58,7 @@ Before you encounter any Celestials, you will have access to 5 effective glyph t
     - ${isADServer ? "<:glyph_dilation:586607200626278421>" : "**Ψ**"} Dilation`;
   },
   // eslint-disable-next-line no-unused-vars
-  rarity(isADServer: boolean): string {
+  rarity(_isADServer: boolean): string {
     return `Rarity is one of the two values determining the strength of a glyph's effects, the other being Level.
     
 The rarity of a glyph is given as a percentage, ranging from 0% to 100%. At first, this value will be determined solely by RNGesus. Later on, there will be ways to improve your odds; the first improvement comes as a result of the achievement "Perks of Living", which increases the rarity of all future Glyphs by 1%. 
@@ -77,7 +77,7 @@ At certain rarity thresholds, the color of your glyph will change. These colors 
     - Celestial, 100%, Celestial Blue`;
   },
   // eslint-disable-next-line no-unused-vars
-  level(isADServer: boolean): string {
+  level(_isADServer: boolean): string {
     return `Level is one of the two values determining the strength of a glyph's effects, the other being Rarity.
     
 The level of a glyph is calculuated based on 3 (or 4) resources you collect during a Reality. These resources are Eternity Points, Replicanti, and Dilated Time. When you purchase the Reality Upgrade "Measure of Forever", Eternities also become a part of the equation. Only the highest amount reached in a Reality is considered.
@@ -93,7 +93,7 @@ All of the above factors are then multiplied together. Finally, other bonuses (S
 All this information can be found under "Glyph Level Factors" in the Glyph tab. `;
   },
   // eslint-disable-next-line no-unused-vars
-  sacrifice(isADServer: boolean): string {
+  sacrifice(_isADServer: boolean): string {
     return `Glyph Sacrifice is a mechanic that you unlock from the Reality Upgrade "Scour to Empower", once you have at least 30 glyphs in your inventory. **"Sacrificing" Glyphs will give you no benefit until you unlock it!**
 
 Glyph Sacrifice allows you to get rid of glyphs that you no longer need, in exchange for a permanent boost based on the glyph's type. Each glyph has a "sacrifice score", based on its level and rarity; when you destroy a glyph, this sacrifice score is added to your total glyph sacrifice for that type.`;
@@ -106,6 +106,13 @@ This is a unique, one-of-a-kind glyph that simply exists to bring you joy.
 It also records the amount of Eternity Points you gained on your first Reality. It allows some of the older AD players to flex a little.
 
 Destroying it gives no benefits, so why would you want to?`;
+  },
+  // eslint-disable-next-line no-unused-vars
+  nextgl(_isADServer: boolean): string {
+    return `
+The X% to next shows how close you are to your Glyph level on reality increasing. You can see the exact breakdown of how this is calculated on the Glyphs screen under "Glyph Level Factors". Once it reaches 100% the Glyph level on Reality will increase by 1.
+
+Basically what the % is showing really is the decimal in the Glyph level formula. Say your Glyph level factors are 1.3x from EP, 1.2x from Replicanti and 1.4x from DT, and +1 from a row of upgrades. Overall that's equal to (1.3 x 1.2 x 1.4) + 1 = 3.184. So you would have a Glyph level of 3, and are 18.4% to next Glyph level.`;
   }
   /* eslint-enable max-len */
 };
@@ -129,7 +136,8 @@ export const glyph: Command = {
             { name: "rarity", value: "rarity" },
             { name: "level", value: "level" },
             { name: "sacrifice", value: "sacrifice" },
-            { name: "companion", value: "companion" }
+            { name: "companion", value: "companion" },
+            { name: "nextgl", value: "nextgl" }
           )
       ).toJSON(),
     new SlashCommandSubcommandBuilder()

@@ -83,7 +83,7 @@ const SecondaryUnlocks: Unlock = {
   "1": (completion: number): number => 20000 + 20000 * completion,
   "2": (completion: number): number => 1300 + 150 * completion,
   "3": (completion: number): number => 17300 + 1550 * completion,
-  "4": (completion: number): number => 1e8 + 5e7 * completion,
+  "4": (completion: number): number => 1e8 + 2.5e7 * completion,
   "5": (completion: number): number => 160 + 14 * completion,
   "6": (completion: number): number => 40 + 5 * completion,
   "7": (completion: number): string => `1e${new Decimal("1e500000").times(new Decimal("1e300000").pow(completion)).exponent}`,
@@ -241,7 +241,7 @@ export const EternityChallenges: EC[] = [
     tt: 140,
     ip: "`1e600`",
     note: "`To unlock the challenge, use TD, and then switch to the tree.`",
-    tree: `11,22,32,42,51,61,71,81,91,101,111,122,132,142,151,161,162,171|3`,
+    tree: "`11,22,32,42,51,61,71,81,91,101,111,122,132,142,151,161,162,171|3`",
     unlock: {
       currency: "8th Antimatter Dimensions",
       amount: SecondaryUnlocks["3"](0),

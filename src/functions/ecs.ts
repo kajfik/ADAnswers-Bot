@@ -64,6 +64,13 @@ export function ecsAtTTAmount(tt: number): ECsAtTTInfo | string {
   const next = order[order.indexOf(highestInOrder) + 1];
   const nextECs = [next];
 
+  // It's easier to just bypass all of the while loop like this then messing with whatever the hell is happening there
+  if (next === "12x5") return {
+    completions: completions.join(", "),
+    nextEC: findEC(12, 5),
+    nextECs
+  };
+
   while (findEC(
     Number(order[order.indexOf(nextECs[nextECs.length - 1]) + 1].split("x")[0]),
     Number(order[order.indexOf(nextECs[nextECs.length - 1]) + 1].split("x")[1])

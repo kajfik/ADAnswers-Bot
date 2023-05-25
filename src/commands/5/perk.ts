@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, CommandInteraction, EmbedBuilder, SlashCommandSubcommandBuilder, User } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandSubCommandData, ApplicationCommandType, AttachmentBuilder, CommandInteraction, EmbedBuilder, SlashCommandSubcommandBuilder, User } from "discord.js";
 import { PerkEmbedGetters, perks } from "../../utils/databases/perks";
 import { PerkInfo, StringIndexedStringObjectType } from "../../utils/types";
 import { Command } from "../../command";
@@ -158,12 +158,14 @@ export const perk: Command = {
 
       const perkName: string = interaction.options.getString("perk") as string;
 
-      const picture = new AttachmentBuilder(`src/images/perks/${type}.png`);
-
       const perkRequested = perks[type][perkName];
+
+      const imageName = `${type}${perkRequested.ap ? `_ap` : ``}`;
+      const picture = new AttachmentBuilder(`src/images/perks/${imageName}.png`);
+
       const embed: EmbedBuilder = PerkEmbedGetters[type](perkRequested);
       embed.setAuthor({ name: `${user.username}#${user.discriminator}`, iconURL: user.displayAvatarURL() })
-        .setThumbnail(`attachment://${type}.png`);
+        .setThumbnail(`attachment://${imageName}.png`);
 
       await interaction.reply({ embeds: [embed], files: [picture], ephemeral: !isHelper(interaction) });
     }

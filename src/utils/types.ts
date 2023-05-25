@@ -46,11 +46,17 @@ export type GlyphInfo = {
   colour: ColorResolvable
 }
 
+type APInfo = {
+  givesAP: boolean,
+  amount: number
+}
+
 export type PerkInfo = {
   id: string,
   name: string,
   effect: string,
   prerequisites: string[],
+  ap?: APInfo
 }
 
 export type Milestone = {
