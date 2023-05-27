@@ -1,5 +1,5 @@
 import { AchievementEmbeds, AchievementImages, acceptableArgs, achievementsMessageObject } from "../../utils/databases/achievements";
-import { ActionRowBuilder, ApplicationCommandOptionType, ApplicationCommandType, ButtonBuilder, ButtonStyle, CommandInteraction, InteractionReplyOptions, MessageComponentInteraction, User } from "discord.js";
+import { ActionRowBuilder, ApplicationCommandOptionType, ApplicationCommandType, ButtonBuilder, ButtonStyle, CommandInteraction, ComponentType, InteractionReplyOptions, MessageComponentInteraction, User } from "discord.js";
 import { findAchievementByID, findAchievementByName } from "../../functions/achievements";
 import { isHelper, link } from "../../functions/Misc";
 import { AchievementInfo } from "src/utils/types";
@@ -125,7 +125,7 @@ export const achievements: Command = {
 
       // These filters need fairly verbose conditions, in order to not have the interactions overlap when running multiple collectors.
       const filter = (i: MessageComponentInteraction) => i.customId.endsWith(String(expirationTimestamp));
-      const collector = interaction.channel?.createMessageComponentCollector({ filter, time: 60000 });
+      const collector = interaction.channel?.createMessageComponentCollector({ componentType: ComponentType.Button, filter, time: 60000 });
 
       await interaction.reply(content).then(() => {
         collector?.on("collect", async i => {

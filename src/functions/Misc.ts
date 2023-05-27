@@ -4,7 +4,7 @@ import { ids } from "../config.json";
 export function isHelper(interaction: CommandInteraction): boolean | undefined {
   if (!interaction.inGuild()) return true;
   // Now that's an expression!
-  return interaction.guild?.members.resolve(interaction.user)?.roles.cache.has(ids.helperRole);
+  return interaction.guild?.members.resolve(interaction.user)?.roles.cache.has(ids.AD.requestableRoles.helperRole);
 }
 
 export function isEligibleForHelper(interaction: CommandInteraction): boolean {

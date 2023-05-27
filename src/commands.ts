@@ -80,8 +80,9 @@ import { fivehours } from "./commands/8/5hours";
 import { commands } from "./commands/8/commands";
 import { contributors } from "./commands/8/contributors";
 import { helperRequest } from "./commands/8/helper";
-import { slashcommand } from "./commands/8/slashcommand";
 import { report } from "./commands/8/report";
+import { rolerequest } from "./commands/8/rolerequest";
+import { slashcommand } from "./commands/8/slashcommand";
 
 import { discordformatting } from "./commands/9/discordformatting";
 import { invertedtheme } from "./commands/9/invertedtheme";
@@ -115,7 +116,7 @@ export const commandsByPage: { [page: number]: Command[] } = {
   5: [autoachievement, gamevsrealtime, perk, reality, rm],
   6: [achievements, adbonus, bottombuttons, challenge, galaxyscaling, importexport, news, offlineticks, oom, upgrade],
   7: [abb, androidorweb, antitables, decimal, howtoplay, notations],
-  8: [fivehours, commands, contributors, helperRequest, report, slashcommand],
+  8: [fivehours, commands, contributors, helperRequest, report, rolerequest, slashcommand],
   9: [discordformatting, invertedtheme, ipepcolour, justask, paperclips, roles, savebank, savesharing, secretachievements, site, xyproblem],
   69: [bushism, deadchat, pins, slightsmile, time, user, wikipedia, xkcd],
 };
@@ -136,7 +137,7 @@ export const Commands: Command[] = [
   // Page 7 - Misc
   abb, androidorweb, antitables, decimal, howtoplay, notations,
   // Page 8 - Misc
-  fivehours, commands, contributors, helperRequest, report, slashcommand,
+  fivehours, commands, contributors, helperRequest, report, rolerequest, slashcommand,
   // Page 9 - Misc
   discordformatting, invertedtheme, ipepcolour, justask, paperclips, roles, savebank, savesharing, secretachievements, site, xyproblem,
   // Page 69 - Very misc
