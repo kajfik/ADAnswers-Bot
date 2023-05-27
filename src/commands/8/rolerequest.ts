@@ -26,5 +26,8 @@ export const rolerequest: Command = {
     if (roleRequested.id === ids.AD.requestableRoles.helperRole) {
       await helperRequest.run(interaction, client);
     }
+
+    // TODO: If mods approve the ADAB notifications role, utilise it here. Also, probably end up copying
+    // the code for helper request here? Needs some more thought
   }
 };

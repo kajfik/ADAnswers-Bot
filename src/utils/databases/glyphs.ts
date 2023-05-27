@@ -183,7 +183,48 @@ export const specialGlyphs: GlyphData = {
     emote: "Ϙ",
     altText: "Ϙ",
     effects: {
-
+      "Southwest": {
+        name: "Game Speed Power",
+        effect: "Raise game speed to a power.",
+        effectFormula: "1 + (level ^ .25) * ((1 + 2.5 * Rarity) ^ 0.4) / 75",
+        stacking: "More than one Effarig Glyph cannot be equipped simultaneously, dummy!"
+      },
+      "West": {
+        name: "Reality Machine Multiplier",
+        effect: "Multiply Reality Machine gain.",
+        effectFormula: "level ^ 0.6 * (1 + 2.5 * Rarity)",
+        stacking: "More than one Effarig Glyph cannot be equipped simultaneously, dummy!"
+      },
+      "Northwest": {
+        name: "Instability Delay",
+        effect: "Increase Glyph Instability starting level",
+        effectFormula: "floor(10 * sqrt(level * (1 + 2.5 * rarity))",
+        stacking: "More than one Effarig Glyph cannot be equipped simultaneously, dummy!"
+      },
+      "North": {
+        name: "Achievement Multiplier Power",
+        effect: "Raise Achievement multiplier to a power.",
+        effectFormula: "1 + (level ^ 0.4) * ((1 + 2.5 * rarity) ^ 0.6) / 60",
+        stacking: "More than one Effarig Glyph cannot be equipped simultaneously, dummy!"
+      },
+      "Northeast": {
+        name: "Buy 10 Multiplier Power",
+        effect: "Raise the Buy 10 Dimensions multiplier to a power.",
+        effectFormula: "1 + 2 * (level ^ 0.25) * ((1 + 2.5 * rarity) ^ 0.4)",
+        stacking: "More than one Effarig Glyph cannot be equipped simultaneously, dummy!"
+      },
+      "East": {
+        name: "Dimension Power",
+        effect: "Raise all dimension multipliers to a power",
+        effectFormula: "1 + (level ^ 0.25) * ((1 + 2.5 * rarity) ^ 0.4) / 500",
+        stacking: "More than one Effarig Glyph cannot be equipped simultaneously, dummy!"
+      },
+      "Southeast": {
+        name: "Antimatter Production Power",
+        effect: "Raise antimatter production to a power",
+        effectFormula: "1 + (level ^ 0.25) * ((1 + 2.5 * rarity) ^ 0.4) / 5000",
+        stacking: "More than one Effarig Glyph cannot be equipped simultaneously, dummy!"
+      }
     }
   },
   cursed: {
