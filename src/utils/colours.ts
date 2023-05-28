@@ -37,5 +37,8 @@ export const Colour: ColourList = {
   v: "#ead584",
   ra: "#9575cd",
   laitela: "#ffffff",
-  pelle: "#dc143c"
+  pelle: "#dc143c",
+
+  // Special
+  companion: "#feaec9"
 };

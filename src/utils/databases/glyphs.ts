@@ -408,6 +408,34 @@ export const specialGlyphs: GlyphData = {
         stacking: "More than one Reality Glyph cannot be equipped simultaneously, dummy!"
       }
     }
+  },
+  companion: {
+    name: "companion",
+    colour: Colour.companion,
+    emote: "<:glyph_companion:1053705550644391946>",
+    altText: "♥",
+    effects: {
+      "Bottom Left": {
+        name: "Love",
+        effect: "...plot the demise of all who stand against you...",
+        effectFormula: ""
+      },
+      "Top Left": {
+        name: "Joy",
+        effect: "...whisper into your dreams politely...",
+        effectFormula: ""
+      },
+      "Top Right": {
+        name: "Happiness",
+        effect: "...nothing but sit there and cutely smile at you...",
+        effectFormula: ""
+      },
+      "Bottom Right": {
+        name: "Loyalty",
+        effect: "...will never leave you...",
+        effectFormula: ""
+      }
+    }
   }
 };
 
@@ -426,7 +454,7 @@ function FieldsGetter(glyphInfo: GlyphInfo, altered: boolean): EmbedField[] {
   if (Object.keys(effects).length === 0) {
     fields.push({
       name: "Whoops!",
-      value: `${glyphInfo.name.toUpperCase()} Glyphs don't have altered effects, dummy!`,
+      value: `${capitalize(glyphInfo.name)} Glyphs don't have altered effects, dummy!`,
       inline: false
     });
     return fields;
