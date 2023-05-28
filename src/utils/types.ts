@@ -31,6 +31,12 @@ export type GlyphEffect = {
   effect: string,
   effectFormula: string,
   stacking?: string,
+  altered?: {
+    name: string,
+    effect: string,
+    effectFormula: string,
+    type: number
+  }
 }
 
 export type GlyphInfo = {
@@ -41,9 +47,9 @@ export type GlyphInfo = {
   altText: string,
   // Effects start in the lower left corner and progress clockwise.
   effects: {
-    [key:string]: GlyphEffect
+    [key: string]: GlyphEffect,
   },
-  colour: ColorResolvable
+  colour: ColorResolvable,
 }
 
 type APInfo = {

@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, CommandInteraction, EmbedBuilder, SlashCommandSubcommandBuilder, SlashCommandSubcommandGroupBuilder, User } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, ChatInputCommandInteraction, EmbedBuilder, SlashCommandSubcommandBuilder, SlashCommandSubcommandGroupBuilder, User } from "discord.js";
 import { GlyphEmbedGetter, basicGlyphs, specialGlyphs } from "../../utils/databases/glyphs";
 import { effectCountProbabilityCalculator, rarityProbabilityCalculator, threshold } from "../../functions/glyphs";
 import { Command } from "../../command";
@@ -148,6 +148,11 @@ export const glyph: Command = {
           .setRequired(true)
           .setDescription("The glyph you want to know about")
           .setChoices(...getEffectChoices())
+      )
+      .addBooleanOption(option =>
+        option.setName("altered")
+          .setRequired(false)
+          .setDescription("Show altered effects?")
       ).toJSON(),
     new SlashCommandSubcommandGroupBuilder()
       .setName("utils")
@@ -214,7 +219,7 @@ export const glyph: Command = {
           )
       ).toJSON()
   ],
-  run: async(interaction: CommandInteraction) => {
+  run: async(interaction: ChatInputCommandInteraction) => {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     if (interaction.options.data.length > 1) {
@@ -273,11 +278,12 @@ export const glyph: Command = {
     } else {
 
       const glyphName: string = interaction.options.getString("glyph") as string;
+      const altered: boolean = interaction.options.getBoolean("altered") as boolean;
 
       const picture = new AttachmentBuilder(`src/images/glyphs/${glyphName}.png`);
 
       const glyphRequested = basicGlyphs[glyphName] ?? specialGlyphs[glyphName];
-      const embed: EmbedBuilder = GlyphEmbedGetter(glyphRequested, isADServer);
+      const embed: EmbedBuilder = GlyphEmbedGetter(glyphRequested, isADServer, altered);
       embed.setAuthor({ name: `${user.username}#${user.discriminator}`, iconURL: user.displayAvatarURL() })
         .setThumbnail(`attachment://${glyphName}.png`);
 

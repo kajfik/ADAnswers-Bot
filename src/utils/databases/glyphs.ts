@@ -1,12 +1,22 @@
 import { EmbedBuilder, EmbedField } from "discord.js";
+import { GlyphEffect, GlyphInfo } from "../types";
 import { Colour } from "../colours";
-import { GlyphInfo } from "../types";
 import { capitalize } from "../extensions";
 import { footerText } from "../../functions/Misc";
 
 interface GlyphData {
   [key: string]: GlyphInfo
 }
+
+// I don't know why ESLint gets mad at enums, but here we are
+/* eslint-disable no-unused-vars */
+// eslint-disable-next-line no-shadow
+enum ALTERATION_TYPE {
+  ADDITION = 1,
+  EMPOWER = 2,
+  BOOST = 3
+}
+/* eslint-enable no-unused-vars */
 
 export const basicGlyphs: GlyphData = {
   power: {
@@ -20,19 +30,37 @@ export const basicGlyphs: GlyphData = {
         primary: true,
         effect: "Raise Antimatter Dimensions to a power. (^1.XX)",
         effectFormula: "1.015 + (Level)^0.2 * (1 + 2.5*Rarity)^0.4 / 75",
-        stacking: "Additive, based on fraction after 1."
+        stacking: "Additive, based on fraction after 1.",
+        altered: {
+          name: `Antimatter Galaxy Cost Decrease`,
+          effect: "Decrease the cost of Antimatter Galaxies by a multiplier, in addition to the normal effect.",
+          effectFormula: "2 / ((1.015 + (Level)^0.2 * (1 + 2.5*Rarity)^0.4 / 75) + 1)",
+          type: ALTERATION_TYPE.ADDITION
+        }
       },
       "Top Left": {
         name: "Antimatter Dimensions Multiplier",
         effect: "Multiply Antimatter Dimensions by a static multiplier.",
         effectFormula: "(Level * (1 + 2.5*Rarity)) ^ (Level * (1 + 2.5*Rarity))",
-        stacking: "Multiplicative."
+        stacking: "Multiplicative.",
+        altered: {
+          name: "Empowered Antimatter Dimensions Multiplier",
+          effect: "Multiply Antimatter Dimnsions by a static multiplier with an empowered formula.",
+          effectFormula: "1e11111 ^ (level * 220)",
+          type: ALTERATION_TYPE.EMPOWER
+        }
       },
       "Top Right": {
         name: "Dimension Boost Multiplier",
-        effect: "Multiply the effect of Dimension Boosts.",
+        effect: "Multiply the effect of Dimension Boosts by a static multiplier.",
         effectFormula: "sqrt(Level * (1 + 2.5*Rarity))",
         stacking: "Multiplicative",
+        altered: {
+          name: "Boosted Dimension Boost Multiplier",
+          effect: "Multiply the effect of Dimension Boosts by a static multiplier, with a boosted formula based on Power Glyph Sacrifice.",
+          effectFormula: "sqrt(Level * (1 + 2.5*Rarity)) * ((1 + log10(max(min(power sacrifice, 1e100) / 1e60, 1)) / 2) ^ 3)",
+          type: ALTERATION_TYPE.BOOST
+        }
       },
       "Bottom Right": {
         name: "Buy 10 Multiplier",
@@ -53,7 +81,13 @@ export const basicGlyphs: GlyphData = {
         primary: true,
         effect: "Raise Infinity Dimensions to a power. (^1.XX)",
         effectFormula: "1.007 + (Level)^0.21 * (1 + 2.5*Rarity)^0.4 / 75",
-        stacking: "Additive, based on fraction after 1."
+        stacking: "Additive, based on fraction after 1.",
+        altered: {
+          name: "Boosted Infinity Dimension Power",
+          effect: "Raise Infinity Dimensions to a power, with a boosted formula based on Infinity Glyph Sacrifice.",
+          effectFormula: "1.007 + (Level)^0.21 * (1 + 2.5*Rarity)^0.4 / 75 + (log10(max(min(infinity sacrifice, 1e100) / 1e60, 1)) / 2) / 50",
+          type: ALTERATION_TYPE.BOOST
+        }
       },
       "Top Left": {
         name: "Infinity Power Conversion Exponent increase",
@@ -66,12 +100,24 @@ export const basicGlyphs: GlyphData = {
         effect: "Multiply Infinity Point gain by a static multipier.",
         effectFormula: "1.00e4 * (Level * (2 + 2.5*Rarity))^6",
         stacking: "Multiplicative",
+        altered: {
+          name: "Infinity Point Gain Power",
+          effect: "Raise Infinity Point gain to a power, in addition to the normal effect.",
+          effectFormula: "1 + log10(1.00e4 * (Level * (2 + 2.5*Rarity))^6) / 1800",
+          type: ALTERATION_TYPE.ADDITION
+        }
       },
       "Bottom Right": {
         name: "Infinity Multiplier",
         effect: "Multiply Infinities by a static multiplier.",
         effectFormula: "2 * (Level * (1 + 2.5*Rarity))^1.5",
         stacking: "Multiplicative",
+        altered: {
+          name: "Empowered Infinity Multiplier",
+          effect: "Multiply Infinities by a static multiplier, with an empowered formula.",
+          effectFormula: "1.02 ^ level",
+          type: ALTERATION_TYPE.EMPOWER
+        }
       }
     }
   },
@@ -86,19 +132,37 @@ export const basicGlyphs: GlyphData = {
         effect: "Multiply the speed of Replication (or, divide the Replicanti interval).",
         effectFormula: "3 * (Level * (1 + 2.5*Rarity)",
         stacking: "Multiplicative",
+        altered: {
+          name: "Empowered Replicanti Replication Speed",
+          effect: "Multiply the speed of Replication (or, divide the Replicanti interval), with an empowered formula.",
+          effectFormula: "(1.006 ^ level) * 3",
+          type: ALTERATION_TYPE.EMPOWER
+        }
       },
       "Top Left": {
         name: "Replicanti Effect Power",
         effect: "Raise the effect of Replicanti on Infinity (and Time) Dimensions to a power. (^1.XX)",
         effectFormula: "1.1 + sqrt(Level) * (1 + 2.5*Rarity) / 25",
         stacking: "Additive, based on fraction after 1",
+        altered: {
+          name: "Boosted Replicanti Effect Power",
+          effect: "Raise the effect of Replicanti on Infinity (and Time) Dimensions to a power, with a boosted formula based on Replication Glyph Sacrifice.",
+          effectFormula: "1.1 + sqrt(Level) * (1 + 2.5*Rarity) / 25 + log10(max(min(replication sacrifice, 1e100) / 1e60, 1)) / 2 * 3",
+          type: ALTERATION_TYPE.BOOST
+        }
       },
       "Top Right": {
         name: "Dilated Time Multiplier based on Replicanti",
         effect: `Multiply Dilated Time gain based on current Replicanti amount.`,
         effectFormula: "3.00e-4 * (Level)^0.3 * (1 + 2.5 * Rarity)^0.65",
         stacking: `"Multiplicative"; this effect is multiplied by 1.00e4 on all glyphs with it, which are then multiplied together, and then divided by 1.00e4 at the end.
-This makes the glyph stack reasonably while still providing a boost if you use very low level/rarity glyphs.`
+This makes the glyph stack reasonably while still providing a boost if you use very low level/rarity glyphs.`,
+        altered: {
+          name: "Replicanti Speed Multiplier based on Replicanti",
+          effect: "Multiply Replicanti gain based on current Replicanti amount, in addition to the normal effect.",
+          effectFormula: "3.00e-4 * (Level)^0.3 * (1 + 2.5 * Rarity)^0.65",
+          type: ALTERATION_TYPE.ADDITION
+        }
       },
       "Bottom Right": {
         name: "Replication Glyph Level Effect",
@@ -126,18 +190,36 @@ This makes the glyph stack reasonably while still providing a boost if you use v
         effect: "Multiply Game speed, and effectively everything affected by it. See `/gamevsrealtime` for more information.",
         effectFormula: "1 + (Level)^0.3 * (1 + 2.5*Rarity)^0.65 / 20",
         stacking: "Multiplicative",
+        altered: {
+          name: "Empowered Game Speed Multiplier",
+          effect: "Multiply Game speed, and effectively everything affected by it, with an empowered formula.",
+          effectFormula: "1 + (level ^ 0.35)",
+          type: ALTERATION_TYPE.EMPOWER
+        }
       },
       "Top Right": {
         name: "Eternity Multiplier",
         effect: "Multiply Eternities by a static multiplier.",
         effectFormula: "((Level + 3) * (1 + 2.5*Rarity))^0.9",
         stacking: "Multiplicative",
+        altered: {
+          name: "Boosted Eternity Multiplier",
+          effect: "Multiply Eternities by a static multiplier with a boosted formula based on Time Glyph Sacrifice.",
+          effectFormula: "((Level + 3) * (1 + 2.5*Rarity))^0.9 * (3 * log10(max(min(time sacrifice, 1e100) / 1e60, 1)) / 2)",
+          type: ALTERATION_TYPE.BOOST
+        }
       },
       "Bottom Right": {
         name: "Eternity Point Multiplier",
         effect: "Multiply Eternity Point gain by a static Multiplier.",
         effectFormula: "100 * (Level * (1 + 2.5Rarity))^3",
         stacking: "Multiplicative",
+        altered: {
+          name: "Eternity Point Power",
+          effect: "Raise Eternity Point gain to a power, in addition to the normal effect.",
+          effectFormula: "1 + log10(100 * (Level * (1 + 2.5Rarity))^3) / 1000",
+          type: ALTERATION_TYPE.ADDITION
+        }
       },
     }
   },
@@ -152,18 +234,36 @@ This makes the glyph stack reasonably while still providing a boost if you use v
         effect: "Multiply Dilated Time by a static multiplier",
         effectFormula: "2 * (Level * (1 + 2.5*Rarity))^1.5",
         stacking: "Multiplicative",
+        altered: {
+          name: "Empowered Dilated Time Multiplier",
+          effect: "Multiply Dilated Time by a static multiplier, with an empowered formula.",
+          effectFormula: "(1.005 ^ level) * 15",
+          type: ALTERATION_TYPE.EMPOWER
+        }
       },
       "Top Left": {
         name: "Tachyon Galaxy Threshold Multiplier",
         effect: `"Multiply" (Divide) the threshold scaling for Tachyon Galaxies. Only affects the fraction after 1.`,
         effectFormula: "1 - ((Level)^0.17 * (1 + 2.5*Rarity)^0.35) / 100",
         stacking: "Multiplicative; this value is always less than 1.",
+        altered: {
+          name: "Boosted Tachyon Galaxy Threshold Multiplier",
+          effect: `"Multiply" (Divide) the threshold scaling for Tachyon Galaxies, with a boosted formula based on Dilation Glyph Sacrifice.`,
+          effectFormula: "1 - ((Level)^0.17 * (1 + 2.5*Rarity)^0.35) / 100 - log10(max(min(time sacrifice, 1e100) / 1e60, 1)) / 2 / 50",
+          type: ALTERATION_TYPE.BOOST
+        }
       },
       "Top Right": {
         name: "Time Theorem Generation",
         effect: "Passively Generate Time Theorems, even without the relevant Dilation Upgrade.",
         effectFormula: "sqrt(Level * (1 + 2.5*Rarity)) / 1.00e4",
         stacking: "Additive",
+        altered: {
+          name: "Time Theorem Generation Multiplier",
+          effect: "Multiply passive Time Theorem generation from all sources, in addition to the normal effect.",
+          effectFormula: "max((10000 * sqrt(Level * (1 + 2.5*Rarity)) / 1.00e4) ^ 1.6, 1)",
+          type: ALTERATION_TYPE.ADDITION
+        }
       },
       "Bottom Right": {
         name: "Dilated Antimatter Dimension Power",
@@ -193,7 +293,13 @@ export const specialGlyphs: GlyphData = {
         name: "Reality Machine Multiplier",
         effect: "Multiply Reality Machine gain.",
         effectFormula: "level ^ 0.6 * (1 + 2.5 * Rarity)",
-        stacking: "More than one Effarig Glyph cannot be equipped simultaneously, dummy!"
+        stacking: "More than one Effarig Glyph cannot be equipped simultaneously, dummy!",
+        altered: {
+          name: "Empowered Reality Machine Multiplier",
+          effect: "Multiply Reality Machine gain by a multiplier with an empowered formula.",
+          effectFormula: "level ^ 1.5",
+          type: ALTERATION_TYPE.EMPOWER
+        }
       },
       "Northwest": {
         name: "Instability Delay",
@@ -205,13 +311,25 @@ export const specialGlyphs: GlyphData = {
         name: "Achievement Multiplier Power",
         effect: "Raise Achievement multiplier to a power.",
         effectFormula: "1 + (level ^ 0.4) * ((1 + 2.5 * rarity) ^ 0.6) / 60",
-        stacking: "More than one Effarig Glyph cannot be equipped simultaneously, dummy!"
+        stacking: "More than one Effarig Glyph cannot be equipped simultaneously, dummy!",
+        altered: {
+          name: "Boosted Achievement Multiplier Power",
+          effect: "Raise Achievement multiplier to a power with a formula boosted based on Effarig Glyph Sacrifice.",
+          effectFormula: "(1 + (level ^ 0.4) * ((1 + 2.5 * rarity) ^ 0.6) / 60) + log10(max(min(time sacrifice, 1e100) / 1e60, 1)) / 2 / 10",
+          type: ALTERATION_TYPE.BOOST
+        }
       },
       "Northeast": {
         name: "Buy 10 Multiplier Power",
         effect: "Raise the Buy 10 Dimensions multiplier to a power.",
         effectFormula: "1 + 2 * (level ^ 0.25) * ((1 + 2.5 * rarity) ^ 0.4)",
-        stacking: "More than one Effarig Glyph cannot be equipped simultaneously, dummy!"
+        stacking: "More than one Effarig Glyph cannot be equipped simultaneously, dummy!",
+        altered: {
+          name: "Dimension Boost Multiplier Power",
+          effect: "Raise the effect of Dimension Boosts to a power, in addition to the normal effect.",
+          effectFormula: "(1 + 2 * (level ^ 0.25) * ((1 + 2.5 * rarity) ^ 0.4)) ^ 0.4",
+          type: ALTERATION_TYPE.ADDITION
+        }
       },
       "East": {
         name: "Dimension Power",
@@ -274,7 +392,7 @@ export const specialGlyphs: GlyphData = {
       "Top Left": {
         name: "Galaxy Strength Increase",
         effect: "Increase the strength of all Galaxies",
-        effectFormula: "1 + sqrt(level / 1000000)",
+        effectFormula: "1 + sqrt(level / 100000)",
         stacking: "More than one Reality Glyph cannot be equipped simultaneously, dummy!"
       },
       "Top Right": {
@@ -293,13 +411,31 @@ export const specialGlyphs: GlyphData = {
   }
 };
 
-function FieldsGetter(glyphInfo: GlyphInfo): EmbedField[] {
-  const effects = glyphInfo.effects;
+interface GlyphEffects {
+  [key: string]: GlyphEffect
+}
+
+function FieldsGetter(glyphInfo: GlyphInfo, altered: boolean): EmbedField[] {
+  // Basically, just turn our actual list of effects into a list with ONLY the effects that get altered. Somehow
+  const alteredGlyphEffects: GlyphEffects = {};
+  Object.entries(glyphInfo.effects).filter(effect => effect[1].altered !== undefined).map(effect => Object.assign(alteredGlyphEffects, { [effect[0]]: effect[1] }));
+
+  const effects = altered ? alteredGlyphEffects : glyphInfo.effects;
   const fields: EmbedField[] = [];
+
+  if (Object.keys(effects).length === 0) {
+    fields.push({
+      name: "Whoops!",
+      value: `${glyphInfo.name.toUpperCase()} Glyphs don't have altered effects, dummy!`,
+      inline: false
+    });
+    return fields;
+  }
+
   for (const location in effects) {
     fields.push({
-      name: `${location}: ${effects[location].name}`,
-      value: effects[location].effect,
+      name: `${location}: ${altered ? effects[location].altered?.name : effects[location].name}`,
+      value: altered ? effects[location].altered?.effect as string : effects[location].effect,
       inline: false
     });
   }
@@ -311,9 +447,9 @@ function SymbolGetter(glyphInfo: GlyphInfo, isADServer: boolean) {
   return glyphInfo.altText;
 }
 
-export const GlyphEmbedGetter = (glyphInfo: GlyphInfo, isADServer: boolean) => new EmbedBuilder()
+export const GlyphEmbedGetter = (glyphInfo: GlyphInfo, isADServer: boolean, altered: boolean) => new EmbedBuilder()
   .setTitle(`**${SymbolGetter(glyphInfo, isADServer)}** ${capitalize(glyphInfo.name)}`)
   .setColor(glyphInfo.colour)
-  .addFields(FieldsGetter(glyphInfo))
+  .addFields(FieldsGetter(glyphInfo, altered))
   .setTimestamp()
   .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
