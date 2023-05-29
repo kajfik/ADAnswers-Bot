@@ -1,7 +1,7 @@
 import { EC, ECsAtTTInfo } from "../utils/types";
 import { ECDescriptions, ECRewards, EternityChallenges, findEC, order } from "../utils/databases/eternitychallenges";
 import { Colour } from "../utils/colours";
-import { EmbedBuilder } from "discord.js";
+import { AttachmentBuilder, EmbedBuilder } from "discord.js";
 import { footerText } from "./Misc";
 
 function findCompletionsAtIndex(indexOfCompletion: number): string {
@@ -89,11 +89,10 @@ export function ecsAtTTAmount(tt: number): ECsAtTTInfo | string {
   };
 }
 
-export const eternityChallenge = (challengeInfo: EC, requestedFields?: string): EmbedBuilder => new EmbedBuilder()
+export const eternityChallengeEmbedBuilder = (challengeInfo: EC, requestedFields?: string): EmbedBuilder => new EmbedBuilder()
   .setTitle(`Eternity Challenge ${challengeInfo.challenge}x${challengeInfo.completion}`)
   .setColor(Colour.eternity)
   .addFields(shownFields(challengeInfo, requestedFields))
-  .setTimestamp()
   .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
 
 function ecRequirements(ec: EC) {
@@ -131,3 +130,20 @@ export const shownFields = (challengeInfo: EC, requestedFields?: string) => {
     }
   }
 };
+
+interface ECEmbeds {
+  [key: string]: EmbedBuilder
+}
+
+export const EternityChallengeEmbeds: ECEmbeds = {};
+export const EternityChallengeImages: AttachmentBuilder[] = [];
+
+for (const challenge in EternityChallenges) {
+  const chal = EternityChallenges[challenge].challenge;
+  EternityChallengeImages[chal] = new AttachmentBuilder(`src/images/challenges/ec${chal}.png`);
+}
+
+for (const challenge in EternityChallenges) {
+  const chal = EternityChallenges[challenge];
+  EternityChallengeEmbeds[`${chal.challenge}x${chal.completion}`] = eternityChallengeEmbedBuilder(chal).setThumbnail(`attachment://ec${chal.challenge}.png`);
+}
