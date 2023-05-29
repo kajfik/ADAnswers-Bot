@@ -1,8 +1,8 @@
 import { ApplicationCommandOptionType, ApplicationCommandType, CommandInteraction } from "discord.js";
+import { isHelper, makeEnumeration } from "../../functions/Misc";
 import { Command } from "../../command";
 import { Tree } from "../../classes/Tree";
 import { ecsAtTTAmount } from "../../functions/ecs";
-import { isHelper, makeEnumeration } from "../../functions/Misc";
 
 export const ts: Command = {
   name: "ts",

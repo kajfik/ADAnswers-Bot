@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandSubCommandData, ApplicationCommandType, AttachmentBuilder, CommandInteraction, EmbedBuilder, SlashCommandSubcommandBuilder, User } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, CommandInteraction, EmbedBuilder, SlashCommandSubcommandBuilder, User } from "discord.js";
 import { PerkEmbedGetters, perks } from "../../utils/databases/perks";
 import { PerkInfo, StringIndexedStringObjectType } from "../../utils/types";
 import { Command } from "../../command";
