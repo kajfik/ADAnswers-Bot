@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, ChatInputCommandInteraction, EmbedBuilder, SlashCommandSubcommandBuilder, SlashCommandSubcommandGroupBuilder, User } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, ChatInputCommandInteraction, EmbedBuilder, User } from "discord.js";
 import { GlyphEmbedGetter, basicGlyphs, specialGlyphs } from "../../utils/databases/glyphs";
 import { effectCountProbabilityCalculator, rarityProbabilityCalculator, threshold } from "../../functions/glyphs";
 import { Command } from "../../command";
@@ -122,14 +122,17 @@ export const glyph: Command = {
   description: "Explains Glyphs, their values, and their effects.",
   type: ApplicationCommandType.ChatInput,
   options: [
-    new SlashCommandSubcommandBuilder()
-      .setName("info")
-      .setDescription("Explains basic information about glyphs")
-      .addStringOption(option =>
-        option.setName("info")
-          .setRequired(true)
-          .setDescription("The information you want to know about")
-          .setChoices(
+    {
+      name: "info",
+      description: "Explains basic information about glyphs",
+      type: ApplicationCommandOptionType.Subcommand,
+      options: [
+        {
+          name: "info",
+          required: true,
+          description: "The information you want to know about",
+          type: ApplicationCommandOptionType.String,
+          choices: [
             { name: "intro", value: "intro" },
             { name: "equipping", value: "equipping" },
             { name: "types", value: "types" },
@@ -138,86 +141,112 @@ export const glyph: Command = {
             { name: "sacrifice", value: "sacrifice" },
             { name: "companion", value: "companion" },
             { name: "nextgl", value: "nextgl" }
-          )
-      ).toJSON(),
-    new SlashCommandSubcommandBuilder()
-      .setName("effect")
-      .setDescription("Explains the effects of a glyph")
-      .addStringOption(option =>
-        option.setName("glyph")
-          .setRequired(true)
-          .setDescription("The glyph you want to know about")
-          .setChoices(...getEffectChoices())
-      )
-      .addBooleanOption(option =>
-        option.setName("altered")
-          .setRequired(false)
-          .setDescription("Show altered effects?")
-      ).toJSON(),
-    new SlashCommandSubcommandGroupBuilder()
-      .setName("utils")
-      .setDescription("Access some glyph utility functions")
-      .addSubcommand(
-        new SlashCommandSubcommandBuilder()
-          .setName("threshold")
-          .setDescription("Returns the minimum level above which three or four effect glyphs start to appear")
-          .addNumberOption(option =>
-            option.setName("rarity")
-              .setRequired(true)
-              .setDescription("The percentage rarity between 0 and 100")
-          ),
-      )
-      .addSubcommand(
-        new SlashCommandSubcommandBuilder()
-          .setName("rarityprobability")
-          .setDescription("Returns the probability of seeing a glyph with the specified rarity, or greater.")
-          .addNumberOption(option =>
-            option.setName("bonus")
-              .setDescription("Refers to the total percentage rarity added bonus in game")
-              .setRequired(true)
-          )
-          .addBooleanOption(option =>
-            option.setName("ru16")
-              .setDescription("Has reality upgrade 16 (Disparity of Rarity) been bought?")
-              .setRequired(true)
-          )
-          .addNumberOption(option =>
-            option.setName("rarity")
-              .setDescription("The target percentage rarity (must be between 0 and 100)")
-              .setRequired(true)
-          )
-      )
-
-      .addSubcommand(
-        new SlashCommandSubcommandBuilder()
-          .setName("effectprobability")
-          .setDescription("Returns the probability of seeing a glyph with the specified rarity, or greater.")
-          .addBooleanOption(option =>
-            option.setName("ru17")
-              .setDescription("Has reality upgrade 17 (Duplicity of Potency) been bought?")
-              .setRequired(true)
-          )
-          .addNumberOption(option =>
-            option.setName("rarity")
-              .setDescription("The target percentage rarity (must be between 0 and 100)")
-              .setRequired(true)
-          )
-          .addNumberOption(option =>
-            option.setName("level")
-              .setDescription("The target level of the glyph")
-              .setRequired(true)
-          )
-          .addNumberOption(option =>
-            option.setName("effects")
-              .setDescription("The target number of effects")
-              .setRequired(true)
-          )
-          .addBooleanOption(option =>
-            option.setName("effarig")
-              .setDescription("Is the target glyph type an Effarig glyph?")
-              .setRequired(true)
-          )
-      ).toJSON()
+          ]
+        }
+      ]
+    },
+    {
+      name: "effect",
+      description: "Explains the effects of a glyph.",
+      type: ApplicationCommandOptionType.Subcommand,
+      options: [
+        {
+          name: "glyph",
+          required: true,
+          description: "The glyph you want to know about",
+          type: ApplicationCommandOptionType.String,
+          choices: getEffectChoices()
+        },
+        {
+          name: "altered",
+          required: false,
+          description: "Show altered effects instead of normal effects?",
+          type: ApplicationCommandOptionType.Boolean
+        }
+      ]
+    },
+    {
+      name: "utils",
+      description: "access glyph utility functions to find probabilities or other information",
+      type: ApplicationCommandOptionType.SubcommandGroup,
+      options: [
+        {
+          name: "threshold",
+          description: "Returns the minimum level above which three or four effect glyphs start to appear",
+          type: ApplicationCommandOptionType.Subcommand,
+          options: [
+            {
+              name: "rarity",
+              required: true,
+              description: "The percentage rarity between 0 and 100",
+              type: ApplicationCommandOptionType.Number
+            }
+          ]
+        },
+        {
+          name: "rarityprobability",
+          description: "Returns the probability of seeing a glyph with the specified rarity, or greater.",
+          type: ApplicationCommandOptionType.Subcommand,
+          options: [
+            {
+              name: "bonus",
+              description: "Refers to the total percentage rarity added bonus in game",
+              required: true,
+              type: ApplicationCommandOptionType.Number
+            },
+            {
+              name: "ru16",
+              description: "Has reality upgrade 16 (Disparity of Rarity) been bought?",
+              required: true,
+              type: ApplicationCommandOptionType.Boolean
+            },
+            {
+              name: "rarity",
+              description: "The target percentage rarity (must be between 0 and 100)",
+              required: true,
+              type: ApplicationCommandOptionType.Number
+            }
+          ]
+        },
+        {
+          name: "effectprobability",
+          description: "Returns the probability of seeing a glyph with the specified rarity, or greater.",
+          type: ApplicationCommandOptionType.Subcommand,
+          options: [
+            {
+              name: "ru17",
+              description: "Has reality upgrade 17 (Duplicity of Potency) been bought?",
+              required: true,
+              type: ApplicationCommandOptionType.Boolean
+            },
+            {
+              name: "rarity",
+              description: "The target percentage rarity (must be between 0 and 100)",
+              required: true,
+              type: ApplicationCommandOptionType.Number
+            },
+            {
+              name: "level",
+              description: "The target level of the glyph",
+              required: true,
+              type: ApplicationCommandOptionType.Number
+            },
+            {
+              name: "effects",
+              description: "The target number of effects",
+              required: true,
+              type: ApplicationCommandOptionType.Number
+            },
+            {
+              name: "effarig",
+              description: "Is the target glyph type an Effarig glyph?",
+              required: true,
+              type: ApplicationCommandOptionType.Boolean
+            }
+          ],
+        }
+      ]
+    },
   ],
   run: async(interaction: ChatInputCommandInteraction) => {
     if (!interaction || !interaction.isChatInputCommand()) return;
@@ -283,6 +312,8 @@ export const glyph: Command = {
       const picture = new AttachmentBuilder(`src/images/glyphs/${glyphName}.png`);
 
       const glyphRequested = basicGlyphs[glyphName] ?? specialGlyphs[glyphName];
+
+
       const embed: EmbedBuilder = GlyphEmbedGetter(glyphRequested, isADServer, altered);
       embed.setAuthor({ name: `${user.username}#${user.discriminator}`, iconURL: user.displayAvatarURL() })
         .setThumbnail(`attachment://${glyphName}.png`);

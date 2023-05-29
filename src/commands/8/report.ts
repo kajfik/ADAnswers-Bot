@@ -24,7 +24,9 @@ export const report: Command = {
   run: async(interaction: CommandInteraction) => {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
-    const messageID = interaction.options.getString("message")?.split("/").pop() ?? null;
+    const splitLink = interaction.options.getString("message")?.split("/") as Array<string>;
+    const messageID = splitLink.pop() ?? null;
+    const channelID = splitLink[splitLink.length - 1] ?? null;
     const reason = interaction.options.getString("reason") ?? "No reason provided";
 
     console.log(reason);
@@ -32,6 +34,20 @@ export const report: Command = {
 
     if (messageID === null) {
       await interaction.reply({ content: "Invalid message link", ephemeral: true });
+      return;
+    }
+
+    if (channelID !== interaction.channelId) {
+      await interaction.reply({ content: "Please report the message in the channel it was sent.", ephemeral: true });
+      return;
+    }
+
+    await interaction.guild?.channels.fetch();
+
+    const messageChannel = await interaction.guild?.channels.fetch(splitLink[splitLink.length - 1] as string) ?? null;
+
+    if (messageChannel === null) {
+      await interaction.reply({ content: "Channel not found.", ephemeral: true });
       return;
     }
 
