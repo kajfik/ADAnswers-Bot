@@ -27,7 +27,7 @@
     "wikijs": "^6.3.3"
   },
   "name": "adanswersbot",
-  "version": "4.1.0",
+  "version": "5.0.0",
   "description": "Used to give answers for and about the web/mobile incremental game Antimatter Dimensions.",
   "main": "bot.js",
   "scripts": {
