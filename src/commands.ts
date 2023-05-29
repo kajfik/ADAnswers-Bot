@@ -12,7 +12,7 @@ import { earlyinfinity } from "./commands/1/earlyinfinity";
 import { galaxyboost } from "./commands/1/galaxyboost";
 import { grindingforbreak } from "./commands/1/grindingforbreak";
 import { infinity } from "./commands/1/infinity";
-import { iugo } from "./commands/1/iugo";
+// Import { iugo } from "./commands/1/iugo";
 import { sacrifice } from "./commands/1/sacrifice";
 import { swipetrick } from "./commands/1/swipetrick";
 
@@ -26,7 +26,7 @@ import { setcrunchauto } from "./commands/2/setcrunchauto";
 
 import { onesixtyoneor162 } from "./commands/3/161or162";
 import { earlyeternityprogression } from "./commands/3/earlyeternityprogression";
-import { eep } from "./commands/3/eep";
+// Import { eep } from "./commands/3/eep";
 import { ep } from "./commands/3/ep";
 import { eternitygrinding } from "./commands/3/eternitygrinding";
 import { firstsplit } from "./commands/3/firstsplit";
@@ -79,13 +79,13 @@ import { notations } from "./commands/7/notations";
 import { fivehours } from "./commands/8/5hours";
 import { commands } from "./commands/8/commands";
 import { contributors } from "./commands/8/contributors";
-import { helperRequest } from "./commands/8/helper";
+// Import { helperRequest } from "./commands/8/helper";
 import { report } from "./commands/8/report";
 import { rolerequest } from "./commands/8/rolerequest";
 import { slashcommand } from "./commands/8/slashcommand";
 
 import { discordformatting } from "./commands/9/discordformatting";
-import { invertedtheme } from "./commands/9/invertedtheme";
+// Import { invertedtheme } from "./commands/9/invertedtheme";
 import { ipepcolour } from "./commands/9/ipepcolour";
 import { justask } from "./commands/9/justask";
 import { paperclips } from "./commands/9/paperclips";
@@ -96,11 +96,11 @@ import { secretachievements } from "./commands/9/secretachievements";
 import { site } from "./commands/9/site";
 import { xyproblem } from "./commands/9/xyproblem";
 
-import { bushism } from "./commands/69/bushism";
+// Import { bushism } from "./commands/69/bushism";
 import { deadchat } from "./commands/69/deadchat";
 import { pins } from "./commands/69/pins";
 import { slightsmile } from "./commands/69/slightsmile";
-import { time } from "./commands/69/time";
+// Import { time } from "./commands/69/time";
 import { user } from "./commands/69/user";
 import { wikipedia } from "./commands/69/wikipedia";
 import { xkcd } from "./commands/69/xkcd";
@@ -109,25 +109,25 @@ import { help } from "./commands/misc/help";
 import { meta } from "./commands/misc/meta";
 
 export const commandsByPage: { [page: number]: Command[] } = {
-  1: [oneminuteinf, breakinfinity, bulkbuy, c9, columns, dimboostorgalaxy, earlyinfinity, galaxyboost, grindingforbreak, infinity, iugo, sacrifice, swipetrick],
+  1: [oneminuteinf, breakinfinity, bulkbuy, c9, columns, dimboostorgalaxy, earlyinfinity, galaxyboost, grindingforbreak, infinity, sacrifice, swipetrick],
   2: [bugo, ic4, ic5, infinitydimensions, peakipmin, replicanti, setcrunchauto],
-  3: [onesixtyoneor162, earlyeternityprogression, eep, ep, eternitygrinding, firstsplit, infinitygrinding, respec, secondsplit, study, studytree, ts, timeshards],
+  3: [onesixtyoneor162, earlyeternityprogression, ep, eternitygrinding, firstsplit, infinitygrinding, respec, secondsplit, study, studytree, ts, timeshards],
   4: [bankedinfinities, changeectree, dilation, dilationgrind, dilationtrees, ec, eco, ecs, ecsattt, eternitychallenge, eternitychallengeorder, failec],
   5: [autoachievement, gamevsrealtime, perk, reality, rm],
   6: [achievements, adbonus, bottombuttons, challenge, galaxyscaling, importexport, news, offlineticks, oom, upgrade],
   7: [abb, androidorweb, antitables, decimal, howtoplay, notations],
-  8: [fivehours, commands, contributors, helperRequest, report, rolerequest, slashcommand],
-  9: [discordformatting, invertedtheme, ipepcolour, justask, paperclips, roles, savebank, savesharing, secretachievements, site, xyproblem],
-  69: [bushism, deadchat, pins, slightsmile, time, user, wikipedia, xkcd],
+  8: [fivehours, commands, contributors, report, rolerequest, slashcommand],
+  9: [discordformatting, ipepcolour, justask, paperclips, roles, savebank, savesharing, secretachievements, site, xyproblem],
+  69: [deadchat, pins, slightsmile, user, wikipedia, xkcd],
 };
 
 export const Commands: Command[] = [
   // Page 1 - Infinity
-  oneminuteinf, breakinfinity, bulkbuy, c9, columns, dimboostorgalaxy, earlyinfinity, galaxyboost, grindingforbreak, infinity, iugo, sacrifice, swipetrick,
+  oneminuteinf, breakinfinity, bulkbuy, c9, columns, dimboostorgalaxy, earlyinfinity, galaxyboost, grindingforbreak, infinity, sacrifice, swipetrick,
   // Page 2 - Break Infinity
   bugo, ic4, ic5, infinitydimensions, peakipmin, replicanti, setcrunchauto,
   // Page 3 - Eternity
-  onesixtyoneor162, earlyeternityprogression, eep, ep, eternitygrinding, firstsplit, infinitygrinding, respec, secondsplit, study, studytree, ts, timeshards,
+  onesixtyoneor162, earlyeternityprogression, ep, eternitygrinding, firstsplit, infinitygrinding, respec, secondsplit, study, studytree, ts, timeshards,
   // Page 4 - Eternity Challenges / Dilation
   bankedinfinities, changeectree, dilation, dilationgrind, dilationtrees, ec, eco, ecs, ecsattt, eternitychallenge, eternitychallengeorder, failec,
   // Page 5 - Reality
@@ -137,11 +137,11 @@ export const Commands: Command[] = [
   // Page 7 - Misc
   abb, androidorweb, antitables, decimal, howtoplay, notations,
   // Page 8 - Misc
-  fivehours, commands, contributors, helperRequest, report, rolerequest, slashcommand,
+  fivehours, commands, contributors, report, rolerequest, slashcommand,
   // Page 9 - Misc
-  discordformatting, invertedtheme, ipepcolour, justask, paperclips, roles, savebank, savesharing, secretachievements, site, xyproblem,
+  discordformatting, ipepcolour, justask, paperclips, roles, savebank, savesharing, secretachievements, site, xyproblem,
   // Page 69 - Very misc
-  bushism, deadchat, pins, slightsmile, time, user, wikipedia, xkcd,
+  deadchat, pins, slightsmile, user, wikipedia, xkcd,
   // No page - bot info
   help, meta
 ];
