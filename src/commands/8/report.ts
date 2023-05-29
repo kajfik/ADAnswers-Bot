@@ -46,15 +46,10 @@ export const report: Command = {
 
     const messageChannel = await interaction.guild?.channels.fetch(splitLink[splitLink.length - 1] as string) ?? null;
 
-    if (messageChannel === null) {
-      await interaction.reply({ content: "Channel not found.", ephemeral: true });
-      return;
-    }
-
     const message = await interaction.channel?.messages.fetch(messageID as MessageResolvable) ?? null;
 
-    if (message === null) {
-      await interaction.reply({ content: "Message not found.", ephemeral: true });
+    if (message === null || messageChannel === null) {
+      await interaction.reply({ content: "Something went wrong. Either the message or the channel was not found.", ephemeral: true });
       return;
     }
 
@@ -63,15 +58,8 @@ export const report: Command = {
       return;
     }
 
-    if (message.content === undefined || message.author.bot) {
-      console.log(message.content);
-      console.log(message.author.bot);
-      await interaction.reply({ content: "This type of message cannot be reported.", ephemeral: true });
-      return;
-    }
-
-    if (message.guildId !== ids.AD.serverID) {
-      await interaction.reply({ content: "This message is not from the AD server, so it cannot be reported.", ephemeral: true });
+    if (message.content === undefined || message.author.bot || message.guildId !== ids.AD.serverID) {
+      await interaction.reply({ content: "This message cannot be reported.", ephemeral: true });
       return;
     }
 
