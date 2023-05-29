@@ -1,10 +1,10 @@
 import { CommandInteraction, hideLinkEmbed, hyperlink } from "discord.js";
-import Decimal from "break_infinity.js";
 import { ids } from "../config.json";
 
 export function isHelper(interaction: CommandInteraction): boolean | undefined {
+  if (!interaction.inGuild()) return true;
   // Now that's an expression!
-  return interaction.guild?.members.resolve(interaction.user)?.roles.cache.has(ids.helperRole);
+  return interaction.guild?.members.resolve(interaction.user)?.roles.cache.has(ids.AD.requestableRoles.helperRole);
 }
 
 export function isEligibleForHelper(interaction: CommandInteraction): boolean {
@@ -50,28 +50,6 @@ export function quantify(word: string, count: number): string {
   return `${count} ${pluralise(word, count)}`;
 }
 
-export function formatNumber(number: number) {
-  const exponent = Math.floor(Math.log10(number));
-  const mantissa = number / Math.pow(10, exponent);
-  return `${mantissa.toFixed(2)}e${exponent}`;
-}
-
-export function formatDecimal(number: Decimal | number) {
-  const val = number instanceof Decimal ? number : new Decimal(number);
-  if (val.lt(1000)) return formatDecimalLessThan1000(val);
-  const exponent = Decimal.floor(val.log10());
-  const mantissa = val.div(new Decimal(10).pow(exponent));
-  return `${mantissa.toFixed(2)}e${exponent}`;
-}
-
-export function formatDecimalLessThan1000(number: Decimal) {
-  return number.toFixed(2);
-}
-
-export function formatPercents(number: number) {
-  return `${Math.floor(number * 100)}%`;
-}
-
 export function toNumber(string: string) {
   const match = string.match(/^\d+/u);
   if (!match) return 0;
@@ -82,10 +60,34 @@ export function randomInArray(array: any[]) {
   return array[Math.floor(Math.random() * array.length)];
 }
 
-export function countWhere(array: Array<any>, predicate: Function) {
-  let count = 0;
-  for (const item of array) {
-    if (predicate(item)) ++count;
-  }
-  return count;
-}
+export const Caesar = {
+  mod: (n: number, p: number) => {
+    let n2 = n;
+    if (n < 0)
+      n2 = p - Math.abs(n) % p;
+
+    return n2 % p;
+  },
+  encrypt: (msg: string, key: number) => {
+    let encMsg = "";
+
+    const upper = msg.toUpperCase();
+
+    for (let i = 0; i < upper.length; i++) {
+      let code = upper.charCodeAt(i);
+
+      // Encrypt only letters in 'A' ... 'Z' interval
+      if (code >= 65 && code <= 65 + 26 - 1) {
+        code -= 65;
+        code = Caesar.mod(code + key, 26);
+        code += 65;
+      }
+
+      encMsg += String.fromCharCode(code);
+    }
+
+    return encMsg;
+  },
+  randomKey: () => Math.floor(Math.random() * 25),
+  randomEncrypt: (msg: string) => Caesar.encrypt(msg, Caesar.randomKey())
+};

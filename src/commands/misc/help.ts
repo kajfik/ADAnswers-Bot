@@ -119,7 +119,7 @@ export const help: Command = {
     await interaction.reply(content).then(() => {
       collector?.on("collect", async i => {
         try {
-          if (i.isSelectMenu()) {
+          if (i.isStringSelectMenu()) {
             const page = parseInt(i.values[0], 10);
             currentPage = page;
             await i.update({ embeds: [getEmbed(page)], files: [picture], components: [buttons, selectMenu] });

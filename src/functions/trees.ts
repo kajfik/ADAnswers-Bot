@@ -66,8 +66,13 @@ export function trees(path?: string) {
       ts: BASE.concat(191, 212, 211),
     },
     {
+      requirement: 147,
+      ts: [...BASE]
+    },
+    // Remove 62 from BASE pre-EC5 recommendation
+    {
       requirement: 123,
-      ts: [...BASE],
+      ts: [...BASE.filter(study => study !== 62)],
     },
     // 2nd Split
     {

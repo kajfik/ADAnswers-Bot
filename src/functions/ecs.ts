@@ -1,7 +1,7 @@
-import { ECDescriptions, ECRewards, EternityChallenges, order } from "../utils/databases/eternitychallenges";
+import { AttachmentBuilder, EmbedBuilder } from "discord.js";
+import { EC, ECsAtTTInfo } from "../utils/types";
+import { ECDescriptions, ECRewards, EternityChallenges, findEC, order } from "../utils/databases/eternitychallenges";
 import { Colour } from "../utils/colours";
-import { EC } from "../utils/types";
-import { EmbedBuilder } from "discord.js";
 import { footerText } from "./Misc";
 
 function findCompletionsAtIndex(indexOfCompletion: number): string {
@@ -41,26 +41,58 @@ export function otherCompletions(id: number, completion: number): string {
   return findCompletionsAtIndex(indexOfCompletion);
 }
 
-export function ecsAtTTAmount(tt: number): string {
+export function ecsAtTTAmount(tt: number): ECsAtTTInfo | string {
   if (tt < 130) return "No ECs can be reasonably completed yet!";
   if (tt === 130) return "1x1";
   if (tt > 12350) return "all ECs completed!";
 
-  const completions = Array(12);
+  let completions = Array(12);
   for (const chall of EternityChallenges) {
     if (chall.tt <= tt) {
       completions[chall.challenge - 1] = chall.completion;
     }
   }
 
-  return completions.filter(Number).map((value, index) => `${index + 1}x${value}`).join(", ");
+  completions = completions.filter(Number).map((value, index) => `${index + 1}x${value}`);
+  const completionIndices = [];
+
+  for (const completion of completions) {
+    completionIndices[completions.indexOf(completion) + 1] = order.indexOf(completion);
+  }
+
+  const highestInOrder = order[completionIndices.sort((a, b) => b - a)[0]];
+  const next = order[order.indexOf(highestInOrder) + 1];
+  const nextECs = [next];
+
+  // It's easier to just bypass all of the while loop like this then messing with whatever the hell is happening there
+  if (next === "12x5") return {
+    completions: completions.join(", "),
+    nextEC: findEC(12, 5),
+    nextECs
+  };
+
+  while (findEC(
+    Number(order[order.indexOf(nextECs[nextECs.length - 1]) + 1].split("x")[0]),
+    Number(order[order.indexOf(nextECs[nextECs.length - 1]) + 1].split("x")[1])
+  ).tt ===
+  findEC(
+    Number(next.split("x")[0]),
+    Number(next.split("x")[1])
+  ).tt) {
+    nextECs.push(order[order.indexOf(nextECs[nextECs.length - 1]) + 1]);
+  }
+
+  return {
+    completions: completions.join(", "),
+    nextEC: findEC(Number(next.split("x")[0]), Number(next.split("x")[1])),
+    nextECs
+  };
 }
 
-export const eternityChallenge = (challengeInfo: EC, requestedFields?: string): EmbedBuilder => new EmbedBuilder()
+export const eternityChallengeEmbedBuilder = (challengeInfo: EC, requestedFields?: string): EmbedBuilder => new EmbedBuilder()
   .setTitle(`Eternity Challenge ${challengeInfo.challenge}x${challengeInfo.completion}`)
   .setColor(Colour.eternity)
   .addFields(shownFields(challengeInfo, requestedFields))
-  .setTimestamp()
   .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
 
 function ecRequirements(ec: EC) {
@@ -80,6 +112,7 @@ export const shownFields = (challengeInfo: EC, requestedFields?: string) => {
     case "tree": return [{ name: "Tree", value: `${challengeInfo.tree}` }];
     case "reward": return [{ name: "Reward", value: `${ECRewards[challengeInfo.challenge].reward}` }, { name: "Reward formula", value: `${ECRewards[challengeInfo.challenge].formula}` }];
     default: {
+      const nextEC = fullEC === "12x5" ? "none" : order[order.indexOf(fullEC) + 1].split("x");
       const fields = [
         { name: "Unlock requirements", value: `${ecRequirements(challengeInfo)}` },
         { name: "Challenge", value: `${ECDescriptions[challengeInfo.challenge]}` },
@@ -90,9 +123,27 @@ export const shownFields = (challengeInfo: EC, requestedFields?: string) => {
         { name: "Tree", value: `${challengeInfo.tree}` },
         { name: "Reward", value: `${ECRewards[challengeInfo.challenge].reward}` },
         { name: "Reward formula", value: `${ECRewards[challengeInfo.challenge].formula}` },
-        { name: "Next EC", value: `${fullEC === "12x5" ? "You have no more ECs left to complete!" : order[order.indexOf(fullEC) + 1]}` }
+        { name: "Next EC", value: `${fullEC === "12x5" ? "You have no more ECs left to complete!"
+          : `${order[order.indexOf(fullEC) + 1]} (${findEC(Number(nextEC[0]), Number(nextEC[1])).tt} TT)`}` }
       ];
       return fields;
     }
   }
 };
+
+interface ECEmbeds {
+  [key: string]: EmbedBuilder
+}
+
+export const EternityChallengeEmbeds: ECEmbeds = {};
+export const EternityChallengeImages: AttachmentBuilder[] = [];
+
+for (const challenge in EternityChallenges) {
+  const chal = EternityChallenges[challenge].challenge;
+  EternityChallengeImages[chal] = new AttachmentBuilder(`src/images/challenges/ec${chal}.png`);
+}
+
+for (const challenge in EternityChallenges) {
+  const chal = EternityChallenges[challenge];
+  EternityChallengeEmbeds[`${chal.challenge}x${chal.completion}`] = eternityChallengeEmbedBuilder(chal).setThumbnail(`attachment://ec${chal.challenge}.png`);
+}

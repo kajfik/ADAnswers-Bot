@@ -18,7 +18,7 @@ export const study: Command = {
       // eslint-disable-next-line camelcase
       min_value: 1,
       // eslint-disable-next-line camelcase
-      max_value: 234,
+      max_value: 304,
     }
   ],
   run: (interaction: CommandInteraction) => {

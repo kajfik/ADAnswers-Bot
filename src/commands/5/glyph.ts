@@ -1,5 +1,6 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, CommandInteraction, EmbedBuilder, SlashCommandSubcommandBuilder, User } from "discord.js";
-import { GlyphEmbedGetter, basicGlyphs } from "../../utils/databases/glyphs";
+import { ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, ChatInputCommandInteraction, EmbedBuilder, User } from "discord.js";
+import { GlyphEmbedGetter, basicGlyphs, specialGlyphs } from "../../utils/databases/glyphs";
+import { effectCountProbabilityCalculator, rarityProbabilityCalculator, threshold } from "../../functions/glyphs";
 import { Command } from "../../command";
 import { GlyphInfo } from "../../utils/types";
 import config from "../../config.json";
@@ -7,8 +8,8 @@ import { isHelper } from "../../functions/Misc";
 
 function getEffectChoices(): { name: string, value: string, type: any }[] {
   const choices = [];
-  for (const glyph in basicGlyphs) {
-    const glyphObject: GlyphInfo = basicGlyphs[glyph];
+  for (const glyph in { ...basicGlyphs, ...specialGlyphs }) {
+    const glyphObject: GlyphInfo = basicGlyphs[glyph] ?? specialGlyphs[glyph];
     choices.push({
       name: glyphObject.name,
       value: glyphObject.name,
@@ -34,7 +35,7 @@ These glyphs appear in the Glyph tab, in a massive grid called the Glyph Invento
 On your first Reality, you are guaranteed to receive a ${isADServer ? "<:glyph_power:586607087744843776>" : "**Ω**"} Power Glyph that raises all Antimatter Dimensions to a small power. It is recommended that you equip it immediately.`;
   },
   // eslint-disable-next-line no-unused-vars
-  equipping(isADServer: boolean): string {
+  equipping(_isADServer: boolean): string {
     return `To equip a Glyph, you must do one of two things:
 
     a) Double click the glyph in your inventory. Your glyph inventory is in the lower right corner of the Glyph tab. Go there, find a glyph (such as the power glyph you got from your first Reality), and double click it. 
@@ -57,7 +58,7 @@ Before you encounter any Celestials, you will have access to 5 effective glyph t
     - ${isADServer ? "<:glyph_dilation:586607200626278421>" : "**Ψ**"} Dilation`;
   },
   // eslint-disable-next-line no-unused-vars
-  rarity(isADServer: boolean): string {
+  rarity(_isADServer: boolean): string {
     return `Rarity is one of the two values determining the strength of a glyph's effects, the other being Level.
     
 The rarity of a glyph is given as a percentage, ranging from 0% to 100%. At first, this value will be determined solely by RNGesus. Later on, there will be ways to improve your odds; the first improvement comes as a result of the achievement "Perks of Living", which increases the rarity of all future Glyphs by 1%. 
@@ -76,7 +77,7 @@ At certain rarity thresholds, the color of your glyph will change. These colors 
     - Celestial, 100%, Celestial Blue`;
   },
   // eslint-disable-next-line no-unused-vars
-  level(isADServer: boolean): string {
+  level(_isADServer: boolean): string {
     return `Level is one of the two values determining the strength of a glyph's effects, the other being Rarity.
     
 The level of a glyph is calculuated based on 3 (or 4) resources you collect during a Reality. These resources are Eternity Points, Replicanti, and Dilated Time. When you purchase the Reality Upgrade "Measure of Forever", Eternities also become a part of the equation. Only the highest amount reached in a Reality is considered.
@@ -92,7 +93,7 @@ All of the above factors are then multiplied together. Finally, other bonuses (S
 All this information can be found under "Glyph Level Factors" in the Glyph tab. `;
   },
   // eslint-disable-next-line no-unused-vars
-  sacrifice(isADServer: boolean): string {
+  sacrifice(_isADServer: boolean): string {
     return `Glyph Sacrifice is a mechanic that you unlock from the Reality Upgrade "Scour to Empower", once you have at least 30 glyphs in your inventory. **"Sacrificing" Glyphs will give you no benefit until you unlock it!**
 
 Glyph Sacrifice allows you to get rid of glyphs that you no longer need, in exchange for a permanent boost based on the glyph's type. Each glyph has a "sacrifice score", based on its level and rarity; when you destroy a glyph, this sacrifice score is added to your total glyph sacrifice for that type.`;
@@ -105,6 +106,13 @@ This is a unique, one-of-a-kind glyph that simply exists to bring you joy.
 It also records the amount of Eternity Points you gained on your first Reality. It allows some of the older AD players to flex a little.
 
 Destroying it gives no benefits, so why would you want to?`;
+  },
+  // eslint-disable-next-line no-unused-vars
+  nextgl(_isADServer: boolean): string {
+    return `
+The X% to next shows how close you are to your Glyph level on reality increasing. You can see the exact breakdown of how this is calculated on the Glyphs screen under "Glyph Level Factors". Once it reaches 100% the Glyph level on Reality will increase by 1.
+
+Basically what the % is showing really is the decimal in the Glyph level formula. Say your Glyph level factors are 1.3x from EP, 1.2x from Replicanti and 1.4x from DT, and +1 from a row of upgrades. Overall that's equal to (1.3 x 1.2 x 1.4) + 1 = 3.184. So you would have a Glyph level of 3, and are 18.4% to next Glyph level.`;
   }
   /* eslint-enable max-len */
 };
@@ -114,34 +122,133 @@ export const glyph: Command = {
   description: "Explains Glyphs, their values, and their effects.",
   type: ApplicationCommandType.ChatInput,
   options: [
-    new SlashCommandSubcommandBuilder()
-      .setName("info")
-      .setDescription("Explains basic information about glyphs")
-      .addStringOption(option =>
-        option.setName("info")
-          .setRequired(true)
-          .setDescription("The information you want to know about")
-          .setChoices(
+    {
+      name: "info",
+      description: "Explains basic information about glyphs",
+      type: ApplicationCommandOptionType.Subcommand,
+      options: [
+        {
+          name: "info",
+          required: true,
+          description: "The information you want to know about",
+          type: ApplicationCommandOptionType.String,
+          choices: [
             { name: "intro", value: "intro" },
             { name: "equipping", value: "equipping" },
             { name: "types", value: "types" },
             { name: "rarity", value: "rarity" },
             { name: "level", value: "level" },
             { name: "sacrifice", value: "sacrifice" },
-            { name: "companion", value: "companion" }
-          )
-      ).toJSON(),
-    new SlashCommandSubcommandBuilder()
-      .setName("effect")
-      .setDescription("Explains the effects of a glyph")
-      .addStringOption(option =>
-        option.setName("glyph")
-          .setRequired(true)
-          .setDescription("The glyph you want to know about")
-          .setChoices(...getEffectChoices())
-      ).toJSON(),
+            { name: "companion", value: "companion" },
+            { name: "nextgl", value: "nextgl" }
+          ]
+        }
+      ]
+    },
+    {
+      name: "effect",
+      description: "Explains the effects of a glyph.",
+      type: ApplicationCommandOptionType.Subcommand,
+      options: [
+        {
+          name: "glyph",
+          required: true,
+          description: "The glyph you want to know about",
+          type: ApplicationCommandOptionType.String,
+          choices: getEffectChoices()
+        },
+        {
+          name: "altered",
+          required: false,
+          description: "Show altered effects instead of normal effects?",
+          type: ApplicationCommandOptionType.Boolean
+        }
+      ]
+    },
+    {
+      name: "utils",
+      description: "access glyph utility functions to find probabilities or other information",
+      type: ApplicationCommandOptionType.SubcommandGroup,
+      options: [
+        {
+          name: "threshold",
+          description: "Returns the minimum level above which three or four effect glyphs start to appear",
+          type: ApplicationCommandOptionType.Subcommand,
+          options: [
+            {
+              name: "rarity",
+              required: true,
+              description: "The percentage rarity between 0 and 100",
+              type: ApplicationCommandOptionType.Number
+            }
+          ]
+        },
+        {
+          name: "rarityprobability",
+          description: "Returns the probability of seeing a glyph with the specified rarity, or greater.",
+          type: ApplicationCommandOptionType.Subcommand,
+          options: [
+            {
+              name: "bonus",
+              description: "Refers to the total percentage rarity added bonus in game",
+              required: true,
+              type: ApplicationCommandOptionType.Number
+            },
+            {
+              name: "ru16",
+              description: "Has reality upgrade 16 (Disparity of Rarity) been bought?",
+              required: true,
+              type: ApplicationCommandOptionType.Boolean
+            },
+            {
+              name: "rarity",
+              description: "The target percentage rarity (must be between 0 and 100)",
+              required: true,
+              type: ApplicationCommandOptionType.Number
+            }
+          ]
+        },
+        {
+          name: "effectprobability",
+          description: "Returns the probability of seeing a glyph with the specified rarity, or greater.",
+          type: ApplicationCommandOptionType.Subcommand,
+          options: [
+            {
+              name: "ru17",
+              description: "Has reality upgrade 17 (Duplicity of Potency) been bought?",
+              required: true,
+              type: ApplicationCommandOptionType.Boolean
+            },
+            {
+              name: "rarity",
+              description: "The target percentage rarity (must be between 0 and 100)",
+              required: true,
+              type: ApplicationCommandOptionType.Number
+            },
+            {
+              name: "level",
+              description: "The target level of the glyph",
+              required: true,
+              type: ApplicationCommandOptionType.Number
+            },
+            {
+              name: "effects",
+              description: "The target number of effects",
+              required: true,
+              type: ApplicationCommandOptionType.Number
+            },
+            {
+              name: "effarig",
+              description: "Is the target glyph type an Effarig glyph?",
+              required: true,
+              type: ApplicationCommandOptionType.Boolean
+            }
+          ],
+        }
+      ]
+    },
   ],
-  run: async(interaction: CommandInteraction) => {
+  run: async(interaction: ChatInputCommandInteraction) => {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     if (interaction.options.data.length > 1) {
@@ -158,6 +265,36 @@ export const glyph: Command = {
 
     const isADServer: boolean = (interaction.guildId === config.ids.AD.serverID);
 
+    if (interaction.options.getSubcommandGroup() !== null) {
+      if (interaction.options.getSubcommand() === "threshold") {
+        const response = await threshold(interaction.options.getNumber("rarity") as number);
+        await interaction.reply({ content: response.status, ephemeral: !isHelper(interaction) });
+        return;
+      }
+
+      if (interaction.options.getSubcommand() === "rarityprobability") {
+        const bonusRarity = interaction.options.getNumber("bonus") as number;
+        const ru16Purchased = interaction.options.getBoolean("ru16") as boolean;
+        const rarity = interaction.options.getNumber("rarity") as number;
+
+        const response = await rarityProbabilityCalculator(bonusRarity, ru16Purchased, rarity);
+        await interaction.reply({ content: response.status, ephemeral: !isHelper(interaction) });
+        return;
+      }
+
+      if (interaction.options.getSubcommand() === "effectprobability") {
+        const ru17Purchased = interaction.options.getBoolean("ru17") as boolean;
+        const rarity = interaction.options.getNumber("rarity") as number;
+        const level = interaction.options.getNumber("level") as number;
+        const effects = interaction.options.getNumber("effects") as number;
+        const isEffarig = interaction.options.getBoolean("effarig") as boolean;
+
+        const response = await effectCountProbabilityCalculator(ru17Purchased, rarity, level, effects, isEffarig);
+        await interaction.reply({ content: response.status, ephemeral: !isHelper(interaction) });
+        return;
+      }
+    }
+
     const type: string = interaction.options.getSubcommand();
 
     if (type === "info") {
@@ -170,11 +307,14 @@ export const glyph: Command = {
     } else {
 
       const glyphName: string = interaction.options.getString("glyph") as string;
+      const altered: boolean = interaction.options.getBoolean("altered") as boolean;
 
       const picture = new AttachmentBuilder(`src/images/glyphs/${glyphName}.png`);
 
-      const glyphRequested = basicGlyphs[glyphName];
-      const embed: EmbedBuilder = GlyphEmbedGetter(glyphRequested, isADServer);
+      const glyphRequested = basicGlyphs[glyphName] ?? specialGlyphs[glyphName];
+
+
+      const embed: EmbedBuilder = GlyphEmbedGetter(glyphRequested, isADServer, altered);
       embed.setAuthor({ name: `${user.username}#${user.discriminator}`, iconURL: user.displayAvatarURL() })
         .setThumbnail(`attachment://${glyphName}.png`);
 

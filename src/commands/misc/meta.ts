@@ -113,12 +113,12 @@ export const meta: Command = {
     const buttons = (disabled: boolean) => new ActionRowBuilder<ButtonBuilder>()
       .addComponents(
         new ButtonBuilder()
-          .setCustomId("meta_button_prev")
+          .setCustomId(`meta_button_prev_${expirationTimestamp}`)
           .setEmoji("◀️")
           .setStyle(ButtonStyle.Primary)
           .setDisabled(disabled),
         new ButtonBuilder()
-          .setCustomId("meta_button_next")
+          .setCustomId(`meta_button_next_${expirationTimestamp}`)
           .setEmoji("▶️")
           .setStyle(ButtonStyle.Primary)
           .setDisabled(disabled),
@@ -149,7 +149,7 @@ export const meta: Command = {
     };
 
     // These filters need fairly verbose conditions, in order to not have the interactions overlap when running multiple collectors.
-    const filter = (i: MessageComponentInteraction) => i.customId.startsWith("meta_button");
+    const filter = (i: MessageComponentInteraction) => i.customId.endsWith(String(expirationTimestamp));
     const collector = interaction.channel?.createMessageComponentCollector({ filter, time: 60000 });
 
     await interaction.reply(content).then(() => {

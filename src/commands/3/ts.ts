@@ -1,7 +1,8 @@
 import { ApplicationCommandOptionType, ApplicationCommandType, CommandInteraction } from "discord.js";
+import { isHelper, makeEnumeration } from "../../functions/Misc";
 import { Command } from "../../command";
 import { Tree } from "../../classes/Tree";
-import { isHelper } from "../../functions/Misc";
+import { ecsAtTTAmount } from "../../functions/ecs";
 
 export const ts: Command = {
   name: "ts",
@@ -14,7 +15,7 @@ export const ts: Command = {
       type: ApplicationCommandOptionType.Integer,
       required: true,
       // eslint-disable-next-line camelcase
-      min_value: 0,
+      min_value: 1,
     },
     {
       name: "path",
@@ -26,6 +27,12 @@ export const ts: Command = {
         { name: "Active", value: "active" },
         { name: "Idle", value: "idle" },
       ]
+    },
+    {
+      name: "showecs",
+      description: "Will show current ECs for that TT amount; x >= 130 where 130 is TT",
+      type: ApplicationCommandOptionType.Boolean,
+      required: false
     }
   ],
   run: async(interaction: CommandInteraction) => {
@@ -33,8 +40,12 @@ export const ts: Command = {
 
     const theorems: number = interaction.options.getInteger("theorems") as number;
     const path: string = interaction.options.getString("path") as string;
+    const showECs: boolean = interaction.options.getBoolean("showecs") as boolean;
     const tree = new Tree(theorems, path).generateTree();
+    const ecs = ecsAtTTAmount(theorems);
+    const next = typeof ecs === "string" ? "" : `(Next: ${makeEnumeration<string>(ecs.nextECs, ", ", "", "and")} at ${ecs.nextEC.tt} TT)`;
+    const ecString: string = showECs && theorems >= 130 ? `EC completions for ${theorems} TT: ${typeof ecs === "string" ? ecs : ecs.completions} ${next}` : "";
 
-    await interaction.reply({ content: tree, ephemeral: !isHelper(interaction) });
+    await interaction.reply({ content: `${tree}\n${ecString}`, ephemeral: !isHelper(interaction) });
   }
 };

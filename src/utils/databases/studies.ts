@@ -6,6 +6,7 @@ const TS_REQUIREMENT_TYPE = {
   ONE: "",
   NONE: "None",
   OR: (one: number, two: number) => `TS${one} or TS${two}`,
+  TRIAD: (a: number, b: number, c: number) => `TS${a}, TS${b}, and TS${c}`
 };
 
 export const STUDY_COLOURS = {
@@ -19,6 +20,7 @@ export const STUDY_COLOURS = {
   DARK: "#000000",
   LIGHT: "#ffffff",
   FORBIDDEN: "#ff0000",
+  TRIAD: "#ead584"
 };
 
 export const TREE_CONSTANTS = {
@@ -612,4 +614,41 @@ export const studies: StudyList = {
     type: "dark",
     exclusiveWith: "TS233 is purchased"
   },
+  "301": {
+    id: 301,
+    effect: "Time Study 231 improves the effect of Time Study 221",
+    formula: "`TimeStudy(221).effectValue.pow(TimeStudy(231).effectValue.minus(1)).clampMin(1)`",
+    cost: 12,
+    reqType: TS_REQUIREMENT_TYPE.TRIAD(221, 222, 231),
+    prerequisites: [221, 222, 231],
+    type: "triad",
+    isTriad: true
+  },
+  "302": {
+    id: 302,
+    effect: "Distant Galaxy scaling threshold starts another 3000 Antimatter Galaxies later",
+    cost: 12,
+    reqType: TS_REQUIREMENT_TYPE.TRIAD(223, 224, 232),
+    prerequisites: [223, 224, 232],
+    type: "triad",
+    isTriad: true
+  },
+  "303": {
+    id: 303,
+    effect: "Gain 50% more extra Replicanti Galaxies from Time Studies 225 and 226",
+    cost: 12,
+    reqType: TS_REQUIREMENT_TYPE.TRIAD(225, 226, 233),
+    prerequisites: [225, 226, 233],
+    type: "triad",
+    isTriad: true
+  },
+  "304": {
+    id: 304,
+    effect: "Dimensional Sacrifice multiplier is squared",
+    cost: 12,
+    reqType: TS_REQUIREMENT_TYPE.TRIAD(227, 228, 234),
+    prerequisites: [227, 228, 234],
+    type: "triad",
+    isTriad: true
+  }
 };

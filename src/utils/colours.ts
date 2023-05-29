@@ -8,10 +8,12 @@ export const Colour: ColourList = {
   // General Progression
   antimatter: "#16a94d",
   infinity: "#b5813c",
+  replication: "#03a9f4",
   eternity: "#b540df",
   dilation: "#5ddd33",
   reality: "#026016",
   celestial: "#5151ec",
+  imaginary: "#c783ce",
 
   // Time Studies
   normal: "#b640dd",
@@ -22,14 +24,21 @@ export const Colour: ColourList = {
   light: "#ffffff",
   dark: "#000000",
   forbidden: "#ff0000",
+  triad: "#ead584",
 
   // Perks
   achievement: "#fbda4b",
   automation: "#ff2a1f",
 
-  // TODO: Celestials
+  // Celestials
   teresa: "#5151ec",
-  // Effarig: "#",
-  // Is it "nameless", or "enslaved"?
+  effarig: "#d13737",
+  nameless: "#f1aa7f",
+  v: "#ead584",
+  ra: "#9575cd",
+  laitela: "#ffffff",
+  pelle: "#dc143c",
 
+  // Special
+  companion: "#feaec9"
 };

@@ -1,3 +1,4 @@
+import { ColorResolvable } from "discord.js";
 import { Model } from "sequelize";
 
 export type AchievementInfo = {
@@ -30,6 +31,12 @@ export type GlyphEffect = {
   effect: string,
   effectFormula: string,
   stacking?: string,
+  altered?: {
+    name: string,
+    effect: string,
+    effectFormula: string,
+    type: number
+  }
 }
 
 export type GlyphInfo = {
@@ -40,8 +47,14 @@ export type GlyphInfo = {
   altText: string,
   // Effects start in the lower left corner and progress clockwise.
   effects: {
-    [key:string]: GlyphEffect
+    [key: string]: GlyphEffect,
   },
+  colour: ColorResolvable,
+}
+
+type APInfo = {
+  givesAP: boolean,
+  amount: number
 }
 
 export type PerkInfo = {
@@ -49,6 +62,7 @@ export type PerkInfo = {
   name: string,
   effect: string,
   prerequisites: string[],
+  ap?: APInfo
 }
 
 export type Milestone = {
@@ -75,6 +89,7 @@ export type StudyInfo = {
   isBestWaifu?: string;
   hasGraph?: boolean;
   graph?: string;
+  isTriad?: boolean
 }
 
 export type TagInfo = {
@@ -105,6 +120,11 @@ export type Trees = {
   desc?: string
 }
 
+export type ChargedInfinityUpgrade = {
+  effect: string
+  formula: string
+}
+
 export type UpgradeInfo = {
   id: string;
   name: string;
@@ -118,6 +138,7 @@ export type UpgradeInfo = {
   increment?: number;
   hasGraph?: boolean;
   graph?: string;
+  charged?: ChargedInfinityUpgrade
 }
 
 export type UserInfo = {
@@ -129,4 +150,10 @@ export type UserInfo = {
   avatar: string;
   tag: Model<any, any> | null;
   tagInfo: Function
+}
+
+export type ECsAtTTInfo = {
+  completions: string
+  nextEC: EC,
+  nextECs: string[]
 }

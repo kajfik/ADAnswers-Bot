@@ -83,7 +83,7 @@ const SecondaryUnlocks: Unlock = {
   "1": (completion: number): number => 20000 + 20000 * completion,
   "2": (completion: number): number => 1300 + 150 * completion,
   "3": (completion: number): number => 17300 + 1550 * completion,
-  "4": (completion: number): number => 1e8 + 5e7 * completion,
+  "4": (completion: number): number => 1e8 + 2.5e7 * completion,
   "5": (completion: number): number => 160 + 14 * completion,
   "6": (completion: number): number => 40 + 5 * completion,
   "7": (completion: number): string => `1e${new Decimal("1e500000").times(new Decimal("1e300000").pow(completion)).exponent}`,
@@ -241,7 +241,7 @@ export const EternityChallenges: EC[] = [
     tt: 140,
     ip: "`1e600`",
     note: "`To unlock the challenge, use TD, and then switch to the tree.`",
-    tree: `11,22,32,42,51,61,71,81,91,101,111,122,132,142,151,161,162,171|3`,
+    tree: "`11,22,32,42,51,61,71,81,91,101,111,122,132,142,151,161,162,171|3`",
     unlock: {
       currency: "8th Antimatter Dimensions",
       amount: SecondaryUnlocks["3"](0),
@@ -776,7 +776,7 @@ export const EternityChallenges: EC[] = [
     challenge: 11,
     completion: 1,
     tt: 5600,
-    ip: "`1e500`",
+    ip: "`1e450`",
     note: "`Get the Popular Music - achievement first (if you need help with it use /achievements Popular Music).`",
     tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,121,131,141,151,161,162,171,181,191,192,193,211,212,213,222,225,231,233|11`",
     unlock: {
@@ -789,7 +789,7 @@ export const EternityChallenges: EC[] = [
     challenge: 11,
     completion: 2,
     tt: 5600,
-    ip: "`1e700`",
+    ip: "`1e650`",
     note: "`Get the Popular Music - achievement first (if you need help with it use /achievements Popular Music).`",
     tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,121,131,141,151,161,162,171,181,191,192,193,211,212,213,222,225,231,233|11`",
     unlock: {
@@ -802,7 +802,7 @@ export const EternityChallenges: EC[] = [
     challenge: 11,
     completion: 3,
     tt: 5950,
-    ip: "`1e900`",
+    ip: "`1e850`",
     note: "`Get the Popular Music - achievement first (if you need help with it use /achievements Popular Music).`",
     tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,123,133,143,151,161,162,171,181,191,192,193,211,212,213,222,223,225,231,233|11`",
     unlock: {
@@ -815,7 +815,7 @@ export const EternityChallenges: EC[] = [
     challenge: 11,
     completion: 4,
     tt: 5950,
-    ip: "`1e1100`",
+    ip: "`1e1050`",
     note: "`Get the Popular Music - achievement first (if you need help with it use /achievements Popular Music).`",
     tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,123,133,143,151,161,162,171,181,191,192,193,211,212,213,222,223,225,231,233|11`",
     unlock: {
@@ -828,8 +828,8 @@ export const EternityChallenges: EC[] = [
     challenge: 11,
     completion: 5,
     tt: 5950,
-    ip: "`1e1300`",
-    note: "`This takes around 2h 45m. Get the Popular Music - achievement first (if you need help with it use /achievements Popular Music).`",
+    ip: "`1e1250`",
+    note: "`This takes around 1h 45m. Get the Popular Music - achievement first (if you need help with it use /achievements Popular Music).`",
     tree: "`11,21,22,31,32,33,41,42,51,61,62,71,81,91,101,111,123,133,143,151,161,162,171,181,191,192,193,211,212,213,222,223,225,231,233|11`",
     unlock: {
       currency: "",

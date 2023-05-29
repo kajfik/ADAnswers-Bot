@@ -1,6 +1,6 @@
 import { ApplicationCommandType, CommandInteraction } from "discord.js";
+import { isHelper, link } from "../../functions/Misc";
 import { Command } from "../../command";
-import { isHelper } from "../../functions/Misc";
 
 export const contributors: Command = {
   name: "contributors",
@@ -12,13 +12,13 @@ export const contributors: Command = {
     // eslint-disable-next-line max-len
     const content: string = `
 Hellbach: basis for most of the commands, provided much of the information used in this bot,
-Kajfik: Code contributions, notably in eternitychallenge.js,
+Kajfik: Code contributions, notably in eternity challenges,
 L4R5: EC database,
 Ninjatsu: the EC spreadsheet used by many players, provided all of the information in the EC database,
 Pez: commands.find() in commands.js,
-MrKrutaman: challenge, study, upgrade art,
-Mirai Sozo: Misc. Reality content`;
-
+MrKrutaman: many sprites used in several commands,
+Mirai Sozo: Misc. Reality content
+Gaunter: ${link("GlyphAPI", "https://github.com/lrobt97/glyphapi")}`;
     await interaction.reply({ content, ephemeral: !isHelper(interaction) });
   }
 };

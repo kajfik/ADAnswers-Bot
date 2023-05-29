@@ -1,7 +1,8 @@
 import { EmbedBuilder, EmbedField } from "discord.js";
-import { footerText, formatNumber, pluralise } from "../../functions/Misc";
+import { footerText, pluralise } from "../../functions/Misc";
 import { Colour } from "../colours";
 import { UpgradeInfo } from "../types";
+import { formatNumber } from "../../utils/format";
 
 interface UpgradeData {
   [key: string]: {
@@ -17,7 +18,11 @@ export const upgrades: UpgradeData = {
       effect: "Antimatter Dimensions gain a multiplier based on time played",
       requirement: "None",
       cost: 1,
-      formula: "`(time played in minutes / 2) ^ 0.15`"
+      formula: "`(time played in minutes / 2) ^ 0.15`",
+      charged: {
+        effect: "Antimatter Dimensions gain a power effect based on time played and Teresa level",
+        formula: "`1 + (log10(log10(time played in milleseconds)) * (Teresa level ^ 0.5)) / 150`"
+      }
     },
     "18mult": {
       id: "18mult",
@@ -25,7 +30,11 @@ export const upgrades: UpgradeData = {
       effect: "1st and 8th Antimatter Dimensions gain a multiplier based on Infinities",
       requirement: "Time Multiplier",
       cost: 1,
-      formula: "`infinities * 0.2 + 1` (affected by TS31)"
+      formula: "`infinities * 0.2 + 1` (affected by TS31)",
+      charged: {
+        effect: "1st and 8th Antimatter Dimensions gain a power effect based on Infinities and Teresa level",
+        formula: "`1 + log10(max(1, log10(infinities))) * sqrt(Teresa level) / 150`",
+      }
     },
     "27mult": {
       id: "27mult",
@@ -33,7 +42,11 @@ export const upgrades: UpgradeData = {
       effect: "2nd and 7th Antimatter Dimensions gain a multiplier based on Infinities",
       requirement: "Buy 10 Multiplier Increase",
       cost: 1,
-      formula: "`infinities * 0.2 + 1` (affected by TS31)"
+      formula: "`infinities * 0.2 + 1` (affected by TS31)",
+      charged: {
+        effect: "2nd and 7th Antimatter Dimensions gain a power effect based on Infinities and Teresa level",
+        formula: "`1 + log10(max(1, log10(infinities))) * sqrt(Teresa level) / 150`",
+      }
     },
     "36mult": {
       id: "36mult",
@@ -41,7 +54,11 @@ export const upgrades: UpgradeData = {
       effect: "3rd and 6th Antimatter Dimensions gain a multiplier based on Infinities",
       requirement: "1st & 8th Antimatter Dimension Multiplier",
       cost: 1,
-      formula: "`infinities * 0.2 + 1` (affected by TS31)"
+      formula: "`infinities * 0.2 + 1` (affected by TS31)",
+      charged: {
+        effect: "3rd and 6th Antimatter Dimensions gain a power effect based on Infinities and Teresa level",
+        formula: "`1 + log10(max(1, log10(infinities))) * sqrt(Teresa level) / 150`",
+      }
     },
     "45mult": {
       id: "45mult",
@@ -49,7 +66,11 @@ export const upgrades: UpgradeData = {
       effect: "4th and 5th Antimatter Dimensions gain a multiplier based on Infinities",
       requirement: "2nd & 7th Antimatter Dimension Multiplier",
       cost: 1,
-      formula: "`infinities * 0.2 + 1` (affected by TS31)"
+      formula: "`infinities * 0.2 + 1` (affected by TS31)",
+      charged: {
+        effect: "4th and 5th Antimatter Dimensions gain a power effect based on Infinities and Teresa level",
+        formula: "`1 + log10(max(1, log10(infinities))) * sqrt(Teresa level) / 150`",
+      }
     },
     "resetBoost": {
       id: "resetBoost",
@@ -57,6 +78,10 @@ export const upgrades: UpgradeData = {
       effect: "Dimboost and Galaxy requirements are reduced by 9",
       requirement: "3rd & 6th Antimatter Dimension Multiplier",
       cost: 1,
+      charged: {
+        effect: "Decrease Dimension Boost requirement based on Teresa level",
+        formula: "`1 / (1 + sqrt(Teresa level) / 10)`",
+      }
     },
     "buy10mult": {
       id: "buy10mult",
@@ -64,7 +89,11 @@ export const upgrades: UpgradeData = {
       effect: "Increase the multiplier for buying 10 Antimatter Dimensions",
       requirement: "None",
       cost: 1,
-      formula: "`2.0` -> `2.2`"
+      formula: "`2.0` -> `2.2`",
+      charged: {
+        effect: "The multiplier for buying 10 Antimatter Dimensions gains a power effect based on Teresa level",
+        formula: "`Teresa level / 200`"
+      }
     },
     "galaxyBoost": {
       id: "galaxyBoost",
@@ -72,6 +101,10 @@ export const upgrades: UpgradeData = {
       effect: "All Galaxies are twice as strong",
       requirement: "4th & 5th Antimatter Dimension Multiplier",
       cost: 2,
+      charged: {
+        effect: "All Galaxies are stronger based on Teresa level",
+        formula: "`2 + sqrt(Teresa level) / 100`\nThis upgrade in the code is a multiplier, so this is x times stronger galaxies. Subtract 1, and turn it into a percent to find the value on the upgrade."
+      }
     },
     "thisInfinityTimeMult": {
       id: "thisInfinityTimeMult",
@@ -79,7 +112,11 @@ export const upgrades: UpgradeData = {
       effect: "Antimatter Dimensions gain a multiplier based on time spent in current Infinity",
       requirement: "None",
       cost: 3,
-      formula: "`max((time in this infinity in minutes / 5) ^ 0.25, 1)`"
+      formula: "`max((time in this infinity in minutes / 5) ^ 0.25, 1)`",
+      charged: {
+        effect: "Antimatter Dimensions gain a power effect based on time spent in current Infinity and Teresa level",
+        formula: "`1 + (log10(log10(time played in milleseconds)) * (Teresa level ^ 0.5)) / 150`"
+      }
     },
     "unspentIPMult": {
       id: "unspentIPMult",
@@ -87,7 +124,11 @@ export const upgrades: UpgradeData = {
       effect: "Multiplier to 1st Antimatter Dimension based on unspent Infinity Points",
       requirement: "This Infinity Time Multiplier",
       cost: 5,
-      formula: "`((infinity points / 2) ^ 1.5) + 1`"
+      formula: "`((infinity points / 2) ^ 1.5) + 1`",
+      charged: {
+        effect: "Multiplier to 1st Antimatter Dimension based on unspent Infinity Points, powered by Teresa level",
+        formula: "`((IP / 2) ^ (sqrt(Teresa level) * 1.5)) + 1`"
+      }
     },
     "dimboostMult": {
       id: "dimboostMult",
@@ -95,7 +136,11 @@ export const upgrades: UpgradeData = {
       effect: "Increase Dimension Boost multiplier",
       requirement: "Unspent IP Multiplier",
       cost: 7,
-      formula: "`2.0` -> `2.5`"
+      formula: "`2.0` -> `2.5`",
+      charged: {
+        effect: "Dimension Boost multiplier gains a power effect based on Teresa level",
+        formula: "`1 + Teresa level / 200`"
+      }
     },
     "ipGen": {
       id: "ipGen",
@@ -103,7 +148,11 @@ export const upgrades: UpgradeData = {
       effect: "Passively generate Infinity Points 10 times slower than your fastest Infinity",
       requirement: "Dimboost Multiplier Increase",
       cost: 10,
-      formula: "1 IP (affected by all IP multipliers) every `fastest infinity in milliseconds * 10`"
+      formula: "1 IP (affected by all IP multipliers) every `fastest infinity in milliseconds * 10`",
+      charged: {
+        effect: "Gain Reality Machines each real-time second proportional to amount gained on Reality, increasing with Teresa level",
+        formula: "`Teresa level ^ 2`\nBoosted by V level 10 by a factor of `1 + 2.4 * (min(10, max(0, log10(TT) - 350) / 50))`"
+      }
     },
     "skipReset1": {
       id: "skipReset1",
@@ -393,7 +442,7 @@ export const upgrades: UpgradeData = {
       id: "cosmicallyDuplicate",
       name: "Cosmically Duplicate",
       effect: "Replicanti speed is multiplied based on Replicanti Galaxies",
-      formula: "1 + 0.02 * (Replicanti Galaxies)",
+      formula: "`1 + 0.02 * (Replicanti Galaxies)`",
       initialCost: 15,
       requirement: "Complete your first Eternity in a Reality without using Replicanti Galaxies"
     },
@@ -401,7 +450,7 @@ export const upgrades: UpgradeData = {
       id: "innumerablyConstruct",
       name: "Innumerably Construct",
       effect: "Infinity gain is boosted from Antimatter Galaxy count",
-      formula: "1 + 0.02 * (Replicanti Galaxies)",
+      formula: "`1 + (galaxies / 30)`",
       initialCost: 15,
       requirement: "Complete your first Infinity in a Reality with at most 1 Antimatter Galaxy"
     },
@@ -409,7 +458,7 @@ export const upgrades: UpgradeData = {
       id: "paradoxicallyAttain",
       name: "Paradoxically Attain",
       effect: "Tachyon Particle gain is boosted based on Achievement Multiplier",
-      formula: "sqrt(Achievement Multiplier)",
+      formula: "`sqrt(Achievement Multiplier)`",
       initialCost: 15,
       requirement: "Get to Eternity without any Automatic Achievements (Your first Reality does not count)"
     },
@@ -431,7 +480,7 @@ export const upgrades: UpgradeData = {
       id: "boundlessFlow",
       name: "The Boundless Flow",
       effect: "Every second, gain 10% of the Infinities you would normally gain from Infinitying",
-      formula: "(Infinities gained on Crunch) * 0.1",
+      formula: "`(Infinities gained on Crunch) * 0.1`",
       initialCost: 50,
       requirement: "Have at least 1e12 Banked Infinities at once"
     },
@@ -439,13 +488,13 @@ export const upgrades: UpgradeData = {
       id: "knowingExistence",
       name: "The Knowing Existence",
       effect: "Eternity Point multiplier based on Reality and Time Theorem count",
-      // Formula: "Unknown",
+      formula: "`max(TT - 1e3, 2) ^ log2(min(realities, 1e4))`",
       initialCost: 50,
       requirement: "Eternity for 1e70 Eternity Points without any Eternity Challenge 1 completions"
     },
-    "telomechanicalProcess": {
-      id: "telomechanicalProcess",
-      name: "The Telomechanical Process",
+    "telemechanicalProcess": {
+      id: "telemechanicalProcess",
+      name: "The Telemechanical Process",
       effect: "Improve Eternity Autobuyer and unlock autobuyers for Time Dimensions and the x5 EP upgrade",
       initialCost: 50,
       requirement: "Eternity for 1e4000 EP without Time Dimensions 5-8"
@@ -454,7 +503,7 @@ export const upgrades: UpgradeData = {
       id: "eternalFlow",
       name: "The Eternal Flow",
       effect: "Gain Eternities per second equal to your Reality count",
-      formula: "(Reality count)",
+      formula: "`(Reality count)`, affected by Eternity multipliers",
       initialCost: 50,
       requirement: "Have at least 1e7 Eternities in a single Reality"
     },
@@ -462,7 +511,7 @@ export const upgrades: UpgradeData = {
       id: "paradoxicalForever",
       name: "The Paradoxical Forever",
       effect: "Boost Tachyon Particle gain based on the x5 Eternity Point multiplier",
-      // Formula: "Unknown",
+      formula: "`max(sqrt(log10(ep mult effect)) / 9, 1)`",
       initialCost: 50,
       requirement: "Have 1e10 Eternity Points without purchasing the x5 Eternity Point Upgrade"
     },
@@ -513,15 +562,15 @@ export const upgrades: UpgradeData = {
       id: "temporalTranscendence",
       name: "Temporal Transcendence",
       effect: "Time Dimension multiplier based on days spent in a Reality",
-      // Formula: "Unknown"
+      formula: "`10 ^ (1 + (2 * log10(time in reality in days + 1)) ^ 1.6)`",
       initialCost: 1e5,
       requirement: "Have at least e28000 Time Shards"
     },
-    "replicativeRapidly": {
-      id: "replicativeRapidly",
-      name: "Replicative Rapidly",
+    "replicativeRapidity": {
+      id: "replicativeRapidity",
+      name: "Replicative Rapidity",
       effect: "Replicanti speed is boosted based on your fastest Reality (game time)",
-      // Formula: "Unknown"
+      formula: "`15 / clamp(best reality in minutes, 1/12, 15)`",
       initialCost: 1e5,
       requirement: "Make a new Reality in under 15 minutes (game time)"
     },
@@ -539,6 +588,201 @@ export const upgrades: UpgradeData = {
       initialCost: 1e5,
       requirement: "Reach 1e11111 EP"
     },
+  },
+  imaginary: {
+    // Repeatables
+    "temporalIntensifier": {
+      id: "temporalIntensifier",
+      name: "Temporal Intensifier",
+      effect: "Increase Temporal Amplifier multiplier by +0.15",
+      initialCost: 3,
+      increment: 60,
+      rebuyable: true
+    },
+    "replicativeIntensifier": {
+      id: "replicativeIntensifier",
+      name: "Replicative Intensifier",
+      effect: "Increase Replicative Amplifier multiplier by +0.15",
+      initialCost: 4,
+      increment: 60,
+      rebuyable: true
+    },
+    "eternalIntensifier": {
+      id: "eternalIntensifier",
+      name: "Eternal Intensifier",
+      effect: "Increase Eternal Amplifier multiplier by +0.40",
+      initialCost: 1,
+      increment: 40,
+      rebuyable: true,
+    },
+    "superluminalIntensifier": {
+      id: "superluminalIntensifier",
+      name: "Superluminal Intensifier",
+      effect: "Increase Superluminal Amplifier multiplier by +0.15",
+      initialCost: 5,
+      increment: 80,
+      rebuyable: true,
+    },
+    "boundlessIntensifier": {
+      id: "boundlessIntensifier",
+      name: "Boundless Intensifier",
+      effect: "Increase Boundless Amplifier multiplier by +0.60",
+      initialCost: 1,
+      increment: 30,
+      rebuyable: true,
+    },
+    "ellipticMateriality": {
+      id: "ellipticMateriality",
+      name: "Elliptic Materiality",
+      effect: "Increase the Reality Machine cap by ×1e100",
+      initialCost: 1e4,
+      increment: 500,
+      rebuyable: true,
+    },
+    "runicAssurance": {
+      id: "runicAssurance",
+      name: "Runic Assurance",
+      effect: "Delay Glyph Instability starting level by 200",
+      initialCost: 2e5,
+      increment: 500,
+      rebuyable: true,
+    },
+    "hyperbolicApeirogon": {
+      id: "hyperbolicApeirogon",
+      name: "Hyperbolic Apeirogon",
+      effect: "Multiply Infinity Dimensions by 1e100,000",
+      initialCost: 1e7,
+      increment: 800,
+      rebuyable: true,
+    },
+    "cosmicFilament": {
+      id: "cosmicFilament",
+      name: "Cosmic Filament",
+      effect: "Increase Galaxy strength",
+      initialCost: 1e9,
+      increment: 1000,
+      rebuyable: true,
+    },
+    "entropicCondensing": {
+      id: "entropicCondensing",
+      name: "Entropic Condensing",
+      effect: "Increase Singularity gain",
+      initialCost: 8e9,
+      increment: 2000,
+      rebuyable: true,
+    },
+    // Single time
+    "suspicionOfInterference": {
+      id: "suspicionOfInterference",
+      name: "Suspicion of Interference",
+      effect: "Time Dimension power based on total antimatter",
+      initialCost: 5e7,
+      requirement: "1e90 total Relic Shards",
+      formula: "`1 + (log10(log10(antimatter)) / 100)`"
+    },
+    "consequencesOfIllusions": {
+      id: "consequencesOfIllusions",
+      name: "Consequences of Illusions",
+      effect: "Gain free Dimboosts based on Imaginary rebuyable count",
+      initialCost: 5e7,
+      requirement: "Make a level 9,000 Glyph with a single Glyph level factor weight at 100",
+      formula: "`2e4 * rebuyable count`"
+    },
+    "transienceOfInformation": {
+      id: "transienceOfInformation",
+      name: "Transience of Information",
+      effect: "Increase Imaginary Machine Cap based on Imaginary Upgrades purchased",
+      initialCost: 5e7,
+      requirement: "Reach 1.80e308 projected Reality Machines within The Nameless Ones' Reality",
+      formula: "`1 + (rebuyables / 20) + (one time purchases / 2)`"
+    },
+    "recollectionOfIntrusion": {
+      id: "recollectionOfIntrusion",
+      name: "Recollection of Intrusion",
+      effect: "Raise all Dimension per-purchase multipliers to ^1.5",
+      initialCost: 3.5e8,
+      requirement: "Reach a tickspeed of 1e7.500e10 / sec within Eternity Challenge 5"
+    },
+    "fabricationOfIdeals": {
+      id: "fabricationOfIdeals",
+      name: "Fabrication of Ideals",
+      effect: "Convert Antimatter Dimensions to Continuum and unlock Lai'tela, Celestial of Dimensions",
+      initialCost: 1e9,
+      requirement: "Reach 1e1.500e12 antimatter without ever having any 1st Infinity Dimensions"
+    },
+    "masslessMomentum": {
+      id: "masslessMomentum",
+      name: "Massless Momentum",
+      effect: "Unlock the 2nd Dark Matter Dimension",
+      initialCost: 3.5e9,
+      requirement: "Destabilize Lai'tela's Reality in under 30 seconds twice"
+    },
+    "chiralOscillation": {
+      id: "chiralOscillation",
+      name: "Chiral Oscillation",
+      effect: "Unlock the 3rd Dark Matter Dimension",
+      initialCost: 6e9,
+      requirement: "Automatically condense at least 20 Singularities at once"
+    },
+    "dimensionalSymmetry": {
+      id: "dimensionalSymmetry",
+      name: "Dimensional Symmetry",
+      effect: "Unlock the 4th Dark Matter Dimension",
+      initialCost: 1.5e10,
+      requirement: "Have 80,000 total Galaxies"
+    },
+    "deterministicRadiation": {
+      id: "deterministicRadiation",
+      name: "Deterministic Radiation",
+      effect: "Unlock Dark Matter Annihilation",
+      initialCost: 2.8e10,
+      requirement: "Reach 3,850,000 Tickspeed Continuum without ever having more than 8 Time Studies in this Reality"
+    },
+    "vacuumAcceleration": {
+      id: "vacuumAcceleration",
+      name: "Vacuum Acceleration",
+      effect: "Unlock Autobuyers for repeatable Imaginary Upgrades and generate Imaginary Machines 10 times faster",
+      initialCost: 3e12,
+      requirement: "Have a Continuum increase from Dark Matter of at least 100%"
+    },
+    "existentialElimination": {
+      id: "existentialElimination",
+      name: "Existential Elimination",
+      effect: "Annihilation multiplier gain is improved based on Imaginary Machines",
+      initialCost: 1e13,
+      requirement: "Reach 1e7.400e12 antimatter with Continuum disabled",
+      formula: "`max((log10(iM) - 10) ^ 3, 1)`"
+    },
+    "totalTermination": {
+      id: "totalTermination",
+      name: "Total Termination",
+      effect: "Glyph Sacrifice totals for basic Glyphs are increased to 1e100",
+      initialCost: 1.5e14,
+      requirement: "Reach 1e1.500e11 antimatter in Effarig's Reality with at least 4 Cursed Glyphs equipped"
+    },
+    "planarPurification": {
+      id: "planarPurification",
+      name: "Planar Purification",
+      effect: "Increase free Dimboost count based on Tesseract count",
+      initialCost: 6e14,
+      requirement: "Reach Glyph level 20,000 in Ra's Reality with at most 0 Glyphs equipped",
+      formula: "`floor(0.25 * (tesseracts ^ 2))`"
+    },
+    "absoluteAnnulment": {
+      id: "absoluteAnnulment",
+      name: "Absolute Annulment",
+      effect: "Increase free Dimboost strength based on Singularity count",
+      initialCost: 6e14,
+      requirement: "Have 13,000 Antimatter Galaxies in Ra's Reality with a fully inverted Black Hole",
+      formula: "`singularities ^ 300`"
+    },
+    "omnipresentObliteration": {
+      id: "omnipresentObliteration",
+      name: "Omnipresent Obliteration",
+      effect: "Unlock Pelle, Celestial of Antimatter",
+      initialCost: 1.6e15,
+      requirement: "Reach Reality in Lai'tela's Reality with all Dimensions disabled and at least 4 empty Glyph slots"
+    }
   }
 };
 
@@ -551,6 +795,12 @@ const FieldGetter = {
     ];
     if (upgradeInfo.formula) fields.push({ name: "Effect formula", value: upgradeInfo.formula, inline: false });
     return fields;
+  },
+  charged(upgradeInfo: UpgradeInfo): EmbedField[] {
+    return [
+      { name: "Effect", value: upgradeInfo.charged?.effect as string, inline: false },
+      { name: "Formula", value: upgradeInfo.charged?.formula as string, inline: false }
+    ];
   },
   breakInfinity(upgradeInfo: UpgradeInfo): EmbedField[] {
     const fields = [
@@ -583,19 +833,35 @@ const FieldGetter = {
     const formattedCost = formatNumber(upgradeInfo.initialCost as number);
     const fields = [
       { name: "Effect", value: upgradeInfo.effect, inline: false },
-      { name: "Cost", value: `${formattedCost} ${pluralise("Reality Machine", upgradeInfo.cost as number)}${upgradeInfo.rebuyable ? `, increasing by a factor of ${upgradeInfo.increment} each purchase` : ``}`, inline: false },
+      { name: "Cost", value: `${formattedCost} ${pluralise("Reality Machine", upgradeInfo.initialCost as number)}${upgradeInfo.rebuyable ? `, increasing by a factor of ${upgradeInfo.increment} each purchase` : ``}`, inline: false },
     ];
     if (upgradeInfo.requirement) fields.push({ name: "Requirement", value: upgradeInfo.requirement as string, inline: false });
     if (upgradeInfo.formula) fields.push({ name: "Effect formula", value: upgradeInfo.formula, inline: false });
     return fields;
-
-  }
+  },
+  imaginary(upgradeInfo: UpgradeInfo): EmbedField[] {
+    const formattedCost = formatNumber(upgradeInfo.initialCost as number);
+    const fields = [
+      { name: "Effect", value: upgradeInfo.effect, inline: false },
+      { name: "Cost", value: `${formattedCost} ${pluralise("Imaginary Machine", upgradeInfo.initialCost as number)}${upgradeInfo.rebuyable ? `, increasing by a factor of ${upgradeInfo.increment} each purchase` : ``}`, inline: false },
+    ];
+    if (upgradeInfo.requirement) fields.push({ name: "Requirement", value: upgradeInfo.requirement as string, inline: false });
+    if (upgradeInfo.formula) fields.push({ name: "Effect formula", value: upgradeInfo.formula, inline: false });
+    return fields;
+  },
 };
 
 const InfinityUpgrade = (upgradeInfo: UpgradeInfo) => new EmbedBuilder()
   .setTitle(upgradeInfo.name)
   .setColor(Colour.infinity)
   .addFields(FieldGetter.infinity(upgradeInfo))
+  .setTimestamp()
+  .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
+
+const ChargedInfinityUpgrade = (upgradeInfo: UpgradeInfo) => new EmbedBuilder()
+  .setTitle(upgradeInfo.name)
+  .setColor(Colour.celestial)
+  .addFields(FieldGetter.charged(upgradeInfo))
   .setTimestamp()
   .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
 
@@ -627,14 +893,22 @@ const RealityUpgrade = (upgradeInfo: UpgradeInfo) => new EmbedBuilder()
   .setTimestamp()
   .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
 
+const ImaginaryUpgrade = (upgradeInfo: UpgradeInfo) => new EmbedBuilder()
+  .setTitle(upgradeInfo.name)
+  .setColor(Colour.imaginary)
+  .addFields(FieldGetter.imaginary(upgradeInfo))
+  .setTimestamp()
+  .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
 interface EmbedGetters {
   [key: string]: Function;
 }
 
 export const UpgradeEmbedGetters: EmbedGetters = {
   infinity: InfinityUpgrade,
+  charged: ChargedInfinityUpgrade,
   break: BreakInfinityUpgrade,
   eternity: EternityUpgrade,
   dilation: DilationUpgrade,
-  reality: RealityUpgrade
+  reality: RealityUpgrade,
+  imaginary: ImaginaryUpgrade
 };

@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, CommandInteraction, EmbedBuilder, SlashCommandSubcommandBuilder, User } from "discord.js";
+import { ApplicationCommandOptionData, ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, CommandInteraction, EmbedBuilder, User } from "discord.js";
 import { UpgradeEmbedGetters, upgrades } from "../../utils/databases/upgrades";
 import { Command } from "../../command";
 import { UpgradeInfo } from "../../utils/types";
@@ -18,57 +18,52 @@ function getChoices(typeOfUpgrade: string): { name: string, value: string, type:
   return choices;
 }
 
+const createOption = (name: string): ApplicationCommandOptionData => ({
+  name,
+  description: `explains what a ${name} upgrade is and does`,
+  type: ApplicationCommandOptionType.Subcommand,
+  options: [
+    {
+      name: "upgrade",
+      description: "your desired upgrade",
+      required: true,
+      type: ApplicationCommandOptionType.String,
+      choices: getChoices(name)
+    },
+  ]
+});
+
 export const upgrade: Command = {
   name: "upgrade",
   description: "Args: `infinity`, `break`, `eternity`, `dilation`, `reality`. Explains what the upgrades are",
   type: ApplicationCommandType.ChatInput,
   options: [
-    new SlashCommandSubcommandBuilder()
-      .setName("infinity")
-      .setDescription("Explains what a infinity upgrade is")
-      .addStringOption(option =>
-        option.setName("upgrade")
-          .setRequired(true)
-          .setDescription("The upgrade you want to know about")
-          .setChoices(...getChoices("infinity"))
-      ).toJSON(),
-    new SlashCommandSubcommandBuilder()
-      .setName("break")
-      .setDescription("Explains what a break upgrade is")
-      .addStringOption(option =>
-        option.setName("upgrade")
-          .setRequired(true)
-          .setDescription("The upgrade you want to know about")
-          .setChoices(...getChoices("break"))
-      ).toJSON(),
-    new SlashCommandSubcommandBuilder()
-      .setName("eternity")
-      .setDescription("Explains what a eternity upgrade is")
-      .addStringOption(option =>
-        option.setName("upgrade")
-          .setRequired(true)
-          .setDescription("The upgrade you want to know about")
-          .setChoices(...getChoices("eternity"))
-      ).toJSON(),
-    new SlashCommandSubcommandBuilder()
-      .setName("dilation")
-      .setDescription("Explains what a dilation upgrade is")
-      .addStringOption(option =>
-        option.setName("upgrade")
-          .setRequired(true)
-          .setDescription("The upgrade you want to know about")
-          .setChoices(...getChoices("dilation"))
-      ).toJSON(),
-    new SlashCommandSubcommandBuilder()
-      .setName("reality")
-      .setDescription("Explains what a reality upgrade is")
-      .addStringOption(option =>
-        option.setName("upgrade")
-          .setRequired(true)
-          .setDescription("The upgrade you want to know about")
-          // So uh, fun fact -- The number of Reality upgrades slides in RIGHT under the limit, <= 25.
-          .setChoices(...getChoices("reality"))
-      ).toJSON(),
+    // Leaving infinity as a special case because I have no clue man
+    {
+      name: "infinity",
+      description: "explains what an infinity upgrade is",
+      type: ApplicationCommandOptionType.Subcommand,
+      options: [
+        {
+          name: "upgrade",
+          description: "your desired upgrade",
+          required: true,
+          type: ApplicationCommandOptionType.String,
+          choices: getChoices("infinity")
+        },
+        {
+          name: "charged",
+          description: "is the infinity upgrade charged?",
+          required: false,
+          type: ApplicationCommandOptionType.Boolean
+        }
+      ]
+    },
+    createOption("break"),
+    createOption("eternity"),
+    createOption("dilation"),
+    createOption("reality"),
+    createOption("imaginary"),
   ],
   run: async(interaction: CommandInteraction) => {
     if (!interaction || !interaction.isChatInputCommand()) return;
@@ -87,13 +82,17 @@ export const upgrade: Command = {
 
     const type: string = interaction.options.getSubcommand();
     const upgradeName: string = interaction.options.getString("upgrade") as string;
+    const charged: boolean = type === "infinity" && !upgradeName.startsWith("skipReset")
+      ? interaction.options.getBoolean("charged") as boolean
+      : false;
 
-    const picture = new AttachmentBuilder(`src/images/upgrades/${type}.png`);
+    const picture = new AttachmentBuilder(`src/images/upgrades/${charged ? "charged" : type}.png`);
 
     const upgradeRequested = upgrades[type][upgradeName];
-    const embed: EmbedBuilder = UpgradeEmbedGetters[type](upgradeRequested);
+
+    const embed: EmbedBuilder = UpgradeEmbedGetters[charged ? "charged" : type](upgradeRequested);
     embed.setAuthor({ name: `${user.username}#${user.discriminator}`, iconURL: user.displayAvatarURL() })
-      .setThumbnail(`attachment://${type}.png`);
+      .setThumbnail(`attachment://${charged ? "charged" : type}.png`);
 
     if (upgradeRequested.hasGraph) {
       embed.addFields({ name: "Effect formula graph", value: "** **" });

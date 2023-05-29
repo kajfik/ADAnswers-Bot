@@ -1,0 +1,112 @@
+import { ActionRowBuilder, ApplicationCommandOptionType, ApplicationCommandType, ButtonBuilder, ButtonStyle, ChatInputCommandInteraction, Colors, ComponentType, EmbedBuilder, MessageComponentInteraction, Role } from "discord.js";
+import { isEligibleForHelper, isHelper } from "../../functions/Misc";
+import { Command } from "../../command";
+import { ids } from "../../config.json";
+
+// eslint-disable-next-line max-params
+const runRoleRequest = async(roleName: string, hasRole: boolean, fieldContent: string[], roleID: string, interaction: ChatInputCommandInteraction, eligibilityCondition?: boolean) => {
+  if (eligibilityCondition !== undefined && !eligibilityCondition) {
+    await interaction.reply({ content: `You are not currently eligible for the ${roleName} role.`, ephemeral: true });
+    return;
+  }
+
+  const expirationTimestamp = Math.floor((Date.now() + 60000) / 1000);
+
+  const field = hasRole
+    ? { name: `Removing the "${roleName}" role will...`, value: fieldContent[0] }
+    : { name: `Adding the "${roleName}" role will...`, value: fieldContent[1] };
+
+  const embed = (disabled: boolean) => new EmbedBuilder()
+    .setColor(Colors.DarkAqua)
+    .setTitle(`${roleName} Role Request`)
+    .setDescription(`Are you sure you want to ${hasRole ? "remove" : "add"} the "${roleName}" role?\nExpire${disabled ? "d" : "s"} <t:${expirationTimestamp}:R> at <t:${expirationTimestamp}:T>`)
+    .setThumbnail(interaction.user.displayAvatarURL())
+    .addFields(field)
+    .setTimestamp();
+
+  const buttons = (disabled: boolean) => new ActionRowBuilder<ButtonBuilder>()
+    .addComponents(
+      new ButtonBuilder()
+        .setDisabled(disabled)
+        .setStyle(hasRole ? ButtonStyle.Danger : ButtonStyle.Success)
+        .setLabel(hasRole ? "Remove" : "Add")
+        .setCustomId(hasRole ? `role_request_button_remove_${expirationTimestamp}` : `role_request_button_add_${expirationTimestamp}`)
+    );
+
+  // These filters need fairly verbose conditions, in order to not have the interactions overlap when running multiple collectors.
+  const filter = (i: MessageComponentInteraction) => i.customId.endsWith(String(expirationTimestamp));
+  const collector = interaction.channel?.createMessageComponentCollector({ componentType: ComponentType.Button, filter, time: 60000, max: 1 });
+
+  await interaction.reply({ embeds: [embed(false)], components: [buttons(false)], ephemeral: true })
+    .then(() => {
+      collector?.once("collect", async i => {
+        await interaction.guild?.members.fetch(interaction.user.id).then(async member => {
+          if (hasRole) member.roles.remove(roleID);
+          else member.roles.add(roleID);
+
+          // eslint-disable-next-line max-len
+          await i.update({ content: `You have successfully ${hasRole ? "removed" : "added"} the "${roleName}" role. You can safely remove this embed. Remember, you can always run /rolerequest again to reverse your decision.` });
+        });
+      });
+      collector?.on("end", async() => {
+        await interaction.editReply({
+          embeds: [embed(true)],
+          components: [buttons(true)],
+        });
+      });
+    }).catch(e => console.log(e));
+};
+
+export const rolerequest: Command = {
+  name: "rolerequest",
+  description: "request various roles such as helper or adab notis",
+  type: ApplicationCommandType.ChatInput,
+  options: [
+    {
+      name: "role",
+      description: "what role would you like?",
+      type: ApplicationCommandOptionType.Role,
+      required: true
+    }
+  ],
+  run: async(interaction: ChatInputCommandInteraction) => {
+    if (!interaction || !interaction.isChatInputCommand()) return;
+
+    const roleRequested: Role = interaction.options.getRole("role") as Role;
+
+    if (!Object.values(ids.AD.requestableRoles).includes(roleRequested.id)) {
+      await interaction.reply({ content: `You can't request the \`${roleRequested.name}\` role, dummy!`, ephemeral: true });
+      return;
+    }
+
+    if (!interaction.inGuild() || interaction.guildId !== ids.AD.serverID) {
+      await interaction.reply({ content: `To request this role, you must be using the command in the AD server.`, ephemeral: true });
+      return;
+    }
+
+    if (roleRequested.id === ids.AD.requestableRoles.helperRole) {
+      await runRoleRequest(
+        "Helper",
+        isHelper(interaction) as boolean,
+        ["prevent you from using the bot in Progression Discussion visibly. You can add this role at any time by doing /helper again.",
+          // eslint-disable-next-line max-len
+          `allow you to use the bot in Progression Discussion. To become a Helper, understand that you agree to keep all *personal* use of the bot to <#351479640755404820> or the bot's DMs, and only use the bot outside of there to assist others on their journey through Antimatter Dimensions. **You are not free of consequences.** This is effectively a contract. Breaking it can result in some form of punishment. Moderators and admins are aware at all times of who is and who isn't a helper.\nYou can remove this role at any time by doing /helper again.`],
+        ids.AD.requestableRoles.helperRole,
+        interaction,
+        isEligibleForHelper(interaction)
+      );
+    }
+
+    if (roleRequested.id === ids.AD.requestableRoles.notificationsRole) {
+      await runRoleRequest(
+        "ADAnswersBot Notifications",
+        interaction.guild?.members.resolve(interaction.user)?.roles.cache.has(ids.AD.requestableRoles.notificationsRole) as boolean,
+        ["mean that you are no longer mentioned when the bot either receives an update or is experiencing an outage. You can add this role at any time by doing /rolerequest again.",
+          "mean that you will begin to be mentioned when the bot either receives an update or is experiencing an outage. You can remove this role at any time by doing /rolerequest again."],
+        ids.AD.requestableRoles.notificationsRole,
+        interaction,
+        true
+      );
+    }
+  }
+};

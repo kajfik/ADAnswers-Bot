@@ -133,5 +133,204 @@ export const h2p: HowToPlay = {
     \t\t\t**Tip:** Dilation confirmation dialog can be turned off in the Options.`,
     "particles": `\t\t\t**Tachyon Particles** generate another currency called Dilated Time. This generation is 1:1. Dilated Time is translated into Tachyon (Dilated, on web) Galaxies by reaching thresholds similarly to free tickspeed upgrades from Time Dimensions. These Tachyon Galaxies are like Replicanti Galaxies in that they increase the effectiveness of your Tickspeed upgrades as if they were Antimatter Galaxies but they don't increase the cost of your next Antimatter Galaxy.`,
     "upgrades": `\t\t\tUnlocking Time Dilation also unlocks **Dilation Upgrades** you can purchase using Dilated Time. The first three Dilation Upgrades can be repeatedly purchased as many times as you can afford them.`
+  },
+  "savefile": {
+    "stored": `
+Your game's save data is stored on your computer's browser data if you are playing on a web browser, or in your Steam installation folder if you are playing on Steam. This means that clearing your browser's cache or cookies, or fully uninstalling the game from Steam will also delete your save file.
+
+Similarly, if you are playing in a private or incognito window, your save won't be there the next time you open up your browser. The saves are browser-specific as well, so for example if you play the game on Chrome, you won't find your save on Firefox. Lastly, any saves you have on the web version and the Steam version will also be completely independent from each other.
+    `,
+    "transfer": `
+You can transfer your save between places by using the export function, which will copy a *very* long string of random-looking characters into your clipboard. That text contains your save data, which you can load back into the game by pasting it into the text box on the import prompt. You need the entirety of the save text for importing to work properly, or else the game might not recognize the text as a valid save. Certain messaging applications may cut off part of the text if you are using one to transfer the save between devices.
+    `,
+    "formatting": `
+A properly-formatted save string from the Reality update will start with **AntimatterDimensionsSavefileFormatAAB** and end with **EndOfSavefile**. If you are importing from a version of the game from before Reality was released, it will instead start with **eyJ** and end with **In19**, **fX0=**, or **fQ==**. If neither of these are the case, then part of your save is missing and it will fail to import. In addition to importing and exporting to your clipboard, you can also import and export from text files as well.
+    `,
+    "saveswitching": `
+You can use the "Choose save" button to pick between three separate saves on your browser. These saves are, for most intents and purposes, completely separate from each other. Importing and exporting will only affect the current save slot. **The only exception is clearing your browser or Steam data, in which case all three saves will be reset.**
+    `,
+    "autosave": `
+The game automatically saves periodically, by default once every 30 seconds, and it will notify you in the top-right corner of the screen whenever it saves. Keep this in mind if you need to close the game - anything you do right before closing it might not be saved unless you wait for the autosave interval or manually save again. The length of the autosave interval is adjustable in Options -> Saving.
+    `,
+    "cloud": `
+You can also connect a Google Account to the game, allowing you to save your progress online. This allows you to play with the same save on any device which is also logged into the same account. Cloud saving is only compatable with other saves on the web or Steam versions of the game; saves from the Android app of the game won't be automatically linked via Cloud saving. Saving and loading from the Cloud will automatically overwrite the other save unless the other save is either older or has noticeably more progression, in which case a modal will appear which asks you which save you want to keep.
+    `,
+    "hardreset": `
+You can completely reset your save at any point if desired by clicking the button, which brings up a prompt you need to fill out in order to make sure you intentionally wanted to reset. Going through with this reset will only clear your current save; the other save slots will be unaffected. **Resetting your game in this way is completely irreversible and gives you no permanent benefits, secret or otherwise.**`
+  },
+  "customisation": {
+    "ui": `
+The game has two different UI layouts - the Classic UI maintains the style of Antimatter Dimensions from before the Reality update, while the Modern UI is a redesign based on more modern dark theme styles. Additionally, there are various themes which can be applied to modify the appearance of everything in the game. There are a few secret themes which can be unlocked through importing certain phrases. Both UI layouts support all the different possible themes.
+    `,
+    "notation": `
+The notation used to display numbers in the game defaults to Mixed Scientific, but can be changed to one of numerous options in the drop-down menu. Many of these notations are intended as jokes and in some cases will format numbers in a way that causes text to spill over into other parts of the screen - this is not a bug. "Exponent formatting" is a setting affecting some notations which lets you toggle between showing the number in an exponent itself (with commas every three digits) or also applying the notation formatting to the exponent. Note that notation formatting is forced when exponents are larger than 1e9.
+    `,
+    "animations": `
+Many events in the game trigger full-screen animations or pop-up modals which require you to confirm that you want to continue. Most of these animations and confirmations can be disabled on an individual basis through the options, although the ability to disable any given animation or confirmation will only appear after they have already shown up at least once.
+    `,
+  },
+  "offline": {
+    "info": `
+Antimatter Dimensions has a catch-up mechanic which attempts to simulate the game's behavior if the game is closed for an extended period of time. The simulation behavior is only somewhat accurate, as the game is too mathematically complicated to be run at full accuracy in a reasonable amount of time. At the end of the simulation, the game will summarize how various relevant resources have changed while you were gone.
+
+Offline progress can be disabled entirely if desired, for example for diagnostic or timing purposes, or in order to do an "online only" playthrough of the game. Otherwise, offline progress is on by default from the very beginning of the game. Note that if offline progress is disabled, the statistic for total time played will also be paused while the game closed.
+    `,
+    "ticks": `
+The game runs on a system where everything is updated once per tick - all Dimensions and resources do one unit of production, all autobuyers trigger once, all multipliers and values are changed accordingly, and all the displayed numbers are updated. By default there are 20 ticks per second when the game is running, although this can be modified by changing the "Update rate" within the game Options.
+
+You will run the game at (1000 / your update rate in options) ticks per second on average, although lag and internal Javascript behavior may cause individual ticks to vary by a few percent. Offline tick count can be adjusted between 500 and 1,000,000 ticks. Smaller counts will result in faster but less accurate simulations, while larger counts will result in more accurate simulations which take longer to complete.
+    `,
+    "length": `
+When offline simulation is active, these ticks have an adjusted length in order to fill the amount of time you were away - for example having a setting for 1,000 offline ticks and closing the game for an hour will result in ticks which are 3.6 seconds long each. For most things in the game, this is not an issue because this will still result in approximately the same amount of resources after the simulation completes. A notable exception is autobuyers - in this situation autobuyers will effectively only trigger once every 3.6 seconds, which may have a strong impact depending on the part of the game.
+    `,
+    "offlinebh": `
+Once the Black Hole has been unlocked, the offline progress simulation will attempt to run the game in a way where each tick contains roughly the same amount of *game* time. This may give the appearance of the Black Hole(s) being active for a much larger fraction of time than normal while simulating, when in fact the game is running active periods more slowly and "skipping past" the inactive periods because they contribute much less production per real time. This results in behavior which is generally in your favor when compared to ticks with constant real time.`
+  },
+  "effects": {
+    "additive": `
+These effects are typically denoted with a + (or the word "increase") followed by a number, and add their value to some base amount. Multiple additive effects are summed up. These can also sometimes show up as subtractive effects which reduce resource costs.
+    `,
+    "multiplicative": `
+These effects are shown either by a × (or the word "multiply") followed by a number or, more rarely, as two numbers separated by a ➜. Different multiplicative sources always combine by multiplying, never by adding. In some situations, there may be negative effects or cost reductions that apply in this category as division.
+    `,
+    "powers": `
+    These effects are much rarer and appear as ^ followed by a number. Multiple power effects apply sequentially, or equivalently by multiplying the values of the power effects together and applying the final value as a single power. In rare situations, negative effects may apply here in this category as powers which are less than 1.
+    `,
+    "stacking": `
+Unless otherwise noted when an upgrade or reward *replaces* an older value, all of these effects stack with each other. In the case of an upgrade replacing an older value with a newer value, the replacement occurs before any of the above effects are applied. To determine the final value of a set of effects, the effects from each category are individually combined, and then applied in the order of additive, multiplicative, then power effects.
+
+Dilation and any Dilation-like effects apply *after* all of these other effects are stacked together.
+    `,
+    "glyphstacking": `
+Glyph Effects effectively have two stacking attributes; their internal way of stacking together and the way they stack with all other game effects. These may not necessarily be the same - for example, the "Antimatter Dimension Power" effect will stack *additively with itself*, but then the total effect will be added to a base value of 1 and then applied as a *power effect* to Antimatter Dimensions.`
+  },
+  "antimatterdimensions": {
+    "antimatter": `
+Antimatter is a resource that is throughout the entire game for purchasing various things as you progress. You start with 10 antimatter when you first open the game. And you can spend it to buy the 1st Antimatter Dimension to start the game.
+    `,
+    "antimatterdimensions": `
+Antimatter Dimensions are your production units in game. The 1st Antimatter Dimension produces your antimatter.
+Each consecutive Antimatter Dimension produces the previous one, allowing you to have steady growth.
+There are eight Antimatter Dimensions total.
+**Base prices:**: 10, 100, 1e4, 1e6, 1e9, 1e13, 1e18, 1e24
+**Base per 10 bought price increases&&: 1e3, 1e4, 1e5, 1e6, 1e8, 1e10, 1e12, 1e15**
+    `,
+    "multiplier": `
+Beside the Dimension there is a multiplier (example: 1st Dimension ×1.0). The base production of each Dimension is multiplied by this number. This multiplier increases by ×2 for every 10 of that Dimension purchased. Each time this occurs, the price of the dimension will increase.
+    `,
+    "quantity": `
+The next column is your current amount of that Dimension you own. This is a combination of how many you have purchased with antimatter, as well as produced from the higher Dimension.
+
+Next to each accumulated quantity of owned Dimensions, the amount of that Dimension purchased toward the next multiplier upgrade is displayed in brackets. For example if you have (4) next to your accumulated dimension quantity, you'll need 6 more of that dimension for the next multiplier increase.
+    `,
+    "growth": `
+This number represents the amount of growth that each Dimension experiences per second. 100% means the dimension is doubling each second. This allows you to judge overall growth.
+    `,
+    "button": `
+You can buy a single quantity of each Dimension with antimatter when the cost button is highlighted. Alternatively, if the Until 10 button is highlighted, you can buy whatever quantity gets you to that Dimension's next Dimension multiplier.
+    `,
+    "max": `
+Max all will buy until 10 of the 1st Antimatter Dimension until it can't anymore, then second, and so on until the 8th Antimatter Dimension, and then buy max Tickspeed Upgrades.`
+  }
+};
+
+export const H2P = {
+  "savefile": {
+    "stored": `
+Your game's save data is stored on your computer's browser data if you are playing on a web browser, or in your Steam installation folder if you are playing on Steam. This means that clearing your browser's cache or cookies, or fully uninstalling the game from Steam will also delete your save file.
+
+Similarly, if you are playing in a private or incognito window, your save won't be there the next time you open up your browser. The saves are browser-specific as well, so for example if you play the game on Chrome, you won't find your save on Firefox. Lastly, any saves you have on the web version and the Steam version will also be completely independent from each other.
+    `,
+    "transfer": `
+You can transfer your save between places by using the export function, which will copy a *very* long string of random-looking characters into your clipboard. That text contains your save data, which you can load back into the game by pasting it into the text box on the import prompt. You need the entirety of the save text for importing to work properly, or else the game might not recognize the text as a valid save. Certain messaging applications may cut off part of the text if you are using one to transfer the save between devices.
+    `,
+    "formatting": `
+A properly-formatted save string from the Reality update will start with **AntimatterDimensionsSavefileFormatAAB** and end with **EndOfSavefile**. If you are importing from a version of the game from before Reality was released, it will instead start with **eyJ** and end with **In19**, **fX0=**, or **fQ==**. If neither of these are the case, then part of your save is missing and it will fail to import. In addition to importing and exporting to your clipboard, you can also import and export from text files as well.
+    `,
+    "saveswitching": `
+You can use the "Choose save" button to pick between three separate saves on your browser. These saves are, for most intents and purposes, completely separate from each other. Importing and exporting will only affect the current save slot. **The only exception is clearing your browser or Steam data, in which case all three saves will be reset.**
+    `,
+    "autosave": `
+The game automatically saves periodically, by default once every 30 seconds, and it will notify you in the top-right corner of the screen whenever it saves. Keep this in mind if you need to close the game - anything you do right before closing it might not be saved unless you wait for the autosave interval or manually save again. The length of the autosave interval is adjustable in Options -> Saving.
+    `,
+    "cloud": `
+You can also connect a Google Account to the game, allowing you to save your progress online. This allows you to play with the same save on any device which is also logged into the same account. Cloud saving is only compatable with other saves on the web or Steam versions of the game; saves from the Android app of the game won't be automatically linked via Cloud saving. Saving and loading from the Cloud will automatically overwrite the other save unless the other save is either older or has noticeably more progression, in which case a modal will appear which asks you which save you want to keep.
+    `,
+    "hardreset": `
+You can completely reset your save at any point if desired by clicking the button, which brings up a prompt you need to fill out in order to make sure you intentionally wanted to reset. Going through with this reset will only clear your current save; the other save slots will be unaffected. **Resetting your game in this way is completely irreversible and gives you no permanent benefits, secret or otherwise.**`
+  },
+  "customisation": {
+    "ui": `
+The game has two different UI layouts - the Classic UI maintains the style of Antimatter Dimensions from before the Reality update, while the Modern UI is a redesign based on more modern dark theme styles. Additionally, there are various themes which can be applied to modify the appearance of everything in the game. There are a few secret themes which can be unlocked through importing certain phrases. Both UI layouts support all the different possible themes.
+    `,
+    "notation": `
+The notation used to display numbers in the game defaults to Mixed Scientific, but can be changed to one of numerous options in the drop-down menu. Many of these notations are intended as jokes and in some cases will format numbers in a way that causes text to spill over into other parts of the screen - this is not a bug. "Exponent formatting" is a setting affecting some notations which lets you toggle between showing the number in an exponent itself (with commas every three digits) or also applying the notation formatting to the exponent. Note that notation formatting is forced when exponents are larger than 1e9.
+    `,
+    "animations": `
+Many events in the game trigger full-screen animations or pop-up modals which require you to confirm that you want to continue. Most of these animations and confirmations can be disabled on an individual basis through the options, although the ability to disable any given animation or confirmation will only appear after they have already shown up at least once.
+    `,
+  },
+  "offline": {
+    "info": `
+Antimatter Dimensions has a catch-up mechanic which attempts to simulate the game's behavior if the game is closed for an extended period of time. The simulation behavior is only somewhat accurate, as the game is too mathematically complicated to be run at full accuracy in a reasonable amount of time. At the end of the simulation, the game will summarize how various relevant resources have changed while you were gone.
+
+Offline progress can be disabled entirely if desired, for example for diagnostic or timing purposes, or in order to do an "online only" playthrough of the game. Otherwise, offline progress is on by default from the very beginning of the game. Note that if offline progress is disabled, the statistic for total time played will also be paused while the game closed.
+    `,
+    "ticks": `
+The game runs on a system where everything is updated once per tick - all Dimensions and resources do one unit of production, all autobuyers trigger once, all multipliers and values are changed accordingly, and all the displayed numbers are updated. By default there are 20 ticks per second when the game is running, although this can be modified by changing the "Update rate" within the game Options.
+
+You will run the game at (1000 / your update rate in options) ticks per second on average, although lag and internal Javascript behavior may cause individual ticks to vary by a few percent. Offline tick count can be adjusted between 500 and 1,000,000 ticks. Smaller counts will result in faster but less accurate simulations, while larger counts will result in more accurate simulations which take longer to complete.
+    `,
+    "length": `
+When offline simulation is active, these ticks have an adjusted length in order to fill the amount of time you were away - for example having a setting for 1,000 offline ticks and closing the game for an hour will result in ticks which are 3.6 seconds long each. For most things in the game, this is not an issue because this will still result in approximately the same amount of resources after the simulation completes. A notable exception is autobuyers - in this situation autobuyers will effectively only trigger once every 3.6 seconds, which may have a strong impact depending on the part of the game.
+    `,
+    "offlinebh": `
+Once the Black Hole has been unlocked, the offline progress simulation will attempt to run the game in a way where each tick contains roughly the same amount of *game* time. This may give the appearance of the Black Hole(s) being active for a much larger fraction of time than normal while simulating, when in fact the game is running active periods more slowly and "skipping past" the inactive periods because they contribute much less production per real time. This results in behavior which is generally in your favor when compared to ticks with constant real time.`
+  },
+  "effects": {
+    "additive": `
+These effects are typically denoted with a + (or the word "increase") followed by a number, and add their value to some base amount. Multiple additive effects are summed up. These can also sometimes show up as subtractive effects which reduce resource costs.
+    `,
+    "multiplicative": `
+These effects are shown either by a × (or the word "multiply") followed by a number or, more rarely, as two numbers separated by a ➜. Different multiplicative sources always combine by multiplying, never by adding. In some situations, there may be negative effects or cost reductions that apply in this category as division.
+    `,
+    "powers": `
+    These effects are much rarer and appear as ^ followed by a number. Multiple power effects apply sequentially, or equivalently by multiplying the values of the power effects together and applying the final value as a single power. In rare situations, negative effects may apply here in this category as powers which are less than 1.
+    `,
+    "stacking": `
+Unless otherwise noted when an upgrade or reward *replaces* an older value, all of these effects stack with each other. In the case of an upgrade replacing an older value with a newer value, the replacement occurs before any of the above effects are applied. To determine the final value of a set of effects, the effects from each category are individually combined, and then applied in the order of additive, multiplicative, then power effects.
+
+Dilation and any Dilation-like effects apply *after* all of these other effects are stacked together.
+    `,
+    "glyphstacking": `
+Glyph Effects effectively have two stacking attributes; their internal way of stacking together and the way they stack with all other game effects. These may not necessarily be the same - for example, the "Antimatter Dimension Power" effect will stack *additively with itself*, but then the total effect will be added to a base value of 1 and then applied as a *power effect* to Antimatter Dimensions.`
+  },
+  "antimatterdimensions": {
+    "antimatter": `
+Antimatter is a resource that is throughout the entire game for purchasing various things as you progress. You start with 10 antimatter when you first open the game. And you can spend it to buy the 1st Antimatter Dimension to start the game.
+    `,
+    "antimatterdimensions": `
+Antimatter Dimensions are your production units in game. The 1st Antimatter Dimension produces your antimatter.
+Each consecutive Antimatter Dimension produces the previous one, allowing you to have steady growth.
+There are eight Antimatter Dimensions total.
+**Base prices:**: 10, 100, 1e4, 1e6, 1e9, 1e13, 1e18, 1e24
+**Base per 10 bought price increases&&: 1e3, 1e4, 1e5, 1e6, 1e8, 1e10, 1e12, 1e15**
+    `,
+    "multiplier": `
+Beside the Dimension there is a multiplier (example: 1st Dimension ×1.0). The base production of each Dimension is multiplied by this number. This multiplier increases by ×2 for every 10 of that Dimension purchased. Each time this occurs, the price of the dimension will increase.
+    `,
+    "quantity": `
+The next column is your current amount of that Dimension you own. This is a combination of how many you have purchased with antimatter, as well as produced from the higher Dimension.
+
+Next to each accumulated quantity of owned Dimensions, the amount of that Dimension purchased toward the next multiplier upgrade is displayed in brackets. For example if you have (4) next to your accumulated dimension quantity, you'll need 6 more of that dimension for the next multiplier increase.
+    `,
+    "growth": `
+This number represents the amount of growth that each Dimension experiences per second. 100% means the dimension is doubling each second. This allows you to judge overall growth.
+    `,
+    "button": `
+You can buy a single quantity of each Dimension with antimatter when the cost button is highlighted. Alternatively, if the Until 10 button is highlighted, you can buy whatever quantity gets you to that Dimension's next Dimension multiplier.
+    `,
+    "max": `
+Max all will buy until 10 of the 1st Antimatter Dimension until it can't anymore, then second, and so on until the 8th Antimatter Dimension, and then buy max Tickspeed Upgrades.`
   }
 };

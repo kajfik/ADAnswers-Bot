@@ -1,7 +1,7 @@
 import { ActionRowBuilder,
+  ChatInputCommandInteraction,
   Client,
   Colors,
-  CommandInteraction,
   EmbedBuilder,
   Interaction,
   InteractionType,
@@ -12,10 +12,10 @@ import { ActionRowBuilder,
   TextInputBuilder,
   TextInputStyle } from "discord.js";
 import { incrementBigFourTags, incrementTag } from "../functions/database";
-import { isHelper, link } from "../functions/Misc";
 import { Commands } from "../commands";
 import { InteractionEvents } from "../classes/events/InteractionEvents";
 import { ids } from "../config.json";
+import { link } from "../functions/Misc";
 import { tags } from "../bot";
 
 let currentMessageBeingReported: MessageContextMenuCommandInteraction;
@@ -27,7 +27,7 @@ export default (client: Client): void => {
         await handleContextMenu(interaction);
       } else if (interaction.type === InteractionType.ApplicationCommand) {
         if (interaction.isMessageContextMenuCommand()) return;
-        await handleSlashCommand(client, interaction);
+        await handleSlashCommand(client, interaction as ChatInputCommandInteraction);
       } else if (interaction.type === InteractionType.ModalSubmit) {
         await interaction.deferReply({ ephemeral: true });
         await handleModalSubmit(currentMessageBeingReported, interaction);
@@ -91,13 +91,8 @@ const handleModalSubmit = async(interaction: MessageContextMenuCommandInteractio
   await modalSubmitInteraction.editReply({ content: "Report successfully sent to mod team with the below information.", embeds: [messageReportEmbed] });
 };
 
-const handleSlashCommand = async(client: Client, interaction: CommandInteraction): Promise<void> => {
+const handleSlashCommand = async(client: Client, interaction: ChatInputCommandInteraction): Promise<void> => {
   if (!client.application?.owner) await client.application?.fetch();
-
-  if (interaction.channelId === ids.AD.general && interaction.commandName !== "deadchat" && !isHelper(interaction)) {
-    InteractionEvents.commandInGeneral(interaction);
-    return;
-  }
 
   if (await InteractionEvents.hasCommand(interaction, client)) await incrementTag("totalRequests", tags.commandUsage, false);
 
@@ -117,6 +112,6 @@ const handleSlashCommand = async(client: Client, interaction: CommandInteraction
     await incrementBigFourTags(interaction.commandName, `${interaction.user.username}#${interaction.user.discriminator}`);
   } catch (error) {
     console.log(error);
-    interaction.reply({ content: `Error running command ${interaction.commandName}` });
+    interaction.reply({ content: `Error running command ${interaction.commandName} <@${ids.earth}>` });
   }
 };

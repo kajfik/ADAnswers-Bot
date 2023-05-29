@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, CommandInteraction, EmbedBuilder, SlashCommandSubcommandBuilder, User } from "discord.js";
+import { ApplicationCommandOptionData, ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, CommandInteraction, EmbedBuilder, User } from "discord.js";
 import { PerkEmbedGetters, perks } from "../../utils/databases/perks";
 import { PerkInfo, StringIndexedStringObjectType } from "../../utils/types";
 import { Command } from "../../command";
@@ -48,87 +48,51 @@ function getChoices(typeOfperk: string): { name: string, value: string, type: an
   return choices;
 }
 
+const createOption = (name: string): ApplicationCommandOptionData => ({
+  name,
+  description: `Explains what a ${name} perk is`,
+  type: ApplicationCommandOptionType.Subcommand,
+  options: [
+    {
+      name: "perk",
+      description: "your desired perk",
+      required: true,
+      type: ApplicationCommandOptionType.String,
+      choices: getChoices(name)
+    }
+  ]
+});
+
 export const perk: Command = {
   name: "perk",
   description: "Args: `info`, `<perk type>`. Explains what the perks are",
   type: ApplicationCommandType.ChatInput,
   options: [
-    new SlashCommandSubcommandBuilder()
-      .setName("info")
-      .setDescription("Provides basic information on perks")
-      .addStringOption(option =>
-        option.setName("info")
-          .setRequired(true)
-          .setDescription("Perk info you wish to know about")
-          .setChoices(...[
-            { name: "intro", value: "intro", type: ApplicationCommandOptionType.String },
-            { name: "types", value: "types", type: ApplicationCommandOptionType.String },
-            { name: "strategy", value: "strategy", type: ApplicationCommandOptionType.String }
-          ])
-      ).toJSON(),
-    new SlashCommandSubcommandBuilder()
-      .setName("achievement")
-      .setDescription("Explains what an achievement perk is")
-      .addStringOption(option =>
-        option.setName("perk")
-          .setRequired(true)
-          .setDescription("The perk you want to know about")
-          .setChoices(...getChoices("achievement"))
-      ).toJSON(),
-    new SlashCommandSubcommandBuilder()
-      .setName("automation")
-      .setDescription("Explains what an automation perk is")
-      .addStringOption(option =>
-        option.setName("perk")
-          .setRequired(true)
-          .setDescription("The perk you want to know about")
-          .setChoices(...getChoices("automation"))
-      ).toJSON(),
-    new SlashCommandSubcommandBuilder()
-      .setName("antimatter")
-      .setDescription("Explains what an antimatter perk is")
-      .addStringOption(option =>
-        option.setName("perk")
-          .setRequired(true)
-          .setDescription("The perk you want to know about")
-          .setChoices(...getChoices("antimatter"))
-      ).toJSON(),
-    new SlashCommandSubcommandBuilder()
-      .setName("infinity")
-      .setDescription("Explains what a infinity perk is")
-      .addStringOption(option =>
-        option.setName("perk")
-          .setRequired(true)
-          .setDescription("The perk you want to know about")
-          .setChoices(...getChoices("infinity"))
-      ).toJSON(),
-    new SlashCommandSubcommandBuilder()
-      .setName("eternity")
-      .setDescription("Explains what a eternity perk is")
-      .addStringOption(option =>
-        option.setName("perk")
-          .setRequired(true)
-          .setDescription("The perk you want to know about")
-          .setChoices(...getChoices("eternity"))
-      ).toJSON(),
-    new SlashCommandSubcommandBuilder()
-      .setName("dilation")
-      .setDescription("Explains what a dilation perk is")
-      .addStringOption(option =>
-        option.setName("perk")
-          .setRequired(true)
-          .setDescription("The perk you want to know about")
-          .setChoices(...getChoices("dilation"))
-      ).toJSON(),
-    new SlashCommandSubcommandBuilder()
-      .setName("reality")
-      .setDescription("Explains what a reality perk is")
-      .addStringOption(option =>
-        option.setName("perk")
-          .setRequired(true)
-          .setDescription("The perk you want to know about")
-          .setChoices(...getChoices("reality"))
-      ).toJSON(),
+    {
+      name: "info",
+      description: "Provides basic information on perks",
+      type: ApplicationCommandOptionType.Subcommand,
+      options: [
+        {
+          name: "info",
+          required: true,
+          description: "The information you wish to know about",
+          type: ApplicationCommandOptionType.String,
+          choices: [
+            { name: "intro", value: "intro" },
+            { name: "types", value: "types" },
+            { name: "strategy", value: "strategy" }
+          ]
+        }
+      ]
+    },
+    createOption("achievement"),
+    createOption("automation"),
+    createOption("antimatter"),
+    createOption("infinity"),
+    createOption("eternity"),
+    createOption("dilation"),
+    createOption("reality"),
   ],
   run: async(interaction: CommandInteraction) => {
     if (!interaction || !interaction.isChatInputCommand()) return;
@@ -158,12 +122,14 @@ export const perk: Command = {
 
       const perkName: string = interaction.options.getString("perk") as string;
 
-      const picture = new AttachmentBuilder(`src/images/perks/${type}.png`);
-
       const perkRequested = perks[type][perkName];
+
+      const imageName = `${type}${perkRequested.ap ? `_ap` : ``}`;
+      const picture = new AttachmentBuilder(`src/images/perks/${imageName}.png`);
+
       const embed: EmbedBuilder = PerkEmbedGetters[type](perkRequested);
       embed.setAuthor({ name: `${user.username}#${user.discriminator}`, iconURL: user.displayAvatarURL() })
-        .setThumbnail(`attachment://${type}.png`);
+        .setThumbnail(`attachment://${imageName}.png`);
 
       await interaction.reply({ embeds: [embed], files: [picture], ephemeral: !isHelper(interaction) });
     }

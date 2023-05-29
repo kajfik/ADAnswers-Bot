@@ -1,5 +1,5 @@
-import { Achievement, acceptableArgs, achievementsMessageObject } from "../../utils/databases/achievements";
-import { ActionRowBuilder, ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, ButtonBuilder, ButtonStyle, CommandInteraction, InteractionReplyOptions, MessageComponentInteraction, User } from "discord.js";
+import { AchievementEmbeds, AchievementImages, acceptableArgs, achievementsMessageObject } from "../../utils/databases/achievements";
+import { ActionRowBuilder, ApplicationCommandOptionType, ApplicationCommandType, ButtonBuilder, ButtonStyle, CommandInteraction, ComponentType, InteractionReplyOptions, MessageComponentInteraction, User } from "discord.js";
 import { findAchievementByID, findAchievementByName } from "../../functions/achievements";
 import { isHelper, link } from "../../functions/Misc";
 import { AchievementInfo } from "src/utils/types";
@@ -29,12 +29,12 @@ const getNextPage = (currentPage: number, up: boolean) => {
     newPage -= 2;
   }
 
-  // If our new page that we ended up on is >138, roll back to 11
-  // If our new page that we ended up on is <11, roll back to 138
-  if (newPage > 148) {
+  // If our new page that we ended up on is >188, roll back to 11
+  // If our new page that we ended up on is <11, roll back to 188
+  if (newPage > 188) {
     newPage = 11;
   } else if (newPage < 11) {
-    newPage = 138;
+    newPage = 188;
   }
 
   return newPage;
@@ -60,7 +60,7 @@ export const achievements: Command = {
       // eslint-disable-next-line camelcase
       min_value: 11,
       // eslint-disable-next-line camelcase
-      max_value: 148,
+      max_value: 188,
     }
   ],
   run: async(interaction: CommandInteraction) => {
@@ -92,11 +92,11 @@ export const achievements: Command = {
         achievement = findAchievementByID(11) as AchievementInfo;
       }
 
-      let picture = new AttachmentBuilder(`src/images/achievements/${achievement.id}.png`);
+      let picture = AchievementImages[achievement.id];
 
-      let embed = Achievement(achievement)
+      let embed = AchievementEmbeds[achievement.id]
         .setAuthor({ name: `${user.username}#${user.discriminator}`, iconURL: user.displayAvatarURL() })
-        .setImage(`attachment://${achievement.id}.png`);
+        .setTimestamp();
 
       const expirationTimestamp = Math.floor((Date.now() + 60000) / 1000);
       let currentPage = achievement.id;
@@ -125,7 +125,7 @@ export const achievements: Command = {
 
       // These filters need fairly verbose conditions, in order to not have the interactions overlap when running multiple collectors.
       const filter = (i: MessageComponentInteraction) => i.customId.endsWith(String(expirationTimestamp));
-      const collector = interaction.channel?.createMessageComponentCollector({ filter, time: 60000 });
+      const collector = interaction.channel?.createMessageComponentCollector({ componentType: ComponentType.Button, filter, time: 60000 });
 
       await interaction.reply(content).then(() => {
         collector?.on("collect", async i => {
@@ -138,14 +138,14 @@ export const achievements: Command = {
             // Change all these variables
             currentPage = page;
             achievement = findAchievementByID(currentPage) as AchievementInfo;
-            picture = new AttachmentBuilder(`src/images/achievements/${achievement.id}.png`);
-            embed = Achievement(achievement)
+            picture = AchievementImages[achievement.id];
+            embed = AchievementEmbeds[achievement.id]
               .setAuthor({ name: `${user.username}#${user.discriminator}`, iconURL: user.displayAvatarURL() })
-              .setThumbnail(`attachment://${achievement.id}`);
+              .setTimestamp();
 
             // Update initial message
             await i.update({
-              files: [`src/images/achievements/${achievement.id}.png`],
+              files: [picture],
               embeds: [embed],
               components: [buttons(false)],
             });

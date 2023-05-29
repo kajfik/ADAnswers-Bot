@@ -1,8 +1,19 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, CommandInteraction, EmbedBuilder, User } from "discord.js";
-import { eternityChallenge, shownFields } from "../../functions/ecs";
+import { ActionRowBuilder, ApplicationCommandOptionType, ApplicationCommandType, ButtonBuilder, ButtonStyle, CommandInteraction, ComponentType, InteractionReplyOptions, MessageComponentInteraction, User } from "discord.js";
+import { EternityChallengeEmbeds, EternityChallengeImages, shownFields } from "../../functions/ecs";
+import { findEC, order } from "../../utils/databases/eternitychallenges";
 import { Command } from "../../command";
-import { findEC } from "../../utils/databases/eternitychallenges";
 import { isHelper } from "../../functions/Misc";
+
+const getNextPage = (currentPage: string, up: boolean) => {
+  let newPage = up ? order[order.indexOf(currentPage) + 1] : order[order.indexOf(currentPage) - 1];
+
+  if (newPage === undefined) {
+    if (up) newPage = order[0];
+    else newPage = order[order.length - 1];
+  }
+
+  return newPage;
+};
 
 export const ec: Command = {
   name: "ec",
@@ -68,25 +79,81 @@ export const ec: Command = {
     if (!isHelper(interaction)) hide = true;
 
     const user: User = interaction.member === null ? interaction.user : interaction.member.user as User;
-    const picture: AttachmentBuilder = new AttachmentBuilder(`src/images/challenges/EC${eternityChallengeRequested}.png`);
+    const expirationTimestamp = Math.floor((Date.now() + 60000) / 1000);
 
-    const chall = findEC(eternityChallengeRequested, completion);
-
-    const embed: EmbedBuilder = eternityChallenge(chall)
-      .setAuthor({ name: `${user.username}#${user.discriminator}`, iconURL: user.displayAvatarURL() })
-      .setThumbnail(`attachment://EC${eternityChallengeRequested}.png`);
-
-    if (!info) {
-      await interaction.reply({ content: target ? `*Suggested for <@${target.id}>*` : undefined, embeds: [embed], files: [picture], ephemeral: hide });
-      return;
-    }
+    let chall = findEC(eternityChallengeRequested, completion);
 
     if (info === "tree") {
       await interaction.reply({ content: `${target ? `*Suggested for <@${target.id}>:*\n` : ""}${chall.tree}`, ephemeral: hide });
       return;
     }
 
-    embed.setFields(shownFields(findEC(eternityChallengeRequested, completion), info));
-    await interaction.reply({ content: target ? `*Suggested for <@${target.id}>*` : undefined, embeds: [embed], files: [picture], ephemeral: hide });
+    let picture = EternityChallengeImages[chall.challenge];
+    const embed = (disabled: boolean) => EternityChallengeEmbeds[`${chall.challenge}x${chall.completion}`]
+      .setAuthor({ name: `${user.username}#${user.discriminator}`, iconURL: user.displayAvatarURL() })
+      .setDescription(`Expire${disabled ? "d" : "s"} <t:${expirationTimestamp}:R> at <t:${expirationTimestamp}:T>`)
+      .setFields(shownFields(chall, info ?? ""))
+      .setTimestamp();
+
+    let currentEC = `${chall.challenge}x${chall.completion}`;
+
+    const buttons = (disabled: boolean) => new ActionRowBuilder<ButtonBuilder>()
+      .addComponents(
+        new ButtonBuilder()
+        // In order to prevent people using the same command at the same time influencing others,
+        // we add a special value to each of the button ideas so that there's no conflicts
+          .setCustomId(`ec_button_prev_${expirationTimestamp}`)
+          .setEmoji("◀️")
+          .setStyle(ButtonStyle.Primary)
+          .setDisabled(disabled),
+        new ButtonBuilder()
+          .setCustomId(`ec_button_next_${expirationTimestamp}`)
+          .setEmoji("▶️")
+          .setStyle(ButtonStyle.Primary)
+          .setDisabled(disabled),
+      );
+
+    const content: InteractionReplyOptions = {
+      content: target ? `*Suggested for <@${target.id}>*:\n` : undefined,
+      embeds: [embed(false)],
+      files: [picture],
+      ephemeral: hide,
+      components: [buttons(false)]
+    };
+
+    // These filters need fairly verbose conditions, in order to not have the interactions overlap when running multiple collectors.
+    const filter = (i: MessageComponentInteraction) => i.customId.endsWith(String(expirationTimestamp));
+    const collector = interaction.channel?.createMessageComponentCollector({ componentType: ComponentType.Button, filter, time: 60000 });
+
+    await interaction.reply(content).then(() => {
+      collector?.on("collect", async i => {
+        if (i.isButton()) {
+          const up = i.customId.startsWith("ec_button_next");
+          const page = getNextPage(currentEC, up);
+
+          if (i.member?.user.id !== user.id) return;
+
+          // Change various varying variables
+          currentEC = page;
+          chall = findEC(Number(currentEC.split("x")[0]), Number(currentEC.split("x")[1]));
+          picture = EternityChallengeImages[chall.challenge];
+
+          // Update initial message
+          await i.update({
+            files: [picture],
+            embeds: [embed(false)],
+            components: [buttons(false)],
+          });
+        }
+      });
+
+      collector?.on("end", async() => {
+        await interaction.editReply({
+          embeds: [embed(true)],
+          components: [buttons(true)],
+          files: [picture]
+        });
+      });
+    }).catch(e => console.log(e));
   }
 };
