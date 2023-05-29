@@ -106,7 +106,7 @@ export const challenges: ChallengeArray = {
   },
   "c10": {
     number: 10,
-    requirements: `Reach Infinity and 16 Infinities`,
+    requirements: `Have 16 Infinities`,
     challenge: `There are only 6 Antimatter Dimensions, with Dimension Boost and Antimatter Galaxy costs modified.`,
     strategy: base,
     reward: "Dimension Boost autobuyer",
@@ -115,7 +115,7 @@ export const challenges: ChallengeArray = {
   },
   "c11": {
     number: 11,
-    requirements: `Reach Infinity and 16 Infinities`,
+    requirements: `Have 16 Infinities`,
     challenge: `There's normal matter which rises once you have at least 1 2nd Antimatter Dimension. If it exceeds your antimatter, it will Dimension Boost without giving the bonus.`,
     strategy: `${base}\n If you are on web, this challenge becomes a normal infinity run once you have the "Galaxies are twice as effective" upgrade. Just do it once you have that upgrade.`,
     reward: "Antimatter Galaxy autobuyer",
@@ -124,7 +124,7 @@ export const challenges: ChallengeArray = {
   },
   "c12": {
     number: 12,
-    requirements: `Reach Infinit and 16 Infinities`,
+    requirements: `Have 16 Infinities`,
     challenge: `Each Antimatter Dimension produces the dimension 2 dimensions below it (1st Antimatter Dimensions still produce antimatter). The 2nd, 4th, and 6th Antimatter Dimensions are made stronger to compensate.`,
     strategy: `It is recommended to have at least the first 12 Infinity Upgrades and ~200 Infinities. Spare IP is not important for C12.
       If you want to get those 200 Infinities, you probably want to get upgrades 13 to 15 as well to speed things up. (Note: Those upgrades won't work inside challenges.)
