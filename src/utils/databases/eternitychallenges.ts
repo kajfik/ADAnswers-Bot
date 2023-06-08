@@ -62,7 +62,7 @@ export const ECRewards: Reward = {
   },
   "10": {
     reward: "Time Dimension multiplier based on Infinities (affected by TS31)",
-    formula: "×`(Infinities * 2.783e-6) ^ 0.4 + 0.1 * completions`"
+    formula: "×`infinities ^ 950`"
   },
   "11": {
     reward: "Further reduce Tickspeed cost multiplier growth",
@@ -82,7 +82,7 @@ interface Unlock {
 const SecondaryUnlocks: Unlock = {
   "1": (completion: number): number => 20000 + 20000 * completion,
   "2": (completion: number): number => 1300 + 150 * completion,
-  "3": (completion: number): number => 17300 + 1550 * completion,
+  "3": (completion: number): number => 17300 + 1250 * completion,
   "4": (completion: number): number => 1e8 + 2.5e7 * completion,
   "5": (completion: number): number => 160 + 14 * completion,
   "6": (completion: number): number => 40 + 5 * completion,

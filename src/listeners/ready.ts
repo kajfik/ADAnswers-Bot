@@ -20,16 +20,20 @@ export default (client: Client, databases: Sequelize[], tagsArray: ModelStatic<M
       console.log(`Synced ${tag.name}`);
     }
 
-    await client.application.commands.set(Commands);
-    await client.application.commands.create(new ContextMenuCommandBuilder()
-      .setName("Report message")
-      .setType(ApplicationCommandType.Message));
-    console.log("Commands globally deployed.");
-    await client.guilds.cache.get(ids.testServer)?.commands.set(Commands);
-    await client.guilds.cache.get(ids.testServer)?.commands.create(new ContextMenuCommandBuilder()
-      .setName("Report message")
-      .setType(ApplicationCommandType.Message));
-    console.log("Commands deployed to test server.");
+    try {
+      await client.application.commands.set(Commands);
+      await client.application.commands.create(new ContextMenuCommandBuilder()
+        .setName("Report message")
+        .setType(ApplicationCommandType.Message));
+      console.log("Commands globally deployed.");
+      await client.guilds.cache.get(ids.testServer)?.commands.set(Commands);
+      await client.guilds.cache.get(ids.testServer)?.commands.create(new ContextMenuCommandBuilder()
+        .setName("Report message")
+        .setType(ApplicationCommandType.Message));
+      console.log("Commands deployed to test server.");
+    } catch (e) {
+      console.log(e);
+    }
 
     function setBotStatus(): void {
       const next = PresenceMessage.next();
