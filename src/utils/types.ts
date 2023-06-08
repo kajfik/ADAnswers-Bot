@@ -53,7 +53,6 @@ export type GlyphInfo = {
 }
 
 type APInfo = {
-  givesAP: boolean,
   amount: number
 }
 

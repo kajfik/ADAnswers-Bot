@@ -92,7 +92,7 @@ export const upgrades: UpgradeData = {
       formula: "`2.0` -> `2.2`",
       charged: {
         effect: "The multiplier for buying 10 Antimatter Dimensions gains a power effect based on Teresa level",
-        formula: "`Teresa level / 200`"
+        formula: "`1 + (Teresa level) / 200`"
       }
     },
     "galaxyBoost": {

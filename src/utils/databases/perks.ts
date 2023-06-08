@@ -17,7 +17,6 @@ export const perks: PerkList = {
       effect: "Reduce the Achievement timer to 20 minutes per Achievement (10 minute decrease).",
       prerequisites: ["START"],
       ap: {
-        givesAP: true,
         amount: 5
       }
     },
@@ -45,7 +44,6 @@ export const perks: PerkList = {
       effect: "Reality no longer resets your Achievements.",
       prerequisites: ["ACH4"],
       ap: {
-        givesAP: true,
         amount: 10
       }
     },
@@ -71,7 +69,6 @@ export const perks: PerkList = {
       effect: "Unlock a Time Theorem Autobuyer which buys single Time Theorems every tick.",
       prerequisites: ["ACT"],
       ap: {
-        givesAP: true,
         amount: 5
       }
     },
@@ -87,7 +84,6 @@ export const perks: PerkList = {
       effect: "Upgrade the Time Theorem Autobuyer to buy max Time Theorems.",
       prerequisites: ["TTF"],
       ap: {
-        givesAP: true,
         amount: 10
       }
     },
@@ -97,7 +93,6 @@ export const perks: PerkList = {
       effect: "Auto-complete one Eternity Challenge every 60 minutes (real-time). ECs will be completed sequentially, requiring all previous ECs to be fully completed before progressing to the next EC.",
       prerequisites: ["IDL"],
       ap: {
-        givesAP: true,
         amount: 5
       }
     },
@@ -113,7 +108,6 @@ export const perks: PerkList = {
       effect: "Auto-complete one Eternity Challenge every 20 minutes (real-time).",
       prerequisites: ["PEC2"],
       ap: {
-        givesAP: true,
         amount: 10
       }
     },
@@ -123,7 +117,6 @@ export const perks: PerkList = {
       effect: "Infinity Dimension autobuyers work x3 faster.",
       prerequisites: ["SIP1"],
       ap: {
-        givesAP: true,
         amount: 5
       }
     },
@@ -133,7 +126,6 @@ export const perks: PerkList = {
       effect: "Replicanti autobuyers work x3 faster.",
       prerequisites: ["SIP2"],
       ap: {
-        givesAP: true,
         amount: 5
       }
     },
@@ -143,7 +135,6 @@ export const perks: PerkList = {
       effect: "Unlock autobuyers for the repeatable Dilation Upgrades.",
       prerequisites: ["EU1", "TGR"],
       ap: {
-        givesAP: true,
         amount: 5
       }
     },
@@ -153,7 +144,6 @@ export const perks: PerkList = {
       effect: `Dilation Upgrade autobuyers work x3 faster.`,
       prerequisites: ["ATT"],
       ap: {
-        givesAP: true,
         amount: 5
       }
     }
@@ -227,7 +217,6 @@ export const perks: PerkList = {
       effect: "Remove non-Time Theorem requirements for unlocking Eternity Challenges.",
       prerequisites: ["EC1R"],
       ap: {
-        givesAP: true,
         amount: 10
       }
     },
@@ -237,7 +226,6 @@ export const perks: PerkList = {
       effect: "You can complete multiple tiers of Eternity Challenges at once if you reach the goal for a higher completion of that challenge.",
       prerequisites: ["ECR"],
       ap: {
-        givesAP: true,
         amount: 15
       }
     },
@@ -247,7 +235,6 @@ export const perks: PerkList = {
       effect: "Start evert Reality with 10 Eternity Points",
       prerequisites: ["ANR", "SIP1", "STP"],
       ap: {
-        givesAP: true,
         amount: 5
       }
     },
@@ -263,7 +250,6 @@ export const perks: PerkList = {
       effect: "Start evert Reality with 5e9 Eternity Points",
       prerequisites: ["SEP2"],
       ap: {
-        givesAP: true,
         amount: 10
       }
     },
@@ -288,7 +274,6 @@ export const perks: PerkList = {
       effect: "After unlocking Dilation, gain 10 Tachyon Particles",
       prerequisites: ["SEP1", "TP1"],
       ap: {
-        givesAP: true,
         amount: 5
       }
     },
@@ -298,7 +283,6 @@ export const perks: PerkList = {
       effect: `Remove the Eternity Challenge 11, Eternity Challenge 12, and total Time Theorem requirements from Time Dilation unlock.`,
       prerequisites: ["DAU"],
       ap: {
-        givesAP: true,
         amount: 5
       }
     },
@@ -332,7 +316,6 @@ export const perks: PerkList = {
       effect: `When buying the "You gain 3 times more Tachyon Particles" Dilation Upgrade, multiply your current Tachyon Particle amount by 3.`,
       prerequisites: ["TP3"],
       ap: {
-        givesAP: true,
         amount: 10
       }
     },
@@ -354,7 +337,6 @@ export const perks: PerkList = {
       effect: `Automatically purchase the passive Time Theorem generation Dilation Upgrade once you can afford it.`,
       prerequisites: ["DU2"],
       ap: {
-        givesAP: true,
         amount: 5
       }
     },
@@ -364,7 +346,6 @@ export const perks: PerkList = {
       effect: `Auto-unlock Time Dimensions 5-8 once you can afford them.`,
       prerequisites: ["ATT"],
       ap: {
-        givesAP: true,
         amount: 5
       }
     }
@@ -382,7 +363,6 @@ export const perks: PerkList = {
       effect: `Auto-unlocks Reality once you have 1e4000 Eternity Points and have unlocked Time Dimension 8.`,
       prerequisites: ["ATD"],
       ap: {
-        givesAP: true,
         amount: 10
       }
     }
