@@ -1,8 +1,8 @@
 import { ApplicationCommandOptionData, ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, CommandInteraction, EmbedBuilder, User } from "discord.js";
 import { UpgradeEmbedGetters, upgrades } from "../../utils/databases/upgrades";
+import { authorTitle, isHelper } from "../../functions/Misc";
 import { Command } from "../../command";
 import { UpgradeInfo } from "../../utils/types";
-import { isHelper } from "../../functions/Misc";
 
 function getChoices(typeOfUpgrade: string): { name: string, value: string, type: any }[] {
   const choices = [];
@@ -91,7 +91,7 @@ export const upgrade: Command = {
     const upgradeRequested = upgrades[type][upgradeName];
 
     const embed: EmbedBuilder = UpgradeEmbedGetters[charged ? "charged" : type](upgradeRequested);
-    embed.setAuthor({ name: `${user.username}#${user.discriminator}`, iconURL: user.displayAvatarURL() })
+    embed.setAuthor({ name: authorTitle(interaction), iconURL: user.displayAvatarURL() })
       .setThumbnail(`attachment://${charged ? "charged" : type}.png`);
 
     if (upgradeRequested.hasGraph) {

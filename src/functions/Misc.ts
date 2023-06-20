@@ -1,10 +1,20 @@
-import { CommandInteraction, hideLinkEmbed, hyperlink } from "discord.js";
+import { CommandInteraction, User, hideLinkEmbed, hyperlink } from "discord.js";
 import { ids } from "../config.json";
 
 export function isHelper(interaction: CommandInteraction): boolean | undefined {
   if (!interaction.inGuild()) return true;
   // Now that's an expression!
   return interaction.guild?.members.resolve(interaction.user)?.roles.cache.has(ids.AD.requestableRoles.helperRole);
+}
+
+// Discord irreparably fucked up usernames, now we have this
+export function authorTitle(interaction: CommandInteraction): string {
+  const user: User = interaction.member === null ? interaction.user : interaction.member.user as User;
+
+  const hasDiscriminator: boolean = user.discriminator !== "0";
+
+  if (hasDiscriminator) return `${user.username}#${user.discriminator}`;
+  return `${user.username}`;
 }
 
 export function isEligibleForHelper(interaction: CommandInteraction): boolean {

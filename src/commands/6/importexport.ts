@@ -10,10 +10,10 @@ export const importexport: Command = {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     // eslint-disable-next-line max-len
-    const content: string = `android -> web:
-    Click "Export to web", open ${link("paste.ee", "https://paste.ee")}, submit new paste, open the paste link on pc, copy the save, press "Import" in the web version. 
+    const content: string = `android -> web/steam:
+    Click "Export to web", open ${link("paste.ee", "https://paste.ee")}, submit new paste, open the paste link on pc, copy the save string (not the URL), press "Import" in the web version. 
 
-    ~~web -> android:~~
+    ~~web/steam -> android:~~
     ~~Press "Export", open ${link("paste.ee", "https://paste.ee")}, submit new paste, open the paste link on your device, copy the save, press "Import" in the app.~~ 
     (As of the release of the Reality update on web/steam, you cannot go from web/steam -> android. Sorry for the inconvenience!) 
 

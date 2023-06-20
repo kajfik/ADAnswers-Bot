@@ -1,7 +1,7 @@
 import { AchievementEmbeds, AchievementImages, acceptableArgs, achievementsMessageObject } from "../../utils/databases/achievements";
 import { ActionRowBuilder, ApplicationCommandOptionType, ApplicationCommandType, ButtonBuilder, ButtonStyle, CommandInteraction, ComponentType, InteractionReplyOptions, MessageComponentInteraction, User } from "discord.js";
+import { authorTitle, isHelper, link } from "../../functions/Misc";
 import { findAchievementByID, findAchievementByName } from "../../functions/achievements";
-import { isHelper, link } from "../../functions/Misc";
 import { AchievementInfo } from "src/utils/types";
 import { Command } from "../../command";
 
@@ -95,7 +95,7 @@ export const achievements: Command = {
       let picture = AchievementImages[achievement.id];
 
       let embed = AchievementEmbeds[achievement.id]
-        .setAuthor({ name: `${user.username}#${user.discriminator}`, iconURL: user.displayAvatarURL() })
+        .setAuthor({ name: authorTitle(interaction), iconURL: user.displayAvatarURL() })
         .setTimestamp();
 
       const expirationTimestamp = Math.floor((Date.now() + 60000) / 1000);
@@ -140,7 +140,7 @@ export const achievements: Command = {
             achievement = findAchievementByID(currentPage) as AchievementInfo;
             picture = AchievementImages[achievement.id];
             embed = AchievementEmbeds[achievement.id]
-              .setAuthor({ name: `${user.username}#${user.discriminator}`, iconURL: user.displayAvatarURL() })
+              .setAuthor({ name: authorTitle(interaction), iconURL: user.displayAvatarURL() })
               .setTimestamp();
 
             // Update initial message

@@ -1,10 +1,10 @@
 import { ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, ChatInputCommandInteraction, EmbedBuilder, User } from "discord.js";
 import { GlyphEmbedGetter, basicGlyphs, specialGlyphs } from "../../utils/databases/glyphs";
+import { authorTitle, isHelper } from "../../functions/Misc";
 import { effectCountProbabilityCalculator, rarityProbabilityCalculator, threshold } from "../../functions/glyphs";
 import { Command } from "../../command";
 import { GlyphInfo } from "../../utils/types";
 import config from "../../config.json";
-import { isHelper } from "../../functions/Misc";
 
 function getEffectChoices(): { name: string, value: string, type: any }[] {
   const choices = [];
@@ -308,15 +308,21 @@ export const glyph: Command = {
 
       const glyphName: string = interaction.options.getString("glyph") as string;
       const altered: boolean = interaction.options.getBoolean("altered") as boolean;
+      const hasAlteredImage: boolean = ["dilation", "effarig", "infinity", "power", "replication", "time"].includes(glyphName);
 
-      const picture = new AttachmentBuilder(`src/images/glyphs/${glyphName}.png`);
+      let picture = new AttachmentBuilder(`src/images/glyphs/${glyphName}.png`);
+      if (altered && hasAlteredImage) picture = new AttachmentBuilder(`src/images/glyphs/altered/${glyphName}_altered.png`);
+      else if (altered) picture = new AttachmentBuilder(`src/images/glyphs/altered/none_altered.png`);
 
       const glyphRequested = basicGlyphs[glyphName] ?? specialGlyphs[glyphName];
 
+      let imageLink: string = `attachment://${glyphName}.png`;
+      if (altered && hasAlteredImage) imageLink = `attachment://${glyphName}_altered.png`;
+      else if (altered) imageLink = `attachment://none_altered.png`;
 
       const embed: EmbedBuilder = GlyphEmbedGetter(glyphRequested, isADServer, altered);
-      embed.setAuthor({ name: `${user.username}#${user.discriminator}`, iconURL: user.displayAvatarURL() })
-        .setThumbnail(`attachment://${glyphName}.png`);
+      embed.setAuthor({ name: authorTitle(interaction), iconURL: user.displayAvatarURL() })
+        .setThumbnail(imageLink);
 
       await interaction.reply({ embeds: [embed], files: [picture], ephemeral: !isHelper(interaction) });
     }

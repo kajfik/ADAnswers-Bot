@@ -1,8 +1,8 @@
 import { ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, CommandInteraction, EmbedBuilder, User } from "discord.js";
+import { authorTitle, isHelper } from "../../functions/Misc";
 import { Command } from "../../command";
 import { StudyInfo } from "../../utils/types";
 import { TimeStudy } from "../../functions/studies";
-import { isHelper } from "../../functions/Misc";
 import { studies } from "../../utils/databases/studies";
 
 export const study: Command = {
@@ -43,7 +43,7 @@ export const study: Command = {
 
     const picture: AttachmentBuilder = new AttachmentBuilder(`src/images/studies/${studyRequested.type}.png`);
 
-    embed.setAuthor({ name: `${user.username}#${user.discriminator}`, iconURL: user.displayAvatarURL() })
+    embed.setAuthor({ name: authorTitle(interaction), iconURL: user.displayAvatarURL() })
       .setThumbnail(`attachment://${studyRequested.type}.png`);
 
     if (studyRequested.hasGraph) {
