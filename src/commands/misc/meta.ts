@@ -1,11 +1,12 @@
 import { ActionRowBuilder, ApplicationCommandType, ButtonBuilder, ButtonStyle, Colors, CommandInteraction, EmbedBuilder, EmbedField, InteractionReplyOptions, MessageComponentInteraction } from "discord.js";
+import { authorTitle, isHelper, link } from "../../functions/Misc";
 import { dhmsFromMS, getTimezoneFromDate } from "../../functions/time";
-import { isHelper, link } from "../../functions/Misc";
+import { getTagInfo, parseUsersList } from "../../functions/database";
 import { Command } from "../../command";
 import { Commands } from "../../commands";
 import { TagInfo } from "../../utils/types";
 import config from "../../config.json";
-import { getTagInfo } from "../../functions/database";
+
 const NOW = Date();
 const metaFields = (interaction: CommandInteraction, tagInfo: TagInfo): { [key: number]: Array<EmbedField> } => ({
   1: [
@@ -59,7 +60,7 @@ const metaFields = (interaction: CommandInteraction, tagInfo: TagInfo): { [key: 
     },
     {
       name: "Top 5 users",
-      value: `${tagInfo.top5users}`,
+      value: `${parseUsersList(tagInfo.top5users, interaction)}`,
       inline: true,
     },
     {
@@ -72,6 +73,11 @@ const metaFields = (interaction: CommandInteraction, tagInfo: TagInfo): { [key: 
       // eslint-disable-next-line max-len
       value: `If you want to see all data for the bot, go to ${link("SQLite Viewer", "https://inloop.github.io/sqlite-viewer/")} and put in [this file](https://github.com/earthernsence/ADAnswers-Bot/blob/main/database.sqlite) for command usage data or [this file](https://github.com/earthernsence/ADAnswers-Bot/blob/main/timeTags.sqlite) for data on when commands are used (${getTimezoneFromDate(new Date())}) from the bot's repository.`,
       inline: true,
+    },
+    {
+      name: "Why is this data inaccurate?",
+      value: `On June 22, 2023, I was forced to change how the database worked on my end due to Discord's new username system. Thus, this information is correct as of that date.`,
+      inline: true
     }
   ]
 });
@@ -82,7 +88,7 @@ const embed = (currentPage: number, interaction: CommandInteraction, disabled: b
   .setTitle(`Meta (p${currentPage}/2)`)
   .setDescription(`Internal bot information.\nExpire${disabled ? "d" : "s"} <t:${expirationTimestamp}:R> at <t:${expirationTimestamp}:T>`)
   .addFields(metaFields(interaction, tagInfo)[currentPage])
-  .setFooter({ text: `This superfluous bot was created by @earth#1337\nBot version: ${config.version}`, iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` })
+  .setFooter({ text: `This superfluous bot was created by @earth1337_\nBot version: ${config.version}`, iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` })
   .setColor(Colors.Blurple)
   .setTimestamp();
 
@@ -107,7 +113,7 @@ export const meta: Command = {
 
     const expirationTimestamp = Math.floor((Date.now() + 60000) / 1000);
     let currentPage = 1;
-    const personRequested = `${interaction.user.username}#${interaction.user.discriminator}`;
+    const personRequested = authorTitle(interaction);
     const tagInfo = await getTagInfo();
 
     const buttons = (disabled: boolean) => new ActionRowBuilder<ButtonBuilder>()
@@ -155,7 +161,7 @@ export const meta: Command = {
     await interaction.reply(content).then(() => {
       collector?.on("collect", async i => {
         if (i.isButton()) {
-          const up = i.customId.startsWith("button_next");
+          const up = i.customId.startsWith("meta_button_next");
           const page = getNextPage(currentPage, up);
           currentPage = page;
           await i.update({

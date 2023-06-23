@@ -11,6 +11,10 @@ export function isHelper(interaction: CommandInteraction): boolean | undefined {
 export function authorTitle(interaction: CommandInteraction): string {
   const user: User = interaction.member === null ? interaction.user : interaction.member.user as User;
 
+  return authorTitleFromUser(user);
+}
+
+export function authorTitleFromUser(user: User): string {
   const hasDiscriminator: boolean = user.discriminator !== "0";
 
   if (hasDiscriminator) return `${user.username}#${user.discriminator}`;

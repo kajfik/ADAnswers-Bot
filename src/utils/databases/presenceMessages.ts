@@ -20,7 +20,6 @@ export const messages: { [key: string]: string[] } = {
     "use /help!",
     "You can use the bot in DMs, too!",
     "I read every message you send me. You're very kind :)",
-    `time`,
     "Are these news tickers?",
     "I'm not sure if I like them.",
     "I'm not sure if I like you.",
@@ -43,7 +42,6 @@ export const messages: { [key: string]: string[] } = {
     "fits me rather neatly, doesn't it?",
     "In fact it fits me staggeringly well,",
     "it must have been made to have me in it!",
-    `time`,
     // Huey Lewis and the News
     "You like Huey Lewis and the News?",
     "Their early work was a little too new wave for my tastes.",
@@ -350,6 +348,15 @@ export const messages: { [key: string]: string[] } = {
     ` Soul Asylum.`,
     ` The Cernal and St. E. Johne`,
     ` meepmoop143.`,
+    ` Phoebe Bridgers.`,
+    ` Boygenius.`,
+    ` Julien Baker.`,
+    ` Lucy Dacus.`,
+    ` grentperez.`,
+    ` Mac DeMarco.`,
+    ` Taylor Swift.`,
+    ` Lizzy McAlpine`,
+    ` Lorde.`,
     // This section is based on artists from my Christmas playlist. https://open.spotify.com/playlist/1MxPeMIRjhHTwqInI39Xb4?si=9a8f2a00a4d14974
     ` Bobby Helms.`,
     ` Burl Ives.`,
@@ -428,6 +435,19 @@ export const messages: { [key: string]: string[] } = {
     ` Dave Koz.`,
     ` Ramsey Lewis Trio.`,
     ` The Mel Lewis Jazz Orchestra.`,
-    ` Duke Ellington.`
+    ` Duke Ellington.`,
+    // Classical playlist https://open.spotify.com/playlist/3p1S91zNhXazApp4WLti6M?si=54c5b5d62099449a
+    ` Gustav Mahler.`,
+    ` Dmitri Shostakovich.`,
+    ` Johannes Brahms.`,
+    ` Anton Bruckner.`,
+    ` Antonin Dvorak.`,
+    ` Richard Strauss.`,
+    ` Ludwig van Beethoven.`,
+    ` Wolfgang Amadeus Mozart.`,
+    ` Pyotr Ilyich Tchaikovsky.`,
+    ` Igor Stravinsky.`,
+    ` Antonio Vivaldi.`,
+    ` Modest Mussorgsky.`
   ],
 };

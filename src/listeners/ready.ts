@@ -13,6 +13,7 @@ export default (client: Client, databases: Sequelize[], tagsArray: ModelStatic<M
 
     for (const database of databases) {
       await database.authenticate();
+      console.log(`Authenticated ${database.getDatabaseName()}`);
     }
 
     for (const tag of tagsArray) {

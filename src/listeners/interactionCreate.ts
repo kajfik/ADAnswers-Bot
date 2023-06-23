@@ -94,7 +94,7 @@ const handleModalSubmit = async(interaction: MessageContextMenuCommandInteractio
 const handleSlashCommand = async(client: Client, interaction: ChatInputCommandInteraction): Promise<void> => {
   if (!client.application?.owner) await client.application?.fetch();
 
-  if (await InteractionEvents.hasCommand(interaction, client)) await incrementTag("totalRequests", tags.commandUsage, false);
+  if (await InteractionEvents.hasCommand(interaction, client)) await incrementTag("totalRequests", tags.commandUsage);
 
   const command = Commands.find(c => c.name === interaction.commandName);
 
@@ -109,7 +109,7 @@ const handleSlashCommand = async(client: Client, interaction: ChatInputCommandIn
   try {
     if (interaction.isMessageContextMenuCommand()) return;
     await command.run(interaction, client);
-    await incrementBigFourTags(interaction.commandName, `${interaction.user.username}#${interaction.user.discriminator}`);
+    await incrementBigFourTags(interaction.commandName, `${interaction.user.id}`);
   } catch (error) {
     console.log(error);
     interaction.reply({ content: `Error running command ${interaction.commandName} <@${ids.earth}>` });

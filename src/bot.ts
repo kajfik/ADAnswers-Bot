@@ -1,5 +1,5 @@
 import { Client, GatewayIntentBits, Partials } from "discord.js";
-import { DataTypes, Sequelize } from "sequelize";
+import { DataTypes, Model, Sequelize } from "sequelize";
 import interactionCreate from "./listeners/interactionCreate";
 import messageCreate from "./listeners/messageCreate";
 import ready from "./listeners/ready";
@@ -27,14 +27,20 @@ const client = new Client({
 
 client.login(token);
 
-// Yes these are the direct links to the databases on my computer, cry about it, etc, lol, kekw
-const commandUsageDatabase = new Sequelize({
+const databaseCreator = (link: string) => new Sequelize({
   dialect: "sqlite",
-  storage: "C:\\Users\\User\\Documents\\GitHub\\ADAnswers-Bot\\database.sqlite",
+  storage: `C:\\Users\\User\\Documents\\GitHub\\ADAnswers-Bot\\${link}.sqlite`,
   logging: false
 });
 
-const commandUsageTags = commandUsageDatabase.define("tags", {
+const commandUsageDatabase = databaseCreator("commandTags");
+
+export class Command extends Model {
+  declare name: string;
+  declare timesUsed: number;
+}
+
+Command.init({
   name: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -45,35 +51,20 @@ const commandUsageTags = commandUsageDatabase.define("tags", {
     allowNull: false,
     defaultValue: 0
   }
+},
+{
+  sequelize: commandUsageDatabase,
+  modelName: "CommandUsage"
 });
 
-const timeUsageDatabase = new Sequelize({
-  dialect: "sqlite",
-  storage: "C:\\Users\\User\\Documents\\GitHub\\ADAnswers-Bot\\timeTags.sqlite",
-  logging: false
-});
+const timeUsageDatabase = databaseCreator("timeTags");
 
-const timeUsageTags = timeUsageDatabase.define("timeTags", {
-  hour: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    unique: true
-  },
-  timesUsed: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    defaultValue: 0
-  }
-});
+export class Time extends Model {
+  declare name: string;
+  declare timesUsed: number;
+}
 
-const personUsageDatabase = new Sequelize("userTags", "", "", {
-  host: "localhost",
-  dialect: "sqlite",
-  storage: "C:\\Users\\User\\Documents\\GitHub\\ADAnswers-Bot\\userTags.sqlite",
-  logging: false
-});
-
-const personUsageTags = personUsageDatabase.define("userTags", {
+Time.init({
   name: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -84,6 +75,34 @@ const personUsageTags = personUsageDatabase.define("userTags", {
     allowNull: false,
     defaultValue: 0
   }
+},
+{
+  sequelize: timeUsageDatabase,
+  modelName: "TimeUsage"
+});
+
+const personUsageDatabase = databaseCreator("userTags");
+
+export class Person extends Model {
+  declare name: string;
+  declare timesUsed: number;
+}
+
+Person.init({
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true
+  },
+  timesUsed: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 0
+  }
+},
+{
+  sequelize: personUsageDatabase,
+  modelName: "PersonUsage"
 });
 
 export const databases = {
@@ -92,11 +111,11 @@ export const databases = {
   timeUsage: timeUsageDatabase
 };
 export const tags = {
-  commandUsage: commandUsageTags,
-  personUsage: personUsageTags,
-  timeUsage: timeUsageTags
+  commandUsage: Command,
+  personUsage: Person,
+  timeUsage: Time
 };
 
-ready(client, [commandUsageDatabase, personUsageDatabase, timeUsageDatabase], [commandUsageTags, personUsageTags, timeUsageTags]);
+ready(client, [commandUsageDatabase, personUsageDatabase, timeUsageDatabase], [Command, Person, Time]);
 interactionCreate(client);
 messageCreate(client);

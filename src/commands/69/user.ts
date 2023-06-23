@@ -1,5 +1,5 @@
 import { ApplicationCommandOptionType, ApplicationCommandType, ChannelType, CommandInteraction, EmbedBuilder, GuildMember, User } from "discord.js";
-import { authorTitle, pluralise } from "../../functions/Misc";
+import { authorTitleFromUser, pluralise } from "../../functions/Misc";
 import { Command } from "../../command";
 import { UserInfo } from "../../utils/types";
 import { getPersonTag } from "../../functions/database";
@@ -8,17 +8,17 @@ async function getUserInfo(user: User, interaction: CommandInteraction): Promise
   const u = await interaction.guild?.members.resolve(user.id) as GuildMember;
 
   return {
-    fullPerson: authorTitle(interaction),
+    fullPerson: authorTitleFromUser(user),
     rolesUnjoined: u?.roles.cache.map(r => `<@&${r.id}>`),
     roles: u?.roles.cache.map(r => `<@&${r.id}>`).join(", "),
     nick: u?.nickname ?? "This user has not set a nickname",
     joined: `<t:${Math.floor(u.joinedTimestamp as number / 1000)}:F>`,
     avatar: user.displayAvatarURL(),
-    tag: await getPersonTag(user.username, user.discriminator),
+    tag: await getPersonTag(user.id),
     async tagInfo() {
-      const t = await getPersonTag(user.username, user.discriminator);
+      const t = await getPersonTag(user.id);
       if (t === null) return `This user has not used the bot.`;
-      return `${authorTitle(interaction)} has used the bot **${t.getDataValue("timesUsed")}** ${pluralise("time", t.getDataValue("timesUsed"))}*\n\n*: Data collection started on October 7, 2021`;
+      return `${authorTitleFromUser(user)} has used the bot **${t.getDataValue("timesUsed")}** ${pluralise("time", t.getDataValue("timesUsed"))}*\n\n*: Data collection started on June 22, 2023`;
     }
   };
 }
