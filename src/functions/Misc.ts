@@ -51,7 +51,7 @@ export function makeEnumeration<itemType>(
   return `${name}${commaSeparated}, ${finalSeperator} ${name}${last}`;
 }
 
-export const footerText = () => (Math.random() > 0.5 ? `Be sure to read the pins in your progression channel!` : `Art by MrKrutaman#1705`);
+export const footerText = () => (Math.random() > 0.5 ? `Be sure to read the pins in your progression channel!` : `Art by @mrkrutaman`);
 
 export function pluralise(word: string, count: number) {
   if (count === 1) {

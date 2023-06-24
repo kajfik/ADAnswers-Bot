@@ -1,5 +1,5 @@
 import { ApplicationCommandOptionType, ApplicationCommandType, ChannelType, CommandInteraction, EmbedBuilder, GuildMember, User } from "discord.js";
-import { authorTitleFromUser, pluralise } from "../../functions/Misc";
+import { authorTitleFromUser, link, pluralise } from "../../functions/Misc";
 import { Command } from "../../command";
 import { UserInfo } from "../../utils/types";
 import { getPersonTag } from "../../functions/database";
@@ -18,7 +18,8 @@ async function getUserInfo(user: User, interaction: CommandInteraction): Promise
     async tagInfo() {
       const t = await getPersonTag(user.id);
       if (t === null) return `This user has not used the bot.`;
-      return `${authorTitleFromUser(user)} has used the bot **${t.getDataValue("timesUsed")}** ${pluralise("time", t.getDataValue("timesUsed"))}*\n\n*: Data collection started on June 22, 2023`;
+      return `${authorTitleFromUser(user)} has used the bot **${t.getDataValue("timesUsed")}** ${pluralise("time", t.getDataValue("timesUsed"))}*\n\n*: ${link("Data collection started on June 22, 2023",
+        "https://discord.com/channels/351476683016241162/351476683016241166/1121644631675899934")}`;
     }
   };
 }

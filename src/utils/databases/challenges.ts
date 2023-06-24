@@ -234,7 +234,7 @@ export const challenges: ChallengeArray = {
   },
 };
 
-const footerText = (): string => (Math.random() > 0.5 ? `Be sure to read the pins in your progression channel!` : `Art by MrKrutaman#1705`);
+const footerText = (): string => (Math.random() > 0.5 ? `Be sure to read the pins in your progression channel!` : `Art by @mrkrutaman`);
 
 export const shownFields = (challengeInfo: ChallengeInfo, requestedFields?: string): EmbedField[] => {
   switch (requestedFields) {

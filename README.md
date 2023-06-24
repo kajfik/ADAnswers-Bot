@@ -5,7 +5,7 @@
 
 ## Image credits
 
-Challenge, study, help, and upgrade art by @MrKrutaman#1705 on Discord.
+Challenge, study, help, and upgrade art by @mrkrutaman on Discord.
 
 ## Welcome
 

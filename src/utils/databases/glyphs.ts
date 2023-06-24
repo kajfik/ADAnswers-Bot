@@ -418,22 +418,22 @@ export const specialGlyphs: GlyphData = {
       "Bottom Left": {
         name: "Love",
         effect: "...plot the demise of all who stand against you...",
-        effectFormula: ""
+        effectFormula: "+100%"
       },
       "Top Left": {
         name: "Joy",
         effect: "...whisper into your dreams politely...",
-        effectFormula: ""
+        effectFormula: "log10(your love for the Companion Glyph)"
       },
       "Top Right": {
         name: "Happiness",
         effect: "...nothing but sit there and cutely smile at you...",
-        effectFormula: ""
+        effectFormula: "N/A"
       },
       "Bottom Right": {
         name: "Loyalty",
         effect: "...will never leave you...",
-        effectFormula: ""
+        effectFormula: "10x loyalty"
       }
     }
   }
@@ -463,7 +463,7 @@ function FieldsGetter(glyphInfo: GlyphInfo, altered: boolean): EmbedField[] {
   for (const location in effects) {
     fields.push({
       name: `${location}: ${altered ? effects[location].altered?.name : effects[location].name}`,
-      value: altered ? effects[location].altered?.effect as string : effects[location].effect,
+      value: `${altered ? effects[location].altered?.effect as string : effects[location].effect}\n**Formula:** \`${altered ? effects[location].altered?.effectFormula as string : effects[location].effectFormula}\``,
       inline: false
     });
   }
