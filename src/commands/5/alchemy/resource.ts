@@ -1,7 +1,6 @@
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, CommandInteraction, ComponentType, EmbedBuilder, InteractionReplyOptions, MessageComponentInteraction, User } from "discord.js";
-import { alchemyResources, getAlchemyCommandFields } from "../../../utils/databases/alchemy";
-import { authorTitle, footerText, isHelper } from "../../../functions/Misc";
-import { Colour } from "../../../utils/colours";
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, CommandInteraction, ComponentType, InteractionReplyOptions, MessageComponentInteraction, User } from "discord.js";
+import { AlchemyEmbeds, AlchemyImages, alchemyResources } from "../../../utils/databases/alchemy";
+import { authorTitle, isHelper } from "../../../functions/Misc";
 import { Reagent } from "../../../utils/types";
 import { Symbols } from "../../../utils/symbols";
 
@@ -9,18 +8,17 @@ export async function resourceAlchemySubcommand(interaction: CommandInteraction,
   if (!interaction || !interaction.isChatInputCommand()) return;
   let resource = interaction.options.getString("resource") as string;
   let resourceInfo = alchemyResources[resource];
+  let disabled = false;
   const expirationTimestamp = Math.floor((Date.now() + 60000) / 1000);
 
-  const embed = (disabled: boolean) => new EmbedBuilder()
-    .setAuthor({ name: authorTitle(interaction), iconURL: user.displayAvatarURL() })
-    .setTitle(`${resourceInfo.symbol} ${resourceInfo.name}`)
-    .setDescription(`Expire${disabled ? "d" : "s"} <t:${expirationTimestamp}:R> at <t:${expirationTimestamp}:T>`)
-    .setColor(Colour.reality)
-    .addFields(getAlchemyCommandFields(resourceInfo))
-    .setTimestamp()
-    .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
+  let image = AlchemyImages[resourceInfo.unlocksAt];
 
-  const createReagentButtons = (disabled: boolean, reagents?: Reagent[]) => {
+  let embed = AlchemyEmbeds[resourceInfo.unlocksAt]
+    .setTimestamp()
+    .setAuthor({ name: authorTitle(interaction), iconURL: user.displayAvatarURL() })
+    .setDescription(`Expire${disabled ? "d" : "s"} <t:${expirationTimestamp}:R> at <t:${expirationTimestamp}:T>`);
+
+  const createReagentButtons = (reagents?: Reagent[]) => {
     if (reagents === undefined) {
       return [];
     }
@@ -69,9 +67,10 @@ export async function resourceAlchemySubcommand(interaction: CommandInteraction,
   };
 
   const content: InteractionReplyOptions = {
-    embeds: [embed(false)],
+    embeds: [embed],
+    files: [image],
     ephemeral: !isHelper(interaction),
-    components: createReagentButtons(false, resourceInfo.reagents)
+    components: createReagentButtons(resourceInfo.reagents)
   };
 
   // These filters need fairly verbose conditions, in order to not have the interactions overlap when running multiple collectors.
@@ -86,17 +85,25 @@ export async function resourceAlchemySubcommand(interaction: CommandInteraction,
         // The resource is always going to be after the second underscore in the custom ID as defined in createReagentButtons
         resource = i.customId.split("_")[2].toLowerCase();
         resourceInfo = alchemyResources[resource];
+        image = AlchemyImages[resourceInfo.unlocksAt];
+        embed = AlchemyEmbeds[resourceInfo.unlocksAt]
+          .setTimestamp()
+          .setAuthor({ name: authorTitle(interaction), iconURL: user.displayAvatarURL() })
+          .setDescription(`Expire${disabled ? "d" : "s"} <t:${expirationTimestamp}:R> at <t:${expirationTimestamp}:T>`);
 
         await i.update({
-          embeds: [embed(false)],
-          components: createReagentButtons(false, resourceInfo.reagents)
+          embeds: [embed],
+          files: [image],
+          components: createReagentButtons(resourceInfo.reagents)
         });
       }
     });
     collector?.on("end", async() => {
+      disabled = true;
       await interaction.editReply({
-        embeds: [embed(true)],
-        components: createReagentButtons(true, resourceInfo.reagents)
+        embeds: [embed],
+        files: [image],
+        components: createReagentButtons(resourceInfo.reagents)
       });
     });
   });

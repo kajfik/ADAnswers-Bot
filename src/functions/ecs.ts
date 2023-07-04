@@ -1,6 +1,6 @@
 import { AttachmentBuilder, EmbedBuilder } from "discord.js";
 import { EC, ECsAtTTInfo } from "../utils/types";
-import { ECDescriptions, ECRewards, EternityChallenges, findEC, order, orderAsECs } from "../utils/databases/eternitychallenges";
+import { ECDescriptions, ECRewards, EternityChallenges, findEC, order } from "../utils/databases/eternitychallenges";
 import { Colour } from "../utils/colours";
 import { footerText } from "./Misc";
 

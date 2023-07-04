@@ -1,8 +1,9 @@
+import { AttachmentBuilder, EmbedBuilder, EmbedField } from "discord.js";
+import { footerText, makeEnumeration, quantify } from "../../functions/Misc";
 import { AlchemyResource } from "../types";
-import { EmbedField } from "discord.js";
+import { Colour } from "../colours";
 import { Symbols } from "../symbols";
 import { capitalize } from "../extensions";
-import { makeEnumeration } from "../../functions/Misc";
 
 interface AlchemyResourcesList {
   [key: string]: AlchemyResource
@@ -400,7 +401,7 @@ function formatListOfResources(resources: AlchemyResource[], targetResource: str
   if (resources.length === 0) return `${capitalize(targetResource)} is not used in any reactions as a reagent.`;
   const namedResources = resources.map(resource => `**${resource.symbol} ${resource.name}**`);
   const usedIn = makeEnumeration<string>(namedResources, ", ", "", "and");
-  return `${capitalize(targetResource)} is used in ${resources.length} reactions as a reagent.\nUsed in ${usedIn}.`;
+  return `${capitalize(targetResource)} is used in **${quantify("reaction", resources.length)}** as a reagent.\nUsed in ${usedIn}.`;
 }
 
 export function formatAlchemicReaction(resource: AlchemyResource): string {
@@ -411,4 +412,19 @@ export function formatAlchemicReaction(resource: AlchemyResource): string {
   }
   // This should never be returned, but it covers a possible case
   return "No reaction to create this resource";
+}
+
+export const AlchemyEmbeds: EmbedBuilder[] = [];
+export const AlchemyImages: AttachmentBuilder[] = [];
+
+for (const resource in alchemyResources) {
+  // These don't have IDs, so we'll use their unlocksAt value to find a place in the array
+  const res = alchemyResources[resource];
+  AlchemyImages[res.unlocksAt] = new AttachmentBuilder(`src/images/alchemy/${res.name.toLowerCase()}.png`);
+  AlchemyEmbeds[res.unlocksAt] = new EmbedBuilder()
+    .setTitle(`${res.symbol} ${res.name}`)
+    .setColor(Colour.reality)
+    .addFields(getAlchemyCommandFields(res))
+    .setThumbnail(`attachment://${res.name.toLowerCase()}.png`)
+    .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
 }
