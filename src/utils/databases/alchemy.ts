@@ -1,6 +1,7 @@
 import { AlchemyResource } from "../types";
 import { EmbedField } from "discord.js";
 import { Symbols } from "../symbols";
+import { capitalize } from "../extensions";
 import { makeEnumeration } from "../../functions/Misc";
 
 interface AlchemyResourcesList {
@@ -27,7 +28,7 @@ export const alchemyResources: AlchemyResourcesList = {
     tier: 1,
   },
   "time": {
-    name: "time",
+    name: "Time",
     unlocksAt: 4,
     symbol: Symbols.time,
     effect: "Provide a power to Time Dimensions",
@@ -372,6 +373,7 @@ export function getAlchemyCommandFields(resource: AlchemyResource): EmbedField[]
     { name: "Unlocks at...", value: `Effarig Level **${resource.unlocksAt}**\nTier ${resource.tier} resource`, inline: false },
     { name: "Effect", value: `${resource.effect}`, inline: false },
     { name: "Effect formula", value: `${resource.effectFormula}`, inline: false },
+    { name: "Used for...", value: formatListOfResources(findResourcesWhereResourceIsReagent(resource.name), resource.name), inline: false }
   ];
 
   if (resource.reagents) {
@@ -381,6 +383,24 @@ export function getAlchemyCommandFields(resource: AlchemyResource): EmbedField[]
     );
   }
   return fields;
+}
+
+export function findResourcesWhereResourceIsReagent(targetResource: string): AlchemyResource[] {
+  const resources: AlchemyResource[] = [];
+  for (const i in alchemyResources) {
+    const resource = alchemyResources[i];
+    if (resource.reagents === undefined) continue;
+    const filteredReagents = resource.reagents.filter(r => r.resource.toLowerCase() === targetResource.toLowerCase());
+    if (filteredReagents.length === 1) resources.push(resource);
+  }
+  return resources;
+}
+
+function formatListOfResources(resources: AlchemyResource[], targetResource: string): string {
+  if (resources.length === 0) return `${capitalize(targetResource)} is not used in any reactions as a reagent.`;
+  const namedResources = resources.map(resource => `**${resource.symbol} ${resource.name}**`);
+  const usedIn = makeEnumeration<string>(namedResources, ", ", "", "and");
+  return `${capitalize(targetResource)} is used in ${resources.length} reactions as a reagent.\nUsed in ${usedIn}.`;
 }
 
 export function formatAlchemicReaction(resource: AlchemyResource): string {
