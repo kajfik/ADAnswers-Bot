@@ -51,6 +51,7 @@ import { eternitychallenge } from "./commands/4/eternitychallenge";
 import { eternitychallengeorder } from "./commands/4/eternitychallengeorder";
 import { failec } from "./commands/4/failec";
 
+import { alchemy } from "./commands/5/alchemy";
 import { autoachievement } from "./commands/5/autoachievement";
 import { gamevsrealtime } from "./commands/5/gamevsrealtime";
 import { glyph } from "./commands/5/glyph";
@@ -113,7 +114,7 @@ export const commandsByPage: { [page: number]: Command[] } = {
   2: [bugo, ic4, ic5, infinitydimensions, peakipmin, replicanti, setcrunchauto],
   3: [onesixtyoneor162, earlyeternityprogression, ep, eternitygrinding, firstsplit, infinitygrinding, respec, secondsplit, study, studytree, ts, timeshards],
   4: [bankedinfinities, changeectree, dilation, dilationgrind, dilationtrees, ec, eco, ecs, ecsattt, eternitychallenge, eternitychallengeorder, failec],
-  5: [autoachievement, gamevsrealtime, perk, reality, rm],
+  5: [alchemy, autoachievement, gamevsrealtime, perk, reality, rm],
   6: [achievements, adbonus, bottombuttons, challenge, galaxyscaling, importexport, news, offlineticks, oom, upgrade],
   7: [abb, androidorweb, antitables, decimal, howtoplay, notations],
   8: [fivehours, commands, contributors, report, rolerequest, slashcommand],
@@ -131,7 +132,7 @@ export const Commands: Command[] = [
   // Page 4 - Eternity Challenges / Dilation
   bankedinfinities, changeectree, dilation, dilationgrind, dilationtrees, ec, eco, ecs, ecsattt, eternitychallenge, eternitychallengeorder, failec,
   // Page 5 - Reality
-  autoachievement, gamevsrealtime, glyph, perk, reality, rm,
+  alchemy, autoachievement, gamevsrealtime, glyph, perk, reality, rm,
   // Page 6 - Misc
   achievements, adbonus, bottombuttons, challenge, galaxyscaling, importexport, news, offlineticks, upgrade, oom,
   // Page 7 - Misc

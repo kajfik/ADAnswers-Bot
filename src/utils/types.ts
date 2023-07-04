@@ -156,3 +156,20 @@ export type ECsAtTTInfo = {
   nextEC: EC,
   nextECs: string[]
 }
+
+export type Reagent = {
+  resource: string,
+  amount: number
+}
+
+export type AlchemyResource = {
+  name: string,
+  // Ra-Effarig level that the resource unlocks at
+  unlocksAt: number,
+  symbol: string,
+  effect: string,
+  effectFormula: string,
+  // What ring the resource lies on
+  tier: number,
+  reagents?: Reagent[]
+}

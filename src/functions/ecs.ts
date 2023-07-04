@@ -1,6 +1,6 @@
 import { AttachmentBuilder, EmbedBuilder } from "discord.js";
 import { EC, ECsAtTTInfo } from "../utils/types";
-import { ECDescriptions, ECRewards, EternityChallenges, findEC, order } from "../utils/databases/eternitychallenges";
+import { ECDescriptions, ECRewards, EternityChallenges, findEC, order, orderAsECs } from "../utils/databases/eternitychallenges";
 import { Colour } from "../utils/colours";
 import { footerText } from "./Misc";
 
@@ -71,6 +71,7 @@ export function ecsAtTTAmount(tt: number): ECsAtTTInfo | string {
     nextECs
   };
 
+  // Compares the next ECs to the current next EC to see if the TT amounts are identical
   while (findEC(
     Number(order[order.indexOf(nextECs[nextECs.length - 1]) + 1].split("x")[0]),
     Number(order[order.indexOf(nextECs[nextECs.length - 1]) + 1].split("x")[1])
@@ -88,6 +89,40 @@ export function ecsAtTTAmount(tt: number): ECsAtTTInfo | string {
     nextECs
   };
 }
+
+// // ECOrder is an Array<EC> containing all EC data.
+// export function ecsAtTTAmount(tt: number): ECsAtTTInfo | string {
+//   if (tt > 12350) return "All ECs completed!";
+
+//   let completions = Array(12);
+//   const nextECs = [];
+//   let i: number = 0;
+//   let ec: EC = orderAsECs[0];
+
+//   while (ec.tt <= tt) {
+//     completions[ec.challenge - 1] = ec.completion;
+//     ec = orderAsECs[++i];
+//   }
+
+//   const nextChallengeTT = ec.tt;
+
+//   while (ec.tt === nextChallengeTT) {
+//     nextECs.push(ec.toString());
+//     ec = orderAsECs[++i];
+//   }
+
+//   completions = completions.filter(Number);
+//   let completionString: string = completions.join(", ");
+//   if (completions.length === 0) {
+//     completionString = "No ECs completed yet";
+//   }
+
+//   return {
+//     completions: completionString,
+//     nextECs: nextECs.join(", "),
+//     nextChallengeTT: nextChallengeTT
+//   };
+// }
 
 export const eternityChallengeEmbedBuilder = (challengeInfo: EC, requestedFields?: string): EmbedBuilder => new EmbedBuilder()
   .setTitle(`Eternity Challenge ${challengeInfo.challenge}x${challengeInfo.completion}`)

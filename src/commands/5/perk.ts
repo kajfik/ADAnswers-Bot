@@ -98,12 +98,12 @@ export const perk: Command = {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     if (interaction.options.data.length > 1) {
-      await interaction.reply({ content: "You can only use one perk type at a time." });
+      await interaction.reply({ content: "You can only use one perk type at a time.", ephemeral: true });
       return;
     }
 
     if (interaction.options.data.length === 0) {
-      await interaction.reply({ content: "You must specify a perk type." });
+      await interaction.reply({ content: "You must specify a perk type.", ephemeral: true });
       return;
     }
 

@@ -1,6 +1,7 @@
 import { EmbedBuilder, EmbedField } from "discord.js";
 import { GlyphEffect, GlyphInfo } from "../types";
 import { Colour } from "../colours";
+import { Symbols } from "../symbols";
 import { capitalize } from "../extensions";
 import { footerText } from "../../functions/Misc";
 
@@ -23,7 +24,7 @@ export const basicGlyphs: GlyphData = {
     name: "power",
     colour: Colour.antimatter,
     emote: "<:glyph_power:586607087744843776>",
-    altText: "Ω",
+    altText: Symbols.power,
     effects: {
       "Bottom Left": {
         name: "Antimatter Dimensions Power",
@@ -74,7 +75,7 @@ export const basicGlyphs: GlyphData = {
     name: "infinity",
     colour: Colour.infinity,
     emote: "<:glyph_infinity:586607119856304129>",
-    altText: "∞",
+    altText: Symbols.infinity,
     effects: {
       "Bottom Left": {
         name: "Infinity Dimension Power",
@@ -125,7 +126,7 @@ export const basicGlyphs: GlyphData = {
     name: "replication",
     colour: Colour.replication,
     emote: "<:glyph_replication:586607179432460298>",
-    altText: "Ξ",
+    altText: Symbols.replication,
     effects: {
       "Bottom Left": {
         name: "Replicanti Replication Speed",
@@ -176,7 +177,7 @@ This makes the glyph stack reasonably while still providing a boost if you use v
     name: "time",
     colour: Colour.eternity,
     emote: "<:glyph_time:586607148985876501>",
-    altText: "Δ",
+    altText: Symbols.time,
     effects: {
       "Bottom Left": {
         name: "Time Dimension Power",
@@ -227,7 +228,7 @@ This makes the glyph stack reasonably while still providing a boost if you use v
     name: "dilation",
     colour: Colour.dilation,
     emote: "<:glyph_dilation:586607200626278421>",
-    altText: "Ψ",
+    altText: Symbols.dilation,
     effects: {
       "Bottom Left": {
         name: "Dilated Time Multiplier",
@@ -280,8 +281,8 @@ export const specialGlyphs: GlyphData = {
     name: "effarig",
     colour: Colour.effarig,
     // AD doesn't have emotes for Effarig, Cursed, or Reality, so they get the text
-    emote: "Ϙ",
-    altText: "Ϙ",
+    emote: Symbols.effarig,
+    altText: Symbols.effarig,
     effects: {
       "Southwest": {
         name: "Game Speed Power",
@@ -348,8 +349,8 @@ export const specialGlyphs: GlyphData = {
   cursed: {
     name: "cursed",
     colour: "#000000",
-    emote: "⸸",
-    altText: "⸸",
+    emote: Symbols.cursed,
+    altText: Symbols.cursed,
     effects: {
       "Bottom Left": {
         name: "Cursed Galaxies",
@@ -380,8 +381,8 @@ export const specialGlyphs: GlyphData = {
   reality: {
     name: "reality",
     colour: Colour.reality,
-    emote: "Ϟ",
-    altText: "Ϟ",
+    emote: Symbols.reality,
+    altText: Symbols.reality,
     effects: {
       "Bottom Left": {
         name: "Equipped Glyph Level Increase",
@@ -413,7 +414,7 @@ export const specialGlyphs: GlyphData = {
     name: "companion",
     colour: Colour.companion,
     emote: "<:glyph_companion:1053705550644391946>",
-    altText: "♥",
+    altText: Symbols.companion,
     effects: {
       "Bottom Left": {
         name: "Love",
