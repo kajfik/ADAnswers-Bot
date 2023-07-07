@@ -1,19 +1,19 @@
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, CommandInteraction, ComponentType, InteractionReplyOptions, MessageComponentInteraction, User } from "discord.js";
+import { ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle, CommandInteraction, ComponentType, EmbedBuilder, InteractionReplyOptions, MessageComponentInteraction, User } from "discord.js";
 import { AlchemyEmbeds, AlchemyImages, alchemyResources } from "../../../utils/databases/alchemy";
+import { AlchemyResource, Reagent } from "../../../utils/types";
 import { authorTitle, isHelper } from "../../../functions/Misc";
-import { Reagent } from "../../../utils/types";
 import { Symbols } from "../../../utils/symbols";
 
 export async function resourceAlchemySubcommand(interaction: CommandInteraction, user: User): Promise<void> {
   if (!interaction || !interaction.isChatInputCommand()) return;
-  let resource = interaction.options.getString("resource") as string;
-  let resourceInfo = alchemyResources[resource];
-  let disabled = false;
-  const expirationTimestamp = Math.floor((Date.now() + 60000) / 1000);
+  let resource: string = interaction.options.getString("resource") as string;
+  let resourceInfo: AlchemyResource = alchemyResources[resource];
+  let disabled: boolean = false;
+  const expirationTimestamp: number = Math.floor((Date.now() + 60000) / 1000);
 
-  let image = AlchemyImages[resourceInfo.unlocksAt];
+  let image: AttachmentBuilder = AlchemyImages[resourceInfo.unlocksAt];
 
-  let embed = AlchemyEmbeds[resourceInfo.unlocksAt]
+  let embed: EmbedBuilder = AlchemyEmbeds[resourceInfo.unlocksAt]
     .setTimestamp()
     .setAuthor({ name: authorTitle(interaction), iconURL: user.displayAvatarURL() })
     .setDescription(`Expire${disabled ? "d" : "s"} <t:${expirationTimestamp}:R> at <t:${expirationTimestamp}:T>`);

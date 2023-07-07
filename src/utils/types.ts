@@ -154,7 +154,8 @@ export type UserInfo = {
 export type ECsAtTTInfo = {
   completions: string
   nextEC: EC,
-  nextECs: string[]
+  nextECs: string[],
+  nextChallengeTT: number
 }
 
 export type Reagent = {

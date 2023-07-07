@@ -1,7 +1,7 @@
 import { ActionRowBuilder, ApplicationCommandType, ButtonBuilder, ButtonStyle, Colors, CommandInteraction, EmbedBuilder, EmbedField, InteractionReplyOptions, MessageComponentInteraction } from "discord.js";
 import { authorTitle, isHelper, link } from "../../functions/Misc";
 import { dhmsFromMS, getTimezoneFromDate } from "../../functions/time";
-import { getTagInfo, parseUsersList } from "../../functions/database";
+import { getTagInfo, parseTimeList, parseUsersList } from "../../functions/database";
 import { Command } from "../../command";
 import { Commands } from "../../commands";
 import { TagInfo } from "../../utils/types";
@@ -65,7 +65,7 @@ const metaFields = (interaction: CommandInteraction, tagInfo: TagInfo): { [key: 
     },
     {
       name: "Top 5 hours",
-      value: `${tagInfo.top5hours}`,
+      value: `${parseTimeList(tagInfo.top5hours)}`,
       inline: true
     },
     {
@@ -141,10 +141,6 @@ export const meta: Command = {
           .setDisabled(true)
           .setLabel(disabled ? `Time expired` : `Requested by ${person}.`)
           .setCustomId("secondary-info-button"),
-        new ButtonBuilder()
-          .setStyle(ButtonStyle.Link)
-          .setLabel("Commands website")
-          .setURL("https://earthernsence.github.io/ADAnswers-Bot/")
       );
 
 

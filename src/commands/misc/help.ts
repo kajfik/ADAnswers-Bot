@@ -1,4 +1,4 @@
-import { ActionRowBuilder, ApplicationCommandType, AttachmentBuilder, ButtonBuilder, ButtonStyle, CommandInteraction, EmbedBuilder, InteractionReplyOptions, MessageComponentInteraction, SelectMenuBuilder } from "discord.js";
+import { ActionRowBuilder, ApplicationCommandType, AttachmentBuilder, ButtonBuilder, ButtonStyle, CommandInteraction, EmbedBuilder, InteractionReplyOptions, MessageComponentInteraction, StringSelectMenuBuilder } from "discord.js";
 import { Command } from "../../command";
 import { commandsByPage } from "../../commands";
 import config from "../../config.json";
@@ -55,9 +55,9 @@ export const help: Command = {
           .setURL("https://earthernsence.github.io/ADAnswers-Bot/")
       );
 
-    const selectMenu: ActionRowBuilder<SelectMenuBuilder> = new ActionRowBuilder<SelectMenuBuilder>()
+    const selectMenu: ActionRowBuilder<StringSelectMenuBuilder> = new ActionRowBuilder<StringSelectMenuBuilder>()
       .addComponents(
-        new SelectMenuBuilder()
+        new StringSelectMenuBuilder()
           .setCustomId("help_select_page")
           .setOptions([
             {

@@ -1,6 +1,6 @@
 import { AttachmentBuilder, EmbedBuilder } from "discord.js";
 import { EC, ECsAtTTInfo } from "../utils/types";
-import { ECDescriptions, ECRewards, EternityChallenges, findEC, order } from "../utils/databases/eternitychallenges";
+import { ECDescriptions, ECRewards, EternityChallenges, findEC, order, orderAsECs } from "../utils/databases/eternitychallenges";
 import { Colour } from "../utils/colours";
 import { footerText } from "./Misc";
 
@@ -41,88 +41,44 @@ export function otherCompletions(id: number, completion: number): string {
   return findCompletionsAtIndex(indexOfCompletion);
 }
 
+// Function rewritten by Mirai
 export function ecsAtTTAmount(tt: number): ECsAtTTInfo | string {
-  if (tt < 130) return "No ECs can be reasonably completed yet!";
-  if (tt === 130) return "1x1";
-  if (tt > 12350) return "all ECs completed!";
+  if (tt >= 12350) return "All ECs completed!";
 
   let completions = Array(12);
-  for (const chall of EternityChallenges) {
-    if (chall.tt <= tt) {
-      completions[chall.challenge - 1] = chall.completion;
+  const nextECs = [];
+  let i: number = 0;
+  let ec: EC = orderAsECs[0];
+
+  while (ec.tt <= tt) {
+    completions[ec.challenge - 1] = ec.completion;
+    ec = orderAsECs[++i];
+  }
+
+  const nextChallengeTT = ec.tt;
+
+  // Hacky, but it works
+  while (i <= 59 && ec.tt === nextChallengeTT) {
+    nextECs.push(`${ec.challenge}x${ec.completion}`);
+    ec = orderAsECs[++i];
+  }
+
+  completions = completions.filter(Number);
+  if (completions.length > 0) {
+    for (let j = 0; j < completions.length; j++) {
+      completions[j] = `${j + 1}x${completions[j]}`;
     }
   }
 
-  completions = completions.filter(Number).map((value, index) => `${index + 1}x${value}`);
-  const completionIndices = [];
-
-  for (const completion of completions) {
-    completionIndices[completions.indexOf(completion) + 1] = order.indexOf(completion);
-  }
-
-  const highestInOrder = order[completionIndices.sort((a, b) => b - a)[0]];
-  const next = order[order.indexOf(highestInOrder) + 1];
-  const nextECs = [next];
-
-  // It's easier to just bypass all of the while loop like this then messing with whatever the hell is happening there
-  if (next === "12x5") return {
-    completions: completions.join(", "),
-    nextEC: findEC(12, 5),
-    nextECs
-  };
-
-  // Compares the next ECs to the current next EC to see if the TT amounts are identical
-  while (findEC(
-    Number(order[order.indexOf(nextECs[nextECs.length - 1]) + 1].split("x")[0]),
-    Number(order[order.indexOf(nextECs[nextECs.length - 1]) + 1].split("x")[1])
-  ).tt ===
-  findEC(
-    Number(next.split("x")[0]),
-    Number(next.split("x")[1])
-  ).tt) {
-    nextECs.push(order[order.indexOf(nextECs[nextECs.length - 1]) + 1]);
-  }
+  const nextEC = ec;
 
   return {
-    completions: completions.join(", "),
-    nextEC: findEC(Number(next.split("x")[0]), Number(next.split("x")[1])),
-    nextECs
+    completions: tt < 130 ? "No ECs completed yet!" : completions.join(", "),
+    nextECs,
+    nextEC,
+    nextChallengeTT
   };
 }
-
-// // ECOrder is an Array<EC> containing all EC data.
-// export function ecsAtTTAmount(tt: number): ECsAtTTInfo | string {
-//   if (tt > 12350) return "All ECs completed!";
-
-//   let completions = Array(12);
-//   const nextECs = [];
-//   let i: number = 0;
-//   let ec: EC = orderAsECs[0];
-
-//   while (ec.tt <= tt) {
-//     completions[ec.challenge - 1] = ec.completion;
-//     ec = orderAsECs[++i];
-//   }
-
-//   const nextChallengeTT = ec.tt;
-
-//   while (ec.tt === nextChallengeTT) {
-//     nextECs.push(ec.toString());
-//     ec = orderAsECs[++i];
-//   }
-
-//   completions = completions.filter(Number);
-//   let completionString: string = completions.join(", ");
-//   if (completions.length === 0) {
-//     completionString = "No ECs completed yet";
-//   }
-
-//   return {
-//     completions: completionString,
-//     nextECs: nextECs.join(", "),
-//     nextChallengeTT: nextChallengeTT
-//   };
-// }
 
 export const eternityChallengeEmbedBuilder = (challengeInfo: EC, requestedFields?: string): EmbedBuilder => new EmbedBuilder()
   .setTitle(`Eternity Challenge ${challengeInfo.challenge}x${challengeInfo.completion}`)

@@ -43,7 +43,7 @@ export const ts: Command = {
     const showECs: boolean = interaction.options.getBoolean("showecs") as boolean;
     const tree = new Tree(theorems, path).generateTree();
     const ecs = ecsAtTTAmount(theorems);
-    const next = typeof ecs === "string" ? "" : `(Next: ${makeEnumeration<string>(ecs.nextECs, ", ", "", "and")} at ${ecs.nextEC.tt} TT)`;
+    const next = typeof ecs === "string" ? "" : `(Next: ${makeEnumeration<string>(ecs.nextECs, ", ", "", "and")} at ${ecs.nextChallengeTT} TT)`;
     const ecString: string = showECs && theorems >= 130 ? `EC completions for ${theorems} TT: ${typeof ecs === "string" ? ecs : ecs.completions} ${next}` : "";
 
     await interaction.reply({ content: `${tree}\n${ecString}`, ephemeral: !isHelper(interaction) });

@@ -50,6 +50,17 @@ export function parseUsersList(users: string, interaction: CommandInteraction) {
   return userIDs.map(user => user.join(":")).join("\n");
 }
 
+export function parseTimeList(times: string) {
+  // Instead of it simply showing an hour value, we're gonna turn it into an actual range of times
+  const timesArray = times.split("\n").map((time: string) => time.split(":"));
+  for (const time of timesArray) {
+    const hour = `${time[0].length === 2 ? time[0] : `0${time[0]}`}`;
+    time[0] = `${hour}:00-${hour}:59`;
+  }
+
+  return timesArray.map(time => time.join(":")).join("\n");
+}
+
 // This is still really ugly, and I'm not sure how else to approach it.
 export async function manageTopCommands(database: ModelStatic<Model>) {
   const tagsMatchedWithTimesUsed: StringIndexedStringObjectType = {};
