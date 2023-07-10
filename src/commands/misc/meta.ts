@@ -1,4 +1,4 @@
-import { ActionRowBuilder, ApplicationCommandType, ButtonBuilder, ButtonStyle, Colors, CommandInteraction, EmbedBuilder, EmbedField, InteractionReplyOptions, MessageComponentInteraction } from "discord.js";
+import { ActionRowBuilder, ApplicationCommandType, ButtonBuilder, ButtonStyle, Colors, CommandInteraction, EmbedBuilder, EmbedField, InteractionReplyOptions, MessageComponentInteraction, User } from "discord.js";
 import { authorTitle, isHelper, link } from "../../functions/Misc";
 import { dhmsFromMS, getTimezoneFromDate } from "../../functions/time";
 import { getTagInfo, parseTimeList, parseUsersList } from "../../functions/database";
@@ -115,6 +115,7 @@ export const meta: Command = {
     const expirationTimestamp = Math.floor((Date.now() + 60000) / 1000);
     let currentPage = 1;
     const personRequested = authorTitle(interaction);
+    const user: User = interaction.member === null ? interaction.user : interaction.member.user as User;
     const tagInfo = await getTagInfo();
 
     const buttons = (disabled: boolean) => new ActionRowBuilder<ButtonBuilder>()
@@ -146,7 +147,7 @@ export const meta: Command = {
 
     // eslint-disable-next-line max-len
     const content: InteractionReplyOptions = {
-      embeds: [embed(currentPage, interaction, false, expirationTimestamp, tagInfo)],
+      embeds: [embed(currentPage, interaction, false, expirationTimestamp, tagInfo).setAuthor({ name: authorTitle(interaction), iconURL: user.displayAvatarURL() })],
       ephemeral: !isHelper(interaction),
       components: [buttons(false), buttons2(false, personRequested)]
     };
@@ -162,14 +163,14 @@ export const meta: Command = {
           const page = getNextPage(currentPage, up);
           currentPage = page;
           await i.update({
-            embeds: [embed(currentPage, interaction, false, expirationTimestamp, tagInfo)],
+            embeds: [embed(currentPage, interaction, false, expirationTimestamp, tagInfo).setAuthor({ name: authorTitle(interaction), iconURL: user.displayAvatarURL() })],
             components: [buttons(false), buttons2(false, personRequested)]
           });
         }
       });
       collector?.on("end", async() => {
         await interaction.editReply({
-          embeds: [embed(currentPage, interaction, true, expirationTimestamp, tagInfo)],
+          embeds: [embed(currentPage, interaction, true, expirationTimestamp, tagInfo).setAuthor({ name: authorTitle(interaction), iconURL: user.displayAvatarURL() })],
           components: [buttons(true), buttons2(true, personRequested)]
         });
       });
