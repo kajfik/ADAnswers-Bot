@@ -110,7 +110,7 @@ Person.init({
 const playerDatabase = databaseCreator("players");
 export class Player extends Model {
   declare name: string;
-  declare points: number
+  declare points: number;
 }
 
 Player.init({

@@ -1,7 +1,19 @@
-import { ActionRowBuilder, ApplicationCommandType, AttachmentBuilder, ButtonBuilder, ButtonStyle, CommandInteraction, EmbedBuilder, MessageComponentInteraction, ModalBuilder, ModalSubmitInteraction, TextInputBuilder, TextInputStyle, User } from "discord.js";
+import { ActionRowBuilder,
+  ApplicationCommandType,
+  AttachmentBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  CommandInteraction,
+  EmbedBuilder,
+  MessageComponentInteraction,
+  ModalBuilder,
+  ModalSubmitInteraction,
+  TextInputBuilder,
+  TextInputStyle,
+  User } from "discord.js";
+import { authorTitle, quantify } from "../../functions/Misc";
 import { Colour } from "../../utils/colours";
 import { Command } from "../../command";
-import { authorTitle, quantify } from "../../functions/Misc";
 import { randomClue } from "../../utils/databases/clues";
 import { tags } from "../../bot";
 
@@ -34,6 +46,7 @@ export const jeopardy: Command = {
     const embed = new EmbedBuilder()
       .setThumbnail("attachment://help.png")
       .setTitle(`${parsedRound} from ${date}`)
+      .setDescription(`Expires <t:${expirationTimestamp}:R> at <t:${expirationTimestamp}:T>`)
       .setColor(Colour.v)
       .setAuthor({ name: authorTitle(interaction), iconURL: user.displayAvatarURL() })
       .addFields({ name: "Category", value: category })
@@ -72,18 +85,23 @@ export const jeopardy: Command = {
         if (i.user.id !== interaction.user.id) return;
         if (i.isButton()) {
           i.showModal(modal);
-          const submission = await i.awaitModalSubmit({ time: 60000, filter: modalFilter });
+          const submission = await i.awaitModalSubmit({ time: 60000, filter: modalFilter }).catch(err => {
+            console.log(err);
+            interaction.followUp({ content: `Ooh, sorry. Out of time. Answer: what is \`${answer}\``, ephemeral: true });
+          });
+          if (submission === undefined) return;
           await submission.deferReply({ ephemeral: true });
           const response = submission.fields.getTextInputValue(`jeopardy_answer_input_${expirationTimestamp}`).toLowerCase();
           const name = interaction.user.id;
           const tag = await tags.player.findOrCreate({ where: { name } });
 
           if (response.trim() === answer.trim()) {
-            if (tag) tag[0].increment("points", { by: clueInfo.value });
+            if (tag) await tag[0].increment("points", { by: clueInfo.value });
             await submission.editReply({ content: `Correct! You gained ${clueInfo.value} points and now have a total of ${tag[0].dataValues.points} points.` });
           } else {
-            if (tag) tag[0].decrement("points", { by: clueInfo.value });
-            await submission.editReply({ content: `Darn, so close! Correct answer: what is \`${answer}\` (\`${response}\` was your answer). You lost ${clueInfo.value} points and now have a total of ${tag[0].dataValues.points} points.` });
+            if (tag) await tag[0].decrement("points", { by: clueInfo.value });
+            await submission.editReply({ content: `Darn, so close! Correct answer: what is \`${answer}\` (\`${response}\` was your answer). You lost ${clueInfo.value} points and now have a total of ${tag[0].dataValues.points} points.
+If, for some reason, your answer was correct but marked incorrect, there's not a lot I can do about that. J-Archive, where I get the data, often has formatting issues or other artefacts I have no control over. My apologies!` });
           }
         }
       });
