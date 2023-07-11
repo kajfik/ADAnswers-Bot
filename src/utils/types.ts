@@ -95,6 +95,7 @@ export type TagInfo = {
   top5commands: string;
   top5hours: string;
   top5users: string;
+  top5players: string;
   requests: string;
   successes: string;
 }

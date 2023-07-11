@@ -1,7 +1,7 @@
 import { ActionRowBuilder, ApplicationCommandType, ButtonBuilder, ButtonStyle, Colors, CommandInteraction, EmbedBuilder, EmbedField, InteractionReplyOptions, MessageComponentInteraction, User } from "discord.js";
 import { authorTitle, isHelper, link } from "../../functions/Misc";
 import { dhmsFromMS, getTimezoneFromDate } from "../../functions/time";
-import { getTagInfo, parseTimeList, parseUsersList } from "../../functions/database";
+import { getTagInfo, parsePlayersList, parseTimeList, parseUsersList } from "../../functions/database";
 import { Command } from "../../command";
 import { Commands } from "../../commands";
 import { TagInfo } from "../../utils/types";
@@ -67,6 +67,11 @@ const metaFields = (interaction: CommandInteraction, tagInfo: TagInfo): { [key: 
       name: "Top 5 hours",
       value: `${parseTimeList(tagInfo.top5hours)}`,
       inline: true
+    },
+    {
+      name: "Top 5 players (`/jeopardy`)",
+      value: `${parsePlayersList(tagInfo.top5players, interaction)}`,
+      inline: true,
     },
     {
       name: "All data",

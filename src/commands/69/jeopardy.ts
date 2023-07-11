@@ -69,18 +69,21 @@ export const jeopardy: Command = {
 
     await interaction.reply({ embeds: [embed], files: [picture], components: [answerButton], ephemeral: true }).then(() => {
       collector?.once("collect", async i => {
+        if (i.user.id !== interaction.user.id) return;
         if (i.isButton()) {
           i.showModal(modal);
           const submission = await i.awaitModalSubmit({ time: 60000, filter: modalFilter });
+          await submission.deferReply({ ephemeral: true });
           const response = submission.fields.getTextInputValue(`jeopardy_answer_input_${expirationTimestamp}`).toLowerCase();
+          const name = interaction.user.id;
+          const tag = await tags.player.findOrCreate({ where: { name } });
+
           if (response.trim() === answer.trim()) {
-            const name = interaction.user.id;
-            const tag = await tags.player.findOrCreate({ where: { name } });
             if (tag) tag[0].increment("points", { by: clueInfo.value });
-            console.log(tag[0]);
-            await submission.reply({ content: "Correct!", ephemeral: true });
+            await submission.editReply({ content: `Correct! You gained ${clueInfo.value} points and now have a total of ${tag[0].dataValues.points} points.` });
           } else {
-            await submission.reply({ content: `Darn, so close! Correct answer: what is \`${answer}\` (\`${response}\` was your answer)`, ephemeral: true });
+            if (tag) tag[0].decrement("points", { by: clueInfo.value });
+            await submission.editReply({ content: `Darn, so close! Correct answer: what is \`${answer}\` (\`${response}\` was your answer). You lost ${clueInfo.value} points and now have a total of ${tag[0].dataValues.points} points.` });
           }
         }
       });

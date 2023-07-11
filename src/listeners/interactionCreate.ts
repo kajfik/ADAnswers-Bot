@@ -29,8 +29,10 @@ export default (client: Client): void => {
         if (interaction.isMessageContextMenuCommand()) return;
         await handleSlashCommand(client, interaction as ChatInputCommandInteraction);
       } else if (interaction.type === InteractionType.ModalSubmit) {
-        await interaction.deferReply({ ephemeral: true });
-        await handleModalSubmit(currentMessageBeingReported, interaction);
+        if (interaction.customId === "report-message-modal") {
+          await interaction.deferReply({ ephemeral: true });
+          await handleModalSubmit(currentMessageBeingReported, interaction);
+        }
       }
     } catch (error) {
       console.log(error);
@@ -71,7 +73,6 @@ const handleContextMenu = async(interaction: MessageContextMenuCommandInteractio
 };
 
 const handleModalSubmit = async(interaction: MessageContextMenuCommandInteraction, modalSubmitInteraction: ModalSubmitInteraction) => {
-  if (modalSubmitInteraction.customId.startsWith("jeopardy")) return;
   const reason = modalSubmitInteraction.fields.getTextInputValue("report-message-input");
 
   const messageReportEmbed = new EmbedBuilder()

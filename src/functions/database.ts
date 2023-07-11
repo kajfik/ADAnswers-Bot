@@ -1,6 +1,7 @@
 import { Model, ModelStatic, Op } from "sequelize";
 import { StringIndexedStringObjectType, TagInfo } from "../utils/types";
 import { CommandInteraction } from "discord.js";
+import { quantify } from "./Misc";
 import { tags } from "../bot";
 
 export async function incrementTag(name: string, tagsRequested: typeof tags.personUsage) {
@@ -20,11 +21,13 @@ export async function getTagInfo(): Promise<TagInfo> {
   const timeData = await manageTopCommands(tags.timeUsage);
   const usageData = await manageTopCommands(tags.commandUsage);
   const personData = await manageTopCommands(tags.personUsage);
+  const playerData = await manageTopCommands(tags.player, "points");
   const requests = await fetchRequests(tags.commandUsage);
   return {
     top5commands: usageData,
     top5hours: timeData,
     top5users: personData,
+    top5players: playerData,
     requests: requests[0],
     successes: requests[1],
   };
@@ -50,6 +53,19 @@ export function parseUsersList(users: string, interaction: CommandInteraction) {
   return userIDs.map(user => user.join(":")).join("\n");
 }
 
+export function parsePlayersList(users: string, interaction: CommandInteraction) {
+  // It's literally parseUsersList but we need to add "points" to the end of every line
+  const parsedUsers = parseUsersList(users, interaction);
+  const players = parsedUsers.split("\n").map((user: string) => user.split(":"));
+
+  for (const player of players) {
+    // Need the extra space
+    player[1] = ` ${quantify("point", Number(player[1]))}`;
+  }
+
+  return players.map(user => user.join(":")).join("\n");
+}
+
 export function parseTimeList(times: string) {
   // Instead of it simply showing an hour value, we're gonna turn it into an actual range of times
   const timesArray = times.split("\n").map((time: string) => time.split(":"));
@@ -62,10 +78,10 @@ export function parseTimeList(times: string) {
 }
 
 // This is still really ugly, and I'm not sure how else to approach it.
-export async function manageTopCommands(database: ModelStatic<Model>) {
+export async function manageTopCommands(database: ModelStatic<Model>, additionalTag = "timesUsed") {
   const tagsMatchedWithTimesUsed: StringIndexedStringObjectType = {};
   const tagList = await database.findAll({ where: { name: { [Op.notIn]: ["totalRequests", "totalSuccesses"] } } });
-  tagList.map(t => Object.assign(tagsMatchedWithTimesUsed, { [t.get("name") as string]: t.get("timesUsed") }));
+  tagList.map(t => Object.assign(tagsMatchedWithTimesUsed, { [t.get("name") as string]: t.get(additionalTag) }));
   const sorted = Object.values(tagsMatchedWithTimesUsed).sort((a: string, b: string) => parseInt(b, 10) - parseInt(a, 10));
   const top5Commands: Array<Array<string>> = [];
 
