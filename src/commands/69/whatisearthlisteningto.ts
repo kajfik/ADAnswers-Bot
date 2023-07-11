@@ -91,7 +91,8 @@ export const whatisearthlisteningto: Command = {
           { name: "Link", value: `${link(`${basicTrackInfo}`, currentTrack.url)}` },
           { name: "Currently listening?", value: `${wasOldTrack ? `No, this was the last track he listened to. He listened to this track on ${currentlyListeningContent}` : `Yes, he is currently listening to this track`}` }
         ])
-        .setThumbnail(currentTrack.image[2]["#text"]);
+        .setThumbnail(currentTrack.image[2]["#text"])
+        .setFooter({ text: `Data from ${link("his LastFM account", "https://www.last.fm/user/earthernsence")}`, iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
 
       await interaction.reply({ embeds: [embed], ephemeral: !isHelper(interaction) });
       return;

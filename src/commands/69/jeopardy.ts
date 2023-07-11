@@ -97,10 +97,11 @@ export const jeopardy: Command = {
 
           if (response.trim() === answer.trim()) {
             if (tag) await tag[0].increment("points", { by: clueInfo.value });
-            await submission.editReply({ content: `Correct! You gained ${clueInfo.value} points and now have a total of ${tag[0].dataValues.points} points.` });
+            await submission.editReply({ content: `Correct! You gained ${clueInfo.value} points and now have a total of ${tag[0].dataValues.points + clueInfo.value} points.` });
           } else {
             if (tag) await tag[0].decrement("points", { by: clueInfo.value });
-            await submission.editReply({ content: `Darn, so close! Correct answer: what is \`${answer}\` (\`${response}\` was your answer). You lost ${clueInfo.value} points and now have a total of ${tag[0].dataValues.points} points.
+            await submission.editReply({
+              content: `Darn, so close! Correct answer: what is \`${answer}\` (\`${response}\` was your answer). You lost ${clueInfo.value} points and now have a total of ${tag[0].dataValues.points - clueInfo.value} points.
 If, for some reason, your answer was correct but marked incorrect, there's not a lot I can do about that. J-Archive, where I get the data, often has formatting issues or other artefacts I have no control over. My apologies!` });
           }
         }
