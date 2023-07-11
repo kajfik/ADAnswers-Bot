@@ -1,10 +1,10 @@
 import { ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, ChatInputCommandInteraction, EmbedBuilder, User } from "discord.js";
 import { GlyphEmbedGetter, basicGlyphs, specialGlyphs } from "../../utils/databases/glyphs";
 import { authorTitle, isHelper } from "../../functions/Misc";
-import { effectCountProbabilityCalculator, rarityProbabilityCalculator, threshold } from "../../functions/glyphs";
 import { Command } from "../../command";
 import { GlyphInfo } from "../../utils/types";
 import config from "../../config.json";
+import { utilsGlyphSubcommand } from "./glyph/utils";
 
 function getEffectChoices(): { name: string, value: string, type: any }[] {
   const choices = [];
@@ -266,33 +266,8 @@ export const glyph: Command = {
     const isADServer: boolean = (interaction.guildId === config.ids.AD.serverID);
 
     if (interaction.options.getSubcommandGroup() !== null) {
-      if (interaction.options.getSubcommand() === "threshold") {
-        const response = await threshold(interaction.options.getNumber("rarity") as number);
-        await interaction.reply({ content: response.status, ephemeral: !isHelper(interaction) });
-        return;
-      }
-
-      if (interaction.options.getSubcommand() === "rarityprobability") {
-        const bonusRarity = interaction.options.getNumber("bonus") as number;
-        const ru16Purchased = interaction.options.getBoolean("ru16") as boolean;
-        const rarity = interaction.options.getNumber("rarity") as number;
-
-        const response = await rarityProbabilityCalculator(bonusRarity, ru16Purchased, rarity);
-        await interaction.reply({ content: response.status, ephemeral: !isHelper(interaction) });
-        return;
-      }
-
-      if (interaction.options.getSubcommand() === "effectprobability") {
-        const ru17Purchased = interaction.options.getBoolean("ru17") as boolean;
-        const rarity = interaction.options.getNumber("rarity") as number;
-        const level = interaction.options.getNumber("level") as number;
-        const effects = interaction.options.getNumber("effects") as number;
-        const isEffarig = interaction.options.getBoolean("effarig") as boolean;
-
-        const response = await effectCountProbabilityCalculator(ru17Purchased, rarity, level, effects, isEffarig);
-        await interaction.reply({ content: response.status, ephemeral: !isHelper(interaction) });
-        return;
-      }
+      await utilsGlyphSubcommand(interaction);
+      return;
     }
 
     const type: string = interaction.options.getSubcommand();
