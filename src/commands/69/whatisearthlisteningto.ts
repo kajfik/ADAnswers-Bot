@@ -89,7 +89,7 @@ export const whatisearthlisteningto: Command = {
         .addFields([
           { name: "Album", value: `${currentTrack.album["#text"]}` },
           { name: "Link", value: `${link(`${basicTrackInfo}`, currentTrack.url)}` },
-          { name: "Currently listening?", value: `${wasOldTrack ? `No, he listened to this track on ${currentlyListeningContent}` : `Yes, he is currently listening to this track`}` }
+          { name: "Currently listening?", value: `${wasOldTrack ? `No, this was the last track he listened to. He listened to this track on ${currentlyListeningContent}` : `Yes, he is currently listening to this track`}` }
         ])
         .setThumbnail(currentTrack.image[2]["#text"]);
 

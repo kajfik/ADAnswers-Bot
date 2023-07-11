@@ -105,17 +105,44 @@ Person.init({
   modelName: "PersonUsage"
 });
 
+// For jeopardy
+
+const playerDatabase = databaseCreator("players");
+export class Player extends Model {
+  declare name: string;
+  declare points: number
+}
+
+Player.init({
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true
+  },
+  points: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 0
+  }
+},
+{
+  sequelize: playerDatabase,
+  modelName: "PlayerUsage"
+});
+
 export const databases = {
   commandUsage: commandUsageDatabase,
   personUsage: personUsageDatabase,
-  timeUsage: timeUsageDatabase
+  timeUsage: timeUsageDatabase,
+  players: playerDatabase
 };
 export const tags = {
   commandUsage: Command,
   personUsage: Person,
-  timeUsage: Time
+  timeUsage: Time,
+  player: Player
 };
 
-ready(client, [commandUsageDatabase, personUsageDatabase, timeUsageDatabase], [Command, Person, Time]);
+ready(client, [commandUsageDatabase, personUsageDatabase, timeUsageDatabase, playerDatabase], [Command, Person, Time, Player]);
 interactionCreate(client);
 messageCreate(client);

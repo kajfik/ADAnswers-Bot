@@ -70,8 +70,28 @@ export function toNumber(string: string) {
   return parseInt(match[0], 10);
 }
 
-export function randomInArray(array: any[]) {
+export function randomInArray<itemType>(array: Array<itemType>) {
   return array[Math.floor(Math.random() * array.length)];
+}
+
+export function range(start: number, stop?: number, step?: number) {
+  let realStart = start;
+  const realStop = stop ?? start;
+  const realStep = step ?? 1;
+  if (realStop === realStart) {
+    realStart = 0;
+  }
+
+  if ((realStep > 0 && realStart >= realStop) || (realStep < 0 && realStart <= realStop)) {
+    return [];
+  }
+
+  const result = [];
+  for (let i = realStart; realStep > 0 ? i < realStop : i > realStop; i += realStep) {
+    result.push(i);
+  }
+
+  return result;
 }
 
 export const Caesar = {

@@ -71,6 +71,7 @@ const handleContextMenu = async(interaction: MessageContextMenuCommandInteractio
 };
 
 const handleModalSubmit = async(interaction: MessageContextMenuCommandInteraction, modalSubmitInteraction: ModalSubmitInteraction) => {
+  if (modalSubmitInteraction.customId.startsWith("jeopardy")) return;
   const reason = modalSubmitInteraction.fields.getTextInputValue("report-message-input");
 
   const messageReportEmbed = new EmbedBuilder()
