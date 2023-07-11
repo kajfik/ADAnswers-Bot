@@ -1,7 +1,7 @@
 import { ActionRowBuilder, ApplicationCommandType, AttachmentBuilder, ButtonBuilder, ButtonStyle, CommandInteraction, EmbedBuilder, MessageComponentInteraction, ModalBuilder, ModalSubmitInteraction, TextInputBuilder, TextInputStyle, User } from "discord.js";
 import { Colour } from "../../utils/colours";
 import { Command } from "../../command";
-import { authorTitle } from "../../functions/Misc";
+import { authorTitle, quantify } from "../../functions/Misc";
 import { randomClue } from "../../utils/databases/clues";
 import { tags } from "../../bot";
 
@@ -37,7 +37,8 @@ export const jeopardy: Command = {
       .setColor(Colour.v)
       .setAuthor({ name: authorTitle(interaction), iconURL: user.displayAvatarURL() })
       .addFields({ name: "Category", value: category })
-      .addFields({ name: "Clue", value: clue });
+      .addFields({ name: "Clue", value: clue })
+      .addFields({ name: "Value", value: `Worth ${quantify("point", clueInfo.value)}` });
 
     const answerButton = new ActionRowBuilder<ButtonBuilder>()
       .addComponents(
@@ -70,19 +71,17 @@ export const jeopardy: Command = {
       collector?.once("collect", async i => {
         if (i.isButton()) {
           i.showModal(modal);
-          await i.awaitModalSubmit({ time: 60000, filter: modalFilter }).then(async submission => {
-            await submission.deferUpdate();
-            const response = submission.fields.getTextInputValue(`jeopardy_answer_input_${expirationTimestamp}`).toLowerCase();
-            if (response === answer) {
-              const name = interaction.user.id;
-              const tag = await tags.player.findOrCreate({ where: { name } });
-              if (tag) tag[0].increment("points", { by: clueInfo.value });
-              console.log(tag[0]);
-              await submission.editReply({ content: "Correct!" });
-            } else {
-              await submission.editReply({ content: `Darn, so close! Correct answer: what is \`${answer}\` (\`${response}\` was your answer)` });
-            }
-          });
+          const submission = await i.awaitModalSubmit({ time: 60000, filter: modalFilter });
+          const response = submission.fields.getTextInputValue(`jeopardy_answer_input_${expirationTimestamp}`).toLowerCase();
+          if (response.trim() === answer.trim()) {
+            const name = interaction.user.id;
+            const tag = await tags.player.findOrCreate({ where: { name } });
+            if (tag) tag[0].increment("points", { by: clueInfo.value });
+            console.log(tag[0]);
+            await submission.reply({ content: "Correct!", ephemeral: true });
+          } else {
+            await submission.reply({ content: `Darn, so close! Correct answer: what is \`${answer}\` (\`${response}\` was your answer)`, ephemeral: true });
+          }
         }
       });
     });
