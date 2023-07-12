@@ -39,6 +39,11 @@ export type GlyphEffect = {
   }
 }
 
+export type GlyphSacrifice = {
+  effect: string,
+  effectFormula: string
+}
+
 export type GlyphInfo = {
   name: string,
   // The ID of the emote on the AD Discord server.
@@ -50,6 +55,7 @@ export type GlyphInfo = {
     [key: string]: GlyphEffect,
   },
   colour: ColorResolvable,
+  sacrifice?: GlyphSacrifice
 }
 
 type APInfo = {

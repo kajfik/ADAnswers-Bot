@@ -85,14 +85,14 @@ export const whatisearthlisteningto: Command = {
       const embed: EmbedBuilder = new EmbedBuilder()
         .setAuthor({ name: authorTitle(interaction), iconURL: user.displayAvatarURL() })
         .setTitle(basicTrackInfo)
-        .setDescription(`${link("Earth's Spotify account", "https://open.spotify.com/user/divineicbm?si=30b3b0b0b2c84ccd")}`)
+        .setDescription(`${link("Earth's Spotify account", "https://open.spotify.com/user/divineicbm?si=30b3b0b0b2c84ccd")} / ${link("Earth's LastFM account", "https://www.last.fm/user/earthernsence")}`)
         .addFields([
           { name: "Album", value: `${currentTrack.album["#text"]}` },
           { name: "Link", value: `${link(`${basicTrackInfo}`, currentTrack.url)}` },
           { name: "Currently listening?", value: `${wasOldTrack ? `No, this was the last track he listened to. He listened to this track on ${currentlyListeningContent}` : `Yes, he is currently listening to this track`}` }
         ])
         .setThumbnail(currentTrack.image[2]["#text"])
-        .setFooter({ text: `Data from ${link("his LastFM account", "https://www.last.fm/user/earthernsence")}`, iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
+        .setFooter({ text: `Data from LastFM`, iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
 
       await interaction.reply({ embeds: [embed], ephemeral: !isHelper(interaction) });
       return;

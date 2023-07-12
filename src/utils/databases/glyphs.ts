@@ -69,6 +69,10 @@ export const basicGlyphs: GlyphData = {
         effectFormula: "1 + Level * (1 + 2.5*Rarity) / 12",
         stacking: "Additive with itself, based on the fraction after 1; multiplicative with other boosts",
       }
+    },
+    sacrifice: {
+      effectFormula: "`floor(750 * (log10(sac + 1) / 100)^1.2)`",
+      effect: "Distanty Galaxy scaling starts later. Caps at 750 Galaxies later."
     }
   },
   infinity: {
@@ -120,6 +124,10 @@ export const basicGlyphs: GlyphData = {
           type: ALTERATION_TYPE.EMPOWER
         }
       }
+    },
+    sacrifice: {
+      effectFormula: "`1 + log10(1 + (sac ^ 0.2) / 100)`",
+      effect: "Larger multiplier per-purchase when buying the 8th Infinity Dimension. Caps at x19."
     }
   },
   replication: {
@@ -171,6 +179,10 @@ This makes the glyph stack reasonably while still providing a boost if you use v
         effectFormula: "sqrt((Level)^0.25 * (1 + 2.5*Rarity)^0.4) / 50",
         stacking: "Additive; softcaps after total effect reaches + ^0.080"
       }
+    },
+    sacrifice: {
+      effectFormula: "`floor(1500 * (log10(sac + 1) / 100)^1.2)`",
+      effect: "Replicanti Galaxy scaling starts later. Caps at 1500 Galaxies later."
     }
   },
   time: {
@@ -222,6 +234,10 @@ This makes the glyph stack reasonably while still providing a boost if you use v
           type: ALTERATION_TYPE.ADDITION
         }
       },
+    },
+    sacrifice: {
+      effectFormula: "`(1 + (sac)^0.2 / 100) ^ 2`",
+      effect: "Larger multiplier per-purchase when buying the 8th Time Dimension. Caps at x1e36."
     }
   },
   dilation: {
@@ -272,6 +288,10 @@ This makes the glyph stack reasonably while still providing a boost if you use v
         effectFormula: "1.1 + (Level * (1 + 2.5*Rarity))^0.7 / 25",
         stacking: "Additive, based on fraction after 1."
       }
+    },
+    sacrifice: {
+      effectFormula: "power = `0.32 * (log10(sac + 1) / 100)^0.1`\neffect = `max(sac, 1) ^ power`",
+      effect: "Multiply Tachyon Particle gain. Caps at x1e32."
     }
   },
 };
@@ -344,6 +364,10 @@ export const specialGlyphs: GlyphData = {
         effectFormula: "1 + (level ^ 0.25) * ((1 + 2.5 * rarity) ^ 0.4) / 5000",
         stacking: "More than one Effarig Glyph cannot be equipped simultaneously, dummy!"
       }
+    },
+    sacrifice: {
+      effectFormula: "`2 * log10((min(sac, 1e70) / 1e20) + 1)`",
+      effect: "Additional Glyph rarity. Caps at 100%"
     }
   },
   cursed: {
@@ -408,6 +432,10 @@ export const specialGlyphs: GlyphData = {
         effectFormula: "0.1",
         stacking: "More than one Reality Glyph cannot be equipped simultaneously, dummy!"
       }
+    },
+    sacrifice: {
+      effectFormula: "`min(1 + sqrt(sac) / 15, 100)`",
+      effect: "Multiply Memory Chunk gain. Caps at x100."
     }
   },
   companion: {
@@ -444,13 +472,32 @@ interface GlyphEffects {
   [key: string]: GlyphEffect
 }
 
-function FieldsGetter(glyphInfo: GlyphInfo, altered: boolean): EmbedField[] {
+function FieldsGetter(glyphInfo: GlyphInfo, altered: boolean, isSacrifice: boolean): EmbedField[] {
+  const fields: EmbedField[] = [];
+  if (isSacrifice && glyphInfo.sacrifice !== undefined) {
+    fields.push(
+      {
+        name: `${capitalize(glyphInfo.name)} Sacrifice effect`,
+        value: `${glyphInfo.sacrifice.effect}`,
+        inline: false
+      },
+      {
+        name: `${capitalize(glyphInfo.name)} Sacrifice effect formula`,
+        value: `${glyphInfo.sacrifice.effectFormula}`,
+        inline: false
+      });
+    return fields;
+  }
+  if (isSacrifice) {
+    if (glyphInfo.name === "companion") fields.push({ name: "You monster!", value: "You wouldn't incinerate your Companion, would you?", inline: false });
+    else fields.push({ name: "Whoops!", value: `You can't sacrifice ${capitalize(glyphInfo.name)} Glyphs, dummy!`, inline: false });
+    return fields;
+  }
   // Basically, just turn our actual list of effects into a list with ONLY the effects that get altered. Somehow
   const alteredGlyphEffects: GlyphEffects = {};
   Object.entries(glyphInfo.effects).filter(effect => effect[1].altered !== undefined).map(effect => Object.assign(alteredGlyphEffects, { [effect[0]]: effect[1] }));
 
   const effects = altered ? alteredGlyphEffects : glyphInfo.effects;
-  const fields: EmbedField[] = [];
 
   if (Object.keys(effects).length === 0) {
     fields.push({
@@ -476,9 +523,10 @@ function SymbolGetter(glyphInfo: GlyphInfo, isADServer: boolean) {
   return glyphInfo.altText;
 }
 
-export const GlyphEmbedGetter = (glyphInfo: GlyphInfo, isADServer: boolean, altered: boolean) => new EmbedBuilder()
+// eslint-disable-next-line max-params
+export const GlyphEmbedGetter = (glyphInfo: GlyphInfo, isADServer: boolean, altered: boolean, isSacrifice: boolean) => new EmbedBuilder()
   .setTitle(`**${SymbolGetter(glyphInfo, isADServer)}** ${capitalize(glyphInfo.name)}`)
   .setColor(glyphInfo.colour)
-  .addFields(FieldsGetter(glyphInfo, altered))
+  .addFields(FieldsGetter(glyphInfo, altered, isSacrifice))
   .setTimestamp()
   .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });

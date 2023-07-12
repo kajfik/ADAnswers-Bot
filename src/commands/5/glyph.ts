@@ -166,6 +166,20 @@ export const glyph: Command = {
       ]
     },
     {
+      name: "sacrifice",
+      description: "Explains the effects from Glyph Sacrifice for each glyph type",
+      type: ApplicationCommandOptionType.Subcommand,
+      options: [
+        {
+          name: "glyph",
+          required: true,
+          description: "The glyph type you want to know about",
+          type: ApplicationCommandOptionType.String,
+          choices: getEffectChoices()
+        },
+      ]
+    },
+    {
       name: "utils",
       description: "access glyph utility functions to find probabilities or other information",
       type: ApplicationCommandOptionType.SubcommandGroup,
@@ -279,7 +293,7 @@ export const glyph: Command = {
 
       await interaction.reply({ content, ephemeral: !isHelper(interaction) });
 
-    } else {
+    } else if (type === "effect") {
 
       const glyphName: string = interaction.options.getString("glyph") as string;
       const altered: boolean = interaction.options.getBoolean("altered") as boolean;
@@ -295,7 +309,21 @@ export const glyph: Command = {
       if (altered && hasAlteredImage) imageLink = `attachment://${glyphName}_altered.png`;
       else if (altered) imageLink = `attachment://none_altered.png`;
 
-      const embed: EmbedBuilder = GlyphEmbedGetter(glyphRequested, isADServer, altered);
+      const embed: EmbedBuilder = GlyphEmbedGetter(glyphRequested, isADServer, altered, false);
+      embed.setAuthor({ name: authorTitle(interaction), iconURL: user.displayAvatarURL() })
+        .setThumbnail(imageLink);
+
+      await interaction.reply({ embeds: [embed], files: [picture], ephemeral: !isHelper(interaction) });
+    } else {
+      const glyphName: string = interaction.options.getString("glyph") as string;
+      const hasSacrificeImage: boolean = ["dilation", "effarig", "infinity", "power", "reality", "replication", "time"].includes(glyphName);
+
+      let picture: AttachmentBuilder = new AttachmentBuilder(`src/images/glyphs/sacrificed/${glyphName}.png`);
+      if (!hasSacrificeImage) picture = new AttachmentBuilder(`src/images/glyphs/${glyphName}.png`);
+      const imageLink: string = `attachment://${glyphName}.png`;
+      const glyphRequested = basicGlyphs[glyphName] ?? specialGlyphs[glyphName];
+
+      const embed: EmbedBuilder = GlyphEmbedGetter(glyphRequested, isADServer, false, true);
       embed.setAuthor({ name: authorTitle(interaction), iconURL: user.displayAvatarURL() })
         .setThumbnail(imageLink);
 
