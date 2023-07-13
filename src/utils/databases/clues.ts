@@ -1,5 +1,5 @@
+import { formatDate, randomInArray } from "../../functions/Misc";
 import fetch from "node-fetch";
-import { randomInArray } from "../../functions/Misc";
 
 interface Clue {
   date: string,
@@ -10,17 +10,22 @@ interface Clue {
   value: number
 }
 
+const usedDates: Array<string> = [];
+
 export async function collectClues() {
+  const iterations = usedDates.length;
+
   const randomValue = (max: number) => Math.ceil(Math.random() * max);
   const getRecentDate = (date?: Date) => {
     // We may have to force a different date if the current day doesn't have a game
-    const currDate = date ?? new Date();
+    const currDate: Date = date ?? new Date();
     // JS Date object months are 0-indexed
-    const currMonth = currDate.getMonth() + 1;
-    const currDay = currDate.getDate();
-    const currYear = currDate.getFullYear();
+    const currMonth: number = currDate.getMonth() + 1;
+    const currDay: number = currDate.getDate();
+    const currYear: number = currDate.getFullYear();
 
-    return `${String(currMonth).length === 1 ? `0${currMonth}` : `${currMonth}`}/${String(currDay).length === 1 ? `0${currDay}` : `${currDay}`}/${currYear}`;
+
+    return usedDates.includes(formatDate(currMonth, currDay, currYear)) ? formatDate(currMonth, currDay - iterations, currYear) : formatDate(currMonth, currDay, currYear);
   };
 
   let date = getRecentDate();
@@ -29,7 +34,7 @@ export async function collectClues() {
   let responseData = await response.json();
 
   while (await responseData.message !== undefined) {
-    date = getRecentDate(new Date(new Date().setDate(new Date().getDate() - 1)));
+    date = getRecentDate(new Date(new Date().setDate(new Date().getDate() - iterations)));
     round = randomValue(2);
     response = await fetch(`https://jarchive-json.glitch.me/glitch/${date}/${round}`);
     responseData = await response.json();
@@ -52,17 +57,17 @@ export async function collectClues() {
     }
   }
 
+  console.log(`Added board for ${date}`);
+  usedDates.push(date);
+
   return clues;
 }
 const jeopardyClues: Clue[] = [];
 
 (async function() {
   // 3 games should be plenty of clues (180 clues)
-  console.log("Creating clues...");
   jeopardyClues.push(...await collectClues());
-  console.log("First board created...");
   jeopardyClues.push(...await collectClues());
-  console.log("Second board created...");
   jeopardyClues.push(...await collectClues());
   console.log(`Clues created!`);
 }());

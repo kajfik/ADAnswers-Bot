@@ -94,6 +94,10 @@ export function range(start: number, stop?: number, step?: number) {
   return result;
 }
 
+export function formatDate(month: number, day: number, year: number) {
+  return `${String(month).length === 1 ? `0${month}` : `${month}`}/${String(day).length === 1 ? `0${day}` : `${day}`}/${year}`;
+}
+
 export const Caesar = {
   mod: (n: number, p: number) => {
     let n2 = n;
