@@ -1,5 +1,5 @@
-import { randomInArray, range } from "../../functions/Misc";
 import fetch from "node-fetch";
+import { randomInArray } from "../../functions/Misc";
 
 interface Clue {
   date: string,
@@ -12,22 +12,24 @@ interface Clue {
 
 export async function collectClues() {
   const randomValue = (max: number) => Math.ceil(Math.random() * max);
-  const randomDate = () => {
-  // We have to generate a date in form MM/DD/YYYY.
-    const month = randomValue(12);
-    const day = randomValue(31);
-    const year = randomInArray(range(1984, 2023));
+  const getRecentDate = (date?: Date) => {
+    // We may have to force a different date if the current day doesn't have a game
+    const currDate = date ?? new Date();
+    // JS Date object months are 0-indexed
+    const currMonth = currDate.getMonth() + 1;
+    const currDay = currDate.getDate();
+    const currYear = currDate.getFullYear();
 
-    return `${String(month).length === 1 ? `0${month}` : `${month}`}/${String(day).length === 1 ? `0${day}` : `${day}`}/${year}`;
+    return `${String(currMonth).length === 1 ? `0${currMonth}` : `${currMonth}`}/${String(currDay).length === 1 ? `0${currDay}` : `${currDay}`}/${currYear}`;
   };
 
-  let date = randomDate();
+  let date = getRecentDate();
   let round = randomValue(2);
   let response = await fetch(`https://jarchive-json.glitch.me/glitch/${date}/${round}`);
   let responseData = await response.json();
 
   while (await responseData.message !== undefined) {
-    date = randomDate();
+    date = getRecentDate(new Date(new Date().setDate(new Date().getDate() - 1)));
     round = randomValue(2);
     response = await fetch(`https://jarchive-json.glitch.me/glitch/${date}/${round}`);
     responseData = await response.json();

@@ -493,6 +493,7 @@ function FieldsGetter(glyphInfo: GlyphInfo, altered: boolean, isSacrifice: boole
     else fields.push({ name: "Whoops!", value: `You can't sacrifice ${capitalize(glyphInfo.name)} Glyphs, dummy!`, inline: false });
     return fields;
   }
+
   // Basically, just turn our actual list of effects into a list with ONLY the effects that get altered. Somehow
   const alteredGlyphEffects: GlyphEffects = {};
   Object.entries(glyphInfo.effects).filter(effect => effect[1].altered !== undefined).map(effect => Object.assign(alteredGlyphEffects, { [effect[0]]: effect[1] }));
