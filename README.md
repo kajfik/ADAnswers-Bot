@@ -5,7 +5,8 @@
 
 ## Image credits
 
-Challenge, study, help, and upgrade art by @mrkrutaman on Discord.
+Alchemy, challenge, glyph, perk, study, and upgrade art by @mrkrutaman on Discord.
+Achievement art from AD as created by Omsi.
 
 ## Welcome
 
@@ -13,7 +14,7 @@ Hello! Welcome to the ADAnswersBot codebase. You may have noticed that the code 
 
 ## Issues
 
-The issues tab is my best friend for keeping track of what to do for each bot version. If you have anything you want to see but don't want to code it yourself, make an issue for it!
+The issues tab is my best friend for keeping track of what to do for each bot version. If you have anything you want to see but don't want to code it yourself, make an issue for it! You can also utilise the server suggestions channel in the [Antimatter Dimensions Discord](https://discord.gg/antimatterdimensions) and adding the ADAB tag.
 
 ## How to contribute
 
@@ -29,7 +30,7 @@ Install an ESLint extension to be able to conform to style guidelines.
 
 ### Functions
 
-When adding new functions, PLEASE use functions.js! You will need to add them as an export to the `module.exports` line, but it should be relatively straightforward. Also make sure to use JSDoc to document them. If you're unaware of what JSDoc is, see the next section.
+Generally, you'll be able to find your relevant functions in the src/functions folder. These should be relatively organised by what they do, and if you fail to find a function you need, feel free to add it there.
 
 ## Other important information
 
@@ -47,4 +48,4 @@ I only recommend having GitLens to see who worked in what files when. It is upda
 
 ### Feel free to reach out to me!
 
-I made this mess of a codebase, and I'm glad you're frolicking in it! But if you're ever confused on what to do, please get out to me on discord @earth#1337. I would be happy to help! I may not help for a few hours at a time due to schooling etc. but I will get back to you first chance I get!
+I made this mess of a codebase, and I'm glad you're frolicking in it! But if you're ever confused on what to do, please get out to me on discord @earth1337_. I would be happy to help! I may not help for a few hours at a time due to schooling etc. but I will get back to you first chance I get!
