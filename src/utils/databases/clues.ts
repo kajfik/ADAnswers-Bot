@@ -19,6 +19,7 @@ export async function collectClues() {
   const getRecentDate = (date?: Date) => {
     // We may have to force a different date if the current day doesn't have a game
     const currDate: Date = date ?? new Date();
+    if (Number(new Date().toString().split(" ")[4].split(":")[0]) < 20) currDate.setDate(currDate.getDate() - 1);
     // JS Date object months are 0-indexed
     const currMonth: number = currDate.getMonth() + 1;
     const currDay: number = currDate.getDate();

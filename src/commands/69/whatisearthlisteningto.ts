@@ -1,40 +1,12 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, CommandInteraction, EmbedBuilder, User } from "discord.js";
-import { authorTitle, isHelper, link } from "../../functions/Misc";
+import { ApplicationCommandOptionType, ApplicationCommandType, CommandInteraction } from "discord.js";
+import { isHelper, link } from "../../functions/Misc";
 import { Command } from "../../command";
-import fetch from "node-fetch";
-import { lastfm } from "../../config.json";
+import { currentListeningSubcommand } from "./whatisearthlisteningto/current";
+import { topAlbumsSubcommand } from "./whatisearthlisteningto/topAlbums";
+import { topArtistsSubcommand } from "./whatisearthlisteningto/topArtists";
+import { topTracksSubcommand } from "./whatisearthlisteningto/topTracks";
 
-interface Artist {
-  mbid: string,
-  "#text": string
-}
-
-interface Image {
-  size: string,
-  "#text": string
-}
-
-interface Attributes {
-  nowplaying: string
-}
-
-interface Date {
-  uts: string,
-  "#text": string
-}
-
-interface Track {
-  artist: Artist,
-  streamable: string,
-  image: Image[],
-  mbid: string,
-  // It's the same, lmao
-  album: Artist,
-  name: string,
-  url: string,
-  "@attr"?: Attributes,
-  date?: Date
-}
+const periodChoices = ["overall", "7day", "1month", "3month", "6month", "12month"].map(choice => ({ name: choice, value: choice }));
 
 export const whatisearthlisteningto: Command = {
   name: "whatisearthlisteningto",
@@ -45,6 +17,55 @@ export const whatisearthlisteningto: Command = {
       name: "current",
       description: "what earth is currently listening to",
       type: ApplicationCommandOptionType.Subcommand
+    },
+    {
+      name: "top",
+      description: "earth's top artists, albums, or tracks!",
+      type: ApplicationCommandOptionType.SubcommandGroup,
+      options: [
+        {
+          name: "artists",
+          description: "fetch earth's top artists",
+          type: ApplicationCommandOptionType.Subcommand,
+          options: [
+            {
+              name: "period",
+              description: "The period over which to search",
+              type: ApplicationCommandOptionType.String,
+              required: false,
+              choices: periodChoices
+            }
+          ]
+        },
+        {
+          name: "albums",
+          description: "fetch earth's top albums",
+          type: ApplicationCommandOptionType.Subcommand,
+          options: [
+            {
+              name: "period",
+              description: "The period over which to search",
+              type: ApplicationCommandOptionType.String,
+              required: false,
+              choices: periodChoices
+            }
+          ]
+        },
+        {
+          name: "tracks",
+          description: "fetch earth's top tracks",
+          type: ApplicationCommandOptionType.Subcommand,
+          options: [
+            {
+              name: "period",
+              description: "The period over which to search",
+              type: ApplicationCommandOptionType.String,
+              required: false,
+              choices: periodChoices
+            }
+          ]
+        },
+      ]
     },
     {
       name: "playlists",
@@ -60,41 +81,26 @@ export const whatisearthlisteningto: Command = {
   run: async(interaction: CommandInteraction) => {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
+    const isTopRequested = interaction.options.getSubcommandGroup();
     const subcommand = interaction.options.getSubcommand();
 
-    const user: User = interaction.member === null ? interaction.user : interaction.member.user as User;
+    if (isTopRequested !== null) {
+      if (subcommand === "artists") {
+        topArtistsSubcommand(interaction);
+        return;
+      }
+      if (subcommand === "albums") {
+        topAlbumsSubcommand(interaction);
+        return;
+      }
+      if (subcommand === "tracks") {
+        topTracksSubcommand(interaction);
+        return;
+      }
+    }
 
     if (subcommand === "current") {
-      const response = await fetch(`${lastfm.api}?method=user.getrecenttracks&user=${lastfm.username}&api_key=${lastfm.key}&format=json`);
-      const data = await response.json();
-
-      const currentTrack: Track = data.recenttracks.track.filter((track: Track) => track["@attr"] !== undefined)[0] ?? data.recenttracks.track[0];
-
-      const wasOldTrack: boolean = currentTrack.date !== undefined;
-      let timestamp = undefined;
-      let whenDidHeListen = undefined;
-      let currentlyListeningContent = undefined;
-      if (currentTrack.date !== undefined) {
-        timestamp = Number(currentTrack.date.uts) * 1000;
-        whenDidHeListen = new Date(timestamp).toUTCString();
-        currentlyListeningContent = `${whenDidHeListen} (<t:${timestamp / 1000}:F>)`;
-      }
-
-      const basicTrackInfo = `${currentTrack.artist["#text"]} - ${currentTrack.name}`;
-
-      const embed: EmbedBuilder = new EmbedBuilder()
-        .setAuthor({ name: authorTitle(interaction), iconURL: user.displayAvatarURL() })
-        .setTitle(basicTrackInfo)
-        .setDescription(`${link("Earth's Spotify account", "https://open.spotify.com/user/divineicbm?si=30b3b0b0b2c84ccd")} / ${link("Earth's LastFM account", "https://www.last.fm/user/earthernsence")}`)
-        .addFields([
-          { name: "Album", value: `${currentTrack.album["#text"]}` },
-          { name: "Link", value: `${link(`${basicTrackInfo}`, currentTrack.url)}` },
-          { name: "Currently listening?", value: `${wasOldTrack ? `No, this was the last track he listened to. He listened to this track on ${currentlyListeningContent}` : `Yes, he is currently listening to this track`}` }
-        ])
-        .setThumbnail(currentTrack.image[2]["#text"])
-        .setFooter({ text: `Data from LastFM`, iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
-
-      await interaction.reply({ embeds: [embed], ephemeral: !isHelper(interaction) });
+      currentListeningSubcommand(interaction);
       return;
     }
 
