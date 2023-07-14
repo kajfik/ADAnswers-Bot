@@ -144,7 +144,8 @@ export type UpgradeInfo = {
   increment?: number;
   hasGraph?: boolean;
   graph?: string;
-  charged?: ChargedInfinityUpgrade
+  charged?: ChargedInfinityUpgrade;
+  strategy?: string
 }
 
 export type UserInfo = {

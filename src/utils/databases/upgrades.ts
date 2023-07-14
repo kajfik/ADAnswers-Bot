@@ -678,7 +678,8 @@ export const upgrades: UpgradeData = {
       effect: "Time Dimension power based on total antimatter",
       initialCost: 5e7,
       requirement: "1e90 total Relic Shards",
-      formula: "`1 + (log10(log10(antimatter)) / 100)`"
+      formula: "`1 + (log10(log10(antimatter)) / 100)`",
+      strategy: "This one, you'll probably need Nameless 25 (for the extra Time glyph effect), and a max Reality Glyph. It may take some time to grind the Relic Shards up to 1e90, but it shouldn't be too long."
     },
     "consequencesOfIllusions": {
       id: "consequencesOfIllusions",
@@ -686,7 +687,8 @@ export const upgrades: UpgradeData = {
       effect: "Gain free Dimboosts based on Imaginary rebuyable count",
       initialCost: 5e7,
       requirement: "Make a level 9,000 Glyph with a single Glyph level factor weight at 100",
-      formula: "`2e4 * rebuyable count`"
+      formula: "`2e4 * rebuyable count`",
+      strategy: "Hint: ||Look closely at the Glyph factors dropdown||\nSolution:||yertp||"
     },
     "transienceOfInformation": {
       id: "transienceOfInformation",
@@ -694,21 +696,25 @@ export const upgrades: UpgradeData = {
       effect: "Increase Imaginary Machine Cap based on Imaginary Upgrades purchased",
       initialCost: 5e7,
       requirement: "Reach 1.80e308 projected Reality Machines within The Nameless Ones' Reality",
-      formula: "`1 + (rebuyables / 20) + (one time purchases / 2)`"
+      formula: "`1 + (rebuyables / 20) + (one time purchases / 2)`",
+      strategy: "Hint: ||Make sure you're using all of Nameless' tricks in the Reality||\nSolution: ||yettt||"
     },
     "recollectionOfIntrusion": {
       id: "recollectionOfIntrusion",
       name: "Recollection of Intrusion",
       effect: "Raise all Dimension per-purchase multipliers to ^1.5",
       initialCost: 3.5e8,
-      requirement: "Reach a tickspeed of 1e7.500e10 / sec within Eternity Challenge 5"
+      requirement: "Reach a tickspeed of 1e7.500e10 / sec within Eternity Challenge 5",
+      strategy: "Hint: ||Time Shards are especially helpful, wait a bit to let them build up before entering EC5||\nSolution: ||ytttt/yettt||"
     },
     "fabricationOfIdeals": {
       id: "fabricationOfIdeals",
       name: "Fabrication of Ideals",
       effect: "Convert Antimatter Dimensions to Continuum and unlock Lai'tela, Celestial of Dimensions",
       initialCost: 1e9,
-      requirement: "Reach 1e1.500e12 antimatter without ever having any 1st Infinity Dimensions"
+      requirement: "Reach 1e1.500e12 antimatter without ever having any 1st Infinity Dimensions",
+      // eslint-disable-next-line max-len
+      strategy: "Hint: ||remember to disable the two ways you gain IDs: turn off auto-EC and ID autobuyers, then Reality again. If necessary, you can enter EC2, then re-enable auto EC and ID autobuyers. This will need completed Ra and a good amount of other stats!||\nSolution: ||yettt||"
     },
     "masslessMomentum": {
       id: "masslessMomentum",
@@ -729,14 +735,16 @@ export const upgrades: UpgradeData = {
       name: "Dimensional Symmetry",
       effect: "Unlock the 4th Dark Matter Dimension",
       initialCost: 1.5e10,
-      requirement: "Have 80,000 total Galaxies"
+      requirement: "Have 80,000 total Galaxies",
+      strategy: "Hint: ||you'll need around 1.5e20 iM, e74-e75 Glyph Sacrifice, 50+% Lai'tela continuum bonus, and near e200 years||\nSolution: ||ydddd||"
     },
     "deterministicRadiation": {
       id: "deterministicRadiation",
       name: "Deterministic Radiation",
       effect: "Unlock Dark Matter Annihilation",
       initialCost: 2.8e10,
-      requirement: "Reach 3,850,000 Tickspeed Continuum without ever having more than 8 Time Studies in this Reality"
+      requirement: "Reach 3,850,000 Tickspeed Continuum without ever having more than 8 Time Studies in this Reality",
+      strategy: "Hint: ||Make sure to do something you haven't done in a long time.||\nSolution: ||iiiep + `11,21,31,41,51,61,72,82` + Crunch + auto-ECs||"
     },
     "vacuumAcceleration": {
       id: "vacuumAcceleration",
@@ -751,14 +759,16 @@ export const upgrades: UpgradeData = {
       effect: "Annihilation multiplier gain is improved based on Imaginary Machines",
       initialCost: 1e13,
       requirement: "Reach 1e7.400e12 antimatter with Continuum disabled",
-      formula: "`max((log10(iM) - 10) ^ 3, 1)`"
+      formula: "`max((log10(iM) - 10) ^ 3, 1)`",
+      strategy: "Hint: ||disable Continuum in the Autobuyers tab||\nSolution: ||yeidd or your RM build||"
     },
     "totalTermination": {
       id: "totalTermination",
       name: "Total Termination",
       effect: "Glyph Sacrifice totals for basic Glyphs are increased to 1e100",
       initialCost: 1.5e14,
-      requirement: "Reach 1e1.500e11 antimatter in Effarig's Reality with at least 4 Cursed Glyphs equipped"
+      requirement: "Reach 1e1.500e11 antimatter in Effarig's Reality with at least 4 Cursed Glyphs equipped",
+      strategy: "Hint: ||you'll need around e89 sac||\nSolution: ||ccccd||"
     },
     "planarPurification": {
       id: "planarPurification",
@@ -766,7 +776,8 @@ export const upgrades: UpgradeData = {
       effect: "Increase free Dimboost count based on Tesseract count",
       initialCost: 6e14,
       requirement: "Reach Glyph level 20,000 in Ra's Reality with at most 0 Glyphs equipped",
-      formula: "`floor(0.25 * (tesseracts ^ 2))`"
+      formula: "`floor(0.25 * (tesseracts ^ 2))`",
+      strategy: "Hint: ||at most 0 Glyphs equipped...? What decreases the number of Glyphs equipped?||\nSolution: ||cyer (cursed is -3)||"
     },
     "absoluteAnnulment": {
       id: "absoluteAnnulment",
@@ -774,14 +785,16 @@ export const upgrades: UpgradeData = {
       effect: "Increase free Dimboost strength based on Singularity count",
       initialCost: 6e14,
       requirement: "Have 13,000 Antimatter Galaxies in Ra's Reality with a fully inverted Black Hole",
-      formula: "`singularities ^ 300`"
+      formula: "`singularities ^ 300`",
+      strategy: "Hint: ||make sure to actually invert your black hole||\nSolution: ||epiii||"
     },
     "omnipresentObliteration": {
       id: "omnipresentObliteration",
       name: "Omnipresent Obliteration",
       effect: "Unlock Pelle, Celestial of Antimatter",
       initialCost: 1.6e15,
-      requirement: "Reach Reality in Lai'tela's Reality with all Dimensions disabled and at least 4 empty Glyph slots"
+      requirement: "Reach Reality in Lai'tela's Reality with all Dimensions disabled and at least 4 empty Glyph slots",
+      strategy: "Hint: ||no way to get around the Glyphs equipped this time. What Glyph has given you progress in Lai'tela this whole time?||\nSolution: ||d, you'll need to wait for e4k EP (game speed increases as time goes by)||"
     }
   }
 };
@@ -847,6 +860,7 @@ const FieldGetter = {
     ];
     if (upgradeInfo.requirement) fields.push({ name: "Requirement", value: upgradeInfo.requirement as string, inline: false });
     if (upgradeInfo.formula) fields.push({ name: "Effect formula", value: upgradeInfo.formula, inline: false });
+    if (upgradeInfo.strategy) fields.push({ name: "Strategy", value: upgradeInfo.strategy, inline: false });
     return fields;
   },
 };
