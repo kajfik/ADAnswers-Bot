@@ -51,8 +51,8 @@ export const help: Command = {
           .setStyle(ButtonStyle.Primary),
         new ButtonBuilder()
           .setStyle(ButtonStyle.Link)
-          .setLabel("Commands website")
-          .setURL("https://earthernsence.github.io/ADAnswers-Bot/")
+          .setLabel("GitHub repository")
+          .setURL("https://github.com/earthernsence/ADAnswers-Bot")
       );
 
     const selectMenu: ActionRowBuilder<StringSelectMenuBuilder> = new ActionRowBuilder<StringSelectMenuBuilder>()
