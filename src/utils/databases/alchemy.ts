@@ -91,7 +91,7 @@ export const alchemyResources: AlchemyResourcesList = {
   },
   "dimensionality": {
     name: "Dimensionality",
-    unlocksAt: 9,
+    unlocksAt: 10,
     symbol: Symbols.dimensionality,
     effect: "Provide a large multiplier to all Dimensions",
     effectFormula: "x`10 ^ (5 * amount)`",
@@ -109,7 +109,7 @@ export const alchemyResources: AlchemyResourcesList = {
   },
   "inflation": {
     name: "Inflation",
-    unlocksAt: 9,
+    unlocksAt: 11,
     symbol: Symbols.inflation,
     effect: "All Antimatter Dimension multipliers are raised to the 1.05 power if they are above a certain value",
     effectFormula: "`10 ^ (6e9 - 3e5 * amount)`",
