@@ -312,7 +312,7 @@ export const alchemyResources: AlchemyResourcesList = {
   },
   "unpredictability": {
     name: "Unpredictability",
-    unlocksAt: 20,
+    unlocksAt: 21,
     symbol: Symbols.unpredictability,
     effect: "Give each Alchemy Reaction a chance to happen twice",
     effectFormula: "`amount / (10714.28 + amount)`%",
