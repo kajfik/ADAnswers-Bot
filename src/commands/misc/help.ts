@@ -38,15 +38,16 @@ export const help: Command = {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     let currentPage: number = 1;
+    const expirationTimestamp = Math.floor((Date.now() + 60000) / 1000);
 
     const buttons: ActionRowBuilder<ButtonBuilder> = new ActionRowBuilder<ButtonBuilder>()
       .addComponents(
         new ButtonBuilder()
-          .setCustomId("help_button_prev")
+          .setCustomId(`help_button_prev_${expirationTimestamp}`)
           .setEmoji("◀️")
           .setStyle(ButtonStyle.Primary),
         new ButtonBuilder()
-          .setCustomId("help_button_next")
+          .setCustomId(`help_button_next_${expirationTimestamp}`)
           .setEmoji("▶️")
           .setStyle(ButtonStyle.Primary),
         new ButtonBuilder()
@@ -58,7 +59,7 @@ export const help: Command = {
     const selectMenu: ActionRowBuilder<StringSelectMenuBuilder> = new ActionRowBuilder<StringSelectMenuBuilder>()
       .addComponents(
         new StringSelectMenuBuilder()
-          .setCustomId("help_select_page")
+          .setCustomId(`help_select_page_${expirationTimestamp}`)
           .setOptions([
             {
               label: "Page 1: Pre-Break Infinity",
@@ -113,7 +114,7 @@ export const help: Command = {
     const content: InteractionReplyOptions = { embeds: [getEmbed(currentPage)], files: [picture], components: [buttons, selectMenu], ephemeral: true };
 
     // These filters need fairly verbose conditions, in order to not have the interactions overlap when running multiple collectors.
-    const filter = (i: MessageComponentInteraction) => i.customId.startsWith("help_select") || i.customId.startsWith("help_button");
+    const filter = (i: MessageComponentInteraction) => i.customId.endsWith(String(expirationTimestamp));
     const collector = interaction.channel?.createMessageComponentCollector({ filter, time: 60000 });
 
     await interaction.reply(content).then(() => {
