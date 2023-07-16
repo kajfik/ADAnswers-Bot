@@ -7,12 +7,12 @@ export function formatNumber(number: number) {
   return `${mantissa.toFixed(2)}e${exponent}`;
 }
 
-export function formatDecimal(number: Decimal | number) {
+export function formatDecimal(number: Decimal | number | string, decimals = 2) {
   const val = number instanceof Decimal ? number : new Decimal(number);
   if (val.lt(1000)) return formatDecimalLessThan1000(val);
   const exponent = Decimal.floor(val.log10());
   const mantissa = val.div(new Decimal(10).pow(exponent));
-  return `${mantissa.toFixed(2)}e${exponent}`;
+  return `${mantissa.toFixed(decimals)}e${exponent}`;
 }
 
 export function formatDecimalLessThan1000(number: Decimal | number) {
@@ -27,10 +27,10 @@ export function formatPercents(number: number) {
   return `${Math.floor(number * 100)}%`;
 }
 
-export function format(value: Decimal | number): string {
+export function format(value: Decimal | number | string): string {
   return formatDecimal(value);
 }
 
 export function formatInt(value: Decimal | number): string {
-  return formatDecimal(value);
+  return formatDecimal(value, 0);
 }

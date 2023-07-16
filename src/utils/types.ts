@@ -182,3 +182,36 @@ export type AlchemyResource = {
   tier: number,
   reagents?: Reagent[]
 }
+
+export type VAchievement = {
+  name: string,
+  description: string,
+  // Completion
+  values: Array<number | string>,
+  currency: string
+}
+
+export type VUnlock = {
+  reward: string,
+  formula?: string,
+  requirement: number
+}
+
+export type Memory = {
+  level: number,
+  effect: {
+    effect: string,
+    formula?: string
+  }
+}
+
+export type RaCelestial = {
+  name: string,
+  chunkGain: {
+    currency: string,
+    formula: string
+  },
+  unlocks: {
+    [key: string]: Memory
+  }
+}
