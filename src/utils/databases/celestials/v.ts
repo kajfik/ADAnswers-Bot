@@ -10,11 +10,42 @@ interface VAchievements {
 }
 
 interface VObject {
+  info: string,
+  reality: string,
+  embeds: {
+    unlocks: Function,
+    achievements: Function
+  },
   unlocks: Array<VUnlock>,
   achievements: VAchievements
 }
 
+export const VUnlocksEmbed = () => new EmbedBuilder()
+  .setTitle("V Unlocks")
+  .setColor(Colour.v)
+  .addFields(V.unlocks.map(unlock => ({ name: `${unlock.requirement} ST Unlock`, value: `${unlock.reward}\n${unlock.formula ? `Formula: ${unlock.formula}` : ""}`, inline: false })))
+  .setTimestamp()
+  .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
+
+export const VAchievementEmbed = (achievement: VAchievement) => new EmbedBuilder()
+  .setTitle(achievement.name)
+  .setColor(Colour.v)
+  .addFields(
+    { name: "Requirement", value: achievement.description, inline: false },
+    { name: "Unlocks at...", value: `${achievement.values.map(value => format(value)).join(", ")} ${achievement.currency}`, inline: false }
+  )
+  .setTimestamp()
+  .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
+
 export const V: VObject = {
+  // eslint-disable-next-line max-len
+  info: `V is a unique Celestial unlocked by completing Achievement ID 151, requiring 800 Antimatter Galaxies without buying the 8th Antimatter Dimension in your current Infinity. Once unlocked, V has additional requirements for full access. You must complete 10,000 Realities, have 1e60 unspent RM, and reach specific milestones in Eternities, Infinities, Dilated Time, and Replicanti, all within the same Reality. Upon meeting these requirements, you can enter V's Reality. However, the completion of the Reality is just the beginning. V has six requirements, each linked to progress within V's Reality, rewarding V-Achievements. V-Achievements persist after leaving V's Reality and can be completed multiple times. Completed V-Achievements unlock upgrades on the V tab and grant Space Theorems. Space Theorems allow the purchase of normally forbidden Time Studies, including multiple paths in the Pace Split and both Time Studies within a dark/light pair. They are replenished upon respeccing studies. Reducing goals with 2 V-Achievements makes certain V-Achievement requirements easier by spending Perk Points. The cost remains constant and applies to future tiers as well. Having 36 V-Achievements unlocks the next Celestial.`,
+  // eslint-disable-next-line max-len
+  reality: `All Dimension multipliers, Eternity Point gain, Infinity Point gain, and Dilated Time gain per second are square-rooted. The Replicanti interval is squared. The Exponential Glyph Alchemy effect is disabled. V does not have a direct reward from its Reality.`,
+  embeds: {
+    unlocks: VUnlocksEmbed,
+    achievements: VAchievementEmbed
+  },
   unlocks: [
     {
       reward: "You can spend Perk Points to reduce the goal requirement of all tiers of each V-Achievement.",
@@ -100,20 +131,3 @@ export const V: VObject = {
     }
   }
 };
-
-export const VUnlocksEmbed = () => new EmbedBuilder()
-  .setTitle("V Unlocks")
-  .setColor(Colour.v)
-  .addFields(V.unlocks.map(unlock => ({ name: `${unlock.requirement} ST Unlock`, value: `${unlock.reward}\n${unlock.formula ? `Formula: ${unlock.formula}` : ""}`, inline: false })))
-  .setTimestamp()
-  .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });
-
-export const VAchievementEmbed = (achievement: VAchievement) => new EmbedBuilder()
-  .setTitle(achievement.name)
-  .setColor(Colour.v)
-  .addFields(
-    { name: "Requirement", value: achievement.description, inline: false },
-    { name: "Unlocks at...", value: `${achievement.values.map(value => format(value)).join(", ")} ${achievement.currency}`, inline: false }
-  )
-  .setTimestamp()
-  .setFooter({ text: footerText(), iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` });

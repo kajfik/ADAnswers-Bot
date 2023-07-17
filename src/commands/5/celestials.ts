@@ -1,6 +1,7 @@
 import { ApplicationCommandOptionType, ApplicationCommandType, CommandInteraction } from "discord.js";
 import { Command } from "../../command";
 import { raCelestialSubcommand } from "./celestials/ra";
+import { teresaCelestialSubcommand } from "./celestials/teresa";
 import { vCelestialSubcommand } from "./celestials/v";
 
 export const celestials: Command = {
@@ -9,6 +10,33 @@ export const celestials: Command = {
   type: ApplicationCommandType.ChatInput,
   options: [
     {
+      name: "teresa",
+      description: "Learn a bit about Teresa's shenanigans",
+      type: ApplicationCommandOptionType.SubcommandGroup,
+      options: [
+        {
+          name: "basic",
+          description: "Gives some basic information about Teresa",
+          type: ApplicationCommandOptionType.Subcommand
+        },
+        {
+          name: "reality",
+          description: "Gives some basic information about Teresa's Reality",
+          type: ApplicationCommandOptionType.Subcommand
+        },
+        {
+          name: "perkshop",
+          description: "Gives some basic information about Teresa's Perk Shop",
+          type: ApplicationCommandOptionType.Subcommand
+        },
+        {
+          name: "unlocks",
+          description: "Gives some basic information about Teresa's unlocks",
+          type: ApplicationCommandOptionType.Subcommand
+        }
+      ]
+    },
+    {
       name: "v",
       description: "Get some information about V's shenanigans",
       type: ApplicationCommandOptionType.SubcommandGroup,
@@ -16,6 +44,11 @@ export const celestials: Command = {
         {
           name: "basic",
           description: "Gives some basic information about V",
+          type: ApplicationCommandOptionType.Subcommand
+        },
+        {
+          name: "reality",
+          description: "Gives some basic information about V's Reality",
           type: ApplicationCommandOptionType.Subcommand
         },
         {
@@ -50,6 +83,11 @@ export const celestials: Command = {
           type: ApplicationCommandOptionType.Subcommand
         },
         {
+          name: "reality",
+          description: "Gives some basic information about Ra's Reality",
+          type: ApplicationCommandOptionType.Subcommand
+        },
+        {
           name: "memories",
           description: "Pick a celestial and investigate its memories",
           type: ApplicationCommandOptionType.Subcommand,
@@ -71,6 +109,9 @@ export const celestials: Command = {
 
     const celestialRequested = interaction.options.getSubcommandGroup();
     switch (celestialRequested) {
+      case "teresa":
+        await teresaCelestialSubcommand(interaction);
+        break;
       case "v":
         await vCelestialSubcommand(interaction);
         break;

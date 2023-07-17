@@ -183,6 +183,19 @@ export type AlchemyResource = {
   reagents?: Reagent[]
 }
 
+export type TeresaUnlock = {
+  reward: string,
+  requirement: number
+}
+
+export type PerkShopUpgrade = {
+  name: string,
+  initialCost: number,
+  increment: number,
+  description: string,
+  cap: string
+}
+
 export type VAchievement = {
   name: string,
   description: string,
