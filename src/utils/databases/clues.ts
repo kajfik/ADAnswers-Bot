@@ -10,44 +10,18 @@ interface Clue {
   value: number
 }
 
+interface Game {
+  [key: string]: Array<Clue>
+}
+
 const usedDates: Array<string> = [];
 
-export async function collectClues() {
-  const iterations = usedDates.length;
-
-  const randomValue = (max: number) => Math.ceil(Math.random() * max);
-  const getRecentDate = (date?: Date) => {
-    // We may have to force a different date if the current day doesn't have a game
-    const currDate: Date = date ?? new Date();
-    if (Number(new Date().toString().split(" ")[4].split(":")[0]) < 20) currDate.setDate(currDate.getDate() - 1);
-    else if (new Date().getDay() === 6) currDate.setDate(currDate.getDate() - 1);
-    else if (new Date().getDay() === 7) currDate.setDate(currDate.getDate() - 2);
-    // JS Date object months are 0-indexed
-    const currMonth: number = currDate.getMonth() + 1;
-    const currDay: number = currDate.getDate();
-    const currYear: number = currDate.getFullYear();
-
-
-    return usedDates.includes(formatDate(currMonth, currDay, currYear)) ? formatDate(currMonth, currDay - iterations, currYear) : formatDate(currMonth, currDay, currYear);
-  };
-
-  let date = getRecentDate();
-  let round = randomValue(2);
-  let response = await fetch(`https://jarchive-json.glitch.me/glitch/${date}/${round}`);
-  let responseData = await response.json();
-
-  while (await responseData.message !== undefined) {
-    date = getRecentDate(new Date(new Date().setDate(new Date().getDate() - iterations)));
-    round = randomValue(2);
-    response = await fetch(`https://jarchive-json.glitch.me/glitch/${date}/${round}`);
-    responseData = await response.json();
-  }
-
+const runData = (data: Game, round: number, date: string) => {
   const clues: Clue[] = [];
 
-  for (const category in responseData) {
+  for (const category in data) {
     let currentClue = 1;
-    for (const clue of responseData[category]) {
+    for (const clue of data[category]) {
       clues.push({
         date,
         round,
@@ -59,6 +33,53 @@ export async function collectClues() {
       currentClue++;
     }
   }
+
+  return clues;
+};
+
+export async function collectClues(): Promise<Clue[]> {
+  let iterations = usedDates.length;
+
+  const randomValue = (max: number) => Math.ceil(Math.random() * max);
+  const getRecentDate = (date?: Date) => {
+    // We may have to force a different date if the current day doesn't have a game
+    const currDate: Date = date ?? new Date();
+    const currMonth: number = currDate.getMonth() + 1;
+    const currDay: number = currDate.getDate();
+    const currYear: number = currDate.getFullYear();
+
+    return usedDates.includes(formatDate(currMonth, currDay, currYear)) ? formatDate(currMonth, currDay - iterations - 1, currYear) : formatDate(currMonth, currDay, currYear);
+  };
+
+  let date = getRecentDate();
+  let round = randomValue(2);
+  let response = await fetch(`https://jarchive-json.glitch.me/glitch/${date}/${round}`);
+  let responseData = await response.json();
+
+  while (await responseData.message !== undefined || usedDates.includes(date)) {
+    date = getRecentDate();
+    if (usedDates.includes(date)) {
+      iterations++;
+      continue;
+    }
+    round = randomValue(2);
+    response = await fetch(`https://jarchive-json.glitch.me/glitch/${date}/${round}`);
+    responseData = await response.json();
+    iterations++;
+  }
+
+  if (usedDates.includes(date)) {
+    return collectClues();
+  }
+
+  const clues: Clue[] = [];
+
+  clues.push(...runData(responseData, round, date));
+
+  // We need to fetch the other round too
+  response = await fetch(`https://jarchive-json.glitch.me/glitch/${date}/${round === 1 ? "2" : "1"}`);
+  responseData = await response.json();
+  clues.push(...runData(responseData, round, date));
 
   console.log(`Added board for ${date}`);
   usedDates.push(date);

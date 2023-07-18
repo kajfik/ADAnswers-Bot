@@ -95,11 +95,17 @@ export const challenges: ChallengeArray = {
     requirements: `Reach Infinity`,
     challenge: `Whenever you buy Tickspeed upgrades, or 10 of an Antimatter Dimension, everything else of equal cost will increase to its next cost step.`,
     strategy: `I recommend having all Infinity upgrades (except the last 4 which don't work in challenges) and at least 100 unspent IP before attempting C9. Some players prefer attempting this challenge at higher IP values (10k+) where the challenge becomes trivial.\n
-      You can use this video guide: <https://youtu.be/6o-QKHLcimU> or you can use this strat: 
-      - Disable all autobuyers except 6th dim, 8th dim, dimboost, and galaxy autobuyers which should stay enabled.
-      - Keep repeatedly buying the highest dimension available.
-      - From time to time buy Tickspeed in singles, and make sure to keep the Tickspeed cost under the cost of dimensions.
-      - Make sure to not press M/Max or Buy max tickspeed.`,
+You can use this video guide: <https://youtu.be/6o-QKHLcimU> or you can use this strat: 
+- Disable all autobuyers except 6th dim, 8th dim, dimboost, and galaxy autobuyers which should stay enabled.
+- Keep repeatedly buying the highest dimension available.
+- From time to time buy Tickspeed in singles, and make sure to keep the Tickspeed cost under the cost of dimensions.
+- Make sure to not press M/Max or Buy max tickspeed.
+For post 1e7 IP upgrade:
+- Enable Auto Retry Challenges option
+- Crunch autobuyer on at 0 IP
+- DimBoost autobuyer on with "Galaxies required to always Dimboost" disabled and "Limit Dimension Boosts" enabled at 4
+- Galaxy autobuyer off
+- Hold M/Max for additional speed -- if this causes trouble, try tapping it instead of holding`,
     reward: `Tickspeed Autobuyer`,
     image: `https://cdn.discordapp.com/attachments/824678601160917003/980908584332308490/C9.png`,
     goal: `Reach Infinity under these circumstances`,
