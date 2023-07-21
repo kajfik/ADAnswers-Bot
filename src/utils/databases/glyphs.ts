@@ -266,7 +266,7 @@ This makes the glyph stack reasonably while still providing a boost if you use v
         altered: {
           name: "Boosted Tachyon Galaxy Threshold Multiplier",
           effect: `"Multiply" (Divide) the threshold scaling for Tachyon Galaxies, with a boosted formula based on Dilation Glyph Sacrifice.`,
-          effectFormula: "1 - ((Level)^0.17 * (1 + 2.5*Rarity)^0.35) / 100 - log10(max(min(time sacrifice, 1e100) / 1e60, 1)) / 2 / 50",
+          effectFormula: "1 - ((Level)^0.17 * (1 + 2.5*Rarity)^0.35) / 100 - log10(max(min(dilation sacrifice, 1e100) / 1e60, 1)) / 2 / 50",
           type: ALTERATION_TYPE.BOOST
         }
       },
@@ -336,7 +336,7 @@ export const specialGlyphs: GlyphData = {
         altered: {
           name: "Boosted Achievement Multiplier Power",
           effect: "Raise Achievement multiplier to a power with a formula boosted based on Effarig Glyph Sacrifice.",
-          effectFormula: "(1 + (level ^ 0.4) * ((1 + 2.5 * rarity) ^ 0.6) / 60) + log10(max(min(time sacrifice, 1e100) / 1e60, 1)) / 2 / 10",
+          effectFormula: "(1 + (level ^ 0.4) * ((1 + 2.5 * rarity) ^ 0.6) / 60) + log10(max(min(effarig sacrifice, 1e100) / 1e60, 1)) / 2 / 10",
           type: ALTERATION_TYPE.BOOST
         }
       },

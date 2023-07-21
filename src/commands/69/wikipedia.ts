@@ -1,6 +1,6 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, CommandInteraction } from "discord.js";
-import { isHelper, link } from "../../functions/Misc";
+import { ActionRowBuilder, ApplicationCommandOptionType, ApplicationCommandType, ButtonBuilder, ButtonStyle, CommandInteraction } from "discord.js";
 import { Command } from "../../command";
+import { isHelper } from "../../functions/Misc";
 import wiki from "wikijs";
 
 export const wikipedia: Command = {
@@ -33,13 +33,29 @@ export const wikipedia: Command = {
     const language: string = interaction.options.getString("language") || "en";
 
     // eslint-disable-next-line max-len
+    let url: string = "https://en.wikipedia.org";
     const content: string = await wiki({
       apiUrl: `https://${language}.wikipedia.org/w/api.php`
-    }).find(interaction.options.getString("search") as string).then(async page => `${(await page.summary()).substring(0, 350)}...\n__**${link("(link)", page.url())}**__`).catch(() => `No article found with that title.`);
+    }).find(interaction.options.getString("search") as string).then(async page => {
+      url = page.url();
+      return `${(await page.summary()).substring(0, 350)}...`;
+    }).catch(() => `No article found with that title.`);
+
+    const button = new ActionRowBuilder<ButtonBuilder>()
+      .addComponents(
+        new ButtonBuilder()
+          .setURL(url)
+          .setStyle(ButtonStyle.Link)
+          .setLabel("Link")
+      );
 
     let ephemeral = !isHelper(interaction);
-    if (content === "No article found with that title") ephemeral = true;
+    let components = [button];
+    if (content === "No article found with that title") {
+      ephemeral = true;
+      components = [];
+    }
 
-    await interaction.reply({ content, ephemeral });
+    await interaction.reply({ content, ephemeral, components });
   }
 };

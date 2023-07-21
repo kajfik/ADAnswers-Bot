@@ -48,7 +48,7 @@ export async function collectClues(): Promise<Clue[]> {
     const currDay: number = currDate.getDate();
     const currYear: number = currDate.getFullYear();
 
-    return usedDates.includes(formatDate(currMonth, currDay, currYear)) ? formatDate(currMonth, currDay - iterations - 1, currYear) : formatDate(currMonth, currDay, currYear);
+    return usedDates.includes(formatDate(currMonth, currDay, currYear)) ? formatDate(currMonth, currDay - iterations, currYear) : formatDate(currMonth, currDay, currYear);
   };
 
   let date = getRecentDate();
