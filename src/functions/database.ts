@@ -17,6 +17,12 @@ export async function getPersonTag(id: string) {
   return t;
 }
 
+export async function getJeopardyPlayerTag(id: string) {
+  const jeopardyTags = tags.player;
+  const t = await jeopardyTags.findOne({ where: { name: id } });
+  return t;
+}
+
 export async function getTagInfo(): Promise<TagInfo> {
   const timeData = await manageTopCommands(tags.timeUsage);
   const usageData = await manageTopCommands(tags.commandUsage);

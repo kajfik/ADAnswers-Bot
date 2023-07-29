@@ -15,7 +15,7 @@ export async function raCelestialSubcommand(interaction: ChatInputCommandInterac
     }
     case "reality": {
       // eslint-disable-next-line max-len
-      await interaction.reply({ content: Ra.reality, ephemeral: isHelper(interaction) });
+      await interaction.reply({ content: Ra.reality, ephemeral: !isHelper(interaction) });
       break;
     }
     case "memories": {

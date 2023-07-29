@@ -4,7 +4,6 @@ import { ActionRowBuilder,
   Colors,
   EmbedBuilder,
   Interaction,
-  InteractionType,
   MessageContextMenuCommandInteraction,
   ModalBuilder,
   ModalSubmitInteraction,
@@ -12,6 +11,7 @@ import { ActionRowBuilder,
   TextInputBuilder,
   TextInputStyle } from "discord.js";
 import { incrementBigFourTags, incrementTag } from "../functions/database";
+import { AutocompleteCommand } from "../command";
 import { Commands } from "../commands";
 import { InteractionEvents } from "../classes/events/InteractionEvents";
 import { ids } from "../config.json";
@@ -25,13 +25,27 @@ export default (client: Client): void => {
     try {
       if (interaction.isMessageContextMenuCommand()) {
         await handleContextMenu(interaction);
-      } else if (interaction.type === InteractionType.ApplicationCommand) {
+      } else if (interaction.isChatInputCommand()) {
         if (interaction.isMessageContextMenuCommand()) return;
         await handleSlashCommand(client, interaction as ChatInputCommandInteraction);
-      } else if (interaction.type === InteractionType.ModalSubmit) {
+      } else if (interaction.isModalSubmit()) {
         if (interaction.customId === "report-message-modal") {
           await interaction.deferReply({ ephemeral: true });
           await handleModalSubmit(currentMessageBeingReported, interaction);
+        }
+      } else if (interaction.isAutocomplete()) {
+        // If this is being run, it's an autocomplete command. We can just assume
+        const command = Commands.find(c => c.name === interaction.commandName) as AutocompleteCommand;
+
+        if (!command) {
+          console.error(`Command ${interaction.commandName} not found`);
+          return;
+        }
+
+        try {
+          await command.autocomplete(interaction);
+        } catch (e) {
+          console.log(e);
         }
       }
     } catch (error) {

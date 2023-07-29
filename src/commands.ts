@@ -1,6 +1,6 @@
 /* eslint-disable sort-imports */
 // We're disabling this rule in order to sort the imports based on page.
-import { Command } from "./command";
+import { AutocompleteCommand, Command } from "./command";
 
 import { oneminuteinf } from "./commands/1/1minuteinf";
 import { breakinfinity } from "./commands/1/breakinfinity";
@@ -101,6 +101,7 @@ import { xyproblem } from "./commands/9/xyproblem";
 
 // Import { bushism } from "./commands/69/bushism";
 import { deadchat } from "./commands/69/deadchat";
+import { mdn } from "./commands/69/mdn";
 import { jeopardy } from "./commands/69/jeopardy";
 import { pins } from "./commands/69/pins";
 import { slightsmile } from "./commands/69/slightsmile";
@@ -123,10 +124,10 @@ export const commandsByPage: { [page: number]: Command[] } = {
   7: [abb, androidorweb, antitables, decimal, howtoplay, notations],
   8: [fivehours, code, contributors, report, rolerequest, slashcommand],
   9: [discordformatting, justask, paperclips, roles, savebank, savesharing, secretachievements, site, xyproblem],
-  69: [deadchat, jeopardy, pins, slightsmile, user, whatisearthlisteningto, wikipedia, xkcd],
+  69: [deadchat, mdn, jeopardy, pins, slightsmile, user, whatisearthlisteningto, wikipedia, xkcd],
 };
 
-export const Commands: Command[] = [
+export const Commands: Array<Command | AutocompleteCommand> = [
   // Page 1 - Infinity
   oneminuteinf, breakinfinity, bulkbuy, c9, columns, dimboostorgalaxy, earlyinfinity, galaxyboost, grindingforbreak, infinity, sacrifice, swipetrick,
   // Page 2 - Break Infinity
@@ -146,7 +147,7 @@ export const Commands: Command[] = [
   // Page 9 - Misc
   discordformatting, justask, paperclips, roles, savebank, savesharing, secretachievements, site, xyproblem,
   // Page 69 - Very misc
-  deadchat, jeopardy, pins, slightsmile, user, whatisearthlisteningto, wikipedia, xkcd,
+  deadchat, mdn, jeopardy, pins, slightsmile, user, whatisearthlisteningto, wikipedia, xkcd,
   // No page - bot info
   help, meta
 ];

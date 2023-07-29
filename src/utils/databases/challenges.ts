@@ -175,24 +175,25 @@ For post 1e7 IP upgrade:
     requirements: `Reach **1e14000** antimatter`,
     challenge: `Only the latest bought Antimatter Dimension's production is normal, all other Antimatter Dimensions produce less (^0.25).`,
     goal: `Reach **1e13000** antimatter`,
-    strategy: `You can attempt IC4 at e68+ IP.
+    strategy: `
+You can attempt IC4 at e68+ IP.
 
-    **Before challenge:**
-    - set "Buy max every X seconds" to 0, enable "Limit Dimboosts to 4 until X Galaxies" at 100, and disable "Limit Galaxies to"
-    - disable Sacrifice autobuyer and Dimension autobuyers 1-7
-    - keep Dimension 8, Tickspeed, Dimboost, and Galaxy autobuyers enabled
+**Before challenge:**
+- set "Buy max every X seconds" to 0, enable "Limit Dimboosts to 4 until X Galaxies" at 100, and disable "Limit Galaxies to"
+- disable Sacrifice autobuyer and Dimension autobuyers 1-7
+- keep Dimension 8, Tickspeed, Dimboost, and Galaxy autobuyers enabled
     
-    **In challenge:**
-    - hold M/Max until you get stuck
-    - press "lose a dimboost"/"lose a reset"
-    - press M/Max two or three times (don't hold it, just press)
-    - repeatedly buy dimensions 7->1 until you reach the next Galaxy
-    - repeat
+**In challenge:**
+- hold M/Max until you get stuck
+- press "lose a dimboost"/"lose a reset"
+- press M/Max two or three times (don't hold it, just press)
+- repeatedly buy dimensions 7->1 until you reach the next Galaxy
+- repeat
     
-    **After challenge:**
-    - enable Sacrifice autobuyer and Dimension autobuyers 1-7
+**After challenge:**
+- enable Sacrifice autobuyer and Dimension autobuyers 1-7
     
-    Video guide: <https://youtu.be/lI70hBlpaqc>`,
+Video guide: <https://youtu.be/lI70hBlpaqc>`,
     reward: `All Antimatter Dimension multipliers become multiplier^1.05`,
     rewardFormula: `\`multiplier ^ 1.05\``,
     image: `https://cdn.discordapp.com/attachments/824678601160917003/980928603996946542/IC4.png`,

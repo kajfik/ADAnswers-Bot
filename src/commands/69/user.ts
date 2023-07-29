@@ -1,8 +1,8 @@
 import { ApplicationCommandOptionType, ApplicationCommandType, ChannelType, CommandInteraction, EmbedBuilder, GuildMember, User } from "discord.js";
-import { authorTitleFromUser, link, pluralise } from "../../functions/Misc";
+import { authorTitleFromUser, link, pluralise, quantify } from "../../functions/Misc";
+import { getJeopardyPlayerTag, getPersonTag } from "../../functions/database";
 import { Command } from "../../command";
 import { UserInfo } from "../../utils/types";
-import { getPersonTag } from "../../functions/database";
 
 async function getUserInfo(user: User, interaction: CommandInteraction): Promise<UserInfo> {
   const u = await interaction.guild?.members.resolve(user.id) as GuildMember;
@@ -15,6 +15,13 @@ async function getUserInfo(user: User, interaction: CommandInteraction): Promise
     joined: `<t:${Math.floor(u.joinedTimestamp as number / 1000)}:F>`,
     avatar: user.displayAvatarURL(),
     tag: await getPersonTag(user.id),
+    jeopardyTag: await getJeopardyPlayerTag(user.id),
+    async jeopardyInfo() {
+      const t = await getJeopardyPlayerTag(user.id);
+      if (t === null) return `This user has not played Jeopardy! in the bot.`;
+      const score = t.getDataValue("points");
+      return `${authorTitleFromUser(user)} has a Jeopardy! score of **${quantify("point", score)}**.`;
+    },
     async tagInfo() {
       const t = await getPersonTag(user.id);
       if (t === null) return `This user has not used the bot.`;
@@ -54,6 +61,7 @@ export const user: Command = {
       .setTitle(`${info.fullPerson}`)
       .setThumbnail(info.avatar)
       .addFields({ name: "Bot information", value: await info.tagInfo() })
+      .addFields({ name: "Jeopardy! points", value: await info.jeopardyInfo() })
       .addFields({ name: "Nickname", value: info.nick })
       .addFields({ name: `Roles (${info.rolesUnjoined?.length ?? 0})`, value: info.roles ?? "This user has no roles" })
       .addFields({ name: "Joined", value: info.joined })

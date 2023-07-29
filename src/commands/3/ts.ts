@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, CommandInteraction } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, CommandInteraction, User } from "discord.js";
 import { isHelper, makeEnumeration } from "../../functions/Misc";
 import { Command } from "../../command";
 import { Tree } from "../../classes/Tree";
@@ -33,6 +33,12 @@ export const ts: Command = {
       description: "Will show current ECs for that TT amount; x >= 130 where 130 is TT",
       type: ApplicationCommandOptionType.Boolean,
       required: false
+    },
+    {
+      name: "target",
+      description: "(Optional) Which user would you like to show the information to?",
+      required: false,
+      type: ApplicationCommandOptionType.User,
     }
   ],
   run: async(interaction: CommandInteraction) => {
@@ -41,11 +47,14 @@ export const ts: Command = {
     const theorems: number = interaction.options.getInteger("theorems") as number;
     const path: string = interaction.options.getString("path") as string;
     const showECs: boolean = interaction.options.getBoolean("showecs") as boolean;
+    const target: User | null = interaction.options.getUser("target", false);
+
     const tree = new Tree(theorems, path).generateTree();
     const ecs = ecsAtTTAmount(theorems);
     const next = typeof ecs === "string" ? "" : `(Next: ${makeEnumeration<string>(ecs.nextECs, ", ", "", "and")} at ${ecs.nextChallengeTT} TT)`;
     const ecString: string = showECs && theorems >= 130 ? `EC completions for ${theorems} TT: ${typeof ecs === "string" ? ecs : ecs.completions} ${next}` : "";
+    const targetString: string = target ? `*Suggested for <@${target.id}>*\n` : "";
 
-    await interaction.reply({ content: `${tree}\n${ecString}`, ephemeral: !isHelper(interaction) });
+    await interaction.reply({ content: `${targetString}${tree}\n${ecString}`, ephemeral: !isHelper(interaction) });
   }
 };

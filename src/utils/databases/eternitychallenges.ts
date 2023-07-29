@@ -62,7 +62,7 @@ export const ECRewards: Reward = {
   },
   "10": {
     reward: "Time Dimension multiplier based on Infinities (affected by TS31)",
-    formula: "×`infinities ^ 950`"
+    formula: "×`(infinities * 2.783e-6) ^ (0.4 + 0.1 * completions)`"
   },
   "11": {
     reward: "Further reduce Tickspeed cost multiplier growth",

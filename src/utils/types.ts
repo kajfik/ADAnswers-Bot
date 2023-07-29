@@ -156,6 +156,8 @@ export type UserInfo = {
   joined: string;
   avatar: string;
   tag: Model<any, any> | null;
+  jeopardyTag: Model<any, any> | null;
+  jeopardyInfo: Function;
   tagInfo: Function
 }
 

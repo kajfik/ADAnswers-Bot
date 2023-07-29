@@ -22,6 +22,10 @@ const runData = (data: Game, round: number, date: string) => {
   for (const category in data) {
     let currentClue = 1;
     for (const clue of data[category]) {
+      if (clue.answer === "mystery") {
+        currentClue++;
+        continue;
+      }
       clues.push({
         date,
         round,
@@ -44,9 +48,15 @@ export async function collectClues(): Promise<Clue[]> {
   const getRecentDate = (date?: Date) => {
     // We may have to force a different date if the current day doesn't have a game
     const currDate: Date = date ?? new Date();
-    const currMonth: number = currDate.getMonth() + 1;
-    const currDay: number = currDate.getDate();
+    let currMonth: number = currDate.getMonth() + 1;
+    let currDay: number = currDate.getDate();
     const currYear: number = currDate.getFullYear();
+
+    if (currDay - iterations <= 0) {
+      currMonth--;
+      // Since it'll subtract them later, we don't want to skip over a bunch of games
+      currDay = 31 + iterations;
+    }
 
     return usedDates.includes(formatDate(currMonth, currDay, currYear)) ? formatDate(currMonth, currDay - iterations, currYear) : formatDate(currMonth, currDay, currYear);
   };
@@ -56,16 +66,13 @@ export async function collectClues(): Promise<Clue[]> {
   let response = await fetch(`https://jarchive-json.glitch.me/glitch/${date}/${round}`);
   let responseData = await response.json();
 
-  while (await responseData.message !== undefined || usedDates.includes(date)) {
+  while (await responseData.message !== undefined) {
     date = getRecentDate();
-    if (usedDates.includes(date)) {
-      iterations++;
-      continue;
-    }
+    iterations++;
     round = randomValue(2);
     response = await fetch(`https://jarchive-json.glitch.me/glitch/${date}/${round}`);
     responseData = await response.json();
-    iterations++;
+    usedDates.push(date);
   }
 
   if (usedDates.includes(date)) {
