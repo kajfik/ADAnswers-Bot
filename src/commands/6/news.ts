@@ -24,7 +24,7 @@ export const news: Command = {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     let content: string;
-    const info = interaction.options.getString("info");
+    const info = interaction.options.getString("info", true);
 
     switch (info) {
       case "listmobile":
@@ -39,16 +39,16 @@ export const news: Command = {
         break;
       case "games":
         content = `There exists a news ticker in AD that recommends the player to play some other games. These games are as follows:
-        ${link("Antimatter Dimensions", "https://ivark.github.io/AntimatterDimensions")},
-        ${link("FE000000", "https://dan-simon.github.io/misc/fe000000/")},
-        ${link("Trimps", "https://trimps.github.io/")},
-        ${link("Mine Defense", "http://scholtek.com/minedefense")},
-        ${link("Wizard and Minion Idle", "https://www.kongregate.com/games/Oninou/wami")},
-        ${link("Anti-Idle", "https://www.kongregate.com/games/Tukkun/anti-idle-the-game")},
-        ${link("Synergism", "https://pseudo-corp.github.io/SynergismOfficial/")},
-        ${link("Universal Paperclips", "https://www.decisionproblem.com/paperclips/index2.html")},
-        ${link("Monies^2", "https://sneekxy.nmtechgroup.com/monies2/")}, and
-        ${link("The First Alhahistorian stages 1, 2, and 3", "https://nagshell.github.io/elemental-inception-incremental/")}`;
+- ${link("Antimatter Dimensions", "https://ivark.github.io/AntimatterDimensions")},
+- ${link("FE000000", "https://dan-simon.github.io/misc/fe000000/")},
+- ${link("Trimps", "https://trimps.github.io/")},
+- ${link("Mine Defense", "http://scholtek.com/minedefense")},
+- ${link("Wizard and Minion Idle", "https://www.kongregate.com/games/Oninou/wami")},
+- ${link("Anti-Idle", "https://www.kongregate.com/games/Tukkun/anti-idle-the-game")},
+- ${link("Synergism", "https://synergism.cc/")},
+- ${link("Universal Paperclips", "https://www.decisionproblem.com/paperclips/index2.html")},
+- ${link("Monies^2", "https://sneekxy.nmtechgroup.com/monies2/")}, and
+- ${link("The First Alkahistorian stages 1, 2, and 3", "https://nagshell.github.io/elemental-inception-incremental/")}`;
         break;
       default:
         content = "Unknown news arg";

@@ -1,8 +1,41 @@
 import { ActivityType, ApplicationCommandType, Client, ContextMenuCommandBuilder } from "discord.js";
 import { Model, ModelStatic, Sequelize } from "sequelize";
+import { ids, lastfm } from "../config.json";
 import { Commands } from "../commands";
 import { PresenceMessage } from "../functions/presence";
-import { ids } from "../config.json";
+import fetch from "node-fetch";
+
+interface Artist {
+  mbid: string,
+  "#text": string
+}
+
+interface Image {
+  size: string,
+  "#text": string
+}
+
+interface Attributes {
+  nowplaying: string
+}
+
+interface Date {
+  uts: string,
+  "#text": string
+}
+
+interface Track {
+  artist: Artist,
+  streamable: string,
+  image: Image[],
+  mbid: string,
+  // It's the same, lmao
+  album: Artist,
+  name: string,
+  url: string,
+  "@attr"?: Attributes,
+  date?: Date
+}
 
 export default (client: Client, databases: Sequelize[], tagsArray: ModelStatic<Model>[]): void => {
   client.on("ready", async() => {
@@ -36,7 +69,19 @@ export default (client: Client, databases: Sequelize[], tagsArray: ModelStatic<M
       console.log(e);
     }
 
-    function setBotStatus(): void {
+    async function setBotStatus(): Promise<void> {
+      // First we'll check if I'm listening to anything. If not, we'll use our standard
+      // repertoire of activity presence messages.
+      // This *is* slightly demanding, fetching this every 15 seconds. It is ok
+      const response = await fetch(`${lastfm.api}?method=user.getrecenttracks&user=${lastfm.username}&api_key=${lastfm.key}&format=json`);
+      const data = await response.json();
+      const currentTrack: Track = data.recenttracks.track.filter((track: Track) => track["@attr"] !== undefined)[0] ?? data.recenttracks.track[0];
+      if (currentTrack.date === undefined) {
+        const basicTrackInfo = `${currentTrack.artist["#text"]} - ${currentTrack.name}`;
+        client.user?.setActivity(basicTrackInfo, { type: ActivityType.Listening });
+        return;
+      }
+
       const next = PresenceMessage.next();
       client.user?.setActivity(next, { type: ActivityType.Listening });
     }

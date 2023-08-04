@@ -1,4 +1,17 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, AutocompleteInteraction, ChatInputCommandInteraction, bold, hideLinkEmbed, hyperlink, inlineCode, italic, underscore, userMention } from "discord.js";
+import { ActionRowBuilder,
+  ApplicationCommandOptionType,
+  ApplicationCommandType,
+  AutocompleteInteraction,
+  ButtonBuilder,
+  ButtonStyle,
+  ChatInputCommandInteraction,
+  bold,
+  hideLinkEmbed,
+  hyperlink,
+  inlineCode,
+  italic,
+  underscore,
+  userMention } from "discord.js";
 import { AutocompleteCommand } from "../../command";
 import config from "../../config.json";
 import fetch from "node-fetch";
@@ -37,6 +50,13 @@ const cache = new Map<string, Document>();
 
 function escape(text: string): string {
   return text.replace(/\|\|/gu, "|\u200B|").replace(/\*/gu, "\\*");
+}
+
+function linkButtonCreator(url: string, label?: string): ButtonBuilder {
+  return new ButtonBuilder()
+    .setURL(url)
+    .setStyle(ButtonStyle.Link)
+    .setLabel(label ?? "MDN Web Docs");
 }
 
 export const mdn: AutocompleteCommand = {
@@ -100,19 +120,26 @@ export const mdn: AutocompleteCommand = {
         .replace(boldCodeBlockRegex, bold(inlineCode("$1")));
 
       const parts = [
-        `${underscore(bold(hyperlink(escape(hit.title), hideLinkEmbed(url))))}`,
+        `<:mdn:${config.mdn.emote}> ${underscore(bold(hyperlink(escape(hit.title), hideLinkEmbed(url))))}`,
         intro,
         `*Information from ${hyperlink("MDN Web Docs", hideLinkEmbed(`https://developer.mozilla.org/en-US/`))}.*`
       ];
 
+      const buttons = new ActionRowBuilder<ButtonBuilder>().addComponents(linkButtonCreator(url, hit.title), linkButtonCreator("https://developer.mozilla.org/en-US/"));
+
       const target = interaction.options.getUser("target");
       const targetString = target ? `${italic(`Documentation suggestion for ${userMention(target.id)}:`)}\n` : "";
 
-      // I think this is a reasonable exception
-      const isInModDevChat = interaction.channelId === config.ids.AD.modDevChannel;
+      // I think these are reasonable exceptions
+      const isInModDevChat = [
+        config.ids.AD.gameDevChannel,
+        config.ids.AD.modDevChannel,
+        config.ids.AD.programmingChannel
+      ].includes(interaction.channelId);
+
       const ephemeral = isInModDevChat ? false : !isHelper(interaction);
 
-      await interaction.reply({ content: `${targetString}${parts.join("\n")}`, ephemeral });
+      await interaction.reply({ content: `${targetString}${parts.join("\n")}`, ephemeral, components: [buttons] });
     } catch (e) {
       await interaction.reply({ content: "Something went wrong", ephemeral: true });
       console.log(e);

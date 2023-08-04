@@ -32,6 +32,7 @@ interface MDNCandidate {
 }
 
 const AUTOCOMPLETE_MAX_ITEMS = 20;
+const SLICED_URL_START = 19;
 
 function autoCompleteMap(elements: Array<MDNCandidate>) {
   return elements.map(e => ({ name: e.entry.title, value: e.entry.url }));

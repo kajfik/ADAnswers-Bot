@@ -51,7 +51,7 @@ export const wikipedia: Command = {
 
     let ephemeral = !isHelper(interaction);
     let components = [button];
-    if (content === "No article found with that title") {
+    if (content === "No article found with that title.") {
       ephemeral = true;
       components = [];
     }
