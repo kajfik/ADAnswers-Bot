@@ -4,24 +4,110 @@
     <meta name="clicky pen" content="click the pen">
     <link rel="stylesheet" type="text/css" href="styles.css">
   </head>
-  <body onload="updateLabel()">
+  <body onload="load()">
     <script type="text/javascript">
-      const data = JSON.parse(localStorage.getItem("pendata")) ?? { clicked: 0, penDown: false };
+      const data = JSON.parse(localStorage.getItem("pendata")) ?? { clicked: 0, penDown: false, autoclicker: { unlocked: false, amount: 0, tier: 1 } };
 
       let clicked = data.clicked;
       let penDown = data.penDown;
+      let autoclicker = data.autoclicker;
 
-      function quantify(word, count) {
-        function pluralise(w, c) {
+      function pluralise(w, c) {
           if (c === 1) return w;
           return `${w}s`;
         }
 
+      function quantify(word, count) {
         return `${count} ${pluralise(word, count)}`;
       }
 
+      class Autoclicker {
+        constructor(auto) {
+          this.autoclicker = auto;
+        }
+
+        get tier() {
+          return this.autoclicker.tier;
+        }
+
+        get amount() {
+          return this.autoclicker.amount;
+        }
+
+        set amount(value) {
+          this.autoclicker.amount = value;
+        }
+
+        get cost() {
+          return Math.floor(100 + this.amount * (1.1 * this.amount));
+        }
+
+        get productionPerSecond() {
+          return this.amount * this.tier;
+        }
+
+        produce() {
+          if (this.tier === 1) clicked += Math.floor(this.productionPerSecond);
+        }
+
+        purchase() {
+          if (clicked < this.cost) return false;
+          clicked -= Math.floor(this.cost);
+          this.amount += 1;
+          clicked = Math.floor(clicked);
+          updateAutoclickerRow();
+          updateLabel();
+        }
+      }
+
+      const autoclickers = [new Autoclicker(autoclicker)];
+
       function updateLabel() {
-        document.getElementById("label").innerHTML = `${clicked === 0 ? "You have never clicked the pen" : `You have clicked the button ${quantify("time", clicked)}`}`;
+        let productionPerSecond = autoclickers[0].amount >= 0 ? `(+${Math.floor(autoclickers[0].productionPerSecond)}/s)` : "";
+        document.getElementById("label").innerHTML = `${clicked === 0 ? 
+          "You have never clicked the pen" 
+          : `You have clicked the button <span class="label__accent">${clicked}</span> ${pluralise("time", clicked)}`} ${productionPerSecond}`;
+      }
+
+      function showAutoclicker() {
+        document.getElementsByClassName("o-button--autoclicker-row")[0].style.display = autoclicker.unlocked ? "flex" : "none";
+      }
+
+      function updateAutoclickerLabel() {
+        document.getElementById("cost-label").innerHTML = `Cost: ${autoclickers[0].cost} clicks`;
+        document.getElementById("amount-label").innerHTML = `Amount: ${autoclickers[0].amount}`
+      }
+
+      function updateAutoclickerRow() {
+        showAutoclicker();
+        updateAutoclickerLabel();
+      }
+
+      function loop() {
+        for (const autoclicker of autoclickers) {
+          autoclicker.produce();
+        }
+
+        updateLabel();
+        updateAutoclickerRow();
+      }
+
+      const loopint = setInterval(loop, 1000);
+
+      function load() {
+        updateLabel();
+        updateAutoclickerRow();
+      }
+
+      function save() {
+        localStorage.setItem("pendata", JSON.stringify({ clicked, penDown, autoclicker }));
+      }
+
+      function tryUnlockAutoclicker() {
+        if (clicked < 100) return false;
+        autoclicker.unlocked = true;
+        showAutoclicker();
+        return true;
       }
 
       function click2() {
@@ -37,8 +123,18 @@
 
         clicked++;
         penDown = !penDown;
+
         updateLabel();
-        localStorage.setItem("pendata", JSON.stringify({ clicked, penDown }))
+        tryUnlockAutoclicker();
+        save();
+      }
+
+      function purchaseAutoclicker(rank) {
+        autoclickers[0].purchase();
+      }
+
+      window.onbeforeunload = function() {
+        save();
       }
     </script>
     <audio id="pendown" src="./sounds/pen_down.mp3" preload="auto"></audio>
@@ -50,17 +146,28 @@
         <button class="o-button" onclick="click2()">
           Click me!
         </button>
+      </div>
         <br>
-        <h3 id="label">
+        <div id="label">
           x
-        </h3>
+        </div>
+        <div class="l-autoclicker-row">
+          <button class="l-button o-button--autoclicker-row" onclick="purchaseAutoclicker(1)">
+            Purchase Autoclicker Mk. 1
+          </button>
+          <div class="l-autoclicker-row--cost-label" id="cost-label">
+            Cost: x
+          </div>
+          <div class="l-autoclicker-row--cost-label" id="amount-label">
+            Amount: x
+          </div>
+        </div>
         <br>
         <h4>
           The pen in question is a Uniball Signo 207, which is perhaps my favourite pen I've ever used.
           <br>
           Here is <a href="https://i.imgur.com/XP75J4v.png">a picture.</a>
         </h4>
-      </div>
     </div>
   </body>
 </html>
