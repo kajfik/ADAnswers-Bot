@@ -1,6 +1,7 @@
 <!doctype html>
   <head>
     <title>Clicky pen</title>
+    <meta charset="utf-8" />
     <meta name="clicky pen" content="click the pen">
     <link rel="stylesheet" type="text/css" href="styles.css">
   </head>
@@ -43,7 +44,7 @@
         }
 
         get productionPerSecond() {
-          return this.amount * this.tier * ((this.amount / 10) + 1)
+          return this.amount * this.tier * ((this.amount / 10) + 1);
         }
 
         produce() {
@@ -70,7 +71,7 @@
       }
 
       function showAutoclicker() {
-        document.getElementsByClassName("o-button--autoclicker-row")[0].style.display = autoclicker.unlocked ? "flex" : "none";
+        document.getElementsByClassName("l-autoclicker-row")[0].style.display = autoclicker.unlocked ? "flex" : "none";
       }
 
       function updateAutoclickerLabel() {
