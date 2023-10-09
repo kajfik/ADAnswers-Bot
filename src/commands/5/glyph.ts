@@ -1,10 +1,12 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, ChatInputCommandInteraction, EmbedBuilder, User } from "discord.js";
-import { GlyphEmbedGetter, basicGlyphs, specialGlyphs } from "../../utils/databases/glyphs";
-import { effectCountProbabilityCalculator, rarityProbabilityCalculator, threshold } from "../../functions/glyphs";
+import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
+import { basicGlyphs, specialGlyphs } from "../../utils/databases/glyphs";
 import { Command } from "../../command";
 import { GlyphInfo } from "../../utils/types";
 import config from "../../config.json";
+import { effectGlyphSubcommand } from "./glyph/effect";
 import { isHelper } from "../../functions/Misc";
+import { sacrificeGlyphSubcommand } from "./glyph/sacrifice";
+import { utilsGlyphSubcommand } from "./glyph/utils";
 
 function getEffectChoices(): { name: string, value: string, type: any }[] {
   const choices = [];
@@ -166,6 +168,20 @@ export const glyph: Command = {
       ]
     },
     {
+      name: "sacrifice",
+      description: "Explains the effects from Glyph Sacrifice for each glyph type",
+      type: ApplicationCommandOptionType.Subcommand,
+      options: [
+        {
+          name: "glyph",
+          required: true,
+          description: "The glyph type you want to know about",
+          type: ApplicationCommandOptionType.String,
+          choices: getEffectChoices()
+        },
+      ]
+    },
+    {
       name: "utils",
       description: "access glyph utility functions to find probabilities or other information",
       type: ApplicationCommandOptionType.SubcommandGroup,
@@ -261,38 +277,11 @@ export const glyph: Command = {
       return;
     }
 
-    const user: User = interaction.member === null ? interaction.user : interaction.member.user as User;
-
     const isADServer: boolean = (interaction.guildId === config.ids.AD.serverID);
 
     if (interaction.options.getSubcommandGroup() !== null) {
-      if (interaction.options.getSubcommand() === "threshold") {
-        const response = await threshold(interaction.options.getNumber("rarity") as number);
-        await interaction.reply({ content: response.status, ephemeral: !isHelper(interaction) });
-        return;
-      }
-
-      if (interaction.options.getSubcommand() === "rarityprobability") {
-        const bonusRarity = interaction.options.getNumber("bonus") as number;
-        const ru16Purchased = interaction.options.getBoolean("ru16") as boolean;
-        const rarity = interaction.options.getNumber("rarity") as number;
-
-        const response = await rarityProbabilityCalculator(bonusRarity, ru16Purchased, rarity);
-        await interaction.reply({ content: response.status, ephemeral: !isHelper(interaction) });
-        return;
-      }
-
-      if (interaction.options.getSubcommand() === "effectprobability") {
-        const ru17Purchased = interaction.options.getBoolean("ru17") as boolean;
-        const rarity = interaction.options.getNumber("rarity") as number;
-        const level = interaction.options.getNumber("level") as number;
-        const effects = interaction.options.getNumber("effects") as number;
-        const isEffarig = interaction.options.getBoolean("effarig") as boolean;
-
-        const response = await effectCountProbabilityCalculator(ru17Purchased, rarity, level, effects, isEffarig);
-        await interaction.reply({ content: response.status, ephemeral: !isHelper(interaction) });
-        return;
-      }
+      await utilsGlyphSubcommand(interaction);
+      return;
     }
 
     const type: string = interaction.options.getSubcommand();
@@ -304,21 +293,10 @@ export const glyph: Command = {
 
       await interaction.reply({ content, ephemeral: !isHelper(interaction) });
 
+    } else if (type === "effect") {
+      await effectGlyphSubcommand(interaction);
     } else {
-
-      const glyphName: string = interaction.options.getString("glyph") as string;
-      const altered: boolean = interaction.options.getBoolean("altered") as boolean;
-
-      const picture = new AttachmentBuilder(`src/images/glyphs/${glyphName}.png`);
-
-      const glyphRequested = basicGlyphs[glyphName] ?? specialGlyphs[glyphName];
-
-
-      const embed: EmbedBuilder = GlyphEmbedGetter(glyphRequested, isADServer, altered);
-      embed.setAuthor({ name: `${user.username}#${user.discriminator}`, iconURL: user.displayAvatarURL() })
-        .setThumbnail(`attachment://${glyphName}.png`);
-
-      await interaction.reply({ embeds: [embed], files: [picture], ephemeral: !isHelper(interaction) });
+      await sacrificeGlyphSubcommand(interaction);
     }
   }
 };

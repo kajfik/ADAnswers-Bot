@@ -26,7 +26,7 @@ export const ecsattt: Command = {
     const content: string = `At ${quantify("Time Theorem", tt)}, you should have: ${
       typeof response === "string"
         ? response
-        : `${response.completions} (Next: ${makeEnumeration<string>(response.nextECs, ", ", "", "and")} at ${response.nextEC.tt} TT)`
+        : `${response.completions} (Next: ${makeEnumeration<string>(response.nextECs, ", ", "", "and")} at ${response.nextChallengeTT} TT)`
     }`;
 
     await interaction.reply({ content, ephemeral: !isHelper(interaction) });

@@ -1,8 +1,8 @@
 import { ApplicationCommandOptionData, ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, CommandInteraction, EmbedBuilder, User } from "discord.js";
 import { PerkEmbedGetters, perks } from "../../utils/databases/perks";
 import { PerkInfo, StringIndexedStringObjectType } from "../../utils/types";
+import { authorTitle, isHelper } from "../../functions/Misc";
 import { Command } from "../../command";
-import { isHelper } from "../../functions/Misc";
 
 const perkInfoCommand: StringIndexedStringObjectType = {
   /* eslint-disable max-len */
@@ -98,12 +98,12 @@ export const perk: Command = {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     if (interaction.options.data.length > 1) {
-      await interaction.reply({ content: "You can only use one perk type at a time." });
+      await interaction.reply({ content: "You can only use one perk type at a time.", ephemeral: true });
       return;
     }
 
     if (interaction.options.data.length === 0) {
-      await interaction.reply({ content: "You must specify a perk type." });
+      await interaction.reply({ content: "You must specify a perk type.", ephemeral: true });
       return;
     }
 
@@ -128,7 +128,7 @@ export const perk: Command = {
       const picture = new AttachmentBuilder(`src/images/perks/${imageName}.png`);
 
       const embed: EmbedBuilder = PerkEmbedGetters[type](perkRequested);
-      embed.setAuthor({ name: `${user.username}#${user.discriminator}`, iconURL: user.displayAvatarURL() })
+      embed.setAuthor({ name: authorTitle(interaction), iconURL: user.displayAvatarURL() })
         .setThumbnail(`attachment://${imageName}.png`);
 
       await interaction.reply({ embeds: [embed], files: [picture], ephemeral: !isHelper(interaction) });

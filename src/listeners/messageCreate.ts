@@ -58,5 +58,9 @@ function muteScammer(message: Message<boolean>): void {
 }
 
 function mentioned(message: Message<boolean>): void {
-  message.author.send("hey, you mentioned me! I'm here to help you! For more information about commands, check out `/help`! you can use me in DMs as well!");
+  try {
+    message.author.send("hey, you mentioned me! I'm here to help you! For more information about commands, check out `/help`! you can use me in DMs as well!");
+  } catch (e) {
+    console.log("User had messages disabled from ADAB");
+  }
 }

@@ -617,7 +617,7 @@ export const studies: StudyList = {
   "301": {
     id: 301,
     effect: "Time Study 231 improves the effect of Time Study 221",
-    formula: "`TimeStudy(221).effectValue.pow(TimeStudy(231).effectValue.minus(1)).clampMin(1)`",
+    formula: "`(TS221's effect) ^ (TS231's effect - 1)`",
     cost: 12,
     reqType: TS_REQUIREMENT_TYPE.TRIAD(221, 222, 231),
     prerequisites: [221, 222, 231],

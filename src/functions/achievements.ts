@@ -21,4 +21,4 @@ export function findAchievementByID(id: Number): AchievementInfo | String {
   return "Unknown achievement in findAchievementByID";
 }
 
-export const footerText = () => (Math.random() > 0.5 ? `Be sure to read the pins in your progression channel!` : `Achievement art by Omsi#0573`);
+export const footerText = () => (Math.random() > 0.5 ? `Be sure to read the pins in your progression channel!` : `Achievement art by @omsi.`);

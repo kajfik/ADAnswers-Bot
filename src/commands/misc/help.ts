@@ -1,4 +1,4 @@
-import { ActionRowBuilder, ApplicationCommandType, AttachmentBuilder, ButtonBuilder, ButtonStyle, CommandInteraction, EmbedBuilder, InteractionReplyOptions, MessageComponentInteraction, SelectMenuBuilder } from "discord.js";
+import { ActionRowBuilder, ApplicationCommandType, AttachmentBuilder, ButtonBuilder, ButtonStyle, CommandInteraction, EmbedBuilder, InteractionReplyOptions, MessageComponentInteraction, StringSelectMenuBuilder } from "discord.js";
 import { Command } from "../../command";
 import { commandsByPage } from "../../commands";
 import config from "../../config.json";
@@ -20,7 +20,7 @@ const getEmbed = (currentPage: number) => new EmbedBuilder()
   .setDescription(`A comprehensive list of commands.`)
   .setColor(`#${currentPage === 69 ? "696969" : Math.round(currentPage / 9 * 255).toString(16).repeat(3)}`)
   .setTimestamp()
-  .setFooter({ text: `This superfluous bot was created by @earth#1337\nBot version: ${config.version}`, iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` })
+  .setFooter({ text: `This superfluous bot was created by @earth1337_\nBot version: ${config.version}`, iconURL: `https://cdn.discordapp.com/attachments/351479640755404820/980696250389254195/antimatter.png` })
   .addFields(fields(currentPage))
   .setThumbnail("attachment://help.png");
 
@@ -38,27 +38,28 @@ export const help: Command = {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     let currentPage: number = 1;
+    const expirationTimestamp = Math.floor((Date.now() + 60000) / 1000);
 
     const buttons: ActionRowBuilder<ButtonBuilder> = new ActionRowBuilder<ButtonBuilder>()
       .addComponents(
         new ButtonBuilder()
-          .setCustomId("help_button_prev")
+          .setCustomId(`help_button_prev_${expirationTimestamp}`)
           .setEmoji("◀️")
           .setStyle(ButtonStyle.Primary),
         new ButtonBuilder()
-          .setCustomId("help_button_next")
+          .setCustomId(`help_button_next_${expirationTimestamp}`)
           .setEmoji("▶️")
           .setStyle(ButtonStyle.Primary),
         new ButtonBuilder()
           .setStyle(ButtonStyle.Link)
-          .setLabel("Commands website")
-          .setURL("https://earthernsence.github.io/ADAnswers-Bot/")
+          .setLabel("GitHub repository")
+          .setURL("https://github.com/earthernsence/ADAnswers-Bot")
       );
 
-    const selectMenu: ActionRowBuilder<SelectMenuBuilder> = new ActionRowBuilder<SelectMenuBuilder>()
+    const selectMenu: ActionRowBuilder<StringSelectMenuBuilder> = new ActionRowBuilder<StringSelectMenuBuilder>()
       .addComponents(
-        new SelectMenuBuilder()
-          .setCustomId("help_select_page")
+        new StringSelectMenuBuilder()
+          .setCustomId(`help_select_page_${expirationTimestamp}`)
           .setOptions([
             {
               label: "Page 1: Pre-Break Infinity",
@@ -113,7 +114,7 @@ export const help: Command = {
     const content: InteractionReplyOptions = { embeds: [getEmbed(currentPage)], files: [picture], components: [buttons, selectMenu], ephemeral: true };
 
     // These filters need fairly verbose conditions, in order to not have the interactions overlap when running multiple collectors.
-    const filter = (i: MessageComponentInteraction) => i.customId.startsWith("help_select") || i.customId.startsWith("help_button");
+    const filter = (i: MessageComponentInteraction) => i.customId.endsWith(String(expirationTimestamp));
     const collector = interaction.channel?.createMessageComponentCollector({ filter, time: 60000 });
 
     await interaction.reply(content).then(() => {

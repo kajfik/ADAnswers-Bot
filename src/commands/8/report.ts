@@ -1,7 +1,7 @@
 import { ApplicationCommandOptionType, ApplicationCommandType, Colors, CommandInteraction, EmbedBuilder, MessageResolvable, TextChannel } from "discord.js";
+import { authorTitle, link } from "../../functions/Misc";
 import { Command } from "../../command";
 import { ids } from "../../config.json";
-import { link } from "../../functions/Misc";
 
 export const report: Command = {
   name: "reportmessage",
@@ -71,10 +71,10 @@ export const report: Command = {
         { name: "Reason", value: `Reported by <@${interaction.user.id}> because: ${reason.substring(0, 400)}` },
         { name: `Message`, value: `${message.content.substring(0, 400)}${message.content.length > 400 ? "..." : ""} \n ${link("__**[link]**__", message.url)}` },
         { name: "Channel", value: `<#${message.channel.id}>` },
-        { name: "Author", value: `<@${message.author.id}> (${message.author.username}#${message.author.discriminator})` },
+        { name: "Author", value: `<@${message.author.id}> (${message.author.username}${message.author.discriminator === "0" ? `` : `#${message.author.discriminator}`})` },
         { name: "Sent/reported", value: `Sent at <t:${Math.floor(message.createdTimestamp / 1000)}:f>, reported at <t:${Math.floor(interaction.createdTimestamp / 1000)}:f>` }
       )
-      .setAuthor({ name: `Reported by ${interaction.user.username}#${interaction.user.discriminator}`, iconURL: interaction.user.displayAvatarURL() });
+      .setAuthor({ name: `Reported by ${authorTitle(interaction)}`, iconURL: interaction.user.displayAvatarURL() });
 
     message.guild?.channels.fetch();
     await (message.guild?.channels.cache.get(ids.AD.reportsChannel) as TextChannel)?.send({ content: `<@&${ids.AD.modRole}>`, embeds: [messageReportEmbed] });

@@ -1,7 +1,7 @@
 import * as Challenge from "../../utils/databases/challenges";
 import { ApplicationCommandOptionChoiceData, ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, CommandInteraction, EmbedBuilder, User } from "discord.js";
+import { authorTitle, isHelper } from "../../functions/Misc";
 import { Command } from "../../command";
-import { isHelper } from "../../functions/Misc";
 
 function getChoices(): ApplicationCommandOptionChoiceData<string>[] {
   const choices: Array<ApplicationCommandOptionChoiceData<string>> = [];
@@ -65,7 +65,7 @@ export const challenge: Command = {
     const picture: AttachmentBuilder = new AttachmentBuilder(`src/images/challenges/${chall?.toUpperCase()}.png`);
 
     const embed = Challenge.newChallengeMessageObject[chall as ObjectKey] as EmbedBuilder;
-    embed.setAuthor({ name: `${user.username}#${user.discriminator}`, iconURL: user.displayAvatarURL() });
+    embed.setAuthor({ name: authorTitle(interaction), iconURL: user.displayAvatarURL() });
     embed.setThumbnail(`attachment://${chall?.toUpperCase()}.png`);
 
     if (!info) {

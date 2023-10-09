@@ -62,7 +62,7 @@ export const ECRewards: Reward = {
   },
   "10": {
     reward: "Time Dimension multiplier based on Infinities (affected by TS31)",
-    formula: "×`(Infinities * 2.783e-6) ^ 0.4 + 0.1 * completions`"
+    formula: "×`(infinities * 2.783e-6) ^ (0.4 + 0.1 * completions)`"
   },
   "11": {
     reward: "Further reduce Tickspeed cost multiplier growth",
@@ -82,7 +82,7 @@ interface Unlock {
 const SecondaryUnlocks: Unlock = {
   "1": (completion: number): number => 20000 + 20000 * completion,
   "2": (completion: number): number => 1300 + 150 * completion,
-  "3": (completion: number): number => 17300 + 1550 * completion,
+  "3": (completion: number): number => 17300 + 1250 * completion,
   "4": (completion: number): number => 1e8 + 2.5e7 * completion,
   "5": (completion: number): number => 160 + 14 * completion,
   "6": (completion: number): number => 40 + 5 * completion,
@@ -927,5 +927,6 @@ export const ECImages = {
 // eslint-disable-next-line max-len
 export const order = ["1x1", "2x1", "1x2", "3x1", "4x1", "5x1", "1x3", "3x2", "2x2", "6x1", "1x4", "3x3", "7x1", "4x2", "4x3", "6x2", "1x5", "5x2", "2x3", "3x4", "7x2", "5x3", "8x1", "3x5", "6x3", "2x4", "5x4", "7x3", "2x5", "5x5", "4x4", "6x4", "7x4", "8x2", "6x5", "4x5", "8x3", "9x1", "9x2", "8x4", "9x3", "9x4", "8x5", "9x5", "10x1", "7x5", "10x2", "10x3", "10x4", "10x5", "11x1", "11x2", "11x3", "11x4", "11x5", "12x1", "12x2", "12x3", "12x4", "12x5"];
 export const orderAsString: string = order.join(", ");
+export const orderAsECs: Array<EC> = order.map(ec => findEC(Number(ec.split("x")[0]), Number(ec.split("x")[1])));
 // eslint-disable-next-line max-len
 export const orderWithMultSigns = ["1×1", "2×1", "1×2", "3×1", "4×1", "5×1", "1×3", "3×2", "2×2", "6×1", "1×4", "3×3", "7×1", "4×2", "4×3", "6×2", "1×5", "5×2", "2×3", "3×4", "7×2", "5×3", "8×1", "3×5", "6×3", "2×4", "5×4", "7×3", "2×5", "5×5", "4×4", "6×4", "7×4", "8×2", "6×5", "4×5", "8×3", "9×1", "9×2", "8×4", "9×3", "9×4", "8×5", "9×5", "10×1", "7×5", "10×2", "10×3", "10×4", "10×5", "11×1", "11×2", "11×3", "11×4", "11×5", "12×1", "12×2", "12×3", "12×4", "12×5"];

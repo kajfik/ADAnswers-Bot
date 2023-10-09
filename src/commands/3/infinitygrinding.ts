@@ -27,9 +27,10 @@ export const infinitygrinding: Command = {
 
     switch (when) {
       case "post":
-        content = `Crunch autobuyer on 5 seconds (because of the reward from r87 (and for help with attaining this achievement, use \`/infinitygrinding pre\`)), and make sure you have TS32 for the extra multiplier based on DimBoosts.
-        If grinding for EC4, make **sure** you are using Idle path before wasting time here!
-        If grinding for banked infinities, make sure to be using TS191!`;
+        content = `
+Crunch autobuyer on 5 seconds (because of the reward from r87 (and for help with attaining this achievement, use \`/infinitygrinding pre\`)), and make sure you have TS32 for the extra multiplier based on DimBoosts.
+If grinding for EC4, make **sure** you are using Idle path before wasting time here!
+If grinding for banked infinities, make sure to be using TS191!`;
         break;
       case "pre":
         // eslint-disable-next-line max-len

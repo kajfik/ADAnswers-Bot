@@ -1,7 +1,7 @@
 import * as Challenge from "../../utils/databases/challenges";
 import { ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, CommandInteraction, EmbedBuilder, User } from "discord.js";
+import { authorTitle, isHelper } from "../../functions/Misc";
 import { Command } from "../../command";
-import { isHelper } from "../../functions/Misc";
 
 export const c9: Command = {
   name: "c9",
@@ -23,7 +23,7 @@ export const c9: Command = {
 
     type ObjectKey = keyof typeof Challenge.newChallengeMessageObject;
     const embed: EmbedBuilder = Challenge.newChallengeMessageObject["c9" as ObjectKey] as EmbedBuilder;
-    embed.setAuthor({ name: `${user.username}#${user.discriminator}`, iconURL: user.displayAvatarURL() });
+    embed.setAuthor({ name: authorTitle(interaction), iconURL: user.displayAvatarURL() });
     const picture: AttachmentBuilder = new AttachmentBuilder(`src/images/challenges/C9.png`);
     embed.setThumbnail("attachment://C9.png");
 

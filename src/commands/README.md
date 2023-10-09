@@ -74,4 +74,4 @@ Head to `commands.ts` (plural!). There, you will see a giant list of imports whe
 5. You're done! Send in a pull request on GitHub and earth will get to it whenever possible.
 
 ## Other questions
-If you have any other questions as far as creating your own command for ADAB, please contact earth on discord @earth#1337.
+If you have any other questions as far as creating your own command for ADAB, please contact earth on discord @earth1337_.

@@ -10,11 +10,12 @@ export const adbonus: Command = {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     // eslint-disable-next-line max-len
-    const content: string = `DT: 2
-    EP: min(max(EP^0.01, 1.5), 1e10)
-    IP: max(IP^0.01, 2)
-    AD: 2.
-    And no, ad bonus is not coming to steam (you simply can't!)`;
+    const content: string = `
+DT: 2
+EP: min(max(EP^0.01, 1.5), 1e10)
+IP: max(IP^0.01, 2)
+AD: 2.
+And no, ad bonus is not coming to steam (you simply can't!)`;
 
     await interaction.reply({ content, ephemeral: !isHelper(interaction) });
   }

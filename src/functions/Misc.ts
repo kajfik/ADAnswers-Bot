@@ -1,10 +1,24 @@
-import { CommandInteraction, hideLinkEmbed, hyperlink } from "discord.js";
+import { CommandInteraction, User, hideLinkEmbed, hyperlink } from "discord.js";
 import { ids } from "../config.json";
 
 export function isHelper(interaction: CommandInteraction): boolean | undefined {
   if (!interaction.inGuild()) return true;
   // Now that's an expression!
   return interaction.guild?.members.resolve(interaction.user)?.roles.cache.has(ids.AD.requestableRoles.helperRole);
+}
+
+// Discord irreparably fucked up usernames, now we have this
+export function authorTitle(interaction: CommandInteraction): string {
+  const user: User = interaction.member === null ? interaction.user : interaction.member.user as User;
+
+  return authorTitleFromUser(user);
+}
+
+export function authorTitleFromUser(user: User): string {
+  const hasDiscriminator: boolean = user.discriminator !== "0";
+
+  if (hasDiscriminator) return `${user.username}#${user.discriminator}`;
+  return `${user.username}`;
 }
 
 export function isEligibleForHelper(interaction: CommandInteraction): boolean {
@@ -37,7 +51,7 @@ export function makeEnumeration<itemType>(
   return `${name}${commaSeparated}, ${finalSeperator} ${name}${last}`;
 }
 
-export const footerText = () => (Math.random() > 0.5 ? `Be sure to read the pins in your progression channel!` : `Art by MrKrutaman#1705`);
+export const footerText = () => (Math.random() > 0.5 ? `Be sure to read the pins in your progression channel!` : `Art by @mrkrutaman`);
 
 export function pluralise(word: string, count: number) {
   if (count === 1) {
@@ -56,8 +70,32 @@ export function toNumber(string: string) {
   return parseInt(match[0], 10);
 }
 
-export function randomInArray(array: any[]) {
+export function randomInArray<itemType>(array: Array<itemType>) {
   return array[Math.floor(Math.random() * array.length)];
+}
+
+export function range(start: number, stop?: number, step?: number) {
+  let realStart = start;
+  const realStop = stop ?? start;
+  const realStep = step ?? 1;
+  if (realStop === realStart) {
+    realStart = 0;
+  }
+
+  if ((realStep > 0 && realStart >= realStop) || (realStep < 0 && realStart <= realStop)) {
+    return [];
+  }
+
+  const result = [];
+  for (let i = realStart; realStep > 0 ? i < realStop : i > realStop; i += realStep) {
+    result.push(i);
+  }
+
+  return result;
+}
+
+export function formatDate(month: number, day: number, year: number) {
+  return `${String(month).length === 1 ? `0${month}` : `${month}`}/${String(day).length === 1 ? `0${day}` : `${day}`}/${year}`;
 }
 
 export const Caesar = {

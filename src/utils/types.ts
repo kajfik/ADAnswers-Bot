@@ -39,6 +39,11 @@ export type GlyphEffect = {
   }
 }
 
+export type GlyphSacrifice = {
+  effect: string,
+  effectFormula: string
+}
+
 export type GlyphInfo = {
   name: string,
   // The ID of the emote on the AD Discord server.
@@ -50,10 +55,10 @@ export type GlyphInfo = {
     [key: string]: GlyphEffect,
   },
   colour: ColorResolvable,
+  sacrifice?: GlyphSacrifice
 }
 
 type APInfo = {
-  givesAP: boolean,
   amount: number
 }
 
@@ -96,6 +101,7 @@ export type TagInfo = {
   top5commands: string;
   top5hours: string;
   top5users: string;
+  top5players: string;
   requests: string;
   successes: string;
 }
@@ -138,7 +144,8 @@ export type UpgradeInfo = {
   increment?: number;
   hasGraph?: boolean;
   graph?: string;
-  charged?: ChargedInfinityUpgrade
+  charged?: ChargedInfinityUpgrade;
+  strategy?: string
 }
 
 export type UserInfo = {
@@ -149,11 +156,77 @@ export type UserInfo = {
   joined: string;
   avatar: string;
   tag: Model<any, any> | null;
+  jeopardyTag: Model<any, any> | null;
+  jeopardyInfo: Function;
   tagInfo: Function
 }
 
 export type ECsAtTTInfo = {
   completions: string
   nextEC: EC,
-  nextECs: string[]
+  nextECs: string[],
+  nextChallengeTT: number
+}
+
+export type Reagent = {
+  resource: string,
+  amount: number
+}
+
+export type AlchemyResource = {
+  name: string,
+  // Ra-Effarig level that the resource unlocks at
+  unlocksAt: number,
+  symbol: string,
+  effect: string,
+  effectFormula: string,
+  // What ring the resource lies on
+  tier: number,
+  reagents?: Reagent[]
+}
+
+export type TeresaUnlock = {
+  reward: string,
+  requirement: number
+}
+
+export type PerkShopUpgrade = {
+  name: string,
+  initialCost: number,
+  increment: number,
+  description: string,
+  cap: string
+}
+
+export type VAchievement = {
+  name: string,
+  description: string,
+  // Completion
+  values: Array<number | string>,
+  currency: string
+}
+
+export type VUnlock = {
+  reward: string,
+  formula?: string,
+  requirement: number
+}
+
+export type Memory = {
+  level: number,
+  effect: {
+    effect: string,
+    formula?: string
+  }
+}
+
+export type RaCelestial = {
+  name: string,
+  chunkGain: {
+    currency: string,
+    formula: string
+  },
+  unlocks: {
+    [key: string]: Memory
+  }
 }

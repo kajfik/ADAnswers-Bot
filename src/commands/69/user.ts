@@ -1,24 +1,32 @@
 import { ApplicationCommandOptionType, ApplicationCommandType, ChannelType, CommandInteraction, EmbedBuilder, GuildMember, User } from "discord.js";
+import { authorTitleFromUser, link, pluralise, quantify } from "../../functions/Misc";
+import { getJeopardyPlayerTag, getPersonTag } from "../../functions/database";
 import { Command } from "../../command";
 import { UserInfo } from "../../utils/types";
-import { getPersonTag } from "../../functions/database";
-import { pluralise } from "../../functions/Misc";
 
 async function getUserInfo(user: User, interaction: CommandInteraction): Promise<UserInfo> {
   const u = await interaction.guild?.members.resolve(user.id) as GuildMember;
 
   return {
-    fullPerson: `${user.username}#${user.discriminator}`,
+    fullPerson: authorTitleFromUser(user),
     rolesUnjoined: u?.roles.cache.map(r => `<@&${r.id}>`),
     roles: u?.roles.cache.map(r => `<@&${r.id}>`).join(", "),
     nick: u?.nickname ?? "This user has not set a nickname",
     joined: `<t:${Math.floor(u.joinedTimestamp as number / 1000)}:F>`,
     avatar: user.displayAvatarURL(),
-    tag: await getPersonTag(user.username, user.discriminator),
+    tag: await getPersonTag(user.id),
+    jeopardyTag: await getJeopardyPlayerTag(user.id),
+    async jeopardyInfo() {
+      const t = await getJeopardyPlayerTag(user.id);
+      if (t === null) return `This user has not played Jeopardy! in the bot.`;
+      const score = t.getDataValue("points");
+      return `${authorTitleFromUser(user)} has a Jeopardy! score of **${quantify("point", score)}**.`;
+    },
     async tagInfo() {
-      const t = await getPersonTag(user.username, user.discriminator);
+      const t = await getPersonTag(user.id);
       if (t === null) return `This user has not used the bot.`;
-      return `${user.username}#${user.discriminator} has used the bot **${t.getDataValue("timesUsed")}** ${pluralise("time", t.getDataValue("timesUsed"))}*\n\n*: Data collection started on October 7, 2021`;
+      return `${authorTitleFromUser(user)} has used the bot **${t.getDataValue("timesUsed")}** ${pluralise("time", t.getDataValue("timesUsed"))}*\n\n*: ${link("Data collection started on June 22, 2023",
+        "https://discord.com/channels/351476683016241162/351476683016241166/1121644631675899934")}`;
     }
   };
 }
@@ -53,6 +61,7 @@ export const user: Command = {
       .setTitle(`${info.fullPerson}`)
       .setThumbnail(info.avatar)
       .addFields({ name: "Bot information", value: await info.tagInfo() })
+      .addFields({ name: "Jeopardy! points", value: await info.jeopardyInfo() })
       .addFields({ name: "Nickname", value: info.nick })
       .addFields({ name: `Roles (${info.rolesUnjoined?.length ?? 0})`, value: info.roles ?? "This user has no roles" })
       .addFields({ name: "Joined", value: info.joined })

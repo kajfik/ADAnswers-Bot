@@ -1,8 +1,8 @@
 import { ActionRowBuilder, ApplicationCommandOptionType, ApplicationCommandType, ButtonBuilder, ButtonStyle, CommandInteraction, ComponentType, InteractionReplyOptions, MessageComponentInteraction, User } from "discord.js";
 import { EternityChallengeEmbeds, EternityChallengeImages, shownFields } from "../../functions/ecs";
+import { authorTitle, isHelper } from "../../functions/Misc";
 import { findEC, order } from "../../utils/databases/eternitychallenges";
 import { Command } from "../../command";
-import { isHelper } from "../../functions/Misc";
 
 const getNextPage = (currentPage: string, up: boolean) => {
   let newPage = up ? order[order.indexOf(currentPage) + 1] : order[order.indexOf(currentPage) - 1];
@@ -90,7 +90,7 @@ export const ec: Command = {
 
     let picture = EternityChallengeImages[chall.challenge];
     const embed = (disabled: boolean) => EternityChallengeEmbeds[`${chall.challenge}x${chall.completion}`]
-      .setAuthor({ name: `${user.username}#${user.discriminator}`, iconURL: user.displayAvatarURL() })
+      .setAuthor({ name: authorTitle(interaction), iconURL: user.displayAvatarURL() })
       .setDescription(`Expire${disabled ? "d" : "s"} <t:${expirationTimestamp}:R> at <t:${expirationTimestamp}:T>`)
       .setFields(shownFields(chall, info ?? ""))
       .setTimestamp();

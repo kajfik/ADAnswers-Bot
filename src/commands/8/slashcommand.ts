@@ -10,7 +10,8 @@ export const slashcommand: Command = {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     // eslint-disable-next-line max-len
-    const content: string = `\`/ec [TAB] A [TAB] B [TAB] [ENTER]\` for Eternity Challenge guide of EC AxB
+    const content: string = `
+\`/ec [TAB] A [TAB] B [TAB] [ENTER]\` for Eternity Challenge guide of EC AxB
 \`/eco [TAB] A [TAB] B [TAB] [ENTER]\` for Eternity Challenge Order from EC AxB
 \`/ts [TAB] A [ENTER]\` for recommended Study Tree for your TT amount of A
 [TAB] can be [ENTER] too.
