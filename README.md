@@ -3,6 +3,9 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/earthernsence/adanswers-bot/badge)](https://www.codefactor.io/repository/github/earthernsence/adanswers-bot)
 [![Release](https://img.shields.io/github/v/release/earthernsence/ADAnswers-Bot?label=Release&color=brightgreen&cacheSeconds=3600)](https://github.com/earthernsence/ADAnswers-Bot/releases/latest)
 
+## Invite
+If, for whatever reason, you want ADAB on your server, go to [this link](https://discord.com/oauth2/authorize?client_id=830197123378053172&permissions=2147560512&scope=applications.commands%20bot) to add it to your server.
+
 ## Image credits
 
 Alchemy, challenge, glyph, perk, study, and upgrade art by @mrkrutaman on Discord.
