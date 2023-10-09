@@ -1,14 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
   <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ADAnswersBot Commands</title>
+    <title>Clicky pen</title>
+    <meta name="clicky pen" content="click the pen">
+    <link rel="stylesheet" type="text/css" href="style/style.css">
   </head>
   <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
-    <script type="module" src="/src/javascripts/commands.js"></script>
+    <script type="text/javascript">
+      let clicked = 0;
+      let penDown = false;
+
+      function quantify(word, count) {
+        function pluralise(w, c) {
+          if (c === 1) return w;
+          return `${w}s`;
+        }
+
+        return `${count} ${pluralise(word, count)}`;
+      }
+
+      function updateLabel() {
+        document.getElementById("label").innerHTML = `${clicked === 0 ? "You have never clicked the pen" : `You have clicked the button ${quantify("time", clicked)}`}`;
+      }
+
+      function click2() {
+        if (penDown) {
+          const audio = document.getElementById("penup");
+          audio.play();
+          audio.currentTime = 0;
+        } else {
+          const audio = document.getElementById("pendown");
+          audio.play();
+          audio.currentTime = 0;
+        }
+
+        clicked++;
+        penDown = !penDown;
+        updateLabel();
+      }
+    </script>
+    <audio id="pendown" src="./sounds/pen_down.mp3" preload="auto"></audio>
+    <audio id="penup" src="./sounds/pen_up.mp3" preload="auto"></audio>
+    <div id="ui">
+      <h1>cliky pen</h1>
+      <br>
+      <div class="l-button">
+        <button class="o-button" onclick="click2()">
+          Click me!
+        </button>
+        <br>
+        <h3 id="label">
+          You have never clicked the pen
+        </h3>
+      </div>
+    </div>
   </body>
 </html>
