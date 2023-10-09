@@ -4,10 +4,12 @@
     <meta name="clicky pen" content="click the pen">
     <link rel="stylesheet" type="text/css" href="styles.css">
   </head>
-  <body>
+  <body onload="updateLabel()">
     <script type="text/javascript">
-      let clicked = 0;
-      let penDown = false;
+      const data = JSON.parse(localStorage.getItem("pendata")) ?? { clicked: 0, penDown: false };
+
+      let clicked = data.clicked;
+      let penDown = data.penDown;
 
       function quantify(word, count) {
         function pluralise(w, c) {
@@ -36,6 +38,7 @@
         clicked++;
         penDown = !penDown;
         updateLabel();
+        localStorage.setItem("pendata", JSON.stringify({ clicked, penDown }))
       }
     </script>
     <audio id="pendown" src="./sounds/pen_down.mp3" preload="auto"></audio>
@@ -49,7 +52,7 @@
         </button>
         <br>
         <h3 id="label">
-          You have never clicked the pen
+          x
         </h3>
         <br>
         <h4>
