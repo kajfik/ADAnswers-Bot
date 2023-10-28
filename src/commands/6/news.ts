@@ -31,7 +31,7 @@ export const news: Command = {
         content = `${link("List of mobile news messages in the game Antimatter Dimensions (from Wikipedia)", "https://gist.github.com/earthernsence/2661619a3e4ca8089709f9fe19395f77")}`;
         break;
       case "listweb":
-        content = `${link("List of web news messages in the game Antimatter Dimensions (from Wikipedia)", "https://github.com/IvarK/IvarK.github.io/blob/master/javascripts/core/newsticker.js")}`;
+        content = `${link("List of web news messages in the game Antimatter Dimensions (from Wikipedia)", "https://github.com/IvarK/AntimatterDimensionsSourceCode/blob/master/src/core/secret-formula/news.js")}`;
         break;
       case "info":
         // eslint-disable-next-line max-len
