@@ -101,6 +101,7 @@ import { xyproblem } from "./commands/9/xyproblem";
 
 // Import { bushism } from "./commands/69/bushism";
 import { deadchat } from "./commands/69/deadchat";
+import { dictionary } from "./commands/69/dictionary";
 import { mdn } from "./commands/69/mdn";
 import { jeopardy } from "./commands/69/jeopardy";
 import { pins } from "./commands/69/pins";
@@ -124,7 +125,7 @@ export const commandsByPage: { [page: number]: Command[] } = {
   7: [abb, androidorweb, antitables, decimal, howtoplay, notations],
   8: [fivehours, code, contributors, report, rolerequest, slashcommand],
   9: [discordformatting, justask, paperclips, roles, savebank, savesharing, secretachievements, site, xyproblem],
-  69: [deadchat, mdn, jeopardy, pins, slightsmile, user, whatisearthlisteningto, wikipedia, xkcd],
+  69: [deadchat, dictionary, mdn, jeopardy, pins, slightsmile, user, whatisearthlisteningto, wikipedia, xkcd],
 };
 
 export const Commands: Array<Command | AutocompleteCommand> = [
@@ -147,7 +148,7 @@ export const Commands: Array<Command | AutocompleteCommand> = [
   // Page 9 - Misc
   discordformatting, justask, paperclips, roles, savebank, savesharing, secretachievements, site, xyproblem,
   // Page 69 - Very misc
-  deadchat, mdn, jeopardy, pins, slightsmile, user, whatisearthlisteningto, wikipedia, xkcd,
+  deadchat, dictionary, mdn, jeopardy, pins, slightsmile, user, whatisearthlisteningto, wikipedia, xkcd,
   // No page - bot info
   help, meta
 ];

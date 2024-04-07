@@ -44,17 +44,21 @@ async function isScammer(message: Message<boolean>): Promise<boolean> {
 
 function muteScammer(message: Message<boolean>): void {
   console.log("Running muteScammer");
+  // We have to truncate the message content -- if it's longer than 1024 characters, then discord throws an error
+  // since embed field content can't be longer than that
   const embed = new EmbedBuilder()
     .setTitle(`${message.author.username}#${message.author.discriminator}`)
     .setThumbnail(message.author.displayAvatarURL())
     .setColor(Colors.Blurple)
-    .addFields({ name: "Message", value: message.content, inline: false })
+    .addFields({ name: "Message", value: message.content.substring(0, 1023), inline: false })
     .setDescription(`Message sent by <@${message.author.id}> was deleted and member was muted.`)
     .setTimestamp();
 
-  message.member?.roles.add(ids.mutedRole);
-  message.delete();
-  (message.guild?.channels.cache.get(ids.AD.modChannel) as TextChannel).send({ embeds: [embed] });
+  if (message.guildId === ids.AD.serverID) {
+    message.member?.roles.add(ids.mutedRole);
+    message.delete();
+    (message.guild?.channels.cache.get(ids.AD.modChannel) as TextChannel).send({ embeds: [embed] });
+  }
 }
 
 function mentioned(message: Message<boolean>): void {

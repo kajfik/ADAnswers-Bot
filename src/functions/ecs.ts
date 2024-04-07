@@ -100,7 +100,7 @@ export const shownFields = (challengeInfo: EC, requestedFields?: string) => {
     case "strategy": return [{ name: "Strategy", value: `${challengeInfo.tt} TT recommended
     Other completions: ${otherCompletions(challengeInfo.challenge, challengeInfo.completion)} 
     ${challengeInfo.note === null ? `` : `\n    Note: \`${challengeInfo.note}\``}` }];
-    case "tree": return [{ name: "Tree", value: `${challengeInfo.tree}` }];
+    case "tree": return [{ name: "Tree", value: `${challengeInfo.tree}!` }];
     case "reward": return [{ name: "Reward", value: `${ECRewards[challengeInfo.challenge].reward}` }, { name: "Reward formula", value: `${ECRewards[challengeInfo.challenge].formula}` }];
     default: {
       const nextEC = fullEC === "12x5" ? "none" : order[order.indexOf(fullEC) + 1].split("x");
@@ -111,7 +111,7 @@ export const shownFields = (challengeInfo: EC, requestedFields?: string) => {
         { name: "Strategy", value: `${challengeInfo.tt} TT recommended
     Other completions: ${otherCompletions(challengeInfo.challenge, challengeInfo.completion)} 
     ${challengeInfo.note === null ? `` : `\n    Note: \`${challengeInfo.note}\``}` },
-        { name: "Tree", value: `${challengeInfo.tree}` },
+        { name: "Tree", value: `${challengeInfo.tree}!` },
         { name: "Reward", value: `${ECRewards[challengeInfo.challenge].reward}` },
         { name: "Reward formula", value: `${ECRewards[challengeInfo.challenge].formula}` },
         { name: "Next EC", value: `${fullEC === "12x5" ? "You have no more ECs left to complete!"

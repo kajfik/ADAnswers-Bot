@@ -21,7 +21,7 @@ export function trees(path?: string) {
   return [
     // Light-Dark Paths
     {
-      requirement: 13000,
+      requirement: 12900,
       ts: BASE.concat(191, 211, 222, 212, 224, 232, 192, 201, ...TREE_CONSTANTS.INFINITY, 193, 214, 228, 234, 213, 226)
     },
     {
