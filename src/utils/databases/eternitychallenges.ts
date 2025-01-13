@@ -845,6 +845,7 @@ export const EternityChallenges: EC[] = [
     ip: "`1e110,000`",
     note: "`Enable Auto-Eternity.`",
     tree: "`11,21,22,31,32,33,41,42,51,61,62,73,83,93,103,111,122,132,142,151,161,162,171,181,191,193,211,212,213,214,222,224,226,227,232,234|12`",
+    completionReqs: "1 second or less (16.6 real-time minutes)",
     unlock: {
       currency: "",
       amount: "Use only the Time Dimension path (the 73 path)",

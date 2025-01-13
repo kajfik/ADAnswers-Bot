@@ -101,7 +101,7 @@ export const ec: Command = {
       .addComponents(
         new ButtonBuilder()
         // In order to prevent people using the same command at the same time influencing others,
-        // we add a special value to each of the button ideas so that there's no conflicts
+        // we add a special value to each of the button ids so that there's no conflicts
           .setCustomId(`ec_button_prev_${expirationTimestamp}`)
           .setEmoji("◀️")
           .setStyle(ButtonStyle.Primary)

@@ -47,8 +47,11 @@ export const news: Command = {
 - ${link("Anti-Idle", "https://www.kongregate.com/games/Tukkun/anti-idle-the-game")},
 - ${link("Synergism", "https://synergism.cc/")},
 - ${link("Universal Paperclips", "https://www.decisionproblem.com/paperclips/index2.html")},
-- ${link("Monies^2", "https://sneekxy.nmtechgroup.com/monies2/")}, and
-- ${link("The First Alkahistorian stages 1, 2, and 3", "https://nagshell.github.io/elemental-inception-incremental/")}`;
+- ${link("Monies^2", "https://sneekxy.nmtechgroup.com/monies2/")},
+- ${link("The First Alkahistorian stages 1, 2, and 3", "https://nagshell.github.io/elemental-inception-incremental/")},
+- ${link(`Melvor Idle`, `https://melvoridle.com/`)}
+
+If you're looking for more incremental/idle games, visit ${link("galaxy.click", "https://galaxy.click/")}, a website made by an AD player, yhvr!`;
         break;
       default:
         content = "Unknown news arg";

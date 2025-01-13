@@ -51,12 +51,13 @@ export const eco: Command = {
     const index: number = order.indexOf(`${challenge}x${completion}`);
 
     for (let i = index - 1; i < order.length; i++) {
+      if (!order[i]) continue;
       sentArray.push(order[i]);
     }
 
     sentArray[sentArray.indexOf(`${challenge}x${completion}`)] = `__***${challenge}x${completion}***__`;
 
-    await interaction.reply({ content: `Order: ${sentArray.join(", ")}
+    await interaction.reply({ content: `Order: ${sentArray.filter(value => value).join(", ")}
     Other completions you need: \`${others}\`
     For more information on beating this challenge, use the command \`/ec ${challenge} ${completion}\``, ephemeral: !isHelper(interaction) });
   }
