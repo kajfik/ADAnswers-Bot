@@ -21,7 +21,7 @@ Celestial 1: ||RM: 2x||
 Reality Unlocked in current Reality: ||GS: 2||
 Dilation Unlocked: ||DT: 2||
 10+ Eternities: ||EP: min(max(EP^0.01, 1.5), 1e10)||
-10+ Infintiies: ||IP: max(IP^0.01, 2)||
+10+ Infinties: ||IP: max(IP^0.01, 2)||
 AD: 2.
 And no, ad bonus is not coming to steam (you simply can't!)`;
 
