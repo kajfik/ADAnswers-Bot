@@ -103,6 +103,7 @@ const handleModalSubmit = async(interaction: MessageContextMenuCommandInteractio
     .setAuthor({ name: `Reported by ${interaction.user.username}#${interaction.user.discriminator}`, iconURL: interaction.user.displayAvatarURL() });
 
   interaction.targetMessage.guild?.channels.fetch();
+  console.log(interaction.targetMessage.guild?.channels.cache.get(ids.AD.reportsChannel));
   await (interaction.targetMessage.guild?.channels.cache.get(ids.AD.reportsChannel) as TextChannel)?.send({ content: `<@&${ids.AD.modRole}>`, embeds: [messageReportEmbed] });
   await modalSubmitInteraction.editReply({ content: "Report successfully sent to mod team with the below information.", embeds: [messageReportEmbed] });
 };

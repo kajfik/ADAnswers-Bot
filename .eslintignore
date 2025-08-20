@@ -1,3 +1,4 @@
 /out
 /node_modules
 /classes/obsolete
+/utils/databases/clues.ts

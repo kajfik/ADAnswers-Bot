@@ -1,30 +1,33 @@
-import { ActionRowBuilder,
-  ApplicationCommandType,
-  AttachmentBuilder,
-  ButtonBuilder,
-  ButtonStyle,
-  CommandInteraction,
-  EmbedBuilder,
-  MessageComponentInteraction,
-  ModalBuilder,
-  ModalSubmitInteraction,
-  TextInputBuilder,
-  TextInputStyle,
-  User } from "discord.js";
-import { authorTitle, quantify } from "../../functions/Misc";
-import { Colour } from "../../utils/colours";
-import { Command } from "../../command";
-import { randomClue } from "../../utils/databases/clues";
-import { tags } from "../../bot";
+// Import { ActionRowBuilder,
+//   ApplicationCommandType,
+//   AttachmentBuilder,
+//   ButtonBuilder,
+//   ButtonStyle,
+//   CommandInteraction,
+//   EmbedBuilder,
+//   MessageComponentInteraction,
+//   ModalBuilder,
+//   ModalSubmitInteraction,
+//   TextInputBuilder,
+//   TextInputStyle,
+//   User } from "discord.js";
+// import { authorTitle, quantify } from "../../functions/Misc";
+// import { Colour } from "../../utils/colours";
+// import { Command } from "../../command";
+// import { randomClue } from "../../utils/databases/clues";
+// import { tags } from "../../bot";
 
-interface Clue {
-  date: string,
-  round: number,
-  category: string,
-  clue: string,
-  answer: string,
-  value: number
-}
+import { ApplicationCommandType, CommandInteraction } from "discord.js";
+import { Command } from "../../command";
+
+// Interface Clue {
+//   date: string,
+//   round: number,
+//   category: string,
+//   clue: string,
+//   answer: string,
+//   value: number
+// }
 
 export const jeopardy: Command = {
   name: "jeopardy",
@@ -33,80 +36,82 @@ export const jeopardy: Command = {
   run: async(interaction: CommandInteraction) => {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
-    const clueInfo: Clue = randomClue();
-    const category = clueInfo.category;
-    const clue = clueInfo.clue;
-    const answer = clueInfo.answer.toLowerCase();
-    const date = clueInfo.date;
-    const parsedRound = clueInfo.round === 1 ? "Jeopardy! Round" : "Double Jeopardy! Round";
+    await interaction.reply({ content: "Sorry, this command is currently unavailable due to some API issues.", ephemeral: true });
 
-    const user: User = interaction.member === null ? interaction.user : interaction.member.user as User;
-    const picture = new AttachmentBuilder("src/images/misc/help.png");
-    const expirationTimestamp = Math.floor((Date.now() + 60000) / 1000);
-    const embed = new EmbedBuilder()
-      .setThumbnail("attachment://help.png")
-      .setTitle(`${parsedRound} from ${date}`)
-      .setDescription(`Expires <t:${expirationTimestamp}:R> at <t:${expirationTimestamp}:T>`)
-      .setColor(Colour.v)
-      .setAuthor({ name: authorTitle(interaction), iconURL: user.displayAvatarURL() })
-      .addFields({ name: "Category", value: category })
-      .addFields({ name: "Clue", value: clue })
-      .addFields({ name: "Value", value: `Worth ${quantify("point", clueInfo.value)}` });
+    //     Const clueInfo: Clue = randomClue();
+    //     const category = clueInfo.category;
+    //     const clue = clueInfo.clue;
+    //     const answer = clueInfo.answer.toLowerCase();
+    //     const date = clueInfo.date;
+    //     const parsedRound = clueInfo.round === 1 ? "Jeopardy! Round" : "Double Jeopardy! Round";
 
-    const answerButton = new ActionRowBuilder<ButtonBuilder>()
-      .addComponents(
-        new ButtonBuilder()
-          .setCustomId(`jeopardy_answer_button_${expirationTimestamp}`)
-          .setLabel("Input your answer...")
-          .setStyle(ButtonStyle.Success)
-      );
+    //     const user: User = interaction.member === null ? interaction.user : interaction.member.user as User;
+    //     const picture = new AttachmentBuilder("src/images/misc/help.png");
+    //     const expirationTimestamp = Math.floor((Date.now() + 60000) / 1000);
+    //     const embed = new EmbedBuilder()
+    //       .setThumbnail("attachment://help.png")
+    //       .setTitle(`${parsedRound} from ${date}`)
+    //       .setDescription(`Expires <t:${expirationTimestamp}:R> at <t:${expirationTimestamp}:T>`)
+    //       .setColor(Colour.v)
+    //       .setAuthor({ name: authorTitle(interaction), iconURL: user.displayAvatarURL() })
+    //       .addFields({ name: "Category", value: category })
+    //       .addFields({ name: "Clue", value: clue })
+    //       .addFields({ name: "Value", value: `Worth ${quantify("point", clueInfo.value)}` });
 
-    const modal = new ModalBuilder()
-      .setCustomId(`jeopardy_answer_modal_${expirationTimestamp}`)
-      .setTitle("Your answer...");
+    //     const answerButton = new ActionRowBuilder<ButtonBuilder>()
+    //       .addComponents(
+    //         new ButtonBuilder()
+    //           .setCustomId(`jeopardy_answer_button_${expirationTimestamp}`)
+    //           .setLabel("Input your answer...")
+    //           .setStyle(ButtonStyle.Success)
+    //       );
 
-    const answerInput = new TextInputBuilder()
-      .setCustomId(`jeopardy_answer_input_${expirationTimestamp}`)
-      .setLabel(`What is...`)
-      .setStyle(TextInputStyle.Short)
-      .setRequired(true);
+    //     const modal = new ModalBuilder()
+    //       .setCustomId(`jeopardy_answer_modal_${expirationTimestamp}`)
+    //       .setTitle("Your answer...");
 
-    modal.addComponents(new ActionRowBuilder<TextInputBuilder>().addComponents(answerInput));
+    //     const answerInput = new TextInputBuilder()
+    //       .setCustomId(`jeopardy_answer_input_${expirationTimestamp}`)
+    //       .setLabel(`What is...`)
+    //       .setStyle(TextInputStyle.Short)
+    //       .setRequired(true);
 
-    // These filters need fairly verbose conditions, in order to not have the interactions overlap when running multiple collectors.
-    const filter = (i: MessageComponentInteraction) => i.customId.endsWith(String(expirationTimestamp));
-    const modalFilter = (i: ModalSubmitInteraction) => i.customId.endsWith(String(expirationTimestamp)) && i.isModalSubmit();
-    const collector = interaction.channel?.createMessageComponentCollector({ filter, time: 60000 });
+    //     modal.addComponents(new ActionRowBuilder<TextInputBuilder>().addComponents(answerInput));
 
-    console.log(answer);
+    //     // These filters need fairly verbose conditions, in order to not have the interactions overlap when running multiple collectors.
+    //     const filter = (i: MessageComponentInteraction) => i.customId.endsWith(String(expirationTimestamp));
+    //     const modalFilter = (i: ModalSubmitInteraction) => i.customId.endsWith(String(expirationTimestamp)) && i.isModalSubmit();
+    //     const collector = interaction.channel?.createMessageComponentCollector({ filter, time: 60000 });
 
-    await interaction.reply({ embeds: [embed], files: [picture], components: [answerButton], ephemeral: true }).then(() => {
-      collector?.once("collect", async i => {
-        if (i.user.id !== interaction.user.id) return;
-        if (i.isButton()) {
-          i.showModal(modal);
-          const submission = await i.awaitModalSubmit({ time: 60000, filter: modalFilter }).catch(err => {
-            console.log(err);
-            interaction.followUp({ content: `Ooh, sorry. Out of time. Answer: what is \`${answer}\``, ephemeral: true });
-          });
-          if (submission === undefined) return;
-          await submission.deferReply({ ephemeral: true });
-          const response = submission.fields.getTextInputValue(`jeopardy_answer_input_${expirationTimestamp}`).toLowerCase();
-          const name = interaction.user.id;
-          const tag = await tags.player.findOrCreate({ where: { name } });
+    //     console.log(answer);
 
-          if (response.trim() === answer.trim()) {
-            if (tag) await tag[0].increment("points", { by: clueInfo.value });
-            await submission.editReply({ content: `Correct! You gained ${clueInfo.value} points and now have a total of ${tag[0].dataValues.points + clueInfo.value} points.` });
-          } else {
-            if (tag) await tag[0].decrement("points", { by: clueInfo.value });
-            await submission.editReply({
-              content: `Darn, so close! Correct answer: what is \`${answer}\` (\`${response}\` was your answer). You lost ${clueInfo.value} points and now have a total of ${tag[0].dataValues.points - clueInfo.value} points.
-If, for some reason, your answer was correct but marked incorrect, there's not a lot I can do about that. J-Archive, where I get the data, often has formatting issues or other artefacts I have no control over. My apologies!` });
-          }
-        }
-      });
-    });
+    //     await interaction.reply({ embeds: [embed], files: [picture], components: [answerButton], ephemeral: true }).then(() => {
+    //       collector?.once("collect", async i => {
+    //         if (i.user.id !== interaction.user.id) return;
+    //         if (i.isButton()) {
+    //           i.showModal(modal);
+    //           const submission = await i.awaitModalSubmit({ time: 60000, filter: modalFilter }).catch(err => {
+    //             console.log(err);
+    //             interaction.followUp({ content: `Ooh, sorry. Out of time. Answer: what is \`${answer}\``, ephemeral: true });
+    //           });
+    //           if (submission === undefined) return;
+    //           await submission.deferReply({ ephemeral: true });
+    //           const response = submission.fields.getTextInputValue(`jeopardy_answer_input_${expirationTimestamp}`).toLowerCase();
+    //           const name = interaction.user.id;
+    //           const tag = await tags.player.findOrCreate({ where: { name } });
+
+    //           if (response.trim() === answer.trim()) {
+    //             if (tag) await tag[0].increment("points", { by: clueInfo.value });
+    //             await submission.editReply({ content: `Correct! You gained ${clueInfo.value} points and now have a total of ${tag[0].dataValues.points + clueInfo.value} points.` });
+    //           } else {
+    //             if (tag) await tag[0].decrement("points", { by: clueInfo.value });
+    //             await submission.editReply({
+    //               content: `Darn, so close! Correct answer: what is \`${answer}\` (\`${response}\` was your answer). You lost ${clueInfo.value} points and now have a total of ${tag[0].dataValues.points - clueInfo.value} points.
+    // If, for some reason, your answer was correct but marked incorrect, there's not a lot I can do about that. J-Archive, where I get the data, often has formatting issues or other artefacts I have no control over. My apologies!` });
+    //           }
+    //         }
+    //       });
+    //     });
   }
 };
 
