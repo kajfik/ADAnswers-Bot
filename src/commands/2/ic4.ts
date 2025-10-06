@@ -16,7 +16,7 @@ export const ic4: Command = {
     }
   ],
   run: async(interaction: ChatInputCommandInteraction) => {
-    if (!interaction) return;
+    if (!interaction || !interaction.isChatInputCommand()) return;
 
     const user: User = interaction.member === null ? interaction.user : interaction.member.user as User;
     const target = interaction.options.getUser("target") as User;
