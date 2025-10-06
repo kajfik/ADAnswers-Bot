@@ -19,7 +19,7 @@ export const c9: Command = {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     const user: User = interaction.member === null ? interaction.user : interaction.member.user as User;
-    const target = interaction.options.getUser("target") as User;
+    const target: User | null = interaction.options.getUser("target", false);
 
     type ObjectKey = keyof typeof Challenge.newChallengeMessageObject;
     const embed: EmbedBuilder = Challenge.newChallengeMessageObject["c9" as ObjectKey] as EmbedBuilder;

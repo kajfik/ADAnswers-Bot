@@ -74,7 +74,7 @@ export const ec: Command = {
     const completion: number = interaction.options.getInteger("completion") as number;
     let hide: boolean = interaction.options.getBoolean("hide") as boolean;
     const info: string = interaction.options.getString("info") as string;
-    const target: User = interaction.options.getUser("target") as User;
+    const target: User | null = interaction.options.getUser("target", false);
 
     if (!isHelper(interaction)) hide = true;
 

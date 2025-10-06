@@ -55,7 +55,7 @@ export const challenge: Command = {
     // This second case should never happen, considering we have *specific choices* that can be used.
     const chall = interaction.options.getString("challenge");
     const info = interaction.options.getString("info");
-    const target = interaction.options.getUser("target") as User;
+    const target: User | null = interaction.options.getUser("target", false);
 
     if (chall === "ecs") {
       interaction.reply({ content: `${target ? `*Suggested for <@${target.id}>*:\n` : ""}${Challenge.newChallengeMessageObject["ecs" as ObjectKey] as string}`, ephemeral: !isHelper(interaction) });
