@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, CommandInteraction, User } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, User } from "discord.js";
 import { isHelper, makeEnumeration } from "../../functions/Misc";
 import { Command } from "../../command";
 import { Tree } from "../../classes/Tree";
@@ -41,7 +41,7 @@ export const ts: Command = {
       type: ApplicationCommandOptionType.User,
     }
   ],
-  run: async(interaction: CommandInteraction) => {
+  run: async(interaction: ChatInputCommandInteraction) => {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     const theorems: number = interaction.options.getInteger("theorems") as number;

@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, CommandInteraction, EmbedBuilder, User } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, ChatInputCommandInteraction, EmbedBuilder, User } from "discord.js";
 import { authorTitle, isHelper } from "../../functions/Misc";
 import { Command } from "../../command";
 import { StudyInfo } from "../../utils/types";
@@ -21,7 +21,7 @@ export const study: Command = {
       max_value: 304,
     }
   ],
-  run: (interaction: CommandInteraction) => {
+  run: (interaction: ChatInputCommandInteraction) => {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     const user: User = interaction.member === null ? interaction.user : interaction.member.user as User;

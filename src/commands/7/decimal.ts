@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { ApplicationCommandType, CommandInteraction } from "discord.js";
+import { ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
 import { isHelper, link } from "../../functions/Misc";
 import { Command } from "../../command";
 
@@ -7,7 +7,7 @@ export const decimal: Command = {
   name: "decimal",
   description: "Explains how break_infinity.js works",
   type: ApplicationCommandType.ChatInput,
-  run: async(interaction: CommandInteraction) => {
+  run: async(interaction: ChatInputCommandInteraction) => {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     // eslint-disable-next-line max-len

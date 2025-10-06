@@ -1,5 +1,5 @@
 import * as Challenge from "../../utils/databases/challenges";
-import { ApplicationCommandOptionChoiceData, ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, CommandInteraction, EmbedBuilder, User } from "discord.js";
+import { ApplicationCommandOptionChoiceData, ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, ChatInputCommandInteraction, EmbedBuilder, User } from "discord.js";
 import { authorTitle, isHelper } from "../../functions/Misc";
 import { Command } from "../../command";
 
@@ -46,7 +46,7 @@ export const challenge: Command = {
       type: ApplicationCommandOptionType.User,
     }
   ],
-  run: (interaction: CommandInteraction) => {
+  run: (interaction: ChatInputCommandInteraction) => {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     type ObjectKey = keyof typeof Challenge.newChallengeMessageObject;

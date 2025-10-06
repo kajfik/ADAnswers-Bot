@@ -1,6 +1,6 @@
 import { Model, ModelStatic, Op } from "sequelize";
 import { StringIndexedStringObjectType, TagInfo } from "../utils/types";
-import { CommandInteraction } from "discord.js";
+import { ChatInputCommandInteraction } from "discord.js";
 import { quantify } from "./Misc";
 import { tags } from "../bot";
 
@@ -45,7 +45,7 @@ async function fetchRequests(database: ModelStatic<Model>) {
   return [tagList[0].getDataValue("timesUsed"), tagList[1].getDataValue("timesUsed")];
 }
 
-export function parseUsersList(users: string, interaction: CommandInteraction) {
+export function parseUsersList(users: string, interaction: ChatInputCommandInteraction) {
   // We need to turn user IDs into either their username or their username#discriminator combo.
   const userIDs = users.split("\n").map((user: string) => user.split(":"));
   for (const user of userIDs) {
@@ -59,7 +59,7 @@ export function parseUsersList(users: string, interaction: CommandInteraction) {
   return userIDs.map(user => user.join(":")).join("\n");
 }
 
-export function parsePlayersList(users: string, interaction: CommandInteraction) {
+export function parsePlayersList(users: string, interaction: ChatInputCommandInteraction) {
   // It's literally parseUsersList but we need to add "points" to the end of every line
   const parsedUsers = parseUsersList(users, interaction);
   const players = parsedUsers.split("\n").map((user: string) => user.split(":"));

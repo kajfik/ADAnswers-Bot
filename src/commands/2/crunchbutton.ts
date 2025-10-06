@@ -1,4 +1,4 @@
-import { ApplicationCommandType, CommandInteraction } from "discord.js";
+import { ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
 import { Command } from "../../command";
 import { isHelper } from "../../functions/Misc";
 
@@ -6,7 +6,7 @@ export const crunchbutton: Command = {
   name: "crunchbutton",
   description: "Explains the various changes to the crunch button at 5e11 IP",
   type: ApplicationCommandType.ChatInput,
-  run: async(interaction: CommandInteraction) => {
+  run: async(interaction: ChatInputCommandInteraction) => {
     if (!interaction) return;
 
     // eslint-disable-next-line max-len

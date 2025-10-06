@@ -1,10 +1,10 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, ChannelType, CommandInteraction, EmbedBuilder, GuildMember, User } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, ChannelType, ChatInputCommandInteraction, EmbedBuilder, GuildMember, User } from "discord.js";
 import { authorTitleFromUser, link, pluralise, quantify } from "../../functions/Misc";
 import { getJeopardyPlayerTag, getPersonTag } from "../../functions/database";
 import { Command } from "../../command";
 import { UserInfo } from "../../utils/types";
 
-async function getUserInfo(user: User, interaction: CommandInteraction): Promise<UserInfo> {
+async function getUserInfo(user: User, interaction: ChatInputCommandInteraction): Promise<UserInfo> {
   const u = await interaction.guild?.members.resolve(user.id) as GuildMember;
 
   return {
@@ -43,7 +43,7 @@ export const user: Command = {
       type: ApplicationCommandOptionType.User,
     }
   ],
-  run: async(interaction: CommandInteraction) => {
+  run: async(interaction: ChatInputCommandInteraction) => {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     if (interaction.channel?.type === ChannelType.DM) {

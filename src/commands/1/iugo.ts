@@ -1,4 +1,4 @@
-import { ApplicationCommandType, CommandInteraction } from "discord.js";
+import { ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
 import { Command } from "../../command";
 import { isHelper } from "../../functions/Misc";
 
@@ -6,7 +6,7 @@ export const iugo: Command = {
   name: "iugo",
   description: "pre break infinity upgrade order routes",
   type: ApplicationCommandType.ChatInput,
-  run: async(interaction: CommandInteraction) => {
+  run: async(interaction: ChatInputCommandInteraction) => {
     if (!interaction) return;
 
     // eslint-disable-next-line max-len

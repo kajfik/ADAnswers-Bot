@@ -1,10 +1,10 @@
-import { ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle, CommandInteraction, ComponentType, EmbedBuilder, InteractionReplyOptions, MessageComponentInteraction, User } from "discord.js";
+import { ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle, ChatInputCommandInteraction, ComponentType, EmbedBuilder, InteractionReplyOptions, MessageComponentInteraction, User } from "discord.js";
 import { AlchemyEmbeds, AlchemyImages, alchemyResources } from "../../../utils/databases/alchemy";
 import { AlchemyResource, Reagent } from "../../../utils/types";
 import { authorTitle, isHelper } from "../../../functions/Misc";
 import { Symbols } from "../../../utils/symbols";
 
-export async function resourceAlchemySubcommand(interaction: CommandInteraction, user: User): Promise<void> {
+export async function resourceAlchemySubcommand(interaction: ChatInputCommandInteraction, user: User): Promise<void> {
   if (!interaction || !interaction.isChatInputCommand()) return;
   let resource: string = interaction.options.getString("resource") as string;
   let resourceInfo: AlchemyResource = alchemyResources[resource];

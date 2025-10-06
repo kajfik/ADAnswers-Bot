@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, Colors, CommandInteraction, EmbedBuilder, MessageResolvable, TextChannel } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, Colors, ChatInputCommandInteraction, EmbedBuilder, MessageResolvable, TextChannel } from "discord.js";
 import { authorTitle, link } from "../../functions/Misc";
 import { Command } from "../../command";
 import { ids } from "../../config.json";
@@ -21,7 +21,7 @@ export const report: Command = {
       required: false
     }
   ],
-  run: async(interaction: CommandInteraction) => {
+  run: async(interaction: ChatInputCommandInteraction) => {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     const splitLink = interaction.options.getString("message")?.split("/") as Array<string>;

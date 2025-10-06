@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { ApplicationCommandType, CommandInteraction } from "discord.js";
+import { ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
 import { Command } from "../../command";
 import { isHelper } from "../../functions/Misc";
 
@@ -7,7 +7,7 @@ export const infinitydimensions: Command = {
   name: "infinitydimensions",
   description: "Describes what infinity dimensions (and infinity power) does. Includes when they unlock.",
   type: ApplicationCommandType.ChatInput,
-  run: async(interaction: CommandInteraction) => {
+  run: async(interaction: ChatInputCommandInteraction) => {
     if (!interaction) return;
 
     const content: string = `

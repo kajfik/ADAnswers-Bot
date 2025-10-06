@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { ApplicationCommandType, CommandInteraction } from "discord.js";
+import { ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
 import { Command } from "../../command";
 import { isHelper } from "../../functions/Misc";
 
@@ -7,7 +7,7 @@ export const bankedinfinities: Command = {
   name: "bankedinfinities",
   description: "describes banked infinities, what they do, and how to get them.",
   type: ApplicationCommandType.ChatInput,
-  run: async(interaction: CommandInteraction) => {
+  run: async(interaction: ChatInputCommandInteraction) => {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     const content: string = `

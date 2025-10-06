@@ -1,4 +1,4 @@
-import { ActionRowBuilder, ApplicationCommandOptionType, ApplicationCommandType, ButtonBuilder, ButtonStyle, CommandInteraction, ComponentType, InteractionReplyOptions, MessageComponentInteraction, User } from "discord.js";
+import { ActionRowBuilder, ApplicationCommandOptionType, ApplicationCommandType, ButtonBuilder, ButtonStyle, ChatInputCommandInteraction, ComponentType, InteractionReplyOptions, MessageComponentInteraction, User } from "discord.js";
 import { EternityChallengeEmbeds, EternityChallengeImages, shownFields } from "../../functions/ecs";
 import { authorTitle, isHelper } from "../../functions/Misc";
 import { findEC, order } from "../../utils/databases/eternitychallenges";
@@ -67,7 +67,7 @@ export const ec: Command = {
       type: ApplicationCommandOptionType.User,
     }
   ],
-  run: async(interaction: CommandInteraction) => {
+  run: async(interaction: ChatInputCommandInteraction) => {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     const eternityChallengeRequested: number = interaction.options.getInteger("ec") as number;

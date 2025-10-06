@@ -3,7 +3,7 @@
 //   AttachmentBuilder,
 //   ButtonBuilder,
 //   ButtonStyle,
-//   CommandInteraction,
+//   ChatInputCommandInteraction,
 //   EmbedBuilder,
 //   MessageComponentInteraction,
 //   ModalBuilder,
@@ -17,7 +17,7 @@
 // import { randomClue } from "../../utils/databases/clues";
 // import { tags } from "../../bot";
 
-import { ApplicationCommandType, CommandInteraction } from "discord.js";
+import { ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
 import { Command } from "../../command";
 
 // Interface Clue {
@@ -33,7 +33,7 @@ export const jeopardy: Command = {
   name: "jeopardy",
   description: "fetch a quick question from Jeopardy",
   type: ApplicationCommandType.ChatInput,
-  run: async(interaction: CommandInteraction) => {
+  run: async(interaction: ChatInputCommandInteraction) => {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     await interaction.reply({ content: "Sorry, this command is currently unavailable due to some API issues.", ephemeral: true });

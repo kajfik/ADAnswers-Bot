@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandSubCommandData, ApplicationCommandSubGroupData, ApplicationCommandType, CommandInteraction } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandSubCommandData, ApplicationCommandSubGroupData, ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
 import { Command } from "../../command";
 import { h2p } from "../../utils/databases/h2p";
 import { isHelper } from "../../functions/Misc";
@@ -33,7 +33,7 @@ export const howtoplay: Command = {
   description: "sends the bowtoplay from the mobile version of the game",
   type: ApplicationCommandType.ChatInput,
   options: getOptions(),
-  run: async(interaction: CommandInteraction) => {
+  run: async(interaction: ChatInputCommandInteraction) => {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     const group: string = interaction.options.getSubcommandGroup(true);

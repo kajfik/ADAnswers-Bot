@@ -1,4 +1,4 @@
-import { ApplicationCommandType, CommandInteraction } from "discord.js";
+import { ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
 import { isHelper, link } from "../../functions/Misc";
 import { Command } from "../../command";
 
@@ -6,7 +6,7 @@ export const discordformatting: Command = {
   name: "discordformatting",
   description: "returns a link to a list of discord formatting stuff",
   type: ApplicationCommandType.ChatInput,
-  run: async(interaction: CommandInteraction) => {
+  run: async(interaction: ChatInputCommandInteraction) => {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     // eslint-disable-next-line max-len

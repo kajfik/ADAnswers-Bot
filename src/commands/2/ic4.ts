@@ -1,5 +1,5 @@
 import * as Challenge from "../../utils/databases/challenges";
-import { ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, CommandInteraction, EmbedBuilder, User } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, ChatInputCommandInteraction, EmbedBuilder, User } from "discord.js";
 import { authorTitle, isHelper } from "../../functions/Misc";
 import { Command } from "../../command";
 
@@ -15,7 +15,7 @@ export const ic4: Command = {
       type: ApplicationCommandOptionType.User,
     }
   ],
-  run: async(interaction: CommandInteraction) => {
+  run: async(interaction: ChatInputCommandInteraction) => {
     if (!interaction) return;
 
     const user: User = interaction.member === null ? interaction.user : interaction.member.user as User;

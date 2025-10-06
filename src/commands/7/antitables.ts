@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, CommandInteraction } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
 import { Command } from "../../command";
 import { StringIndexedStringObjectType } from "../../utils/types";
 import { isHelper } from "../../functions/Misc";
@@ -34,7 +34,7 @@ export const antitables: Command = {
       ]
     }
   ],
-  run: async(interaction: CommandInteraction) => {
+  run: async(interaction: ChatInputCommandInteraction) => {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     const when: string = interaction.options.getString("when") as string;

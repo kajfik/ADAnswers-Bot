@@ -25,7 +25,7 @@ Pages 6 - 9 is some more common game info stuff and/or bot functions
 Create a file in the directory that your command belongs in. Two imports will always be necessary, but if you're a little more code-savvy and wish to use something that requires imports feel free.
 
 ```ts
-import { BaseCommandInteraction, Client } from "discord.js";
+import { BaseChatInputCommandInteraction, Client } from "discord.js";
 import { Command } from "../../command";
 import { isHelper } from "../../functions/Misc"; // This one is an extra which I will explain later
 ```
@@ -52,7 +52,7 @@ export const oneminuteinf: Command = {
   name: "1minuteinf", // This is what shows to people when attempting to use the slash command
   description: "explains the UI change at infinity in under a minute", // Shown to people in /help
   type: ApplicationCommandType.ChatInput, // do not change, is essential for creating the command on my end,
-  run: async(interaction: CommandInteraction) { // What runs the command. In here is where we can change the content of the message sent when using the command.
+  run: async(interaction: ChatInputCommandInteraction) { // What runs the command. In here is where we can change the content of the message sent when using the command.
     if (!interaction) return; // stops it from running if the interaction is undefined (happens sometimes on spotty wifi)
 
     const content: string = `...`; // Content of the message

@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, CommandInteraction, User } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, User } from "discord.js";
 import { Command } from "../../command";
 import { StringIndexedStringObjectType } from "../../utils/types";
 import { alchemyResources } from "../../utils/databases/alchemy";
@@ -94,7 +94,7 @@ export const alchemy: Command = {
       ]
     }
   ],
-  run: async(interaction: CommandInteraction) => {
+  run: async(interaction: ChatInputCommandInteraction) => {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     if (interaction.options.data.length === 0) {

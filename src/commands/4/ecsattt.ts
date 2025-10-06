@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, CommandInteraction } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
 import { isHelper, makeEnumeration, quantify } from "../../functions/Misc";
 import { Command } from "../../command";
 import { ecsAtTTAmount } from "../../functions/ecs";
@@ -15,7 +15,7 @@ export const ecsattt: Command = {
       required: true,
     },
   ],
-  run: async(interaction: CommandInteraction) => {
+  run: async(interaction: ChatInputCommandInteraction) => {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     const tt: number = interaction.options.getInteger("tt") as number;

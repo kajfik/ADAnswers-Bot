@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, CommandInteraction } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
 import { Command } from "../../command";
 import { StringIndexedStringObjectType } from "../../utils/types";
 import { isHelper } from "../../functions/Misc";
@@ -31,7 +31,7 @@ export const reality: Command = {
       choices: Object.keys(realityMessageObject).map(key => ({ name: key, value: key }))
     }
   ],
-  run: async(interaction: CommandInteraction) => {
+  run: async(interaction: ChatInputCommandInteraction) => {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     const informationRequested: string = interaction.options.getString("info") as string;

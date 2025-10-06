@@ -1,4 +1,4 @@
-import { ApplicationCommandType, CommandInteraction } from "discord.js";
+import { ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
 import { isHelper, link } from "../../functions/Misc";
 import { Command } from "../../command";
 
@@ -6,7 +6,7 @@ export const importexport: Command = {
   name: "importexport",
   description: "explains how to transfer save from web to android and vice versa",
   type: ApplicationCommandType.ChatInput,
-  run: async(interaction: CommandInteraction) => {
+  run: async(interaction: ChatInputCommandInteraction) => {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     // eslint-disable-next-line max-len

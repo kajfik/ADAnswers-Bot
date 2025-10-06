@@ -1,5 +1,5 @@
 import { AchievementEmbeds, AchievementImages, acceptableArgs, achievementsMessageObject } from "../../utils/databases/achievements";
-import { ActionRowBuilder, ApplicationCommandOptionType, ApplicationCommandType, ButtonBuilder, ButtonStyle, CommandInteraction, ComponentType, InteractionReplyOptions, MessageComponentInteraction, User } from "discord.js";
+import { ActionRowBuilder, ApplicationCommandOptionType, ApplicationCommandType, ButtonBuilder, ButtonStyle, ChatInputCommandInteraction, ComponentType, InteractionReplyOptions, MessageComponentInteraction, User } from "discord.js";
 import { authorTitle, isHelper, link } from "../../functions/Misc";
 import { findAchievementByID, findAchievementByName } from "../../functions/achievements";
 import { AchievementInfo } from "src/utils/types";
@@ -63,7 +63,7 @@ export const achievements: Command = {
       max_value: 188,
     }
   ],
-  run: async(interaction: CommandInteraction) => {
+  run: async(interaction: ChatInputCommandInteraction) => {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     const ach: string = interaction.options.getString("achievement") as string;

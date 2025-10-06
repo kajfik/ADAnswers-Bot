@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, CommandInteraction } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
 import { order, orderAsString } from "../../utils/databases/eternitychallenges";
 import { Command } from "../../command";
 import { isHelper } from "../../functions/Misc";
@@ -30,7 +30,7 @@ export const eco: Command = {
       max_value: 5,
     }
   ],
-  run: async(interaction: CommandInteraction) => {
+  run: async(interaction: ChatInputCommandInteraction) => {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     const challenge: number = interaction.options.getInteger("challenge") as number;

@@ -1,4 +1,4 @@
-import { ActionRowBuilder, ApplicationCommandType, ButtonBuilder, ButtonStyle, Colors, CommandInteraction, EmbedBuilder, EmbedField, InteractionReplyOptions, MessageComponentInteraction, User } from "discord.js";
+import { ActionRowBuilder, ApplicationCommandType, ButtonBuilder, ButtonStyle, Colors, ChatInputCommandInteraction, EmbedBuilder, EmbedField, InteractionReplyOptions, MessageComponentInteraction, User } from "discord.js";
 import { authorTitle, isHelper, link } from "../../functions/Misc";
 import { dhmsFromMS, getTimezoneFromDate } from "../../functions/time";
 import { getTagInfo, parsePlayersList, parseTimeList, parseUsersList } from "../../functions/database";
@@ -8,7 +8,7 @@ import { TagInfo } from "../../utils/types";
 import config from "../../config.json";
 
 const NOW = Date();
-const metaFields = (interaction: CommandInteraction, tagInfo: TagInfo): { [key: number]: Array<EmbedField> } => ({
+const metaFields = (interaction: ChatInputCommandInteraction, tagInfo: TagInfo): { [key: number]: Array<EmbedField> } => ({
   1: [
     {
       name: "Bot version",
@@ -90,7 +90,7 @@ const metaFields = (interaction: CommandInteraction, tagInfo: TagInfo): { [key: 
 
 // Sorry
 // eslint-disable-next-line max-params
-const embed = (currentPage: number, interaction: CommandInteraction, disabled: boolean, expirationTimestamp: number, tagInfo: TagInfo) => new EmbedBuilder()
+const embed = (currentPage: number, interaction: ChatInputCommandInteraction, disabled: boolean, expirationTimestamp: number, tagInfo: TagInfo) => new EmbedBuilder()
   .setTitle(`Meta (p${currentPage}/2)`)
   .setDescription(`Internal bot information.\nExpire${disabled ? "d" : "s"} <t:${expirationTimestamp}:R> at <t:${expirationTimestamp}:T>`)
   .addFields(metaFields(interaction, tagInfo)[currentPage])
@@ -114,7 +114,7 @@ export const meta: Command = {
   name: "meta",
   description: "information about the bot",
   type: ApplicationCommandType.ChatInput,
-  run: async(interaction: CommandInteraction) => {
+  run: async(interaction: ChatInputCommandInteraction) => {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     const expirationTimestamp = Math.floor((Date.now() + 60000) / 1000);

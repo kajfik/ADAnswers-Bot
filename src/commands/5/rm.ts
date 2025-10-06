@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, CommandInteraction } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
 import { getBaseLog, isHelper } from "../../functions/Misc";
 import { Command } from "../../command";
 
@@ -19,7 +19,7 @@ export const rm: Command = {
       min_value: 2,
     }
   ],
-  run: async(interaction: CommandInteraction) => {
+  run: async(interaction: ChatInputCommandInteraction) => {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     const realityMachinesRequested: number = Math.floor(Math.abs(interaction.options.getNumber("rm") as number));

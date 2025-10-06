@@ -1,4 +1,4 @@
-import { ActionRowBuilder, ApplicationCommandType, ButtonBuilder, ButtonStyle, Colors, CommandInteraction, ComponentType, EmbedBuilder, MessageComponentInteraction } from "discord.js";
+import { ActionRowBuilder, ApplicationCommandType, ButtonBuilder, ButtonStyle, Colors, ChatInputCommandInteraction, ComponentType, EmbedBuilder, MessageComponentInteraction } from "discord.js";
 import { isEligibleForHelper, isHelper } from "../../functions/Misc";
 import { Command } from "../../command";
 import { ids } from "../../config.json";
@@ -7,7 +7,7 @@ export const helperRequest: Command = {
   name: "helper",
   description: "sends a consent form to become a designated helper",
   type: ApplicationCommandType.ChatInput,
-  run: async(interaction: CommandInteraction) => {
+  run: async(interaction: ChatInputCommandInteraction) => {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     const isCurrentlyHelper: boolean = isHelper(interaction) as boolean;

@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, CommandInteraction } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
 import { Command } from "../../command";
 import { raCelestialSubcommand } from "./celestials/ra";
 import { teresaCelestialSubcommand } from "./celestials/teresa";
@@ -104,7 +104,7 @@ export const celestials: Command = {
       ]
     }
   ],
-  run: async(interaction: CommandInteraction) => {
+  run: async(interaction: ChatInputCommandInteraction) => {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     const celestialRequested = interaction.options.getSubcommandGroup();

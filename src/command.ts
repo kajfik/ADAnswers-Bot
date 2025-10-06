@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { AutocompleteInteraction, ChatInputApplicationCommandData, ChatInputCommandInteraction, Client, CommandInteraction } from "discord.js";
+import { AutocompleteInteraction, ChatInputApplicationCommandData, ChatInputCommandInteraction, Client, ChatInputCommandInteraction } from "discord.js";
 import { Model, ModelStatic } from "sequelize/types";
 
 export interface Command extends ChatInputApplicationCommandData {
