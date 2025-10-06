@@ -3,7 +3,6 @@ import { DataTypes, Model, Sequelize } from "sequelize";
 import interactionCreate from "./listeners/interactionCreate";
 import messageCreate from "./listeners/messageCreate";
 import ready from "./listeners/ready";
-import { token } from "./config.json";
 
 console.log("Starting bot...");
 
@@ -25,7 +24,7 @@ const client = new Client({
   ]
 });
 
-client.login(token);
+client.login(process.env.DISCORD_TOKEN);
 
 const databaseCreator = (link: string) => new Sequelize({
   dialect: "sqlite",
