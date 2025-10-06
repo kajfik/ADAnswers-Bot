@@ -1,7 +1,6 @@
 import { ActivityType, ApplicationCommandType, Client, ContextMenuCommandBuilder } from "discord.js";
 import { Model, ModelStatic, Sequelize } from "sequelize";
 import { Commands } from "../commands";
-// Import { ids, lastfm } from "../config.json";
 import { PresenceMessage } from "../functions/presence";
 import { ids } from "../config.json";
 // Import fetch from "node-fetch";

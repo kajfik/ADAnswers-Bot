@@ -129,6 +129,6 @@ const handleSlashCommand = async(client: Client, interaction: ChatInputCommandIn
     await incrementBigFourTags(interaction.commandName, `${interaction.user.id}`);
   } catch (error) {
     console.log(error);
-    interaction.reply({ content: `Error running command ${interaction.commandName} <@${ids.earth}>` });
+    interaction.reply({ content: `Error running command ${interaction.commandName} <@${ids.kajfik}>` });
   }
 };
