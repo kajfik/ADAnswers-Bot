@@ -4,7 +4,7 @@ import { ActionRowBuilder,
   Colors,
   EmbedBuilder,
   Interaction,
-  MessageContextMenuChatInputCommandInteraction,
+  MessageContextMenuCommandInteraction,
   ModalBuilder,
   ModalSubmitInteraction,
   TextChannel,
@@ -18,7 +18,7 @@ import { ids } from "../config.json";
 import { link } from "../functions/Misc";
 import { tags } from "../bot";
 
-let currentMessageBeingReported: MessageContextMenuChatInputCommandInteraction;
+let currentMessageBeingReported: MessageContextMenuCommandInteraction;
 
 export default (client: Client): void => {
   client.on("interactionCreate", async(interaction: Interaction) => {
@@ -54,7 +54,7 @@ export default (client: Client): void => {
   });
 };
 
-const handleContextMenu = async(interaction: MessageContextMenuChatInputCommandInteraction) => {
+const handleContextMenu = async(interaction: MessageContextMenuCommandInteraction) => {
   // 6.048e+8 is the amount of milliseconds in a week
   if (new Date().getTime() - interaction.targetMessage.createdAt.getTime() > 6.048e8) {
     await interaction.reply({ content: "This message was created more than a week ago, so it cannot be reported.", ephemeral: true });
@@ -86,7 +86,7 @@ const handleContextMenu = async(interaction: MessageContextMenuChatInputCommandI
   interaction.deferReply({ ephemeral: true });
 };
 
-const handleModalSubmit = async(interaction: MessageContextMenuChatInputCommandInteraction, modalSubmitInteraction: ModalSubmitInteraction) => {
+const handleModalSubmit = async(interaction: MessageContextMenuCommandInteraction, modalSubmitInteraction: ModalSubmitInteraction) => {
   const reason = modalSubmitInteraction.fields.getTextInputValue("report-message-input");
 
   const messageReportEmbed = new EmbedBuilder()
