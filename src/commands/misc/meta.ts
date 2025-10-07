@@ -72,12 +72,6 @@ const metaFields = (interaction: ChatInputCommandInteraction, tagInfo: TagInfo):
       name: "Top 5 players (`/jeopardy`)",
       value: `${parsePlayersList(tagInfo.top5players, interaction)}`,
       inline: true,
-    },
-    {
-      name: "Why is this data inaccurate?",
-      value: `On June 22, 2023, I was forced to change how the database worked on my end due to Discord's new username system. Thus, this information is correct as of that date.
-      See ${link("this post", "https://discord.com/channels/351476683016241162/351476683016241166/1121644631675899934")} for more information.`,
-      inline: true
     }
   ]
 });
