@@ -1,5 +1,5 @@
 import * as Challenge from "../../utils/databases/challenges";
-import { ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, ChatInputCommandInteraction, EmbedBuilder, User } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, ChatInputCommandInteraction, EmbedBuilder, User, CommandInteractionOptionResolver } from "discord.js";
 import { authorTitle, isHelper } from "../../functions/Misc";
 import { Command } from "../../command";
 
@@ -19,7 +19,8 @@ export const c9: Command = {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     const user: User = interaction.member === null ? interaction.user : interaction.member.user as User;
-    const target: User | null = interaction.options.getUser("target", false);
+    const opts = interaction.options as CommandInteractionOptionResolver;
+    const target = opts.getUser("target");
 
     type ObjectKey = keyof typeof Challenge.newChallengeMessageObject;
     const embed: EmbedBuilder = Challenge.newChallengeMessageObject["c9" as ObjectKey] as EmbedBuilder;
