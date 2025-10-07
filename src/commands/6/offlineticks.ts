@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
+import { ApplicationCommandType, ChatInputCommandInteraction, MessageFlags } from "discord.js";
 import { isHelper, link } from "../../functions/Misc";
 import { Command } from "../../command";
 
@@ -20,6 +20,6 @@ Normally 1 second = 20 ticks, so if your max offline ticks is less than that amo
 You still get the same amount of time of progress, but if your ticks get spaced out to be too long it can affect autobuyers and the like. For instance in the above case, your autobuyers would only be able to activate every 130ms instead of every 50ms, meaning it might impact progress a little
 The downside of max offline ticks is the time it takes when loading the game. Since the game has to calculate it all when you load it back up, it can easily take several minutes to re-calculate your progress, especially if you set it to a really high value and are AFK for several hours.`;
 
-    await interaction.reply({ content, ephemeral: !isHelper(interaction) });
+    await interaction.reply({ content, ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
   }
 };

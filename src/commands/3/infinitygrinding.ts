@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, MessageFlags } from "discord.js";
 import { Command } from "../../command";
 import { isHelper } from "../../functions/Misc";
 
@@ -40,6 +40,6 @@ If grinding for banked infinities, make sure to be using TS191!`;
         content = "Unknown when";
     }
 
-    await interaction.reply({ content, ephemeral: !isHelper(interaction) });
+    await interaction.reply({ content, ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
   }
 };

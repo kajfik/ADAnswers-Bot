@@ -1,4 +1,4 @@
-import { ActionRowBuilder, ApplicationCommandType, ButtonBuilder, ButtonStyle, Colors, ChatInputCommandInteraction, EmbedBuilder, EmbedField, InteractionReplyOptions, MessageComponentInteraction, User } from "discord.js";
+import { ActionRowBuilder, ApplicationCommandType, ButtonBuilder, ButtonStyle, Colors, ChatInputCommandInteraction, EmbedBuilder, EmbedField, InteractionReplyOptions, MessageComponentInteraction, User, MessageFlags } from "discord.js";
 import { authorTitle, isHelper, link } from "../../functions/Misc";
 import { dhmsFromMS, getTimezoneFromDate } from "../../functions/time";
 import { getTagInfo, parsePlayersList, parseTimeList, parseUsersList } from "../../functions/database";
@@ -153,7 +153,7 @@ export const meta: Command = {
     // eslint-disable-next-line max-len
     const content: InteractionReplyOptions = {
       embeds: [embed(currentPage, interaction, false, expirationTimestamp, tagInfo).setAuthor({ name: authorTitle(interaction), iconURL: user.displayAvatarURL() })],
-      ephemeral: !isHelper(interaction),
+      ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }),
       components: [buttons(false), buttons2(false, personRequested)]
     };
 

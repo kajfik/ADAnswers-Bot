@@ -1,4 +1,4 @@
-import { ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
+import { ApplicationCommandType, ChatInputCommandInteraction, MessageFlags } from "discord.js";
 import { Command } from "../../command";
 import { isHelper } from "../../functions/Misc";
 
@@ -12,6 +12,6 @@ export const secretachievements: Command = {
     // eslint-disable-next-line max-len
     const content: string = "<https://antimatter-dimensions.fandom.com/wiki/Achievements#Secret_achievement_list>";
 
-    await interaction.reply({ content, ephemeral: !isHelper(interaction) });
+    await interaction.reply({ content, ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
   }
 };

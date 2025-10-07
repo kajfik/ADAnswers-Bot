@@ -1,4 +1,4 @@
-import { ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
+import { ApplicationCommandType, ChatInputCommandInteraction, MessageFlags } from "discord.js";
 import { Command } from "../../command";
 import { isHelper } from "../../functions/Misc";
 
@@ -12,6 +12,6 @@ export const failec: Command = {
     // eslint-disable-next-line max-len
     const content: string = "To fail an EC, you must be in either EC4 or 12. Then, fail the condition (in EC4, too many infinities, in EC12, taking too long).";
 
-    await interaction.reply({ content, ephemeral: !isHelper(interaction) });
+    await interaction.reply({ content, ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
   }
 };

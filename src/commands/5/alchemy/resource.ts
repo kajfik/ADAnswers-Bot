@@ -1,4 +1,4 @@
-import { ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle, ChatInputCommandInteraction, ComponentType, EmbedBuilder, InteractionReplyOptions, MessageComponentInteraction, User } from "discord.js";
+import { ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle, ChatInputCommandInteraction, ComponentType, EmbedBuilder, InteractionReplyOptions, MessageComponentInteraction, User, MessageFlags } from "discord.js";
 import { AlchemyEmbeds, AlchemyImages, alchemyResources } from "../../../utils/databases/alchemy";
 import { AlchemyResource, Reagent } from "../../../utils/types";
 import { authorTitle, isHelper } from "../../../functions/Misc";
@@ -69,7 +69,7 @@ export async function resourceAlchemySubcommand(interaction: ChatInputCommandInt
   const content: InteractionReplyOptions = {
     embeds: [embed],
     files: [image],
-    ephemeral: !isHelper(interaction),
+    ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }),
     components: createReagentButtons(resourceInfo.reagents)
   };
 

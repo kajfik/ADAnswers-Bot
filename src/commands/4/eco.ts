@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, MessageFlags } from "discord.js";
 import { order, orderAsString } from "../../utils/databases/eternitychallenges";
 import { Command } from "../../command";
 import { isHelper } from "../../functions/Misc";
@@ -37,7 +37,7 @@ export const eco: Command = {
     const completion: number = interaction.options.getInteger("completion") as number;
 
     if (!challenge && !completion) {
-      await interaction.reply({ content: `${orderAsString}`, ephemeral: !isHelper(interaction) });
+      await interaction.reply({ content: `${orderAsString}`, ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
       return;
     }
 
@@ -59,6 +59,6 @@ export const eco: Command = {
 
     await interaction.reply({ content: `Order: ${sentArray.filter(value => value).join(", ")}
     Other completions you need: \`${others}\`
-    For more information on beating this challenge, use the command \`/ec ${challenge} ${completion}\``, ephemeral: !isHelper(interaction) });
+    For more information on beating this challenge, use the command \`/ec ${challenge} ${completion}\``, ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
   }
 };

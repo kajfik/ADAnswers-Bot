@@ -1,4 +1,4 @@
-import { ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
+import { ApplicationCommandType, ChatInputCommandInteraction, MessageFlags } from "discord.js";
 import { isHelper, randomInArray } from "../../functions/Misc";
 import { Command } from "../../command";
 import { bushisms } from "../../utils/databases/bushisms";
@@ -12,6 +12,6 @@ export const bushism: Command = {
 
     const content = randomInArray(bushisms);
 
-    await interaction.reply({ content, ephemeral: !isHelper(interaction) });
+    await interaction.reply({ content, ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
   }
 };

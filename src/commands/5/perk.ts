@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionData, ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, ChatInputCommandInteraction, EmbedBuilder, User } from "discord.js";
+import { ApplicationCommandOptionData, ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, ChatInputCommandInteraction, EmbedBuilder, User, MessageFlags } from "discord.js";
 import { PerkEmbedGetters, perks } from "../../utils/databases/perks";
 import { PerkInfo, StringIndexedStringObjectType } from "../../utils/types";
 import { authorTitle, isHelper } from "../../functions/Misc";
@@ -116,7 +116,7 @@ export const perk: Command = {
 
       const content: string = perkInfoCommand[info];
 
-      await interaction.reply({ content, ephemeral: !isHelper(interaction) });
+      await interaction.reply({ content, ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
 
     } else {
 
@@ -131,7 +131,7 @@ export const perk: Command = {
       embed.setAuthor({ name: authorTitle(interaction), iconURL: user.displayAvatarURL() })
         .setThumbnail(`attachment://${imageName}.png`);
 
-      await interaction.reply({ embeds: [embed], files: [picture], ephemeral: !isHelper(interaction) });
+      await interaction.reply({ embeds: [embed], files: [picture], ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
     }
   }
 };

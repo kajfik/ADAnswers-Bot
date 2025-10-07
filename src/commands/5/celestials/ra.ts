@@ -1,4 +1,4 @@
-import { AttachmentBuilder, ChatInputCommandInteraction, EmbedBuilder, User } from "discord.js";
+import { AttachmentBuilder, ChatInputCommandInteraction, EmbedBuilder, User, MessageFlags } from "discord.js";
 import { authorTitle, isHelper } from "../../../functions/Misc";
 import { Ra } from "../../../utils/databases/celestials/ra";
 
@@ -10,12 +10,12 @@ export async function raCelestialSubcommand(interaction: ChatInputCommandInterac
     case "basic": {
       // Whoops
       // eslint-disable-next-line max-len
-      await interaction.reply({ content: Ra.info, ephemeral: !isHelper(interaction) });
+      await interaction.reply({ content: Ra.info, ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
       break;
     }
     case "reality": {
       // eslint-disable-next-line max-len
-      await interaction.reply({ content: Ra.reality, ephemeral: !isHelper(interaction) });
+      await interaction.reply({ content: Ra.reality, ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
       break;
     }
     case "memories": {
@@ -25,7 +25,7 @@ export async function raCelestialSubcommand(interaction: ChatInputCommandInterac
       embed.setAuthor({ name: authorTitle(interaction), iconURL: user.displayAvatarURL() })
         .setThumbnail(`attachment://${selectedCelestial}.png`);
 
-      await interaction.reply({ embeds: [embed], files: [image], ephemeral: !isHelper(interaction) });
+      await interaction.reply({ embeds: [embed], files: [image], ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
       break;
     }
   }

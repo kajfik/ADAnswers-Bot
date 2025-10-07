@@ -1,4 +1,4 @@
-import { ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
+import { ApplicationCommandType, ChatInputCommandInteraction, MessageFlags } from "discord.js";
 import { isHelper, link } from "../../functions/Misc";
 import { Command } from "../../command";
 
@@ -22,6 +22,6 @@ Click "Export to web", open ${link("paste.ee", "https://paste.ee")}, submit new 
 
 When you use the "Export to web" option and send the save to your pc using some messaging service like messenger/whatsapp the save may be cut in half because of a character limit of those services.`;
 
-    await interaction.reply({ content, ephemeral: !isHelper(interaction) });
+    await interaction.reply({ content, ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
   }
 };

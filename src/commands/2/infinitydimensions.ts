@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
+import { ApplicationCommandType, ChatInputCommandInteraction, MessageFlags } from "discord.js";
 import { Command } from "../../command";
 import { isHelper } from "../../functions/Misc";
 
@@ -21,6 +21,6 @@ ID6: ||unlocks at 1e45000 Antimatter, costs 1e200 Infinity Points.||
 ID7: ||unlocks at 1e54000 Antimatter, costs 1e250 Infinity Points.||
 ID8: ||unlocks at 1e60000 Antimatter, costs 1e280 Infinity Points.||`;
 
-    await interaction.reply({ content, ephemeral: !isHelper(interaction) });
+    await interaction.reply({ content, ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
   }
 };

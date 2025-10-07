@@ -1,4 +1,4 @@
-import { AttachmentBuilder, ChatInputCommandInteraction, EmbedBuilder, User } from "discord.js";
+import { AttachmentBuilder, ChatInputCommandInteraction, EmbedBuilder, User, MessageFlags } from "discord.js";
 import { GlyphEmbedGetter, basicGlyphs, specialGlyphs } from "../../../utils/databases/glyphs";
 import { authorTitle, isHelper } from "../../../functions/Misc";
 import { ids } from "../../../config.json";
@@ -19,5 +19,5 @@ export async function sacrificeGlyphSubcommand(interaction: ChatInputCommandInte
   embed.setAuthor({ name: authorTitle(interaction), iconURL: user.displayAvatarURL() })
     .setThumbnail(imageLink);
 
-  await interaction.reply({ embeds: [embed], files: [picture], ephemeral: !isHelper(interaction) });
+  await interaction.reply({ embeds: [embed], files: [picture], ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
 }

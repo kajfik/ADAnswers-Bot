@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, MessageFlags } from "discord.js";
 import { basicGlyphs, specialGlyphs } from "../../utils/databases/glyphs";
 import { Command } from "../../command";
 import { GlyphInfo } from "../../utils/types";
@@ -291,7 +291,7 @@ export const glyph: Command = {
 
       const content: string = glyphInfoCommand[info](isADServer);
 
-      await interaction.reply({ content, ephemeral: !isHelper(interaction) });
+      await interaction.reply({ content, ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
 
     } else if (type === "effect") {
       await effectGlyphSubcommand(interaction);

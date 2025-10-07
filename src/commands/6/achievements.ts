@@ -1,5 +1,5 @@
 import { AchievementEmbeds, AchievementImages, acceptableArgs, achievementsMessageObject } from "../../utils/databases/achievements";
-import { ActionRowBuilder, ApplicationCommandOptionType, ApplicationCommandType, ButtonBuilder, ButtonStyle, ChatInputCommandInteraction, ComponentType, InteractionReplyOptions, MessageComponentInteraction, User } from "discord.js";
+import { ActionRowBuilder, ApplicationCommandOptionType, ApplicationCommandType, ButtonBuilder, ButtonStyle, ChatInputCommandInteraction, ComponentType, InteractionReplyOptions, MessageComponentInteraction, User, MessageFlags } from "discord.js";
 import { authorTitle, isHelper, link } from "../../functions/Misc";
 import { findAchievementByID, findAchievementByName } from "../../functions/achievements";
 import { AchievementInfo } from "src/utils/types";
@@ -77,7 +77,7 @@ export const achievements: Command = {
     }
 
     if (ach === null && other === null) {
-      await interaction.reply({ content: `${link("Check out this cool guide by Hellbach!", "https://docs.google.com/document/d/1C8W_lt9EPxpu9wIloWZo5CPDdZ4ItP1-IU1Vs3x7lEg")}`, ephemeral: !isHelper(interaction) });
+      await interaction.reply({ content: `${link("Check out this cool guide by Hellbach!", "https://docs.google.com/document/d/1C8W_lt9EPxpu9wIloWZo5CPDdZ4ItP1-IU1Vs3x7lEg")}`, ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
       return;
     }
 
@@ -119,7 +119,7 @@ export const achievements: Command = {
       const content: InteractionReplyOptions = {
         embeds: [embed],
         files: [picture],
-        ephemeral: !isHelper(interaction),
+        ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }),
         components: [buttons(false)]
       };
 

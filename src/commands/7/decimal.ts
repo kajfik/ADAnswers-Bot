@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
+import { ApplicationCommandType, ChatInputCommandInteraction, MessageFlags } from "discord.js";
 import { isHelper, link } from "../../functions/Misc";
 import { Command } from "../../command";
 
@@ -18,6 +18,6 @@ The original library created by MikeMcl was created for more precise numbers ove
 The library created by Patashu is optimized for speed, not for precision, making it good for incremental games, can be found ${link("here", "https://github.com/Patashu/break_infinity.js")}
 Razenpok worked with Patashu on improving the library and porting it to C#, which can be found ${link("here", "https://github.com/Razenpok/BreakInfinity.cs")}`;
 
-    await interaction.reply({ content, ephemeral: !isHelper(interaction) });
+    await interaction.reply({ content, ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
   }
 };

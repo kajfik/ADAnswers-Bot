@@ -17,7 +17,7 @@
 // import { randomClue } from "../../utils/databases/clues";
 // import { tags } from "../../bot";
 
-import { ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
+import { ApplicationCommandType, ChatInputCommandInteraction, MessageFlags } from "discord.js";
 import { Command } from "../../command";
 
 // Interface Clue {

@@ -1,4 +1,4 @@
-import { ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
+import { ApplicationCommandType, ChatInputCommandInteraction, MessageFlags } from "discord.js";
 import { Command } from "../../command";
 import { isHelper } from "../../functions/Misc";
 
@@ -18,6 +18,6 @@ Experiment with DimBoost and Galaxy intervals a bit. I used 0.3 seconds on DimBo
 If you have TS181, do not use your crunch autobuyer (disable it). All other advice remains the same. 
 If you are back here for TS193 eternity grinding, use your normal production tree, just with ID instead of TD (or both, you lousy TS201 users)`;
 
-    await interaction.reply({ content, ephemeral: !isHelper(interaction) });
+    await interaction.reply({ content, ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
   }
 };

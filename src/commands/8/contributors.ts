@@ -1,4 +1,4 @@
-import { ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
+import { ApplicationCommandType, ChatInputCommandInteraction, MessageFlags } from "discord.js";
 import { isHelper, link } from "../../functions/Misc";
 import { Command } from "../../command";
 
@@ -19,6 +19,6 @@ Pez: commands.find() in commands.js,
 MrKrutaman: many sprites used in several commands,
 Mirai Sozo: Misc. Reality content
 Gaunter: ${link("GlyphAPI", "https://github.com/lrobt97/glyphapi")}`;
-    await interaction.reply({ content, ephemeral: !isHelper(interaction) });
+    await interaction.reply({ content, ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
   }
 };

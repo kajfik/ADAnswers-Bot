@@ -1,4 +1,4 @@
-import { AttachmentBuilder, ChatInputCommandInteraction, User } from "discord.js";
+import { AttachmentBuilder, ChatInputCommandInteraction, User, MessageFlags } from "discord.js";
 import { authorTitle, isHelper } from "../../../functions/Misc";
 import { V } from "../../../utils/databases/celestials/v";
 
@@ -8,11 +8,11 @@ export async function vCelestialSubcommand(interaction: ChatInputCommandInteract
 
   switch (infoRequested) {
     case "basic": {
-      await interaction.reply({ content: V.info, ephemeral: !isHelper(interaction) });
+      await interaction.reply({ content: V.info, ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
       break;
     }
     case "reality": {
-      await interaction.reply({ content: V.reality, ephemeral: !isHelper(interaction) });
+      await interaction.reply({ content: V.reality, ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
       break;
     }
     case "achievements": {
@@ -22,14 +22,14 @@ export async function vCelestialSubcommand(interaction: ChatInputCommandInteract
       const embed = V.embeds.achievements(ach);
       embed.setAuthor({ name: authorTitle(interaction), iconURL: user.displayAvatarURL() }).setThumbnail(`attachment://ach_${selectedAchievement}.png`);
 
-      await interaction.reply({ embeds: [embed], files: [image], ephemeral: !isHelper(interaction) });
+      await interaction.reply({ embeds: [embed], files: [image], ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
       break;
     }
     case "unlocks": {
       const image = new AttachmentBuilder("src/images/celestials/v.png");
       const embed = V.embeds.unlocks();
       embed.setAuthor({ name: authorTitle(interaction), iconURL: user.displayAvatarURL() }).setThumbnail("attachment://v.png");
-      await interaction.reply({ embeds: [embed], files: [image], ephemeral: !isHelper(interaction) });
+      await interaction.reply({ embeds: [embed], files: [image], ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
       break;
     }
   }

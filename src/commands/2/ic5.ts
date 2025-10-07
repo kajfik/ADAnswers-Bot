@@ -1,5 +1,5 @@
 import * as Challenge from "../../utils/databases/challenges";
-import { ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, ChatInputCommandInteraction, EmbedBuilder, User } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, ChatInputCommandInteraction, EmbedBuilder, User, MessageFlags } from "discord.js";
 import { authorTitle, isHelper } from "../../functions/Misc";
 import { Command } from "../../command";
 
@@ -29,6 +29,6 @@ export const ic5: Command = {
 
     embed.setFields(Challenge.shownFields(Challenge.challenges.ic5, "strategy"));
 
-    await interaction.reply({ content: target ? `*Suggested for <@${target.id}>*` : undefined, embeds: [embed], files: [picture], ephemeral: !isHelper(interaction) });
+    await interaction.reply({ content: target ? `*Suggested for <@${target.id}>*` : undefined, embeds: [embed], files: [picture], ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
   }
 };

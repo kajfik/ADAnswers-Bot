@@ -1,5 +1,5 @@
 import * as Challenge from "../../utils/databases/challenges";
-import { ApplicationCommandOptionChoiceData, ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, ChatInputCommandInteraction, EmbedBuilder, User } from "discord.js";
+import { ApplicationCommandOptionChoiceData, ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, ChatInputCommandInteraction, EmbedBuilder, User, MessageFlags } from "discord.js";
 import { authorTitle, isHelper } from "../../functions/Misc";
 import { Command } from "../../command";
 
@@ -58,7 +58,7 @@ export const challenge: Command = {
     const target: User | null = interaction.options.getUser("target", false);
 
     if (chall === "ecs") {
-      interaction.reply({ content: `${target ? `*Suggested for <@${target.id}>*:\n` : ""}${Challenge.newChallengeMessageObject["ecs" as ObjectKey] as string}`, ephemeral: !isHelper(interaction) });
+      interaction.reply({ content: `${target ? `*Suggested for <@${target.id}>*:\n` : ""}${Challenge.newChallengeMessageObject["ecs" as ObjectKey] as string}`, ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
       return;
     }
 
@@ -69,12 +69,12 @@ export const challenge: Command = {
     embed.setThumbnail(`attachment://${chall?.toUpperCase()}.png`);
 
     if (!info) {
-      interaction.reply({ content: target ? `*Suggested for <@${target.id}>*` : undefined, embeds: [embed], files: [picture], ephemeral: !isHelper(interaction) });
+      interaction.reply({ content: target ? `*Suggested for <@${target.id}>*` : undefined, embeds: [embed], files: [picture], ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
       return;
     }
 
     type ChallengeObjectKey = keyof typeof Challenge.challenges;
     embed.setFields(Challenge.shownFields(Challenge.challenges[chall as ChallengeObjectKey], info));
-    interaction.reply({ content: target ? `*Suggested for <@${target.id}>*` : undefined, embeds: [embed], files: [picture], ephemeral: !isHelper(interaction) });
+    interaction.reply({ content: target ? `*Suggested for <@${target.id}>*` : undefined, embeds: [embed], files: [picture], ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
   }
 };

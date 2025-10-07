@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, User } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, User, MessageFlags } from "discord.js";
 import { Command } from "../../command";
 import { StringIndexedStringObjectType } from "../../utils/types";
 import { alchemyResources } from "../../utils/databases/alchemy";
@@ -116,7 +116,7 @@ export const alchemy: Command = {
 
       const content = alchemyInfoCommand[info];
 
-      await interaction.reply({ content, ephemeral: !isHelper(interaction) });
+      await interaction.reply({ content, ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
       return;
     }
 
@@ -128,7 +128,7 @@ export const alchemy: Command = {
 
       const content = `Upon refining this Glyph (GL${level}, rarity ${rarity * 100}%), you would gain ${Math.floor(gainedResources * 0.05)} of that resource.`;
 
-      await interaction.reply({ content, ephemeral: !isHelper(interaction) });
+      await interaction.reply({ content, ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
 
     }
   }

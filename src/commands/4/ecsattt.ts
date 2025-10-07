@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, MessageFlags } from "discord.js";
 import { isHelper, makeEnumeration, quantify } from "../../functions/Misc";
 import { Command } from "../../command";
 import { ecsAtTTAmount } from "../../functions/ecs";
@@ -29,6 +29,6 @@ export const ecsattt: Command = {
         : `${response.completions} (Next: ${makeEnumeration<string>(response.nextECs, ", ", "", "and")} at ${response.nextChallengeTT} TT)`
     }`;
 
-    await interaction.reply({ content, ephemeral: !isHelper(interaction) });
+    await interaction.reply({ content, ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
   }
 };

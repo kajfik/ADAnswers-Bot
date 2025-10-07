@@ -57,7 +57,7 @@ export const oneminuteinf: Command = {
 
     const content: string = `...`; // Content of the message
 
-    await interaction.reply({ content, ephemeral: !isHelper(interaction) }); // how the message is sent
+    await interaction.reply({ content, ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), }); // how the message is sent
   }
 };
 ```

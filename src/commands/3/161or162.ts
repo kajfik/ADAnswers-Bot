@@ -1,4 +1,4 @@
-import { ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
+import { ApplicationCommandType, ChatInputCommandInteraction, MessageFlags } from "discord.js";
 import { Command } from "../../command";
 import { isHelper } from "../../functions/Misc";
 
@@ -18,6 +18,6 @@ Get TS161 first. Both give the same maximum bonus, but TS161 gives that bonuses 
 1e88 more Inf Pow, ^7 multiplier to all ADs = 1e616 multiplier to all ADs
 This is the same multiplier TS161 gives, but obtained more slowly as it requires your IDs to produce that Inf Pow over time, rather than just providing a 1e616x multiplier to all ADs immediately.`;
 
-    await interaction.reply({ content, ephemeral: !isHelper(interaction) });
+    await interaction.reply({ content, ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
   }
 };

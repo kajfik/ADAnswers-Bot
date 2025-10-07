@@ -1,4 +1,4 @@
-import { ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
+import { ApplicationCommandType, ChatInputCommandInteraction, MessageFlags } from "discord.js";
 import { Command } from "../../command";
 import { isHelper } from "../../functions/Misc";
 
@@ -18,6 +18,6 @@ This trick works with every bottom button. (You can enable more bottom buttons b
 You can also peform a similar trick on the web/steam version of the game. To do it, hold your key of choice, click on the how to play button (the [?] in the top-right), and then let go of your key. Then you can close the h2p and the game will still believe that key is being pressed.`;
     /* eslint-enable max-len */
 
-    await interaction.reply({ content, ephemeral: !isHelper(interaction) });
+    await interaction.reply({ content, ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
   }
 };

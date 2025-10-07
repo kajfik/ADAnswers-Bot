@@ -2,7 +2,7 @@ import { Client, GatewayIntentBits, Partials } from "discord.js";
 import { DataTypes, Model, Sequelize } from "sequelize";
 import interactionCreate from "./listeners/interactionCreate";
 import messageCreate from "./listeners/messageCreate";
-import ready from "./listeners/ready";
+import clientReady from "./listeners/ready";
 
 console.log("Starting bot...");
 
@@ -142,6 +142,6 @@ export const tags = {
   player: Player
 };
 
-ready(client, [commandUsageDatabase, personUsageDatabase, timeUsageDatabase, playerDatabase], [Command, Person, Time, Player]);
+clientReady(client, [commandUsageDatabase, personUsageDatabase, timeUsageDatabase, playerDatabase], [Command, Person, Time, Player]);
 interactionCreate(client);
 messageCreate(client);

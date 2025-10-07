@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, User } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, User, MessageFlags } from "discord.js";
 import { isHelper, makeEnumeration } from "../../functions/Misc";
 import { Command } from "../../command";
 import { Tree } from "../../classes/Tree";
@@ -55,6 +55,6 @@ export const ts: Command = {
     const ecString: string = showECs && theorems >= 130 ? `EC completions for ${theorems} TT: ${typeof ecs === "string" ? ecs : ecs.completions} ${next}` : "";
     const targetString: string = target ? `*Suggested for <@${target.id}>*\n` : "";
 
-    await interaction.reply({ content: `${targetString}${tree}\n${ecString}`, ephemeral: !isHelper(interaction) });
+    await interaction.reply({ content: `${targetString}${tree}\n${ecString}`, ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
   }
 };

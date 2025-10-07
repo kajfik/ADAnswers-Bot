@@ -1,4 +1,4 @@
-import { ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
+import { ApplicationCommandType, ChatInputCommandInteraction, MessageFlags } from "discord.js";
 import { Command } from "../../command";
 import { isHelper } from "../../functions/Misc";
 
@@ -16,6 +16,6 @@ Active : AM + IP + EP farming, focus required. Setup and always watching require
 Idle : AM + IP + EP farm only if you treat this as a check in once every 2 hours type game or are unsure how to setup EP/min farm with passive. If you hate Active this will be the way to go as you need those AM+IP TT eventually.`;
     /* eslint-enable max-len */
 
-    await interaction.reply({ content, ephemeral: !isHelper(interaction) });
+    await interaction.reply({ content, ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
   }
 };

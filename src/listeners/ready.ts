@@ -38,7 +38,7 @@ import { ids } from "../config.json";
 // }
 
 export default (client: Client, databases: Sequelize[], tagsArray: ModelStatic<Model>[]): void => {
-  client.on("ready", async() => {
+  client.on("clientReady", async() => {
     if (!client.user || !client.application) {
       console.log("Missing user or application. Restart the bot.");
       return;

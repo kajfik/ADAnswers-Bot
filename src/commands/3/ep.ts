@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, MessageFlags } from "discord.js";
 import { getBaseLog, isHelper } from "../../functions/Misc";
 import { Command } from "../../command";
 
@@ -28,6 +28,6 @@ export const ep: Command = {
     // eslint-disable-next-line max-len
     const content: string = `Before any multipliers, to get ${eternityPointsRequested} EP, you need e${infinityPointsNeeded} IP.`;
 
-    await interaction.reply({ content, ephemeral: !isHelper(interaction) });
+    await interaction.reply({ content, ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
   }
 };

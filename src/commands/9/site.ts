@@ -1,4 +1,4 @@
-import { ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
+import { ApplicationCommandType, ChatInputCommandInteraction, MessageFlags } from "discord.js";
 import { Command } from "../../command";
 import { isHelper } from "../../functions/Misc";
 
@@ -15,6 +15,6 @@ Web: https://ivark.github.io/AntimatterDimensions
 Android version: <https://play.google.com/store/apps/details?id=kajfosz.antimatterdimensions>
 Steam: <https://store.steampowered.com/app/1399720/Antimatter_Dimensions/>`;
 
-    await interaction.reply({ content, ephemeral: !isHelper(interaction) });
+    await interaction.reply({ content, ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
   }
 };

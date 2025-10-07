@@ -1,4 +1,4 @@
-import { AttachmentBuilder, ChatInputCommandInteraction, User } from "discord.js";
+import { AttachmentBuilder, ChatInputCommandInteraction, User, MessageFlags } from "discord.js";
 import { Teresa, TeresaPerkShopEmbed, TeresaRealityEmbed, TeresaUnlockEmbed } from "../../../utils/databases/celestials/teresa";
 import { authorTitle, isHelper } from "../../../functions/Misc";
 
@@ -9,22 +9,22 @@ export async function teresaCelestialSubcommand(interaction: ChatInputCommandInt
 
   switch (infoRequested) {
     case "basic": {
-      await interaction.reply({ content: Teresa.info, ephemeral: !isHelper(interaction) });
+      await interaction.reply({ content: Teresa.info, ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
       break;
     }
     case "reality": {
       const embed = TeresaRealityEmbed().setAuthor({ name: authorTitle(interaction), iconURL: user.displayAvatarURL() }).setThumbnail("attachment://teresa.png");
-      await interaction.reply({ embeds: [embed], files: [image], ephemeral: !isHelper(interaction) });
+      await interaction.reply({ embeds: [embed], files: [image], ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
       break;
     }
     case "perkshop": {
       const embed = TeresaPerkShopEmbed().setAuthor({ name: authorTitle(interaction), iconURL: user.displayAvatarURL() }).setThumbnail("attachment://teresa.png");
-      await interaction.reply({ embeds: [embed], files: [image], ephemeral: !isHelper(interaction) });
+      await interaction.reply({ embeds: [embed], files: [image], ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
       break;
     }
     case "unlocks": {
       const embed = TeresaUnlockEmbed().setAuthor({ name: authorTitle(interaction), iconURL: user.displayAvatarURL() }).setThumbnail("attachment://teresa.png");
-      await interaction.reply({ embeds: [embed], files: [image], ephemeral: !isHelper(interaction) });
+      await interaction.reply({ embeds: [embed], files: [image], ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
       break;
     }
   }

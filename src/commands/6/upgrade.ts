@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionData, ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, ChatInputCommandInteraction, EmbedBuilder, User } from "discord.js";
+import { ApplicationCommandOptionData, ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, ChatInputCommandInteraction, EmbedBuilder, User, MessageFlags } from "discord.js";
 import { UpgradeEmbedGetters, upgrades } from "../../utils/databases/upgrades";
 import { authorTitle, isHelper } from "../../functions/Misc";
 import { Command } from "../../command";
@@ -99,6 +99,6 @@ export const upgrade: Command = {
       embed.setImage(upgradeRequested.graph as string);
     }
 
-    await interaction.reply({ embeds: [embed], files: [picture], ephemeral: !isHelper(interaction) });
+    await interaction.reply({ embeds: [embed], files: [picture], ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
   }
 };

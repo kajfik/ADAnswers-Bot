@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandSubCommandData, ApplicationCommandSubGroupData, ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandSubCommandData, ApplicationCommandSubGroupData, ApplicationCommandType, ChatInputCommandInteraction, MessageFlags } from "discord.js";
 import { Command } from "../../command";
 import { h2p } from "../../utils/databases/h2p";
 import { isHelper } from "../../functions/Misc";
@@ -41,6 +41,6 @@ export const howtoplay: Command = {
 
     const entry: string = h2p[group][info];
 
-    await interaction.reply({ content: entry, ephemeral: !isHelper(interaction) });
+    await interaction.reply({ content: entry, ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
   }
 };

@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
+import { ApplicationCommandType, ChatInputCommandInteraction, MessageFlags } from "discord.js";
 import { isHelper, link } from "../../functions/Misc";
 import { Command } from "../../command";
 
@@ -19,6 +19,6 @@ Due to the size of Antimatter Dimensions saves, you can not share them directly 
 5.  Copy the URL to the page. It should look like this: ${link("paste.ee", "https://paste.ee/")}
 6.  Paste that link in the Discord. A helper can then copy and look at your save data.`;
 
-    await interaction.reply({ content, ephemeral: !isHelper(interaction) });
+    await interaction.reply({ content, ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
   }
 };

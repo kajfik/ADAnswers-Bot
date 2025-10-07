@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, ChatInputCommandInteraction, EmbedBuilder, User } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, AttachmentBuilder, ChatInputCommandInteraction, EmbedBuilder, User, MessageFlags } from "discord.js";
 import { authorTitle, isHelper } from "../../functions/Misc";
 import { Command } from "../../command";
 import { StudyInfo } from "../../utils/types";
@@ -51,6 +51,6 @@ export const study: Command = {
       embed.setImage(studyRequested.graph as string);
     }
 
-    interaction.reply({ embeds: [embed], files: [picture], ephemeral: !isHelper(interaction) });
+    interaction.reply({ embeds: [embed], files: [picture], ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
   }
 };

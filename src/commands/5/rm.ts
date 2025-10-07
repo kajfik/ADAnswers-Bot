@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, MessageFlags } from "discord.js";
 import { getBaseLog, isHelper } from "../../functions/Misc";
 import { Command } from "../../command";
 
@@ -31,6 +31,6 @@ export const rm: Command = {
     // eslint-disable-next-line max-len
     const content: string = `After your first Reality, before any multipliers, to get ${realityMachinesRequested} RM, you need e${eternityPointsNeeded} EP.`;
 
-    await interaction.reply({ content, ephemeral: !isHelper(interaction) });
+    await interaction.reply({ content, ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
   }
 };
