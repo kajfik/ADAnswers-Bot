@@ -98,7 +98,7 @@ export const alchemy: Command = {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
     if (interaction.options.data.length === 0) {
-      await interaction.reply({ content: "You must use at least one subcommand, genius.", ephemeral: true });
+      await interaction.reply({ content: "You must use at least one subcommand, genius.", flags: MessageFlags.Ephemeral });
     }
 
     const user: User = interaction.member === null ? interaction.user : interaction.member.user as User;

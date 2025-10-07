@@ -6,7 +6,7 @@ import { ids } from "../../config.json";
 // eslint-disable-next-line max-params
 const runRoleRequest = async(roleName: string, hasRole: boolean, fieldContent: string[], roleID: string, interaction: ChatInputCommandInteraction, eligibilityCondition?: boolean) => {
   if (eligibilityCondition !== undefined && !eligibilityCondition) {
-    await interaction.reply({ content: `You are not currently eligible for the ${roleName} role.`, ephemeral: true });
+    await interaction.reply({ content: `You are not currently eligible for the ${roleName} role.`, flags: MessageFlags.Ephemeral });
     return;
   }
 
@@ -37,7 +37,7 @@ const runRoleRequest = async(roleName: string, hasRole: boolean, fieldContent: s
   const filter = (i: MessageComponentInteraction) => i.customId.endsWith(String(expirationTimestamp));
   const collector = interaction.channel?.createMessageComponentCollector({ componentType: ComponentType.Button, filter, time: 60000, max: 1 });
 
-  await interaction.reply({ embeds: [embed(false)], components: [buttons(false)], ephemeral: true })
+  await interaction.reply({ embeds: [embed(false)], components: [buttons(false)], flags: MessageFlags.Ephemeral })
     .then(() => {
       collector?.once("collect", async i => {
         await interaction.guild?.members.fetch(interaction.user.id).then(async member => {
@@ -75,12 +75,12 @@ export const rolerequest: Command = {
     const roleRequested: Role = interaction.options.getRole("role") as Role;
 
     if (!Object.values(ids.AD.requestableRoles).includes(roleRequested.id)) {
-      await interaction.reply({ content: `You can't request the \`${roleRequested.name}\` role, dummy!`, ephemeral: true });
+      await interaction.reply({ content: `You can't request the \`${roleRequested.name}\` role, dummy!`, flags: MessageFlags.Ephemeral });
       return;
     }
 
     if (!interaction.inGuild() || interaction.guildId !== ids.AD.serverID) {
-      await interaction.reply({ content: `To request this role, you must be using the command in the AD server.`, ephemeral: true });
+      await interaction.reply({ content: `To request this role, you must be using the command in the AD server.`, flags: MessageFlags.Ephemeral });
       return;
     }
 

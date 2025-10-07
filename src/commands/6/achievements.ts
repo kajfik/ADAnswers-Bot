@@ -72,7 +72,7 @@ export const achievements: Command = {
     const user: User = interaction.member === null ? interaction.user : interaction.member.user as User;
 
     if (ach !== null && other !== null) {
-      await interaction.reply({ content: `You can only specify one of the two options.`, ephemeral: true });
+      await interaction.reply({ content: `You can only specify one of the two options.`, flags: MessageFlags.Ephemeral });
       return;
     }
 
@@ -162,6 +162,6 @@ export const achievements: Command = {
       return;
     }
 
-    await interaction.reply({ content: "That is not an achievement!", ephemeral: true });
+    await interaction.reply({ content: "That is not an achievement!", flags: MessageFlags.Ephemeral });
   }
 };

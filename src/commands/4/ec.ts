@@ -1,4 +1,4 @@
-import { ActionRowBuilder, ApplicationCommandOptionType, ApplicationCommandType, ButtonBuilder, ButtonStyle, ChatInputCommandInteraction, ComponentType, InteractionReplyOptions, MessageComponentInteraction, User } from "discord.js";
+import { ActionRowBuilder, ApplicationCommandOptionType, ApplicationCommandType, ButtonBuilder, ButtonStyle, ChatInputCommandInteraction, ComponentType, InteractionReplyOptions, MessageComponentInteraction, User, MessageFlags } from "discord.js";
 import { EternityChallengeEmbeds, EternityChallengeImages, shownFields } from "../../functions/ecs";
 import { authorTitle, isHelper } from "../../functions/Misc";
 import { findEC, order } from "../../utils/databases/eternitychallenges";
@@ -84,7 +84,7 @@ export const ec: Command = {
     let chall = findEC(eternityChallengeRequested, completion);
 
     if (info === "tree") {
-      await interaction.reply({ content: `${target ? `*Suggested for <@${target.id}>:*\n` : ""}${chall.tree}`, ephemeral: hide });
+      await interaction.reply({ content: `${target ? `*Suggested for <@${target.id}>:*\n` : ""}${chall.tree}`, ...(hide ? {} : { flags: MessageFlags.Ephemeral }), });
       return;
     }
 
@@ -117,7 +117,7 @@ export const ec: Command = {
       content: target ? `*Suggested for <@${target.id}>*:\n` : undefined,
       embeds: [embed(false)],
       files: [picture],
-      ephemeral: hide,
+      ...(hide ? {} : { flags: MessageFlags.Ephemeral }),
       components: [buttons(false)]
     };
 

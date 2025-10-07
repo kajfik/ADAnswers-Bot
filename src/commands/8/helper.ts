@@ -15,7 +15,7 @@ export const helperRequest: Command = {
     const expirationTimestamp = Math.floor((Date.now() + 60000) / 1000);
 
     if (!isEligible) {
-      await interaction.reply({ content: `Hey! I'm glad you want to get the Helper role, but in order to do so, you need to have the "Infinity Dimension" role or greater.`, ephemeral: true });
+      await interaction.reply({ content: `Hey! I'm glad you want to get the Helper role, but in order to do so, you need to have the "Infinity Dimension" role or greater.`, flags: MessageFlags.Ephemeral });
       return;
     }
 
@@ -45,7 +45,7 @@ export const helperRequest: Command = {
     const filter = (i: MessageComponentInteraction) => i.customId.endsWith(String(expirationTimestamp));
     const collector = interaction.channel?.createMessageComponentCollector({ componentType: ComponentType.Button, filter, time: 60000 });
 
-    await interaction.reply({ embeds: [embed(false)], components: [buttons(false)], ephemeral: true })
+    await interaction.reply({ embeds: [embed(false)], components: [buttons(false)], flags: MessageFlags.Ephemeral })
       .then(() => {
         collector?.on("collect", async i => {
           await interaction.guild?.members.fetch(interaction.user.id).then(async member => {

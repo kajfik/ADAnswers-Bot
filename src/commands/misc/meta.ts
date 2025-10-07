@@ -32,7 +32,7 @@ const metaFields = (interaction: ChatInputCommandInteraction, tagInfo: TagInfo):
     },
     {
       name: "Invite",
-      value: `If, for whatever reason, you wish to invite me to your server, go to ${link("this link", "https://discord.com/oauth2/authorize?client_id=830197123378053172&permissions=2147560512&scope=applications.commands%20bot")}.`,
+      value: `If, for whatever reason, you wish to invite me to your server, go to ${link("this link", "https://discord.com/oauth2/authorize?client_id=1424445704834908230")}.`,
       inline: true
     },
     {
@@ -71,12 +71,6 @@ const metaFields = (interaction: ChatInputCommandInteraction, tagInfo: TagInfo):
     {
       name: "Top 5 players (`/jeopardy`)",
       value: `${parsePlayersList(tagInfo.top5players, interaction)}`,
-      inline: true,
-    },
-    {
-      name: "All data",
-      // eslint-disable-next-line max-len
-      value: `If you want to see all data for the bot, go to ${link("SQLite Viewer", "https://inloop.github.io/sqlite-viewer/")} and put in [this file](https://github.com/earthernsence/ADAnswers-Bot/blob/main/database.sqlite) for command usage data or [this file](https://github.com/earthernsence/ADAnswers-Bot/blob/main/timeTags.sqlite) for data on when commands are used (${getTimezoneFromDate(new Date())}) from the bot's repository.`,
       inline: true,
     },
     {

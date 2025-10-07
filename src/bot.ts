@@ -28,7 +28,7 @@ client.login(process.env.DISCORD_TOKEN);
 
 const databaseCreator = (link: string) => new Sequelize({
   dialect: "sqlite",
-  storage: `C:\\Users\\User\\Documents\\GitHub\\ADAnswers-Bot\\${link}.sqlite`,
+  storage: `${link}.sqlite`,
   logging: false
 });
 

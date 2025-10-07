@@ -42,7 +42,7 @@ export const eco: Command = {
     }
 
     if ((challenge && !completion) || (!challenge && completion)) {
-      await interaction.reply({ content: "If you are going to specify one, you must specify the other.", ephemeral: true });
+      await interaction.reply({ content: "If you are going to specify one, you must specify the other.", flags: MessageFlags.Ephemeral });
       return;
     }
 

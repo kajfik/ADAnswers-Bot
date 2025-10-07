@@ -111,7 +111,7 @@ export const help: Command = {
 
     const picture = new AttachmentBuilder("src/images/misc/help.png");
 
-    const content: InteractionReplyOptions = { embeds: [getEmbed(currentPage)], files: [picture], components: [buttons, selectMenu], ephemeral: true };
+    const content: InteractionReplyOptions = { embeds: [getEmbed(currentPage)], files: [picture], components: [buttons, selectMenu], flags: MessageFlags.Ephemeral };
 
     // These filters need fairly verbose conditions, in order to not have the interactions overlap when running multiple collectors.
     const filter = (i: MessageComponentInteraction) => i.customId.endsWith(String(expirationTimestamp));

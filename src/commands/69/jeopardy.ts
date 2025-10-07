@@ -36,7 +36,7 @@ export const jeopardy: Command = {
   run: async(interaction: ChatInputCommandInteraction) => {
     if (!interaction || !interaction.isChatInputCommand()) return;
 
-    await interaction.reply({ content: "Sorry, this command is currently unavailable due to some API issues.", ephemeral: true });
+    await interaction.reply({ content: "Sorry, this command is currently unavailable due to some API issues.", flags: MessageFlags.Ephemeral });
 
     //     Const clueInfo: Clue = randomClue();
     //     const category = clueInfo.category;
@@ -85,17 +85,17 @@ export const jeopardy: Command = {
 
     //     console.log(answer);
 
-    //     await interaction.reply({ embeds: [embed], files: [picture], components: [answerButton], ephemeral: true }).then(() => {
+    //     await interaction.reply({ embeds: [embed], files: [picture], components: [answerButton], flags: MessageFlags.Ephemeral }).then(() => {
     //       collector?.once("collect", async i => {
     //         if (i.user.id !== interaction.user.id) return;
     //         if (i.isButton()) {
     //           i.showModal(modal);
     //           const submission = await i.awaitModalSubmit({ time: 60000, filter: modalFilter }).catch(err => {
     //             console.log(err);
-    //             interaction.followUp({ content: `Ooh, sorry. Out of time. Answer: what is \`${answer}\``, ephemeral: true });
+    //             interaction.followUp({ content: `Ooh, sorry. Out of time. Answer: what is \`${answer}\``, flags: MessageFlags.Ephemeral });
     //           });
     //           if (submission === undefined) return;
-    //           await submission.deferReply({ ephemeral: true });
+    //           await submission.deferReply({ flags: MessageFlags.Ephemeral });
     //           const response = submission.fields.getTextInputValue(`jeopardy_answer_input_${expirationTimestamp}`).toLowerCase();
     //           const name = interaction.user.id;
     //           const tag = await tags.player.findOrCreate({ where: { name } });

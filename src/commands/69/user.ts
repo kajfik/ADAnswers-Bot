@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, ChannelType, ChatInputCommandInteraction, EmbedBuilder, GuildMember, User } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, ChannelType, ChatInputCommandInteraction, EmbedBuilder, GuildMember, User, MessageFlags } from "discord.js";
 import { authorTitleFromUser, link, pluralise, quantify } from "../../functions/Misc";
 import { getJeopardyPlayerTag, getPersonTag } from "../../functions/database";
 import { Command } from "../../command";
@@ -68,6 +68,6 @@ export const user: Command = {
       .setTimestamp()
       .setFooter({ text: `${interaction.guild?.name}`, iconURL: interaction.guild?.iconURL() as string });
 
-    await interaction.reply({ embeds: [embed], ephemeral: true });
+    await interaction.reply({ embeds: [embed], flags: MessageFlags.Ephemeral });
   }
 };

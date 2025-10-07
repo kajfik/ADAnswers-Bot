@@ -33,12 +33,12 @@ export const report: Command = {
     console.log(reason.substring(0, 400));
 
     if (messageID === null) {
-      await interaction.reply({ content: "Invalid message link", ephemeral: true });
+      await interaction.reply({ content: "Invalid message link", flags: MessageFlags.Ephemeral });
       return;
     }
 
     if (channelID !== interaction.channelId) {
-      await interaction.reply({ content: "Please report the message in the channel it was sent.", ephemeral: true });
+      await interaction.reply({ content: "Please report the message in the channel it was sent.", flags: MessageFlags.Ephemeral });
       return;
     }
 
@@ -49,17 +49,17 @@ export const report: Command = {
     const message = await interaction.channel?.messages.fetch(messageID as MessageResolvable) ?? null;
 
     if (message === null || messageChannel === null) {
-      await interaction.reply({ content: "Something went wrong. Either the message or the channel was not found.", ephemeral: true });
+      await interaction.reply({ content: "Something went wrong. Either the message or the channel was not found.", flags: MessageFlags.Ephemeral });
       return;
     }
 
     if (new Date().getTime() - message.createdAt?.getTime() > 6.048e8) {
-      await interaction.reply({ content: "This message was created more than a week ago, so it cannot be reported.", ephemeral: true });
+      await interaction.reply({ content: "This message was created more than a week ago, so it cannot be reported.", flags: MessageFlags.Ephemeral });
       return;
     }
 
     if (message.content === undefined || message.author.bot || message.guildId !== ids.AD.serverID) {
-      await interaction.reply({ content: "This message cannot be reported.", ephemeral: true });
+      await interaction.reply({ content: "This message cannot be reported.", flags: MessageFlags.Ephemeral });
       return;
     }
 
@@ -78,6 +78,6 @@ export const report: Command = {
 
     message.guild?.channels.fetch();
     await (message.guild?.channels.cache.get(ids.AD.reportsChannel) as TextChannel)?.send({ content: `<@&${ids.AD.modRole}>`, embeds: [messageReportEmbed] });
-    await interaction.reply({ content: "Report successfully sent to the mod team with the below information.", embeds: [messageReportEmbed], ephemeral: true });
+    await interaction.reply({ content: "Report successfully sent to the mod team with the below information.", embeds: [messageReportEmbed], flags: MessageFlags.Ephemeral });
   }
 };

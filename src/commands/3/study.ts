@@ -32,10 +32,10 @@ export const study: Command = {
 
     if (!studyRequested) {
       if (studyID === 12) {
-        interaction.reply({ content: "Time Study 12? What's that?", ephemeral: true });
+        interaction.reply({ content: "Time Study 12? What's that?", flags: MessageFlags.Ephemeral });
         return;
       }
-      interaction.reply({ content: "That study doesn't exist.", ephemeral: true });
+      interaction.reply({ content: "That study doesn't exist.", flags: MessageFlags.Ephemeral });
       return;
     }
 
