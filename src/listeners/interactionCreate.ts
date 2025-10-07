@@ -1,16 +1,19 @@
-import { ActionRowBuilder,
+import {
+  ActionRowBuilder,
   ChatInputCommandInteraction,
   Client,
   Colors,
   EmbedBuilder,
   Interaction,
+  Message,
   MessageContextMenuCommandInteraction,
   ModalBuilder,
   ModalSubmitInteraction,
   TextChannel,
   TextInputBuilder,
   TextInputStyle,
-  MessageFlags } from "discord.js";
+  MessageFlags,
+} from "discord.js";
 import { incrementBigFourTags, incrementTag } from "../functions/database";
 import { AutocompleteCommand } from "../command";
 import { Commands } from "../commands";
@@ -19,23 +22,23 @@ import { ids } from "../config.json";
 import { link } from "../functions/Misc";
 import { tags } from "../bot";
 
-let currentMessageBeingReported: MessageContextMenuCommandInteraction;
+// The global variable is no longer needed.
 
 export default (client: Client): void => {
-  client.on("interactionCreate", async(interaction: Interaction) => {
+  client.on("interactionCreate", async (interaction: Interaction) => {
     try {
       if (interaction.isMessageContextMenuCommand()) {
         await handleContextMenu(interaction);
       } else if (interaction.isChatInputCommand()) {
-        if (interaction.isMessageContextMenuCommand()) return;
         await handleSlashCommand(client, interaction as ChatInputCommandInteraction);
       } else if (interaction.isModalSubmit()) {
-        if (interaction.customId === "report-message-modal") {
+        // Check if the modal's custom ID starts with our identifier
+        if (interaction.customId.startsWith("report-message-modal:")) {
+          // Defer the reply immediately to prevent timeouts
           await interaction.deferReply({ flags: MessageFlags.Ephemeral });
-          await handleModalSubmit(currentMessageBeingReported, interaction);
+          await handleModalSubmit(interaction);
         }
       } else if (interaction.isAutocomplete()) {
-        // If this is being run, it's an autocomplete command. We can just assume
         const command = Commands.find(c => c.name === interaction.commandName) as AutocompleteCommand;
 
         if (!command) {
@@ -55,7 +58,7 @@ export default (client: Client): void => {
   });
 };
 
-const handleContextMenu = async(interaction: MessageContextMenuCommandInteraction) => {
+const handleContextMenu = async (interaction: MessageContextMenuCommandInteraction) => {
   // 6.048e+8 is the amount of milliseconds in a week
   if (new Date().getTime() - interaction.targetMessage.createdAt.getTime() > 6.048e8) {
     await interaction.reply({ content: "This message was created more than a week ago, so it cannot be reported.", flags: MessageFlags.Ephemeral });
@@ -70,8 +73,11 @@ const handleContextMenu = async(interaction: MessageContextMenuCommandInteractio
     return;
   }
 
+  // Create a dynamic customId to pass the message ID to the modal submission
+  const customId = `report-message-modal:${interaction.targetMessage.id}`;
+
   const modal = new ModalBuilder()
-    .setCustomId("report-message-modal")
+    .setCustomId(customId)
     .setTitle("Report message");
 
   const input = new TextInputBuilder()
@@ -83,41 +89,78 @@ const handleContextMenu = async(interaction: MessageContextMenuCommandInteractio
   modal.addComponents(new ActionRowBuilder<TextInputBuilder>().addComponents(input));
 
   await interaction.showModal(modal);
-  currentMessageBeingReported = interaction;
-  interaction.deferReply({ flags: MessageFlags.Ephemeral });
 };
 
-const handleModalSubmit = async(interaction: MessageContextMenuCommandInteraction, modalSubmitInteraction: ModalSubmitInteraction) => {
-  const reason = modalSubmitInteraction.fields.getTextInputValue("report-message-input");
+const handleModalSubmit = async (modalSubmitInteraction: ModalSubmitInteraction) => {
+  try {
+    const reason = modalSubmitInteraction.fields.getTextInputValue("report-message-input") || "No reason provided.";
 
-  const messageReportEmbed = new EmbedBuilder()
-    .setTitle("Message reported")
-    .setColor(Colors.Red)
-    .setTimestamp()
-    .setFields(
-      { name: "Reason", value: `Reported by <@${interaction.user.id}> because: ${reason.substring(0, 400)}` },
-      { name: `Message`, value: `${interaction.targetMessage.content.substring(0, 400)}${interaction.targetMessage.content.length > 400 ? "..." : ""} \n ${link("__**[link]**__", interaction.targetMessage.url)}` },
-      { name: "Channel", value: `<#${interaction.targetMessage.channel.id}>` },
-      { name: "Author", value: `<@${interaction.targetMessage.author.id}> (${interaction.targetMessage.author.username}#${interaction.targetMessage.author.discriminator})` },
-      { name: "Sent/reported", value: `Sent at <t:${Math.floor(interaction.targetMessage.createdTimestamp / 1000)}:f>, reported at <t:${Math.floor(modalSubmitInteraction.createdTimestamp / 1000)}:f>` }
-    )
-    .setAuthor({ name: `Reported by ${interaction.user.username}#${interaction.user.discriminator}`, iconURL: interaction.user.displayAvatarURL() });
+    // Get the message ID from the customId
+    const messageId = modalSubmitInteraction.customId.split(":")[1];
 
-  interaction.targetMessage.guild?.channels.fetch();
-  console.log(interaction.targetMessage.guild?.channels.cache.get(ids.AD.reportsChannel));
-  await (interaction.targetMessage.guild?.channels.cache.get(ids.AD.reportsChannel) as TextChannel)?.send({ content: `<@&${ids.AD.modRole}>`, embeds: [messageReportEmbed] });
-  await modalSubmitInteraction.editReply({ content: "Report successfully sent to mod team with the below information.", embeds: [messageReportEmbed] });
+    // Ensure we have a guild and channel context
+    if (!modalSubmitInteraction.guild || !modalSubmitInteraction.channel) {
+      await modalSubmitInteraction.editReply({ content: "This command can only be used in a server channel." });
+      return;
+    }
+
+    // --- Robustly fetch the target message ---
+    let targetMessage: Message;
+    try {
+      targetMessage = await modalSubmitInteraction.channel.messages.fetch(messageId);
+    } catch (error) {
+      console.error("Failed to fetch the message to be reported:", error);
+      await modalSubmitInteraction.editReply({ content: "The message you tried to report could not be found. It may have been deleted." });
+      return; // Stop execution if the message isn't found
+    }
+
+    const reporter = modalSubmitInteraction.user;
+
+    const messageReportEmbed = new EmbedBuilder()
+      .setTitle("Message Reported")
+      .setColor(Colors.Red)
+      .setTimestamp()
+      .setFields(
+        { name: "Reason", value: `Reported by <@${reporter.id}>: ${reason.substring(0, 400)}` },
+        { name: "Message", value: `${targetMessage.content.substring(0, 400)}${targetMessage.content.length > 400 ? "..." : ""} \n ${link("__**[Link to Message]**__", targetMessage.url)}` },
+        { name: "Channel", value: `<#${targetMessage.channel.id}>` },
+        { name: "Author", value: `<@${targetMessage.author.id}> (${targetMessage.author.username}#${targetMessage.author.discriminator})` },
+        { name: "Sent/Reported", value: `Sent <t:${Math.floor(targetMessage.createdTimestamp / 1000)}:R>, Reported <t:${Math.floor(modalSubmitInteraction.createdTimestamp / 1000)}:R>` }
+      )
+      .setAuthor({ name: `Reported by ${reporter.username}#${reporter.discriminator}`, iconURL: reporter.displayAvatarURL() });
+
+    // --- Robustly send the report to the moderators ---
+    try {
+      const reportsChannel = await modalSubmitInteraction.guild.channels.fetch(ids.AD.reportsChannel) as TextChannel;
+      if (reportsChannel) {
+        await reportsChannel.send({ content: `<@&${ids.AD.modRole}>`, embeds: [messageReportEmbed] });
+      } else {
+        throw new Error("Reports channel not found on the server.");
+      }
+    } catch (error) {
+      console.error("Failed to send report to the moderators' channel:", error);
+      await modalSubmitInteraction.editReply({ content: "Your report was processed, but I failed to deliver it to the moderators due to an internal error. Please contact them directly." });
+      return;
+    }
+
+    // If everything succeeds, confirm to the user.
+    await modalSubmitInteraction.editReply({ content: "Report successfully sent to the mod team. Thank you.", embeds: [messageReportEmbed] });
+
+  } catch (error) {
+    console.error("A critical error occurred in the modal submission process:", error);
+    // This is a final fallback.
+    if (!modalSubmitInteraction.replied) {
+        await modalSubmitInteraction.editReply({ content: "An unexpected error occurred while processing your report." });
+    }
+  }
 };
 
-const handleSlashCommand = async(client: Client, interaction: ChatInputCommandInteraction): Promise<void> => {
+const handleSlashCommand = async (client: Client, interaction: ChatInputCommandInteraction): Promise<void> => {
   if (!client.application?.owner) await client.application?.fetch();
 
   if (await InteractionEvents.hasCommand(interaction, client)) await incrementTag("totalRequests", tags.commandUsage);
 
   const command = Commands.find(c => c.name === interaction.commandName);
-
-  // Help and meta are actually called as normal commands now, so we no longer need to have special
-  // cases for them.
 
   if (!command) {
     interaction.followUp({ content: `Command ${interaction.commandName} not found` });
@@ -130,6 +173,10 @@ const handleSlashCommand = async(client: Client, interaction: ChatInputCommandIn
     await incrementBigFourTags(interaction.commandName, `${interaction.user.id}`);
   } catch (error) {
     console.log(error);
-    interaction.reply({ content: `Error running command ${interaction.commandName} <@${ids.kajfik}>` });
+    if (interaction.replied || interaction.deferred) {
+      await interaction.followUp({ content: `Error running command ${interaction.commandName} <@${ids.kajfik}>`, flags: MessageFlags.Ephemeral });
+    } else {
+      await interaction.reply({ content: `Error running command ${interaction.commandName} <@${ids.kajfik}>`, flags: MessageFlags.Ephemeral });
+    }
   }
 };
