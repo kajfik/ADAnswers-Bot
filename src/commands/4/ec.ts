@@ -84,7 +84,7 @@ export const ec: Command = {
     let chall = findEC(eternityChallengeRequested, completion);
 
     if (info === "tree") {
-      await interaction.reply({ content: `${target ? `*Suggested for <@${target.id}>:*\n` : ""}${chall.tree}`, ...(hide ? {} : { flags: MessageFlags.Ephemeral }), });
+      await interaction.reply({ content: `${target ? `*Suggested for <@${target.id}>:*\n` : ""}${chall.tree}`, ...(hide ? { flags: MessageFlags.Ephemeral } : {}), });
       return;
     }
 
@@ -117,7 +117,7 @@ export const ec: Command = {
       content: target ? `*Suggested for <@${target.id}>*:\n` : undefined,
       embeds: [embed(false)],
       files: [picture],
-      ...(hide ? {} : { flags: MessageFlags.Ephemeral }),
+      ...(hide ? { flags: MessageFlags.Ephemeral } : {}),
       components: [buttons(false)]
     };
 
