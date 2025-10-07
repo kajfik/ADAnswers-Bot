@@ -1,4 +1,4 @@
-import { ActionRowBuilder, ApplicationCommandOptionType, ApplicationCommandType, ButtonBuilder, ButtonStyle, ChatInputCommandInteraction, Colors, ComponentType, EmbedBuilder, MessageComponentInteraction, Role } from "discord.js";
+import { ActionRowBuilder, ApplicationCommandOptionType, ApplicationCommandType, ButtonBuilder, ButtonStyle, ChatInputCommandInteraction, Colors, ComponentType, EmbedBuilder, MessageComponentInteraction, Role, MessageFlags } from "discord.js";
 import { isEligibleForHelper, isHelper } from "../../functions/Misc";
 import { Command } from "../../command";
 import { ids } from "../../config.json";

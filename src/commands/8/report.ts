@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, ApplicationCommandType, Colors, ChatInputCommandInteraction, EmbedBuilder, MessageResolvable, TextChannel } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, Colors, ChatInputCommandInteraction, EmbedBuilder, MessageResolvable, TextChannel, MessageFlags } from "discord.js";
 import { authorTitle, link } from "../../functions/Misc";
 import { Command } from "../../command";
 import { ids } from "../../config.json";
