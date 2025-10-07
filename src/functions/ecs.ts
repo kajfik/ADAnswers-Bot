@@ -131,10 +131,10 @@ export const EternityChallengeImages: AttachmentBuilder[] = [];
 
 for (const challenge in EternityChallenges) {
   const chal = EternityChallenges[challenge].challenge;
-  EternityChallengeImages[chal] = new AttachmentBuilder(`src/images/challenges/ec${chal}.png`);
+  EternityChallengeImages[chal] = new AttachmentBuilder(`src/images/challenges/EC${chal}.png`);
 }
 
 for (const challenge in EternityChallenges) {
   const chal = EternityChallenges[challenge];
-  EternityChallengeEmbeds[`${chal.challenge}x${chal.completion}`] = eternityChallengeEmbedBuilder(chal).setThumbnail(`attachment://ec${chal.challenge}.png`);
+  EternityChallengeEmbeds[`${chal.challenge}x${chal.completion}`] = eternityChallengeEmbedBuilder(chal).setThumbnail(`attachment://EC${chal.challenge}.png`);
 }
