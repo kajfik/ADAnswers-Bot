@@ -67,11 +67,6 @@ const metaFields = (interaction: ChatInputCommandInteraction, tagInfo: TagInfo):
       name: "Top 5 hours",
       value: `${parseTimeList(tagInfo.top5hours)}`,
       inline: true
-    },
-    {
-      name: "Top 5 players (`/jeopardy`)",
-      value: `${parsePlayersList(tagInfo.top5players, interaction)}`,
-      inline: true,
     }
   ]
 });

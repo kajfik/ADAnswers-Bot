@@ -46,6 +46,9 @@ export default (client: Client, databases: Sequelize[], tagsArray: ModelStatic<M
 
     for (const database of databases) {
       await database.authenticate();
+      await database.query('PRAGMA journal_mode=WAL;');     // readers don't block writer
+      await database.query('PRAGMA synchronous=NORMAL;');   // safe + faster with WAL
+      await database.query('PRAGMA busy_timeout=5000;');    // wait instead of failing
       console.log(`Authenticated ${database.getDatabaseName()}`);
     }
 

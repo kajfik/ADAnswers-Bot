@@ -25,8 +25,7 @@ async function getUserInfo(user: User, interaction: ChatInputCommandInteraction)
     async tagInfo() {
       const t = await getPersonTag(user.id);
       if (t === null) return `This user has not used the bot.`;
-      return `${authorTitleFromUser(user)} has used the bot **${t.getDataValue("timesUsed")}** ${pluralise("time", t.getDataValue("timesUsed"))}*\n\n*: ${link("Data collection started on June 22, 2023",
-        "https://discord.com/channels/351476683016241162/351476683016241166/1121644631675899934")}`;
+      return `${authorTitleFromUser(user)} has used the bot **${t.getDataValue("timesUsed")}** ${pluralise("time", t.getDataValue("timesUsed"))}*\n\n*: Data collection started on October 7th, 2025"`;
     }
   };
 }
@@ -61,7 +60,6 @@ export const user: Command = {
       .setTitle(`${info.fullPerson}`)
       .setThumbnail(info.avatar)
       .addFields({ name: "Bot information", value: await info.tagInfo() })
-      .addFields({ name: "Jeopardy! points", value: await info.jeopardyInfo() })
       .addFields({ name: "Nickname", value: info.nick })
       .addFields({ name: `Roles (${info.rolesUnjoined?.length ?? 0})`, value: info.roles ?? "This user has no roles" })
       .addFields({ name: "Joined", value: info.joined })

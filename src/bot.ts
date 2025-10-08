@@ -29,7 +29,17 @@ client.login(process.env.DISCORD_TOKEN);
 const databaseCreator = (link: string) => new Sequelize({
   dialect: "sqlite",
   storage: `C:\\Users\\User\\Documents\\GitHub\\ADAnswers-Bot\\${link}.sqlite`,
-  logging: false
+  logging: false,
+      pool: {
+      max: 1,
+      min: 0,
+      idle: 5000,
+      acquire: 20000
+    },
+    retry: {
+      match: [/SQLITE_BUSY/, /SequelizeTimeoutError/],
+      max: 5
+    }
 });
 
 const commandUsageDatabase = databaseCreator("commandTags");

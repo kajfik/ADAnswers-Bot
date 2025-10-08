@@ -11,12 +11,13 @@ export const eternitygrinding: Command = {
 
 
     const content = `
-Eternity buyer to 0, crunch (theoretically best to worst) 2e308, 1e154,1e103, 1e77 (all with "x times last" setting)
-Test which works the best for you. You might have to adjust the value a little bit. Use ID+active path.
-Experiment with DimBoost and Galaxy intervals a bit. I used 0.3 seconds on DimBoosts and 0.1 seconds on Galaxies, which got me the "Eternities are the new Infinity" achievement for 2x faster eternity grinding.
-    
-If you have TS181, do not use your crunch autobuyer (disable it). All other advice remains the same. 
-If you are back here for TS193 eternity grinding, use your normal production tree, just with ID instead of TD (or both, you lousy TS201 users)`;
+- TS: ID/Active, minimal tree at 40 TT: \`11,22,32,42,51,61,72,82,92,102\`
+- Autobuyers: Eternity at 0 EP, Galaxy at 0 or 0.1s, Dimboost off or at 0.3s, Crunch at 1e20x or 1e41x or 1e54x times highest IP (in later stages you can do 1e284x)
+- make sure your Eternity Upgrade based on IC times is capped at 6.38e14x (do ICs with Dimboost/Galaxy autobuyers disabled while holding M+C)
+- hold M/Max
+- on mobile you can hold "Max all" in the Infinity Dimensions tab
+- on pc set update rate to 33ms
+- if you have TS181 disable your Crunch autobuyer`;
 
     await interaction.reply({ content, ...(isHelper(interaction) ? {} : { flags: MessageFlags.Ephemeral }), });
   }

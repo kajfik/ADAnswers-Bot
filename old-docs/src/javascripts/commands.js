@@ -224,8 +224,12 @@ export default {
     aliases: [],
     examples: [{
       example: "/eternitygrinding early",
-      returns: `Eternity buyer to 0, crunch (theoretically best to worst) 2e308, 1e154,1e103, 1e77 (all with "x times last" setting)
-      Test which works the best for you. You might have to adjust the value a little bit. Use ID+active path.`
+      returns: `TS: ID/Active \`11,22,32,42,51,61,72,82,92,102\`
+      - Autobuyers: Eternity at 0 EP, Galaxy at 0 or 0.1s, Dimboost off or at 0.3s, Crunch at 1e20x or 1e41x or 1e54x times highest IP (in later stages you can do 1e284x)
+      - Make sure your Eternity Upgrade based on IC times is capped at 6.38e14x (do ICs with Dimboost/Galaxy autobuyers disabled while holding M+C)
+      - hold M/Max
+      - on mobile you can hold "Max all" in the Infinity Dimensions tab
+      - on pc set update rate to 33ms`
     }],
     parameters: [{
       name: "when",

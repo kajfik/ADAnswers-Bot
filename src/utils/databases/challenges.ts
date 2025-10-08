@@ -98,6 +98,7 @@ You can use this video guide: <https://youtu.be/6o-QKHLcimU> or you can use this
 - Keep repeatedly buying the highest dimension available.
 - From time to time buy Tickspeed in singles, and make sure to keep the Tickspeed cost under the cost of dimensions.
 - Make sure to not press M/Max or Buy max tickspeed.
+
 For post 1e7 IP upgrade:
 - Enable Auto Retry Challenges option
 - Crunch autobuyer on at 0 IP

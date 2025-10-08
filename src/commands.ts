@@ -101,7 +101,6 @@ import { xyproblem } from "./commands/9/xyproblem";
 
 // Import { bushism } from "./commands/69/bushism";
 import { deadchat } from "./commands/69/deadchat";
-import { jeopardy } from "./commands/69/jeopardy";
 import { pins } from "./commands/69/pins";
 import { slightsmile } from "./commands/69/slightsmile";
 // Import { time } from "./commands/69/time";
@@ -122,7 +121,7 @@ export const commandsByPage: { [page: number]: Command[] } = {
   7: [abb, androidorweb, antitables, decimal, howtoplay, notations],
   8: [fivehours, code, contributors, report, rolerequest, slashcommand],
   9: [discordformatting, justask, paperclips, roles, savebank, savesharing, secretachievements, site, xyproblem],
-  69: [deadchat, jeopardy, pins, slightsmile, user, wikipedia, xkcd],
+  69: [deadchat, pins, slightsmile, user, wikipedia, xkcd],
 };
 
 export const Commands: Array<Command | AutocompleteCommand> = [
@@ -145,7 +144,7 @@ export const Commands: Array<Command | AutocompleteCommand> = [
   // Page 9 - Misc
   discordformatting, justask, paperclips, roles, savebank, savesharing, secretachievements, site, xyproblem,
   // Page 69 - Very misc
-  deadchat, jeopardy, pins, slightsmile, user, wikipedia, xkcd,
+  deadchat, pins, slightsmile, user, wikipedia, xkcd,
   // No page - bot info
   help, meta
 ];
