@@ -1,4 +1,8 @@
-import { ActionRowBuilder, ApplicationCommandType, ButtonBuilder, ButtonStyle, Colors, ChatInputCommandInteraction, ComponentType, EmbedBuilder, MessageComponentInteraction, MessageFlags } from "discord.js";
+import {
+  ActionRowBuilder, ApplicationCommandType, ButtonBuilder, ButtonStyle, Colors,
+  ChatInputCommandInteraction, ComponentType, EmbedBuilder, MessageComponentInteraction,
+  MessageFlags, GuildMember
+} from "discord.js";
 import { isEligibleForHelper, isHelper } from "../../functions/Misc";
 import { Command } from "../../command";
 import { ids } from "../../config.json";
@@ -42,19 +46,49 @@ export const helperRequest: Command = {
       );
 
     // These filters need fairly verbose conditions, in order to not have the interactions overlap when running multiple collectors.
-    const filter = (i: MessageComponentInteraction) => i.customId.endsWith(String(expirationTimestamp));
+    const filter = (i: MessageComponentInteraction) =>
+  i.user.id === interaction.user.id && i.customId.endsWith(String(expirationTimestamp));
     const collector = interaction.channel?.createMessageComponentCollector({ componentType: ComponentType.Button, filter, time: 60000 });
 
     await interaction.reply({ embeds: [embed(false)], components: [buttons(false)], flags: MessageFlags.Ephemeral })
       .then(() => {
-        collector?.on("collect", async i => {
-          await interaction.guild?.members.fetch(interaction.user.id).then(async member => {
-            if (isCurrentlyHelper) member.roles.remove(ids.AD.requestableRoles.helperRole);
-            else member.roles.add(ids.AD.requestableRoles.helperRole);
+        collector?.on("collect", async (i) => {
+          try {
+            if (!i.inGuild()) {
+              await i.update({ content: "This can only be used in a server.", components: [], embeds: [] });
+              return;
+            }
 
-            // eslint-disable-next-line max-len
-            await i.update({ content: `You have successfully ${isCurrentlyHelper ? "removed" : "added"} the helper role. You can safely remove this image. Remember, you can always run /helper again to reverse your decision.` });
-          });
+            const guild = i.guild; // <- helps TS narrow
+            if (!guild) {
+              await i.update({ content: "Couldn't access the server context.", components: [], embeds: [] });
+              return;
+            }
+
+            const member: GuildMember =
+              i.member instanceof GuildMember
+                ? i.member
+                : await guild.members.fetch(i.user.id);
+
+            if (isCurrentlyHelper) {
+              await member.roles.remove(ids.AD.requestableRoles.helperRole);
+            } else {
+              await member.roles.add(ids.AD.requestableRoles.helperRole);
+            }
+
+            await i.update({
+              content: `You have successfully ${isCurrentlyHelper ? "removed" : "added"} the helper role.`,
+              components: [],
+              embeds: [],
+            });
+          } catch (err) {
+            console.error("Failed to toggle helper role:", err);
+            await i.update({
+              content: "I couldn't update your role (timeout/permissions). Please try again in a moment.",
+              components: [],
+              embeds: [],
+            });
+          }
         });
         collector?.on("end", async() => {
           await interaction.editReply({

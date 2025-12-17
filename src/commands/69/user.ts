@@ -25,7 +25,7 @@ async function getUserInfo(user: User, interaction: ChatInputCommandInteraction)
     async tagInfo() {
       const t = await getPersonTag(user.id);
       if (t === null) return `This user has not used the bot.`;
-      return `${authorTitleFromUser(user)} has used the bot **${t.getDataValue("timesUsed")}** ${pluralise("time", t.getDataValue("timesUsed"))}*\n\n*: Data collection started on October 7th, 2025"`;
+      return `${authorTitleFromUser(user)} has used the bot **${t.getDataValue("timesUsed")}** ${pluralise("time", t.getDataValue("timesUsed"))}*\n\n*: Data collection started on December 17th, 2025`;
     }
   };
 }

@@ -20,14 +20,15 @@ function handleStickers(message: Message<boolean>): void {
     });
 }
 
-async function getMods(message: Message<boolean>): Promise<string[]> {
-  await message.guild?.members.fetch();
-  return message.guild?.roles.resolve(ids.AD.modRole)?.members.map(member => member.id) ?? [];
-}
-
 async function isMod(message: Message<boolean>): Promise<boolean> {
-  const mods = await getMods(message);
-  return message.guildId === ids.AD.serverID ? mods.includes(message.author.id) : false;
+  if (message.guildId !== ids.AD.serverID) return false;
+  if (!message.inGuild()) return false;
+
+  // Prefer the member attached to the message; fetch only THIS ONE member if missing
+  const member =
+    message.member ?? (await message.guild.members.fetch(message.author.id).catch(() => null));
+
+  return member ? member.roles.cache.has(ids.AD.modRole) : false;
 }
 
 async function isScammer(message: Message<boolean>): Promise<boolean> {
@@ -35,17 +36,13 @@ async function isScammer(message: Message<boolean>): Promise<boolean> {
   const isBot = message.author.id === ids.bot;
   const atEveryone = message.content.includes("@everyone");
   const isLink = message.content.includes("http");
-  const scammer = !isBot &&
-  atEveryone &&
-  isLink &&
-  !mod;
-  return scammer;
+
+  return !isBot && atEveryone && isLink && !mod;
 }
 
-function muteScammer(message: Message<boolean>): void {
+async function muteScammer(message: Message<boolean>): Promise<void> {
   console.log("Running muteScammer");
-  // We have to truncate the message content -- if it's longer than 1024 characters, then discord throws an error
-  // since embed field content can't be longer than that
+
   const embed = new EmbedBuilder()
     .setTitle(`${message.author.username}#${message.author.discriminator}`)
     .setThumbnail(message.author.displayAvatarURL())
@@ -54,10 +51,14 @@ function muteScammer(message: Message<boolean>): void {
     .setDescription(`Message sent by <@${message.author.id}> was deleted and member was muted.`)
     .setTimestamp();
 
-  if (message.guildId === ids.AD.serverID) {
-    message.member?.roles.add(ids.mutedRole);
-    message.delete();
-    (message.guild?.channels.cache.get(ids.AD.modChannel) as TextChannel).send({ embeds: [embed] });
+  if (message.guildId === ids.AD.serverID && message.inGuild()) {
+    const member =
+      message.member ?? (await message.guild.members.fetch(message.author.id).catch(() => null));
+
+    if (member) await member.roles.add(ids.mutedRole).catch(console.error);
+
+    await message.delete().catch(console.error);
+    (message.guild.channels.cache.get(ids.AD.modChannel) as TextChannel)?.send({ embeds: [embed] });
   }
 }
 
