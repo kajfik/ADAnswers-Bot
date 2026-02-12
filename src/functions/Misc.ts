@@ -3,6 +3,7 @@ import { ids } from "../config.json";
 
 export function isHelper(interaction: ChatInputCommandInteraction): boolean | undefined {
   if (!interaction.inGuild()) return true;
+  if (interaction.guildId !== ids.AD.serverID) return true;
   // Now that's an expression!
   return interaction.guild?.members.resolve(interaction.user)?.roles.cache.has(ids.AD.requestableRoles.helperRole);
 }
