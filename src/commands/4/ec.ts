@@ -123,37 +123,38 @@ export const ec: Command = {
 
     // These filters need fairly verbose conditions, in order to not have the interactions overlap when running multiple collectors.
     const filter = (i: MessageComponentInteraction) => i.customId.endsWith(String(expirationTimestamp));
-    const collector = interaction.channel?.createMessageComponentCollector({ componentType: ComponentType.Button, filter, time: 60000 });
 
-    await interaction.reply(content).then(() => {
-      collector?.on("collect", async i => {
-        if (i.isButton()) {
-          const up = i.customId.startsWith("ec_button_next");
-          const page = getNextPage(currentEC, up);
+    await interaction.reply(content).catch(e => console.log(e));
+    const replyMessage = await interaction.fetchReply();
+    const collector = replyMessage.createMessageComponentCollector({ componentType: ComponentType.Button, filter, time: 60000 });
 
-          if (i.member?.user.id !== user.id) return;
+    collector.on("collect", async i => {
+      if (i.isButton()) {
+        const up = i.customId.startsWith("ec_button_next");
+        const page = getNextPage(currentEC, up);
 
-          // Change various varying variables
-          currentEC = page;
-          chall = findEC(Number(currentEC.split("x")[0]), Number(currentEC.split("x")[1]));
-          picture = EternityChallengeImages[chall.challenge];
+        if ((i.member?.user.id ?? i.user.id) !== user.id) return;
 
-          // Update initial message
-          await i.update({
-            files: [picture],
-            embeds: [embed(false)],
-            components: [buttons(false)],
-          });
-        }
-      });
+        // Change various varying variables
+        currentEC = page;
+        chall = findEC(Number(currentEC.split("x")[0]), Number(currentEC.split("x")[1]));
+        picture = EternityChallengeImages[chall.challenge];
 
-      collector?.on("end", async() => {
-        await interaction.editReply({
-          embeds: [embed(true)],
-          components: [buttons(true)],
-          files: [picture]
+        // Update initial message
+        await i.update({
+          files: [picture],
+          embeds: [embed(false)],
+          components: [buttons(false)],
         });
+      }
+    });
+
+    collector.on("end", async() => {
+      await interaction.editReply({
+        embeds: [embed(true)],
+        components: [buttons(true)],
+        files: [picture]
       });
-    }).catch(e => console.log(e));
+    });
   }
 };
