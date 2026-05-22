@@ -101,10 +101,7 @@ const callClaude = async(transcript: string): Promise<string> => {
     model: SUMMARIZE_CFG.model,
     max_tokens: 1024,
     system:
-      "You summarize recent Discord chat logs from a community server centered on Antimatter Dimensions, " +
-      "but the conversation often covers other games, off-topic chatter, or unrelated subjects. Identify " +
-      "the actual topics being discussed from the transcript itself — do not assume every discussion is " +
-      "about Antimatter Dimensions, and name the correct game or subject if it's clear from context. " +
+      "You summarize recent Discord chat logs. " +
       "Produce a concise, neutral summary of the main topics, questions, and conclusions. " +
       "Use short paragraphs or bullet points. Do not invent details. " +
       "Refer to participants by their display names when relevant. " +
