@@ -4,7 +4,7 @@
 [![Release](https://img.shields.io/github/v/release/earthernsence/ADAnswers-Bot?label=Release&color=brightgreen&cacheSeconds=3600)](https://github.com/earthernsence/ADAnswers-Bot/releases/latest)
 
 ## Invite
-If, for whatever reason, you want ADAB on your server, go to [this link](https://discord.com/oauth2/authorize?client_id=830197123378053172&permissions=2147560512&scope=applications.commands%20bot) to add it to your server.
+If, for whatever reason, you want ADAB on your server, go to [this link](https://discord.com/oauth2/authorize?client_id=1507321656136437790&permissions=2147871808&integration_type=0&scope=bot+applications.commands) to add it to your server.
 
 ## Image credits
 

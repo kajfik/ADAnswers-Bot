@@ -1,8 +1,8 @@
 {
   "version": "5.1.0",
   "ids": {
-    "bot": "1424445704834908230",
-    "kajfik": "463466003670761472",
+    "bot": "1507321656136437790",
+    "kajfik": "1465755655960006821",
     "testServer": "1424659140277702781",
     "mutedRole": "628790626305048576",
     "rolesGreaterThanOrEqualToInfinityDimension": [
@@ -22,6 +22,15 @@
       "requestableRoles": {
         "helperRole": "878418120719626320",
         "notificationsRole": "1112437970256023622"
+      },
+      "summarize": {
+        "channelID": "416286671202549771",
+        "cooldownMs": 7200000,
+        "cooldownMessages": 100,
+        "messageLimit": 100,
+        "windowMs": 7200000,
+        "maxMessages": 1000,
+        "model": "claude-haiku-4-5"
       }
     }
   }

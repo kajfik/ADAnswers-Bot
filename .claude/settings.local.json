@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(if \\(Test-Path .npmrc\\) { Write-Output \"--- project .npmrc ---\"; Get-Content .npmrc } else { Write-Output \"no project .npmrc\" }; if \\(Test-Path \"$env:USERPROFILE\\\\.npmrc\"\\) { Write-Output \"--- user .npmrc ---\"; Get-Content \"$env:USERPROFILE\\\\.npmrc\" } else { Write-Output \"no user .npmrc\" })"
+    ]
+  }
+}
