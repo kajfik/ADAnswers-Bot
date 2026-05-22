@@ -41,8 +41,9 @@ export async function getTagInfo(): Promise<TagInfo> {
 
 async function fetchRequests(database: ModelStatic<Model>) {
   const tagList = await database.findAll({ where: { name: { [Op.in]: ["totalRequests", "totalSuccesses"] } } });
-  // Requests will always be the first tag it finds, so we'll just refer to it by its index in the array.
-  return [tagList[0].getDataValue("timesUsed"), tagList[1].getDataValue("timesUsed")];
+  const requests = tagList.find(t => t.getDataValue("name") === "totalRequests")?.getDataValue("timesUsed") ?? 0;
+  const successes = tagList.find(t => t.getDataValue("name") === "totalSuccesses")?.getDataValue("timesUsed") ?? 0;
+  return [requests, successes];
 }
 
 export function parseUsersList(users: string, interaction: ChatInputCommandInteraction) {
