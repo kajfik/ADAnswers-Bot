@@ -136,12 +136,26 @@ SummarizeState.init(
   { sequelize: summarizeStateDatabase, modelName: "SummarizeState" }
 );
 
+// One row per user who has opted in to having their messages included in /assummarize output.
+// Default behavior is opt-out: users not present here are filtered out of the transcript.
+const summarizeOptInDatabase = databaseCreator("summarizeOptIn");
+export class SummarizeOptIn extends Model {
+  declare userID: string;
+}
+SummarizeOptIn.init(
+  {
+    userID: { type: DataTypes.STRING, allowNull: false, unique: true },
+  },
+  { sequelize: summarizeOptInDatabase, modelName: "SummarizeOptIn" }
+);
+
 export const databases = {
   commandUsage: commandUsageDatabase,
   personUsage: personUsageDatabase,
   timeUsage: timeUsageDatabase,
   players: playerDatabase,
   summarizeState: summarizeStateDatabase,
+  summarizeOptIn: summarizeOptInDatabase,
 };
 
 export const tags = {
@@ -150,12 +164,13 @@ export const tags = {
   timeUsage: Time,
   player: Player,
   summarizeState: SummarizeState,
+  summarizeOptIn: SummarizeOptIn,
 };
 
 clientReady(
   client,
-  [commandUsageDatabase, personUsageDatabase, timeUsageDatabase, playerDatabase, summarizeStateDatabase],
-  [Command, Person, Time, Player, SummarizeState]
+  [commandUsageDatabase, personUsageDatabase, timeUsageDatabase, playerDatabase, summarizeStateDatabase, summarizeOptInDatabase],
+  [Command, Person, Time, Player, SummarizeState, SummarizeOptIn]
 );
 interactionCreate(client);
 messageCreate(client);

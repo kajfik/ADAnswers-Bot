@@ -1,6 +1,6 @@
 import {
-  ApplicationCommandType, ChatInputCommandInteraction, Collection, Colors, EmbedBuilder, Message,
-  MessageFlags, TextBasedChannel
+  ApplicationCommandOptionType, ApplicationCommandType, ChatInputCommandInteraction, Collection, Colors,
+  EmbedBuilder, Message, MessageFlags, TextBasedChannel
 } from "discord.js";
 import Anthropic from "@anthropic-ai/sdk";
 import { Command } from "../../command";
@@ -79,13 +79,14 @@ const collectMessages = async(channel: TextBasedChannel, anchorId: string | null
   return collected;
 };
 
-const buildTranscript = (messages: Message[]): string => {
-  const optOut = new Set<string>(SUMMARIZE_CFG.optOutUserIDs ?? []);
+const buildTranscript = async(messages: Message[]): Promise<string> => {
+  const optInRows = await tags.summarizeOptIn.findAll();
+  const optIn = new Set<string>(optInRows.map(r => r.userID));
   const chronological = [...messages].reverse();
   const lines: string[] = [];
   for (const m of chronological) {
     if (m.author.bot) continue;
-    if (optOut.has(m.author.id)) continue;
+    if (!optIn.has(m.author.id)) continue;
     const content = m.content?.trim();
     if (!content) continue;
     const name = m.member?.displayName ?? m.author.username;
@@ -130,8 +131,42 @@ export const assummarize: Command = {
   name: "assummarize",
   description: "Summarizes recent discussion in this channel using AI.",
   type: ApplicationCommandType.ChatInput,
+  options: [
+    {
+      name: "action",
+      description: "Optional action to perform instead of summarizing.",
+      type: ApplicationCommandOptionType.String,
+      required: false,
+      choices: [
+        { name: "Toggle whether your messages are included in summaries", value: "optin" }
+      ]
+    }
+  ],
   run: async(interaction: ChatInputCommandInteraction) => {
     if (!interaction || !interaction.isChatInputCommand()) return;
+
+    const action = interaction.options.getString("action");
+
+    if (action === "optin") {
+      if (interaction.guildId !== ids.AD.serverID) {
+        await interaction.reply({ content: "This command isn't available in this server.", flags: MessageFlags.Ephemeral });
+        return;
+      }
+      const [row, created] = await tags.summarizeOptIn.findOrCreate({ where: { userID: interaction.user.id } });
+      if (created) {
+        await interaction.reply({
+          content: "You have opted in. Your messages may now be included in /assummarize output. Run `/assummarize optin` again to opt back out.",
+          flags: MessageFlags.Ephemeral,
+        });
+      } else {
+        await row.destroy();
+        await interaction.reply({
+          content: "You have opted out. Your messages will no longer be included in /assummarize output. Run `/assummarize optin` again to opt back in.",
+          flags: MessageFlags.Ephemeral,
+        });
+      }
+      return;
+    }
 
     if (interaction.guildId !== ids.AD.serverID || interaction.channelId !== SUMMARIZE_CFG.channelID) {
       await interaction.reply({ content: "This command isn't available in this channel.", flags: MessageFlags.Ephemeral });
@@ -194,7 +229,7 @@ export const assummarize: Command = {
       return;
     }
 
-    const transcript = buildTranscript(collected);
+    const transcript = await buildTranscript(collected);
     if (!transcript) {
       await interaction.editReply({ content: "There's nothing recent to summarize." });
       return;

@@ -30,11 +30,7 @@
         "messageLimit": 100,
         "windowMs": 14400000,
         "maxMessages": 1000,
-        "model": "claude-sonnet-4-6",
-        "optOutUserIDs": [
-          "389789677114228739",
-          "579022526504763404"
-        ]
+        "model": "claude-sonnet-4-6"
       }
     }
   }
