@@ -25,11 +25,11 @@
       },
       "summarize": {
         "channelID": "416286671202549771",
-        "cooldownMs": 7200000,
+        "cooldownMs": 18000000,
         "cooldownMessages": 100,
         "messageLimit": 100,
-        "windowMs": 14400000,
-        "maxMessages": 1000,
+        "windowMs": 43200000,
+        "maxMessages": 2000,
         "model": "claude-sonnet-4-6"
       }
     }

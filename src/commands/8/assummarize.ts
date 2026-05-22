@@ -79,11 +79,12 @@ const collectMessages = async(channel: TextBasedChannel, anchorId: string | null
   return collected;
 };
 
-const buildTranscript = async(messages: Message[]): Promise<string> => {
+const buildTranscript = async(messages: Message[]): Promise<{ transcript: string; sentCount: number }> => {
   const optInRows = await tags.summarizeOptIn.findAll();
   const optIn = new Set<string>(optInRows.map(r => r.userID));
   const chronological = [...messages].reverse();
   const lines: string[] = [];
+  let sentCount = 0;
   for (const m of chronological) {
     if (m.author.bot) continue;
     if (!optIn.has(m.author.id)) continue;
@@ -91,8 +92,18 @@ const buildTranscript = async(messages: Message[]): Promise<string> => {
     if (!content) continue;
     const name = m.member?.displayName ?? m.author.username;
     lines.push(`${name}: ${content}`);
+    sentCount++;
   }
-  return lines.join("\n");
+  return { transcript: lines.join("\n"), sentCount };
+};
+
+const formatDuration = (ms: number): string => {
+  const totalMinutes = Math.max(1, Math.round(ms / 60000));
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+  if (hours > 0 && minutes > 0) return `${hours}h ${minutes}m`;
+  if (hours > 0) return `${hours}h`;
+  return `${minutes}m`;
 };
 
 const callClaude = async(transcript: string): Promise<string> => {
@@ -240,7 +251,7 @@ export const assummarize: Command = {
       return;
     }
 
-    const transcript = await buildTranscript(collected);
+    const { transcript, sentCount } = await buildTranscript(collected);
     if (!transcript) {
       await interaction.editReply({ content: "There's nothing recent to summarize." });
       return;
@@ -255,11 +266,19 @@ export const assummarize: Command = {
       return;
     }
 
+    const newestTs = collected[0].createdTimestamp;
+    const oldestTs = collected[collected.length - 1].createdTimestamp;
+    const periodLabel = formatDuration(newestTs - oldestTs);
+
     const embed = new EmbedBuilder()
       .setColor(Colors.DarkAqua)
-      .setTitle(`Channel summary (${collected.length} messages)`)
+      .setTitle(`Channel summary (last ${periodLabel}, ${sentCount}/${collected.length} messages sent to AI)`)
       .setDescription(summary)
-      .setFooter({ text: `Requested by ${interaction.user.username} • model: ${SUMMARIZE_CFG.model}` })
+      .setFooter({
+        text:
+          `Requested by ${interaction.user.username} • model: ${SUMMARIZE_CFG.model} • ` +
+          `opt in with /assummarize action:in`,
+      })
       .setTimestamp();
 
     if (state.lastSummaryMessageLink) {
