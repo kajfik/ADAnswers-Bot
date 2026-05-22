@@ -31,7 +31,7 @@
         "windowMs": 14400000,
         "maxMessages": 1000,
         "model": "claude-sonnet-4-6",
-        "optOutUserIDs": [389789677114228739]
+        "optOutUserIDs": ["389789677114228739"]
       }
     }
   }
