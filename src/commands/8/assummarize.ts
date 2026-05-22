@@ -138,7 +138,8 @@ export const assummarize: Command = {
       type: ApplicationCommandOptionType.String,
       required: false,
       choices: [
-        { name: "Toggle whether your messages are included in summaries", value: "optin" }
+        { name: "Opt in (allow your messages to be included in summaries)", value: "in" },
+        { name: "Opt out (exclude your messages from summaries)", value: "out" }
       ]
     }
   ],
@@ -147,21 +148,34 @@ export const assummarize: Command = {
 
     const action = interaction.options.getString("action");
 
-    if (action === "optin") {
+    if (action === "in" || action === "out") {
       if (interaction.guildId !== ids.AD.serverID) {
         await interaction.reply({ content: "This command isn't available in this server.", flags: MessageFlags.Ephemeral });
         return;
       }
-      const [row, created] = await tags.summarizeOptIn.findOrCreate({ where: { userID: interaction.user.id } });
-      if (created) {
+      const existing = await tags.summarizeOptIn.findOne({ where: { userID: interaction.user.id } });
+      if (action === "in") {
+        if (existing) {
+          await interaction.reply({
+            content: "You're already opted in. Your messages can be included in /assummarize output.",
+            flags: MessageFlags.Ephemeral,
+          });
+        } else {
+          await tags.summarizeOptIn.create({ userID: interaction.user.id });
+          await interaction.reply({
+            content: "You have opted in. Your messages may now be included in /assummarize output.",
+            flags: MessageFlags.Ephemeral,
+          });
+        }
+      } else if (existing) {
+        await existing.destroy();
         await interaction.reply({
-          content: "You have opted in. Your messages may now be included in /assummarize output. Run `/assummarize optin` again to opt back out.",
+          content: "You have opted out. Your messages will no longer be included in /assummarize output.",
           flags: MessageFlags.Ephemeral,
         });
       } else {
-        await row.destroy();
         await interaction.reply({
-          content: "You have opted out. Your messages will no longer be included in /assummarize output. Run `/assummarize optin` again to opt back in.",
+          content: "You're already opted out. Your messages are not included in /assummarize output.",
           flags: MessageFlags.Ephemeral,
         });
       }
