@@ -80,10 +80,12 @@ const collectMessages = async(channel: TextBasedChannel, anchorId: string | null
 };
 
 const buildTranscript = (messages: Message[]): string => {
+  const optOut = new Set<string>(SUMMARIZE_CFG.optOutUserIDs ?? []);
   const chronological = [...messages].reverse();
   const lines: string[] = [];
   for (const m of chronological) {
     if (m.author.bot) continue;
+    if (optOut.has(m.author.id)) continue;
     const content = m.content?.trim();
     if (!content) continue;
     const name = m.member?.displayName ?? m.author.username;
@@ -98,14 +100,18 @@ const callClaude = async(transcript: string): Promise<string> => {
     model: SUMMARIZE_CFG.model,
     max_tokens: 1024,
     system:
-      "You summarize recent Discord chat logs from the Antimatter Dimensions community. " +
+      "You summarize recent Discord chat logs from a community server centered on Antimatter Dimensions, " +
+      "but the conversation often covers other games, off-topic chatter, or unrelated subjects. Identify " +
+      "the actual topics being discussed from the transcript itself — do not assume every discussion is " +
+      "about Antimatter Dimensions, and name the correct game or subject if it's clear from context. " +
       "Produce a concise, neutral summary of the main topics, questions, and conclusions. " +
       "Use short paragraphs or bullet points. Do not invent details. " +
       "Refer to participants by their display names when relevant. " +
-      "Discord spoiler syntax is ||text||. If any source content you reference in the summary " +
-      "appeared inside ||...|| in the original messages, you MUST keep that content wrapped in " +
-      "||...|| in your output so it remains hidden behind a spoiler tag. Never paraphrase " +
-      "spoilered content out from behind its tags. " +
+      "Discord spoiler syntax is ||text||. ONLY wrap content in ||...|| if that exact content appeared " +
+      "inside ||...|| in the original messages — in that case you MUST preserve the spoiler tags so it " +
+      "stays hidden, and never paraphrase spoilered content out from behind its tags. Do NOT add spoiler " +
+      "tags to content that was not spoilered in the source, even if it discusses late-game mechanics, " +
+      "endgame content, or anything you might consider a spoiler — only the original author's tagging decides. " +
       "Keep the summary under 3500 characters.",
     messages: [{ role: "user", content: `Summarize the following chat log:\n\n${transcript}` }],
   });
