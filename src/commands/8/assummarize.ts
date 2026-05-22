@@ -113,9 +113,14 @@ const callClaude = async(transcript: string): Promise<string> => {
     max_tokens: 1024,
     system:
       "You summarize recent Discord chat logs. " +
-      "Produce a concise, neutral summary of the main topics, questions, and conclusions. " +
+      "Produce a concise summary of the main topics, questions, and conclusions. " +
+      "A light, playful tone is welcome — feel free to be a little humorous where it fits naturally, " +
+      "but don't force jokes, mock participants, or sacrifice accuracy for the sake of a punchline. " +
       "Use short paragraphs or bullet points. Do not invent details. " +
       "Refer to participants by their display names when relevant. " +
+      "The chat log only includes messages from users who have opted in to summarization, so some context " +
+      "may be missing — replies to unseen messages, participants in a conversation, or whole sides of a " +
+      "discussion may be absent. " +
       "Discord spoiler syntax is ||text||. ONLY wrap content in ||...|| if that exact content appeared " +
       "inside ||...|| in the original messages — in that case you MUST preserve the spoiler tags so it " +
       "stays hidden, and never paraphrase spoilered content out from behind its tags. Do NOT add spoiler " +
