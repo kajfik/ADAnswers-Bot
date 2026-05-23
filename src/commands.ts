@@ -80,7 +80,6 @@ import { howtoplay } from "./commands/7/howtoplay";
 import { notations } from "./commands/7/notations";
 
 import { fivehours } from "./commands/8/5hours";
-import { assummarize } from "./commands/8/assummarize";
 import { code } from "./commands/8/code";
 import { contributors } from "./commands/8/contributors";
 // Import { helperRequest } from "./commands/8/helper";
@@ -120,7 +119,7 @@ export const commandsByPage: { [page: number]: Command[] } = {
   5: [alchemy, autoachievement, celestials, gamevsrealtime, perk, reality, rm],
   6: [achievements, adbonus, bottombuttons, challenge, galaxyscaling, importexport, news, offlineticks, oom, upgrade],
   7: [abb, androidorweb, antitables, decimal, howtoplay, notations],
-  8: [fivehours, assummarize, code, contributors, report, rolerequest, slashcommand],
+  8: [fivehours, code, contributors, report, rolerequest, slashcommand],
   9: [discordformatting, justask, paperclips, roles, savebank, savesharing, secretachievements, site, xyproblem],
   69: [deadchat, pins, slightsmile, user, wikipedia, xkcd],
 };
@@ -141,7 +140,7 @@ export const Commands: Array<Command | AutocompleteCommand> = [
   // Page 7 - Misc
   abb, androidorweb, antitables, decimal, howtoplay, notations,
   // Page 8 - Misc
-  fivehours, assummarize, code, contributors, report, rolerequest, slashcommand,
+  fivehours, code, contributors, report, rolerequest, slashcommand,
   // Page 9 - Misc
   discordformatting, justask, paperclips, roles, savebank, savesharing, secretachievements, site, xyproblem,
   // Page 69 - Very misc

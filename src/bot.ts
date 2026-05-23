@@ -117,45 +117,11 @@ Player.init(
   { sequelize: playerDatabase, modelName: "PlayerUsage" }
 );
 
-// Tracks the last successful /assummarize per (guildId, channelId) pair so we can enforce
-// the global "time AND new-messages" cooldown and link back to the previous summary.
-const summarizeStateDatabase = databaseCreator("summarizeState");
-export class SummarizeState extends Model {
-  declare key: string;
-  declare lastSummaryAt: string;
-  declare lastSummaryMessageLink: string;
-  declare lastSummarizedMessageId: string;
-}
-SummarizeState.init(
-  {
-    key: { type: DataTypes.STRING, allowNull: false, unique: true },
-    lastSummaryAt: { type: DataTypes.STRING, allowNull: false, defaultValue: "0" },
-    lastSummaryMessageLink: { type: DataTypes.STRING, allowNull: false, defaultValue: "" },
-    lastSummarizedMessageId: { type: DataTypes.STRING, allowNull: false, defaultValue: "" },
-  },
-  { sequelize: summarizeStateDatabase, modelName: "SummarizeState" }
-);
-
-// One row per user who has opted in to having their messages included in /assummarize output.
-// Default behavior is opt-out: users not present here are filtered out of the transcript.
-const summarizeOptInDatabase = databaseCreator("summarizeOptIn");
-export class SummarizeOptIn extends Model {
-  declare userID: string;
-}
-SummarizeOptIn.init(
-  {
-    userID: { type: DataTypes.STRING, allowNull: false, unique: true },
-  },
-  { sequelize: summarizeOptInDatabase, modelName: "SummarizeOptIn" }
-);
-
 export const databases = {
   commandUsage: commandUsageDatabase,
   personUsage: personUsageDatabase,
   timeUsage: timeUsageDatabase,
   players: playerDatabase,
-  summarizeState: summarizeStateDatabase,
-  summarizeOptIn: summarizeOptInDatabase,
 };
 
 export const tags = {
@@ -163,14 +129,12 @@ export const tags = {
   personUsage: Person,
   timeUsage: Time,
   player: Player,
-  summarizeState: SummarizeState,
-  summarizeOptIn: SummarizeOptIn,
 };
 
 clientReady(
   client,
-  [commandUsageDatabase, personUsageDatabase, timeUsageDatabase, playerDatabase, summarizeStateDatabase, summarizeOptInDatabase],
-  [Command, Person, Time, Player, SummarizeState, SummarizeOptIn]
+  [commandUsageDatabase, personUsageDatabase, timeUsageDatabase, playerDatabase],
+  [Command, Person, Time, Player]
 );
 interactionCreate(client);
 messageCreate(client);

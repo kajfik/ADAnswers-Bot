@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.98.0",
     "@antimatter-dimensions/notations": "3.0.3",
     "better-sqlite3": "9.5.0",
     "break_infinity.js": "1.3.0",
