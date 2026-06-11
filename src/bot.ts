@@ -139,7 +139,24 @@ clientReady(
 interactionCreate(client);
 messageCreate(client);
 
-// 3) Do login last, and log failures instead of hard-crashing
-client
-  .login(process.env.DISCORD_TOKEN)
-  .catch((err) => console.error("Failed to login:", err));
+// 3) Do login last, retrying on transient network failures.
+//    Discord's gateway/REST can be briefly unreachable (e.g. UND_ERR_CONNECT_TIMEOUT);
+//    rather than leaving a wired-but-offline client, retry with backoff and let the
+//    platform restart the container if every attempt fails.
+async function loginWithRetry(maxAttempts = 5) {
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      await client.login(process.env.DISCORD_TOKEN);
+      return;
+    } catch (err) {
+      console.error(`Login attempt ${attempt}/${maxAttempts} failed:`, err);
+      if (attempt === maxAttempts) {
+        console.error("All login attempts failed; exiting so the host can restart.");
+        process.exit(1);
+      }
+      await new Promise((resolve) => setTimeout(resolve, 5000 * attempt));
+    }
+  }
+}
+
+loginWithRetry();
