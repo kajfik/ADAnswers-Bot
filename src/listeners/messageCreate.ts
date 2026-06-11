@@ -7,7 +7,7 @@ export default (client: Client): void => {
     if (message.mentions.has(ids.bot)) mentioned(message);
     if (message.guildId === ids.AD.serverID || message.guildId === ids.testServer) {
       //if (message.stickers.size > 0) handleStickers(message);
-      if (await isScammer(message)) muteScammer(message);
+      //if (await isScammer(message)) muteScammer(message);
     }
   });
 };
