@@ -117,31 +117,11 @@ Player.init(
   { sequelize: playerDatabase, modelName: "PlayerUsage" }
 );
 
-// Tracks the last successful /assummarize per (guildId, channelId) pair so we can enforce
-// the global "time AND new-messages" cooldown and link back to the previous summary.
-const summarizeStateDatabase = databaseCreator("summarizeState");
-export class SummarizeState extends Model {
-  declare key: string;
-  declare lastSummaryAt: string;
-  declare lastSummaryMessageLink: string;
-  declare lastSummarizedMessageId: string;
-}
-SummarizeState.init(
-  {
-    key: { type: DataTypes.STRING, allowNull: false, unique: true },
-    lastSummaryAt: { type: DataTypes.STRING, allowNull: false, defaultValue: "0" },
-    lastSummaryMessageLink: { type: DataTypes.STRING, allowNull: false, defaultValue: "" },
-    lastSummarizedMessageId: { type: DataTypes.STRING, allowNull: false, defaultValue: "" },
-  },
-  { sequelize: summarizeStateDatabase, modelName: "SummarizeState" }
-);
-
 export const databases = {
   commandUsage: commandUsageDatabase,
   personUsage: personUsageDatabase,
   timeUsage: timeUsageDatabase,
   players: playerDatabase,
-  summarizeState: summarizeStateDatabase,
 };
 
 export const tags = {
@@ -149,13 +129,12 @@ export const tags = {
   personUsage: Person,
   timeUsage: Time,
   player: Player,
-  summarizeState: SummarizeState,
 };
 
 clientReady(
   client,
-  [commandUsageDatabase, personUsageDatabase, timeUsageDatabase, playerDatabase, summarizeStateDatabase],
-  [Command, Person, Time, Player, SummarizeState]
+  [commandUsageDatabase, personUsageDatabase, timeUsageDatabase, playerDatabase],
+  [Command, Person, Time, Player]
 );
 interactionCreate(client);
 messageCreate(client);

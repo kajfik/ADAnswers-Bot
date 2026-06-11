@@ -22,16 +22,6 @@
       "requestableRoles": {
         "helperRole": "878418120719626320",
         "notificationsRole": "1112437970256023622"
-      },
-      "summarize": {
-        "channelID": "416286671202549771",
-        "cooldownMs": 7200000,
-        "cooldownMessages": 100,
-        "messageLimit": 100,
-        "windowMs": 14400000,
-        "maxMessages": 1000,
-        "model": "claude-sonnet-4-6",
-        "optOutUserIDs": []
       }
     }
   }
